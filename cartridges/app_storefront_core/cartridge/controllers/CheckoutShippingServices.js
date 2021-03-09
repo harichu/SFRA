@@ -173,7 +173,7 @@ server.post("SaveHomeDeliveryAddress",
                 form.shippingAddress.addressFields.city.value
             );
             
-            prepareOmsData(storeData);
+            inventoryHelper.getOmsData(storeData);
         }
 
         if (Object.keys(shippingFormErrors).length > 0) {
@@ -287,108 +287,6 @@ server.post("SaveHomeDeliveryAddress",
         return next();
     }
 );
-
-
-function responseClientErrorsOMS(UnavailableLine){
-    let messages = [];
-
-    const { Message }         = UnavailableLine.Messages;
-    const { AssignedQty }     = UnavailableLine;
-    const { LineId }          = UnavailableLine;
-    const { ItemID }          = UnavailableLine;
-
-    // return Message.filter(msg => msg.Text != "");
-    for (let index = 0; index < Message.length; index++) {
-        messages.push(Message[index].Text);
-    }
-
-    return {
-        id            : LineId,
-        currentStock  : AssignedQty, 
-        messages      : messages,
-        idItem        : ItemID
-    };
-}
-
-function getErrorMessagesOMS(errorReponseOMS){
-    let response = [];
-    
-    const { UnavailableLine } = errorReponseOMS.UnavailableLines;
-
-    if(UnavailableLine.length > 1){
-        for (let index = 0; index < UnavailableLine.length; index++) {
-            response.push(responseClientErrorsOMS(UnavailableLine[index]));
-        }
-    }else{
-        response.push(responseClientErrorsOMS(UnavailableLine[0]));
-    }
-
-    return response;
-}
-
-function validateErrorClientOMS(responseError){
-
-    let isOutOfCoverage = false
-    let clientMessage   = [];
-    
-    for (let index = 0; index < responseError.length; index++) {
-        for (let j = 0; j < responseError[index].messages.length; j++) {
-            if(responseError[index].messages[j] === " No choices generated for the line"){
-                isOutOfCoverage = true;
-                clientMessage.push("Los productos no están disponible en la dirección ingresada.");
-            }
-            if(responseError[index].messages[j].indexOf("Ensure inventory capacity for node is available") > -1){
-                clientMessage.push("El producto con el SKU: " + responseError[index].idItem + " solo tiene " + responseError[index].currentStock + " unidades en stock.");
-            }
-        }
-    }
-
-    return {
-        isOutOfCoverage : isOutOfCoverage,
-        messages        : clientMessage,
-    };
-}
-
-function getAmPmMessage(hour) {
-    var omsApproximateTimePrefix = sitePreferences.omsApproximateTimePrefix;
-    var amTime                   = Resource.msg("oms.deliverytime.am", "checkout", null);
-    var pmTime                   = Resource.msg("oms.deliverytime.pm", "checkout", null);
-    var dailyShift               = hour < 12 ? amTime : pmTime;
-    var amPmHour                 = hour % 12;
-
-    amPmHour = amPmHour ? amPmHour : 12;
-
-    var formattedTime = amPmHour + ":00 " + dailyShift;
-
-    return "(" + omsApproximateTimePrefix + " " + formattedTime + ")";
-}
-
-function prepareOmsData(storeData) {
-    storeData.isInventoryCheckServiceEnabled = true;
-    storeData.isOutOfCoverage                = false;
-
-    if (storeData.currentDayHour) {
-        storeData.currentDayMessage = getAmPmMessage(storeData.currentDayHour);
-    }
-
-    if (storeData.nextDayHour) {
-        storeData.nextDayMessage = getAmPmMessage(storeData.nextDayHour);
-    }
-    
-    // if (!storeData.currentDayHour && !storeData.nextDayHour) {
-    //     storeData.isEmptyOmsResponse = true;
-    //     storeData.errorMessage       = Resource.msg("subheading.error.general", "error", null);
-    // }
-
-    if(storeData.errorResponse) {
-        let errorMessages                = getErrorMessagesOMS(storeData.errorResponse);
-        let { messages, isOutOfCoverage} = validateErrorClientOMS(errorMessages);
-        storeData.messages               = messages;
-        storeData.errorMessage           = Resource.msg(storeData.messages[0], "error", null);
-        storeData.isOutOfCoverage        = isOutOfCoverage;
-    }
-
-}
 
 /**
  * Gets the customer's main document data;

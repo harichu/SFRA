@@ -104,6 +104,7 @@
     "webpack-glob-entries": "^1.0.1"
   },
   "dependencies": {
+    "appium-windows-driver": "^1.18.0",
     "bootstrap": "4.3.1",
     "cleave.js": "^1.5.3",
     "flag-icon-css": "^2.9.0",
