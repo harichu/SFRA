@@ -1532,16 +1532,6 @@ module.exports = {
                 $(".shipping-error").html("");
               }
 
-              /*              if (data.storeData.isInventoryCheckServiceEnabled && data.storeData.isEmptyOmsResponse) {
-                            if ($(".shipping-error").html().length == 0) {
-                                createErrorNotification(data.storeData.errorMessage);
-                            } else {
-                                scrollAnimate($(".shipping-error"));
-                            }
-
-                            return;
-                        } */
-
               var outOfStockProducts = data.productsOutOfStock;
               console.log(outOfStockProducts);
               if (outOfStockProducts.length === 0) {
@@ -1633,7 +1623,7 @@ module.exports = {
                   var $currentStock = $(
                     '<span class="line-item-pricing-info"></span>'
                   );
-                  $currentStock.html(product.displayStock);
+                  $currentStock.html("Displonible en Stock: " + product.available);
 
                   $productDescription.append($productBrand);
                   $productDescription.append($shortDescription);
@@ -1649,21 +1639,10 @@ module.exports = {
                   $deleteLink.append($("#remove-icon-base").html());
                   $deleteDiv.append($deleteLink);
 
-                  var $quantityForm = $(`
-                  <div class="quantity-form">
-                    <div class="incremental-select d-flex position-relative">
-                      <button type="button" class="subtract-product-quantity incremental-select-button" data-gtm="{&quot;event&quot;:&quot;DecrementQty&quot;,&quot;eventTypes&quot;:&quot;click&quot;,&quot;action&quot;:&quot;${product.productID}&quot;,&quot;label&quot;:&quot;ProductID&quot;}">-</button>
-                      <input type="number" class="form-control quantity rounded-0 text-center" data-uuid=${product.uuid} data-pid=${product.productID} data-pre-select-qty="1.0" data-action="/on/demandware.store/Sites-Chile-Site/es_CL/Cart-UpdateQuantity" id="quantity-${product.uuid}" name="quantity-${product.uuid}" aria-label="quantity: 1" value="${product.available}">
-                      <button type="button" class="add-product-quantity incremental-select-button" data-gtm="{&quot;event&quot;:&quot;IncrementQty&quot;,&quot;eventTypes&quot;:&quot;click&quot;,&quot;action&quot;:&quot;${product.productID}&quot;,&quot;label&quot;:&quot;ProductID&quot;}" data-stock-quantity="${product.available}"> + </button>
-                      <span class="max-quantity-warning d-none position-absolute p-2 rounded text-left"> El producto no cuenta con más stock. </span>
-                    </div>
-                  </div>`);
-
                   $productLine.append($productIcon);
                   $productLine.append($productDescription);
                   $productLine.append($divisor);
                   $productLine.append($deleteDiv);
-                  $productLine.append($quantityForm);
                   $deletionPanel.append($productLine);
                 }
 
