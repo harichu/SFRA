@@ -49,7 +49,23 @@ function getStoresTimeForBasket(basket, req) {
 }
 
 function extractHourFromDate(date) {
-    return date ? date.substring(11, 13) : null;
+    if (empty(date)) {
+        return null;
+    }
+
+    var dateObj = new Date();
+    dateObj.setHours(date.substring(11, 13));
+
+    var calendar = new dw.util.Calendar(dateObj);
+    calendar.setTimeZone(currentSite.getTimezone());
+
+    if (calendar.time.getMinutes() > 0 || calendar.time.getSeconds() > 0) {
+        calendar.add(dw.util.Calendar.HOUR, 1);
+    }
+
+    var formattedCalendar = dw.util.StringUtils.formatCalendar(calendar);
+
+    return new Date(formattedCalendar).getHours();
 }
 
 function getAvailableStores(req, lineItemList) {
@@ -141,7 +157,7 @@ function checkStoreInventories(basket, geoLocationData) {
  * @param {dw.order.Basket} basket The basket to fill with order load data.
  * @param {Object} store The store that will fulfill the order.
  */
-function setOrderLoadData(basket, store) {
+ function setOrderLoadData(basket, store) {
     if (!isInventoryCheckServiceEnabled) {
         return;
     }
@@ -149,6 +165,8 @@ function setOrderLoadData(basket, store) {
         basket.getShipments()[0].custom.fromStoreId = store.StoreID;
         basket.custom.difarmaTodayTime    = store.CurrentDayTime;
         basket.custom.difarmaTomorrowTime = store.NextDayTime;
+        basket.custom.difarmaTodayTimeWoSLA = store.CurrentDayTimeWoSLA;
+        basket.custom.difarmaTomorrowTimeWoSLA = store.NextDayTimeWoSLA;
     });
 }
 
