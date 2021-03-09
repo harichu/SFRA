@@ -159,6 +159,13 @@ server.post("SaveHomeDeliveryAddress",
             delete shippingFormErrors["dwfrm_shipping_shippingAddress_addressFields_phone"];
         }
 
+        // Handles legacy customers addresses that have no type;
+        if (Object.hasOwnProperty.call(shippingFormErrors, "dwfrm_shipping_shippingAddress_addressFields_type")) {
+            form.shippingAddress.addressFields.type.value = 1;
+
+            delete shippingFormErrors["dwfrm_shipping_shippingAddress_addressFields_type"];
+        }
+
         session.custom.storeSearchLatitude  = null;
         session.custom.storeSearchLongitude = null;
 
@@ -174,6 +181,7 @@ server.post("SaveHomeDeliveryAddress",
             );
             
             inventoryHelper.getOmsData(storeData);
+            storeData.isOms = shipment.shippingMethod.custom.isOms;
         }
 
         if (Object.keys(shippingFormErrors).length > 0) {
