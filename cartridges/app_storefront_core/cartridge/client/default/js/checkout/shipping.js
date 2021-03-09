@@ -1623,7 +1623,7 @@ module.exports = {
                   var $currentStock = $(
                     '<span class="line-item-pricing-info"></span>'
                   );
-                  $currentStock.html("Displonible en Stock: " + product.available);
+                  $currentStock.html("Disponible en Stock: " + product.available);
 
                   $productDescription.append($productBrand);
                   $productDescription.append($shortDescription);
