@@ -1,0 +1,26 @@
+<div class="quantity-form">
+    <div class="incremental-select d-flex position-relative">
+        <button
+            type="button"
+            class="subtract-product-quantity incremental-select-button"
+            data-gtm="${require('int_gtm').gtmEventListener('click', 'DecrementQty', lineItem.id, 'ProductID')}"
+        >-</button>
+        <input type="number" class="form-control quantity rounded-0 text-center"
+            data-uuid="${lineItem.UUID}"
+            data-pid="${lineItem.id}"
+            data-pre-select-qty="${lineItem.quantity}"
+            data-action="${pdict.actionUrls.updateQuantityUrl}"
+            id="quantity-${lineItem.UUID}"
+            name="quantity-${lineItem.UUID}"
+            aria-label="quantity: ${StringUtils.formatInteger(lineItem.quantity)}"
+            value="${lineItem.quantity.toFixed(0)}"
+        />
+        <button
+            type="button"
+            class="add-product-quantity incremental-select-button"
+            data-gtm="${require('int_gtm').gtmEventListener('click', 'IncrementQty', lineItem.id, 'ProductID')}"
+            data-stock-quantity="${lineItem.quantityOptions.maxOrderQuantity}"
+        > + </button>
+        <span class="max-quantity-warning d-none position-absolute p-2 rounded text-left"> ${Resource.msg('minicart.no.more.stock', 'common', null)} </span>
+    </div>
+</div>

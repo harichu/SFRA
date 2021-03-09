@@ -1,0 +1,45 @@
+<div class="store-details" data-store-id="${store.ID}">
+    <address>
+        <p class="store-name mb-0">
+            <span class="d-block store-name-first">${store.name}</span>
+
+            <a class="store-map store-map-address" target='_blank' href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}">
+                <span class="store-address-first">
+                    ${store.address1}
+                </span>
+                <isif condition="${store.address2}">
+                    <span class="store-address-second">
+                        ${store.address2}
+                    </span>
+                </isif>
+                <isif condition="${store.city}">
+                    <span class="store-address-city">
+                        ${store.city}
+                    </span>
+                </isif>
+                <isif condition="${store.stateCode}">
+                    <span class="store-address-state">
+                        ,${store.stateCode}
+                    </span>
+                </isif>
+                <isif condition="${store.postalCode}">
+                    <span class="store-address-zip">
+                        ${store.postalCode}
+                    </span>
+                </isif>
+                <isif condition="${store.distance}">
+                    <span class="store-address-distance">
+                            <span class="store-distance-long">
+                                ${Resource.msgf("store.distance.long.text", "storeLocator", null, Number(Number(store.distance).toFixed(2)))}
+                            </span>
+                            <span class="store-distance-short">
+                                ${Resource.msgf("store.distance.short.text", "storeLocator", null, store.distance)}
+                            </span>
+                    </span>
+                </isif>
+            </a>
+        </p>
+        <input type="hidden" class="latitude"  value="${store.latitude}" />
+        <input type="hidden" class="longitude" value="${store.longitude}" />
+    </address>
+</div>

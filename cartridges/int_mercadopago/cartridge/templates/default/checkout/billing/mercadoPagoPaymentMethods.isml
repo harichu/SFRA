@@ -1,0 +1,158 @@
+<div class="mp-flex flex-column mt-2 ${customerCardsPresent ? 'saved-card-mode' : ''}">
+    <div class="mp__payment-method payment-collapse-title position-relative d-flex align-items-center py-4 cursor-pointer radius-small mb-3 payment-element-radio-container credit-card-payment"
+        data-toggle="collapse"
+        data-target="#mercado-pago-form"
+        aria-expanded="true"
+        aria-controls="mercado-pago-form"
+    >
+        <img class="credit-card-option"
+            src="${URLUtils.staticURL('/images/payment-method-cards.svg')}"
+            alt="${Resource.msg("label.payment.method.cards", "mercadoPago", null)}"
+        >
+        <p class="mp__payment-type-title text-grey pl-3">${Resource.msg('label.payment.method.cards', 'mercadoPago', null)}</p>
+        <i class="fa fa-chevron-right text-primary-color position-absolute payment-collapse-icon"></i>
+        <isloop iterator="${pdict.mercadoPago.groupedPaymentMethods.cards}" alias="card" status="loopSate">
+            <div class="mp-flex mp-flex--column mp__payment-type d-none">
+                <div class="mp__card-details mp-flex">
+                    <input
+                        type="radio"
+                        class="mp__card-input"
+                        data-is-card="true"
+                        name="${mercadoPagoFields.cardType.htmlName}"
+                        value="${card.id}"
+                        id="cardType-${card.id}"
+                        <isif condition="${loopSate.first}">checked</isif>
+                        data-mp-card-type
+                        data-gtm="${require('int_gtm').gtmEventListener('click', 'CarditCard', card.id, 'CreditCardID')}"
+                        data-mp-issuer-required="${card.additional_info_needed.indexOf('issuer_id') > -1}"
+                    >
+                    <label class="mp__card-label" for="cardType-${card.id}">
+                        <span class="mp__card-label-name"><isprint value="${card.name}"/></span>
+                    </label>
+                    <isif condition="${card.secure_thumbnail !== null}">
+                        <span><img src="${card.secure_thumbnail}" alt="${card.name}"></span>
+                    </isif>
+                </div>
+            </div>
+        </isloop>
+    </div>
+
+    <div class="mercado-pago-form collapse show pl-lg-5 pb-5" id="mercado-pago-form" data-parent="#mercadopago-content">
+        <!--- registered/authenticated user --->
+        <isif condition="${customerCardsPresent.length > 0}">
+            <div class="container p-0 ${customerCardsPresent.length > 0 ? '' : 'checkout-hidden'}" data-mp-customer-cards>
+                <!--- Customer cards --->
+                <isinclude template="checkout/billing/mercadoPagoCustomerCards" />
+            </div>
+        </isif>
+
+        <!--- form --->
+        <isif condition="${pdict.mercadoPago.groupedPaymentMethods.cards}">
+            <isinclude template="checkout/billing/mercadoPagoForm" />
+        </isif>
+    </div>
+
+    <isif condition="${pdict.mercadoPago.groupedPaymentMethods.other.length}">
+        <div class="mp__payment-method">
+            <isloop iterator="${pdict.mercadoPago.groupedPaymentMethods.other}" alias="other">
+                <div class="payment-element-radio-container">
+                    <div class="mp-flex mp-flex--column mp__payment-type">
+                        <div class="mp__card-details mp-flex custom-control custom-radio pr-lg-5 mb-3 mb-lg-4 radius-small w-100 ${pdict.order.hasSorProduct ? 'disabled' : ''}"
+                        >
+                            <input
+                                type="radio"
+                                class="mp__card-input custom-control-input"
+                                data-is-card="false"
+                                name="${mercadoPagoFields.cardType.htmlName}"
+                                value="${other.id}"
+                                id="cardType-${other.id}"
+                                data-mp-card-type="other"
+                                data-gtm="${require('int_gtm').gtmEventListener('click', 'PaymentMethod', other.id, 'PaymentMethodID')}"
+                                data-mp-issuer-required="${other.additional_info_needed.indexOf('issuer_id') > -1}"
+                            >
+                            <label class="mp__card-label custom-control-label cursor-pointer text-grey py-4 w-100" for="cardType-${other.id}">
+                                <isif condition="${other.secure_thumbnail !== null}">
+                                    <span><img src="${other.secure_thumbnail}" alt="${other.name}"></span>
+                                </isif>
+                                <span class="mp__card-label-name text-grey pl-3"><isprint value="${other.name}"/></span>
+                            </label>
+                            <i class="fa fa-chevron-right text-primary-color position-absolute payment-collapse-icon"></i>
+                        </div>
+                        <div class="other-method-details px-4 pb-4">
+                            <iscontentasset aid="${'payment-details-other-' + other.id}" />
+                        </div>
+                        <isif condition="${other.id == "pse"}">
+                            <div class="other-method-details px-lg-4 pb-5 col-12">
+                                <div class="col-12 col-lg-7">
+                                    <div class="form-group required">
+                                        <label class="form-control-label" for="pse-document-bank">
+                                            ${Resource.msg("label.bank", "mercadoPago", null)}
+                                        </label>
+                                        <select required class="custom-select form-control"
+                                            data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                                            aria-describedby="pse-bank-error"
+                                            id="pse-document-bank"
+                                            name="${mercadoPagoFields.pseBankID.htmlName}"
+                                        >
+                                            <isloop items="${pdict.mercadoPago.pseFinancialInstitutions}" var="bank" status="pseStatus">
+                                                <isif condition="${pseStatus.first}">
+                                                    <option value="">${Resource.msg("label.bank.select", "mercadoPago", null)}</option>
+                                                </isif>
+                                                <option value="${bank.id}">${bank.name}</option>
+                                            </isloop>
+                                        </select>
+                                        <div class="invalid-feedback" id="pse-bank-error"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-7">
+                                    <div class="form-group required">
+                                        <label class="form-control-label" for="pse-document-type">
+                                            ${Resource.msg("label.documenttype", "mercadoPago", null)}
+                                        </label>
+                                        <select type="text" required class="custom-select form-control" id="pse-document-type" name="${mercadoPagoFields.pseDocType.htmlName}">
+                                            <option value="${Resource.msg('CC.docType', 'mercadoPagoPreferences', null)}" ${pdict.customerHasCC ? "selected" : ""}>
+                                                ${Resource.msg('label.input.document.type.cc', 'forms', null)}
+                                            </option>
+                                            <option value="${Resource.msg('CE.docType', 'mercadoPagoPreferences', null)}" ${pdict.customerHasCE ? "selected" : ""}>
+                                                ${Resource.msg('label.input.document.type.ce', 'forms', null)}
+                                            </option>
+                                            <option value="${Resource.msg('Otro.docType', 'mercadoPagoPreferences', null)}" ${pdict.customerHasPasaporte ? "selected" : ""}>
+                                                ${Resource.msg('label.input.document.type.passport', 'forms', null)}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-7">
+                                    <div class="form-group required">
+                                        <label class="form-control-label" for="pse-document-number">
+                                            ${Resource.msg("label.documentnumber", "mercadoPago", null)}
+                                        </label>
+                                        <input type="text"
+                                            class="form-control required js-document-validation" required
+                                            data-type="cedula"
+                                            minlength="6"
+                                            maxlength="10"
+                                            aria-describedby="pse-document-number-error"
+                                            id="pse-document-number"
+                                            name="${mercadoPagoFields.pseDocNumber.htmlName}"
+                                            pattern=".{6,10}"
+                                            autocomplete="name"
+                                            data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                                            data-pattern-mismatch="${Resource.msg('error.document.cc', 'forms', null)}"
+                                            data-passport-error="${Resource.msg('error.document.passport', 'forms', null)}"
+                                            data-ce-error="${Resource.msg('error.document.ce', 'forms', null)}"
+                                            data-cc-error="${Resource.msg('error.document.cc', 'forms', null)}"
+                                            value="${mercadoPagoFields.pseDocNumber.value}"
+                                        />
+                                        <div class="invalid-feedback" id="pse-document-number-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </isif>
+                    </div>
+                </div>
+            </isloop>
+        </div>
+    </isif>
+</div>

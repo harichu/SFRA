@@ -1,0 +1,193 @@
+.site-search {
+    z-index: 11;
+}
+
+.search-form {
+    position: relative;
+    border: 1px solid $brand-color-primary;
+    border-radius: 20px;
+}
+
+.search-button {
+    background-color: $white;
+    border: 1px solid $primary-border-color;
+    border-left: 0;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    max-height: 40px;
+    padding-right: 12px;
+    z-index: 1;
+
+    svg {
+        width: 18px;
+    }
+}
+
+.search-field {
+    font-family: $font-family-primary-italic;
+    font-size: rem-calc(13px);
+    color: $tertiary-grey;
+    background-color: $white;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    z-index: 13;
+    height: 40px;
+
+    &:focus {
+        background-color: $white;
+    }
+
+    &::placeholder {
+        color: $tertiary-grey;
+    }
+}
+
+.suggestions {
+    background-color: $secondary-grey-light;
+    margin-top: 60px;
+    border-radius: 10px;
+    border-bottom: 5px solid $brand-color-primary;
+    color: $text-grey;
+
+    &::before {
+        content: "\f0d8";
+        font-size: rem-calc(40px);
+        font-family: $font-family-icons;
+        display: block;
+        position: absolute;
+        color: $white;
+        top: -35px;
+        left: 15px;
+    }
+}
+
+.suggestions-body {
+    max-height: 75vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.suggestions-header {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.suggestions-title {
+    font-family: $font-family-primary-bold;
+    color: $text-grey;
+}
+
+.suggestions-wrapper {
+    left: 0;
+}
+
+.suggestions-term {
+    color: $brand-color-primary;
+}
+
+.suggestions-products-list {
+    border-bottom: 5px solid $brand-color-primary;
+    max-height: 350px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.suggestions-product {
+    .suggestions-product-name {
+        font-size: rem-calc(13px);
+        font-family: $font-family-primary-bold;
+        color: $brand-color-primary;
+    }
+
+    .price-promotion-badge {
+        max-width: 25px;
+    }
+
+    .suggestions-product-image {
+        width: 100px;
+    }
+
+    .suggestions-final-price {
+        color: $promotional-red;
+        font-family: $font-family-primary-bold;
+        font-size: rem-calc(15px);
+        line-height: rem-calc(14px);
+        display: flex;
+        align-items: center;
+
+        .promo-price-club {
+            padding-left: 5px;
+        }
+    }
+
+    .suggestions-price-icon {
+        svg {
+            width: 27px;
+        }
+    }
+
+    .suggestions-reduced-price {
+        color: $secondary-grey;
+    }
+
+    .product-brand {
+        font-size: rem-calc(11px);
+    }
+}
+
+.form-control:focus {
+    box-shadow: none;
+
+    &::-ms-clear {
+        display: none;
+    }
+}
+
+.search-overlay {
+    opacity: 0.5;
+    background-color: $white;
+    z-index: 10;
+}
+
+.search-banner-image {
+    opacity: 0.3;
+}
+
+.search-results-text {
+    font-size: rem-calc(19px);
+    line-height: rem-calc(15px);
+    color: $text-grey;
+}
+
+.suggestions-lists {
+    a {
+        color: $brand-color-primary;
+    }
+}
+
+.search-results-breadcrumb {
+    z-index: 1;
+}
+
+@include media-breakpoint-up(lg) {
+    .suggestions {
+        margin-top: 70px;
+    }
+
+    .suggestions-lists {
+        flex: 0 0 30%;
+    }
+
+    .suggestions-products-list {
+        border-bottom: 0;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .search-field {
+        font-size: rem-calc(14px);
+    }
+}

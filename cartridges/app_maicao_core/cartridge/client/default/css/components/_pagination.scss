@@ -1,0 +1,64 @@
+.pagination {
+    color: $text-grey;
+    font-size: rem-calc(12px);
+
+    .btn-page,
+    .btn-page:hover {
+        color: $text-grey;
+        font-size: rem-calc(14px);
+        border: 1px solid $brand-color-primary;
+        background-color: $white;
+        border-radius: 100%;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+
+        &.current-page,
+        &.dots {
+            background-color: $brand-color-secondary;
+            color: $white;
+        }
+
+        &.dots {
+            background-color: transparent;
+            padding: 5px 2px;
+        }
+    }
+
+    &.pagination-footer {
+        .btn-page,
+        .btn-page:hover {
+            &.current-page {
+                border-color: $brand-color-secondary;
+                background-color: $brand-color-secondary;
+                color: $white;
+            }
+
+            &.dots {
+                border: none;
+                color: $text-grey;
+            }
+
+            &.dots {
+                background-color: transparent;
+                padding: 5px 2px;
+            }
+        }
+    }
+}
+
+.grid-footer {
+    position: relative;
+
+    @include media-breakpoint-only(xs) {
+        .pagination-text {
+            position: absolute;
+            left: 3%;
+            top: 0;
+        }
+
+        .mobile-margin-left {
+            margin-left: 5px !important;
+        }
+    }
+}

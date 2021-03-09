@@ -1,0 +1,14 @@
+<div class="remove-line-item d-flex align-items-center justify-content-end pl-3">
+    <isinlinesvg src="icon-remove" />
+    <button type="button" class="remove-btn remove-product btn remove-product-minicart"
+            data-toggle="modal"
+            data-target="#removeProductModal"
+            data-pid="${lineItem.id}"
+            data-name="${lineItem.productName}"
+            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+            data-uuid="${lineItem.UUID}"
+            data-custom-modal-class="minicart-remove-popup"
+            aria-label="${Resource.msgf('text.remove.line.item','cart', null, lineItem.productName)}">
+        <span aria-hidden="true" class="minicart-remove-button">${Resource.msg('minicart.button.remove.item', 'common', null)}</span>
+    </button>
+</div>

@@ -1,0 +1,12 @@
+<input type="checkbox" id="is-mercado-pago-enabled" class="d-none" ${pdict.mercadoPago && pdict.mercadoPago.enable ? 'checked=checked' : ''} />
+
+<div class="payment-option-tabs d-none">
+    <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopState">
+        <isif condition="${pdict.mercadoPago && pdict.mercadoPago.enable && paymentOption.ID === Resource.msg('payment.method.id', 'mercadoPagoPreferences', null)}">
+            <isinclude template="checkout/billing/paymentOptions/mercadoPagoTab" />
+        </isif>
+        <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+            <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
+        </isif>
+    </isloop>
+</div>

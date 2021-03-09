@@ -1,0 +1,374 @@
+.sor_orders {
+    border: 2px solid #011847;
+    width: 98%;
+    border-collapse: collapse;
+    margin-top:0px;
+}
+
+.sor_subscriptions {
+    border: 2px solid #011847;
+    width: 98%;
+    border-collapse: collapse;
+}
+
+.sor_table_container {
+    margin-top:60px;
+    height: 80%;
+    position:absolute;
+    overflow-y:scroll;
+}
+
+.sor_filter_table {
+    width: 95%;
+    height: 50px;
+    position: fixed;
+    font-size: 20px;
+}
+
+.report_filter_table {
+	width: 100%;
+    height: 50px;
+	position: relative;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.top .null {
+	margin: 20px 0 0;
+}
+
+.report_filter_table .form-row input {
+	-webkit-box-sizing: border-box;
+  	-moz-box-sizing: border-box;
+  	box-sizing: border-box;
+  	padding: 2px 5px;
+  	border: 1px solid #011847;
+  	outline: 0;
+}
+
+.required-indicator {
+    display: none;
+}
+
+.sor_subscriptions TD, .sor_subscriptions TH,
+.sor_orders TD, .sor_orders TH{
+    border: 1px solid #011847;
+}
+
+.sor_subscriptions TH, .sor_orders TH{
+    background-color: Gainsboro  ;
+    height: 50px;
+    white-space: nowrap;
+}
+
+.sor_subscriptions TD, .sor_orders TD{
+    height: 30px;
+}
+
+.sor_product_id {
+    width: 10%;
+}
+.sor_product_name {
+    width: 15%;
+}
+.sor_product_sku {
+    width: 10%;
+}
+.sor_product_total {
+    background-color: Gainsboro  ;
+    text-align: center;
+    width: 5%;
+}
+
+.sor_monthcount {
+    text-align: center;
+    width: 3%;
+}
+
+.sor_monthTotalCount {
+      font-weight: bold;
+}
+.sor_filter_table input{
+    height: 30px;
+    font-size: 16px;
+}
+
+.sor_filterby select{
+    width: 200px;
+    height: 30px;
+}
+
+.sor_monthcount {
+    width: 350px;
+    white-space: nowrap;
+}
+
+
+.sor_monthcount select{
+    width: 50px;
+    min-width: 50px;
+    height: 30px;
+    font-size: 14px;
+}
+
+.sor_monthcount div{
+    display: inline;
+}
+.sor_filterby {
+}
+
+.sor_filter_table button{
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+}
+
+.over td{
+	background-color: #e6eff1;
+}
+
+.notification {
+    margin-top:100px;
+}
+
+.exportbtn {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.mainlinks a{
+    margin-right: 30px;
+    font-size: 16px;
+}
+
+.report_email {
+    width: 20%;
+}
+
+.report_date {
+    width: 10%;
+    text-align: center;
+}
+
+.report_status {
+    text-align: center;
+    width: 10%;
+}
+
+.report_sub {
+    width: 15%;
+    text-align: center;
+}
+
+.report_prod {
+    width: 33%;
+}
+
+.report_orders TD,
+.report_orders TH{
+    border: 2px solid #011847;
+    padding: 2px 5px;
+}
+
+.report_orders {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:0px;
+    display: block;
+    max-height: 458px;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.prod_table {
+    border: 0;
+    width: 100%;
+}
+
+.prod_table TD{
+    border: 0;
+}
+
+.report_table_container {
+    margin-top:85px;
+    height: 70%;
+    position:absolute;
+    overflow-y:scroll;
+}
+
+.report_table_bottom_container {
+    margin-top:21%;
+    height: 38%;
+    position:absolute;
+    overflow-y:scroll;
+}
+
+.report_q_container {
+    width: 60%;
+    margin-top: 50px;
+    position: initial;
+    overflow: auto;
+}
+
+.report_q_table {
+    border: 2px solid #011847;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:0px;
+}
+
+.report_q_table tr td {
+	padding: 5px;
+	border-bottom: 2px solid #011847;
+}
+
+.prod_col1 {
+    width: 35%;
+}
+.prod_col2 {
+    width: 25%;
+}
+.prod_col3 {
+    width: 40%;
+}
+
+.button-container button {
+	background: #011847;
+    border: 0;
+    color: #fff;
+    outline: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+    -webkit-transition: all 0.25s ease-in;
+    -moz-transition: all 0.25s ease-in;
+    -ms-transition: all 0.25s ease-in;
+    -o-transition: all 0.25s ease-in;
+    transition: all 0.25s ease-in;
+}
+
+.button-container button:hover {
+	background: #84bc22;
+}
+
+.report_pagination,
+.report_pagination ul {
+	display: block;
+	width: 100%;
+	text-align:center;
+	margin: 20px 0 0;
+}
+
+.report_pagination ul,
+.report_pagination ul li {
+	list-style-type: none;
+}
+
+.report_pagination ul li {
+	display: inline-block;
+    margin: 0;
+    background: #011847;
+    color: #fff;
+}
+
+.report_pagination ul li a {
+	display: block;
+    width: 100%;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-transition: all 0.25s ease-in;
+    -moz-transition: all 0.25s ease-in;
+    -ms-transition: all 0.25s ease-in;
+    -o-transition: all 0.25s ease-in;
+    transition: all 0.25s ease-in;
+}
+
+.report_pagination ul li:hover a {
+	background: #84bc22;
+}
+
+.toggle-off {display:none;}
+.toggle-on {display: block;}
+
+td.inputColumn {
+	width: 365px;
+	text-align: right;
+	float: left;
+}
+
+td.checkboxColumn {
+    float: left;
+    width: 250px;
+    text-align: right;
+}
+
+td.finalColumn {
+    float: left;
+    width: 300px;
+    text-align: center;
+}
+
+body .ui-datepicker select.ui-datepicker-month,
+body .ui-datepicker select.ui-datepicker-year {
+	min-width: 10px;
+	box-shadow: none;
+    outline: 0;
+}
+
+body .ui-datepicker .ui-datepicker-prev-hover {
+	left: 2px;
+	top: 2px;
+}
+
+body .ui-datepicker .ui-datepicker-next-hover {
+	top: 2px;
+	right: 2px;
+}
+
+body .ui-datepicker .ui-datepicker-header {
+	background: #ffffff;
+	border: 0;
+}
+
+body .ui-widget.ui-widget-content,
+body .ui-state-default,
+body .ui-widget-content .ui-state-default,
+body .ui-widget-header .ui-state-default,
+body .ui-button,
+html body .ui-button.ui-state-disabled:hover,
+html body .ui-button.ui-state-disabled:active {
+	border: 1px solid  #011847;
+}
+
+body .ui-state-default,
+body .ui-widget-content .ui-state-default {
+	background: #ffffff;
+	text-align: center;
+	color: #011847;
+}
+
+html body .ui-state-highlight,
+html body .ui-widget-content .ui-state-highlight,
+body .ui-state-default.ui-state-hover,
+body .ui-widget-content .ui-state-default.ui-state-hover {
+	border: 1px solid #011847;
+    background: #e6eff1;
+    color: #000000;
+}
+
+body .ui-widget-content .ui-state-default.ui-state-active {
+	background: #011847;
+    color: #fff;
+    border: 1px solid #011847;
+}
+
+body .ui-datepicker .ui-datepicker-title,
+body .ui-datepicker th {
+	color: #011847;
+}
+
+body .ui-state-default.ui-state-hover,
+body .ui-widget-content .ui-state-default.ui-state-hover {
+
+}

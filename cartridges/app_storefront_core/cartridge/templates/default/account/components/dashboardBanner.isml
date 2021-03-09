@@ -1,0 +1,32 @@
+<div class="position-relative">
+    <isset name="banner" value="${dw.content.ContentMgr.getContent("account-banner-image")}" scope="page" />
+
+    <isif condition="${banner.online}">
+        <isprint value="${banner.custom.body}" encoding="off" />
+    <iselse>
+        <div class="account-image-placeholder background-white"></div>
+    </isif>
+    <div class="position-absolute top-0 w-100 bottom-0 d-flex align-items-center justify-content-left">
+        <div class="container">
+            <div class="text-left d-flex align-items-center flex-wrap justify-content-center">
+                <p class="font-weight-bold banner-simple-title account-page-title account-dashboard-title mb-0 w-100">
+                    <isprint value="${pdict.bannertitle}"/>
+                </p>
+            </div>
+            <isif condition="${pdict.loyalty.isMember && pdict.loyalty.level}">
+                <div class="loyalty-header d-flex align-items-center">
+                    <isif condition="${!empty(pdict.loyalty.level)}">
+                        <span class="loyalty-level position-relative text-center font-weight-bold">
+                            ${Resource.msgf('label.card.club.title' ,'account', null, pdict.loyalty.level)}
+                        </span>
+                    </isif>
+                    <isif condition="${!pdict.loyalty.isTopCustomer && pdict.loyalty.becomeABlackMemberUrl}">
+                        <a class="loyalty-link text-underline font-weight-bold" href="${pdict.loyalty.becomeABlackMemberUrl}">
+                            ${Resource.msgf('label.howtobeablackmember' ,'account', null, pdict.loyalty.topGroupName)}
+                        </a>
+                    </isif>
+                </div>
+            </isif>
+        </div>
+    </div>
+</div>

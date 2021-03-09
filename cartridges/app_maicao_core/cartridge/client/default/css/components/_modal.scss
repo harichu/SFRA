@@ -1,0 +1,102 @@
+.modal-open {
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-dialog {
+    max-width: 590px;
+    margin: 0 auto;
+}
+
+.modal.show .modal-dialog {
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    max-height: 95%;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modal-header {
+    border-radius: 0;
+
+    .close {
+        padding: 10px;
+    }
+}
+
+.modal-title {
+    font-family: $font-family-secondary-bold;
+    font-weight: bold;
+}
+
+.modal-backdrop {
+    z-index: 12;
+    background-color: $primary-grey;
+    opacity: 0.4;
+}
+
+.modal-job-offer {
+    .modal-dialog {
+        max-width: 1050px;
+    }
+
+    .modal-icon {
+        svg {
+            width: 60px;
+            height: 48px;
+            margin-right: 4px;
+        }
+    }
+
+    .close {
+        margin-top: -30px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+
+            path {
+                fill: $brand-color-secondary;
+            }
+        }
+    }
+
+    .content-box-title {
+        text-align: center;
+        color: $brand-color-secondary;
+    }
+
+    .custom-checkbox {
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    .custom-control-label {
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .modal-open .modal {
+        overflow: hidden;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .modal-job-offer {
+        .close {
+            svg {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    }
+}

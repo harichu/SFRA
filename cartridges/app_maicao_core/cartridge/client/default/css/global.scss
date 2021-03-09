@@ -1,0 +1,34 @@
+// global elements
+
+@import "./utilities/variables";
+@import "~cssCore/components/bootstrap_custom_import";
+@import "./components/fonts";
+
+@import "font-awesome/scss/font-awesome";
+@import "./components/formelements";
+@import "./components/buttons";
+@import "./components/modal";
+@import "./components/common";
+@import "./miniCart";
+@import "./components/carousels";
+@import "./components/header";
+@import "./components/footer";
+@import "./components/search";
+@import "./components/navigation";
+@import "./components/card";
+@import "./components/productTiles";
+@import "./components/pagination";
+@import "./components/breadcrumbs";
+@import "./components/bonus_products";
+@import "./components/topbanner";
+@import "./components/contents";
+
+@import "~cssCore/components/slick-theme";
+@import "~cssCore/components/sizing";
+@import "~cssCore/components/error";
+@import "~cssCore/components/removeproductmodal";
+@import "~cssCore/components/alert";
+@import "~cssCore/components/datepicker";
+@import "~cssCore/components/spinner";
+@import "~cssCore/components/stickymodal";
+@import "~cssCore/components/productRecommendationAddToCart";

@@ -1,0 +1,36 @@
+<div class="color-swatches w-100 d-flex flex-column">
+    <label class="product-color-label">
+        <isprint value="${Resource.msg('product.color.label', 'product', null)}"/>
+    </label>
+
+    <div class="swatches w-100 d-flex flex-wrap swatches-container" data-attr="${colorAttr.id}">
+        <isloop items="${swatchValues}" var="swatch" status="loopState">
+            <isif condition="${(empty(swatchLimit) || loopState.count < swatchLimit)
+                            && swatch.images != null
+                            && swatch.images.colorswatch[0] != null
+                            && swatch.images.colorswatch[0].url != null}">
+                <button class=" swatchLink
+                                product-swatch-link
+                                ${swatch.selected ? 'selected' : ''}
+                                ${swatch.selectable ? 'selectable' : 'unselectable'}"
+                                data-gtm="${require('int_gtm').gtmEventListener('click', colorAttr.displayName, swatch.value, 'SelectedValue')}"
+                                href="" data-url="${swatch.url}" data-attr-value="${swatch.value}">
+                    <img class="swatch
+                                swatch-circle
+                                rounded-circle"
+                            data-index="${loopState.count-1}"
+                            style="background-image: url(${swatch.images.colorswatch[0].url})"
+                            src="${swatch.images.colorswatch[0].url}"
+                            alt="${swatch.images.colorswatch[0].alt}"/>
+                </button>
+            <iselse>
+                <isif condition="${!empty(pdict.urls) && !empty(pdict.urls.product)}">
+                    <a href="${pdict.urls.product}" class="rounded-circle product-tile-swatch-link d-flex align-items-center justify-content-center">
+                        <span class="swatch-symbol">+</span>
+                    </a>
+                </isif>
+                <isbreak>
+            </isif>
+        </isloop>
+    </div>
+</div>

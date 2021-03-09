@@ -1,0 +1,27 @@
+<div class="variation-selector w-100">
+    <!-- Attribute Values Drop Down Menu -->
+    <label>${attr.displayName}</label>
+    <select class="custom-select form-control select-${attr.id}" data-attr="${attr.id}"
+        <isif condition="${disabled}">disabled</isif> >
+        <isif condition="${attr.resetUrl}">
+            <option
+                value="${attr.resetUrl}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', attr.id, '(none)', 'SelectedValue')}"
+                class="options-select">
+                ${Resource.msg('label.select', 'common', null)}
+            </option>
+        </isif>
+        <isloop items="${attr.values}" var="attrValue">
+            <option
+                value="${attrValue.url}"
+                class="options-select"
+                data-attr-value="${attrValue.value}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', attr.id, attrValue.displayValue, 'SelectedValue')}"
+                ${!attrValue.selectable ? 'disabled' : ''}
+                ${attrValue.selected ? 'selected' : ''}
+            >
+                ${attrValue.displayValue}
+            </option>
+        </isloop>
+    </select>
+</div>

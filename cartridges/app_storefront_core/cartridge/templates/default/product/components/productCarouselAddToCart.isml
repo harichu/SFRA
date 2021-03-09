@@ -1,0 +1,23 @@
+<isinclude template="/components/modules" />
+
+<isif condition="${pdict.pid && pdict.isMobileRecommendationModalOnAddCartEnabled}">
+    <div class="recommendations">
+        <div class="carousel-section">
+            <div class="row products-carousel">
+                <div class="col-12 p-0 pr-lg-3 js-add-to-cart-recommendations">
+                    <isif condition="${!empty(pdict.recommendations)}">
+                        <div class="recommendation-mini-cart-carousel">
+                            <isloop items="${pdict.recommendations}" var="recommendation" status="loopState" end="7">
+                                <div class="slider-tile">
+                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', recommendation.recommendedItemID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+                                </div>
+                            </isloop>
+                        </div>
+                    <iselse/>
+                        <isslot id="product-recommendations-add-to-cart-m" description="Recommended products" context="global" context-object="${dw.catalog.ProductMgr.getProduct(pdict.pid)}"/>
+                    </isif>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

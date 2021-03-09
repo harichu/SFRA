@@ -1,0 +1,42 @@
+<isset name="shippingAddress" value="${pdict.forms.shippingForm.shippingAddress}" scope="page"/>
+<div class="leading-lines shipping-method-list d-flex justify-content-center" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
+    <input name="shipmentUUID" type="hidden" value="${shippingModel.UUID}" />
+    <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
+        <div class="form-check col-9 start-lines ${shippingMethod.storePickupEnabled ? 'd-none' : ''}">
+            <isinclude template="checkout/shipping/selectedShippingMethod"/>
+            <label class="form-check-label shipping-method-option" for="shippingMethod-${shippingMethod.ID}-${shippingModel.UUID}">
+                <span class="display-name">${shippingMethod.displayName}</span>
+                <isif condition="${shippingMethod.estimatedArrivalTime}">
+                    <span class="text-muted arrival-time">(${shippingMethod.estimatedArrivalTime})</span>
+                </isif>
+            </label>
+        </div>
+        <div class="col-3 text-right shipping-method-pricing end-lines  ${shippingMethod.storePickupEnabled ? 'd-none' : ''}">
+            <span class="shipping-cost">${shippingMethod.shippingCost}</span>
+        </div>
+    </isloop>
+</div>
+<hr class="separator-thin d-none d-lg-block"/>
+<div class="note-ship">
+    <a href="${'#'}" class="note-link text-green text-bold d-block">
+        <span class="note-link-text">
+            ${Resource.msg("text.note", "checkout", null)}
+        </span>
+    </a>
+    <textarea name="note" class="note-textarea ${pdict.homeDeliveryMessage || "d-none"}  w-100 mt-2" maxlength="140" placeholder="${Resource.msg("text.note.placeholder", "checkout", null)}">${pdict.homeDeliveryMessage || ""}</textarea>
+</div>
+<!---------------------------------------------------------------------------------->
+<!-- Template used by client to redraw shipping methods                           -->
+<!---------------------------------------------------------------------------------->
+<div id="shipping-method-template" style="display:none;" >
+    <div class="custom-control custom-radio pr-lg-4 mx-lg-2 mx-1 mb-3 radius-small shipping-method-option-container">
+        <input type="radio" data-gtm="${require('int_gtm').gtmEventListener('change,hover', 'CheckoutShippingMethod', '', '')}" class="form-check-input custom-control-input" id="shippingMethodRadioButton"/>
+        <label class="form-check-label shipping-method-option custom-control-label cursor-pointer text-grey py-2 py-lg-3" for="shippingMethodRadioButton">
+            <span class="display-name"></span>
+            <span class="text-italic arrival-time d-block" style="display:none"></span>
+            <div class="shipping-method-pricing end-lines">
+                <span class="shipping-cost text-red"></span>
+            </div>
+        </label>
+    </div>
+</div>

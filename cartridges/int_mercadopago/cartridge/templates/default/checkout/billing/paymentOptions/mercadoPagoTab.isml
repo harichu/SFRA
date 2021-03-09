@@ -1,0 +1,13 @@
+<li class="nav-item" data-method-id="${paymentOption.ID}">
+    <a
+        class="nav-link mercadopago-tab ${pdict.mercadoPago && pdict.mercadoPago.enable ? 'enabled' : ''} ${loopState.first ? 'active' : ''}"
+        data-toggle="tab"
+        href="#mercadopago-content"
+        ${loopState.first ? 'aria-selected = true' : ''}
+        role="tab"
+        data-payment-option-tab
+
+    >
+        ${paymentOption.name}
+    </a>
+</li>

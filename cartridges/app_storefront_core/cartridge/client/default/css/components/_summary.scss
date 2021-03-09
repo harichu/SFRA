@@ -1,0 +1,122 @@
+.summary-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.summary-card {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    .separator-thin {
+        display: none;
+    }
+}
+
+.summary-header-title {
+    font-family: $font-family-secondary;
+    font-size: rem-calc(17px);
+}
+
+.coupon-container {
+    background-color: $highlighter-primary;
+}
+
+.coupon-label {
+    font-size: rem-calc(16px);
+}
+
+.subtitle-promo-code {
+    font-size: rem-calc(13px);
+}
+
+.coupon-code-field {
+    padding: 11px 10px;
+    font-size: rem-calc(15px);
+    color: $black;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: $white;
+    }
+}
+
+.promo-code-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.29;
+}
+
+.coupon-missing-error {
+    display: none;
+}
+
+.applied-label {
+    display: none;
+    font-size: rem-calc(14px);
+}
+
+.coupon-code,
+.promo-callout {
+    font-size: rem-calc(13px);
+}
+
+.remove-coupon {
+    color: $brand-color-secondary;
+    background: none;
+    font-size: rem-calc(11px);
+
+    &:focus,
+    &:active {
+        background: none;
+    }
+}
+
+.applied {
+    .non-applied-label,
+    .subtitle-promo-code,
+    .coupon-form-row {
+        display: none;
+    }
+
+    .applied-label {
+        display: inline-block;
+    }
+}
+
+.summary-total {
+    font-size: rem-calc(16px);
+}
+
+.summary-price {
+    font-size: rem-calc(18px);
+}
+
+.summary-shipping-message,
+.summary-secure-text {
+    font-size: rem-calc(11px);
+}
+
+.checkout-button {
+    font-size: rem-calc(18px);
+}
+
+.coupon-titles {
+    .subtitle-promo-code {
+        white-space: nowrap;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .coupon-code-field {
+        padding: 9px 10px;
+    }
+
+    .applied-label {
+        font-size: rem-calc(16px);
+    }
+
+    .summary-total {
+        font-size: rem-calc(15px);
+    }
+}

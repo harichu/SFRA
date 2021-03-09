@@ -1,0 +1,18 @@
+<ul class="values content pt-3 pb-0">
+    <isloop items="${categories}" var="category">
+        <isloop items="${category.subCategories}" var="subcategory">
+            <li class="refinement-item">
+                <button data-href="${subcategory.url}" data-gtm="${require('int_gtm').gtmEventListener('link,hover,click', 'RefinementCategoryFilter', subcategory.title, '')}" class="d-flex align-items-center">
+                    <!--- Label --->
+                    <span title="${subcategory.title}" class="refinement-item ${subcategory.selected ? 'selected' : ''}" aria-hidden="true">
+                        ${subcategory.displayValue}
+                    </span>
+                    <span class="sr-only selected-assistive-text">
+                        ${subcategory.selected ? Resource.msg('msg.assistive.selected.text', 'common', null) : ''}
+                        ${subcategory.title}
+                    </span>
+                </button>
+            </li>
+        </isloop>
+    </isloop>
+</ul>

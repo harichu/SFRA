@@ -1,0 +1,28 @@
+<div class="primary-images col-12 col-lg-6">
+    <div id="pdpCarousel-${product.id}" class="carousel d-lg-flex flex-lg-row-reverse position-relative" data-interval="0" data-prev="${Resource.msg('button.previous', 'common', null)}" data-next="${Resource.msg('button.next', 'common', null)}">
+        <div class="carousel-inner position-relative w-100" role="listbox">
+            <isif condition="${!empty(product.images['pdplarge'])}">
+                <isloop items="${product.images['pdplarge']}" var="image" status="loopState">
+                    <div class='carousel-item <isif condition="${loopState.index == 0}">active</isif>'>
+                        <div class="zoom js-zoom">
+                            <img src="${image.url}" class="d-block carousel-img img-fluid zoom-original" data-img="${image.url}" alt="${image.alt} image number ${image.index}" itemprop="image" />
+                        </div>
+                    </div>
+                </isloop>
+            <iselse>
+                <img src="${URLUtils.staticURL('/images/noimagelarge.png')}" data-gtm="${require('int_gtm').gtmEventListener('hover,click', 'ProductMainImagePDP', image.alt, '')}" class="d-block carousel-img img-fluid" alt="${image.alt} image number ${image.index}" itemprop="image">
+            </isif>
+        </div>
+        <isinclude template="product/components/productTileBadges" />
+        <div class="carousel-nav w-100">
+            <isloop items="${product.images['small']}" var="image" status="loopState" end="5">
+                <div class="carousel-nav-item">
+                    <img src="${image.url}" class="carousel-nav-img d-block img-fluid" data-gtm="${require('int_gtm').gtmEventListener('hover,click', 'ProductSmallImagePDP', image.alt, '')}" alt="${image.alt} image number ${image.index}" itemprop="image" />
+                </div>
+            </isloop>
+        </div>
+    </div>
+    <isif condition="${product.custom.notation}">
+        <p class="product-notation position-absolute">${product.custom.notation}</p>
+    </isif>
+</div>

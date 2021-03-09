@@ -1,0 +1,129 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/cart.css');
+    </isscript>
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <div data-gtm="${require('int_gtm').gtmEventListener('show', 'Cart')}"></div>
+    <isset name="miniCart" value="${false}" scope="page"/>
+
+    <isif condition="${pdict.items.length === 0}">
+        <div class="container cart-empty">
+            <div class="row">
+                <div class="col-12 text-center empty-cart text-green-secondary">
+                    <img src="${URLUtils.staticURL('/images/icons/bolsa-color-grey.png')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}"/>
+                    <div class="text-uppercase empty-title">${Resource.msg('minicart.empty', 'common', null)}</div>
+                    <a class="btn btn-outline-secondary volter-atras d-flex justify-content-center align-items-center text-uppercase mt-4 mx-auto"
+                        href="${URLUtils.https('Home-Show')}"
+                        title="${Resource.msg('minicart.continue', 'common', null)}"
+                        data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'ContinueShopping', '', URLUtils.url('Home-Show'))}"
+                        >
+                        <i class="mr-2 fa fa-chevron-left text-orange"></i>
+                        ${Resource.msg('minicart.continue', 'common', null)}
+                    </a>
+                </div>
+            </div>
+        </div>
+    <iselse/>
+        <isset name="activeStep" value="cart" scope="page" />
+        <isinclude template="/checkout/checkoutProgress" />
+
+        <div class="background-grey">
+            <div class="container cart cart-page py-3 py-lg-5 cart-elements-container">
+                <div class="container">
+                    <div class="cart-error-messaging cart-error text-center">
+                        <isif condition="${pdict.valid && pdict.valid.error && pdict.items.length !== 0}">
+                            <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <span class="d-block">${pdict.valid.message}</span>
+                                <isif condition="${!empty(pdict.valid.instruction)}">
+                                    <span class="d-block text-bold">${pdict.valid.instruction}</span>
+                                </isif>
+                            </div>
+                        </isif>
+                    </div>
+                </div>
+                <iscomment> Begin - SmartOrderRefill modification </iscomment>
+                <isif condition="${pdict.showLogInMessage}">
+                    <div class="row cart-header">
+                        <div class="col-sm-12">
+                            <div id="message_wrapper" class="px-lg-5 pb-3">
+                                <p class="alert alert-danger text-center">
+                                    ${Resource.msg('cart.contains.sor.products.part1', 'checkout', null)}
+                                    <a href="#login" class="text-red sor-link"> <strong>${Resource.msg('cart.sor.login', 'checkout', null)}</strong> </a>
+                                    ${Resource.msg('cart.sor', 'checkout', null)}
+                                    <a href="#newaccount" class="text-red sor-link"><strong>${Resource.msg('cart.sor.create.account', 'checkout', null)} </strong> </a>
+                                    ${Resource.msg('cart.contains.sor.products.part2', 'checkout', null)}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </isif>
+                <iscomment> End - SmartOrderRefill modification </iscomment>
+                <div class="row">
+                    <!---product cards--->
+                    <div class="col-12 col-lg-8">
+                        <isloop items="${pdict.items}" var="lineItem">
+                            <isif condition="${lineItem.productType === 'bundle'}">
+                                <isinclude template="cart/productCard/cartBundleCard" />
+                            <iselse/>
+                                <isinclude template="cart/productCard/cartProductCard" />
+                            </isif>
+                        </isloop>
+                        <isinclude template="cart/cartApproachingDiscount" />
+                    </div>
+                    <div class="checkout-continue d-lg-none col-12 mt-3 mb-5 ${pdict.showLogInMessage ? 'hide' : ''}">
+                        <isinclude template="cart/checkoutButtons" />
+                    </div>
+                    <!---totals, and checkout actions--->
+                    <div class="col-12 col-lg-4 pl-xl-5 totals">
+                        <div class="summary-card background-white">
+                            <div class="totals-header summary-header d-flex align-items-center justify-content-center text-white px-3 py-2 background-primary">
+                                <div class="summary-header-title">
+                                    <img src="${URLUtils.staticURL('/images/icons/cart-icon.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" />
+                                    <span class="ml-2">${Resource.msg('label.totals.header.title', 'cart', null)}</span>
+                                </div>
+                            </div>
+                            <div class="summary-card-inner p-3">
+                                <iscomment> Begin - SmartOrderRefill modification </iscomment>
+                                <isif condition="${!pdict.hasRefillProducts}" >
+                                    <isinclude template="cart/cartPromoCode" />
+                                    <div class="coupons-and-promos">
+                                        <isinclude template="cart/cartCouponDisplay" />
+                                    </div>
+                                </isif>
+                                <iscomment> End - SmartOrderRefill modification </iscomment>
+                                <hr class="separator-thick" />
+                                <isinclude template="cart/cartTotals" />
+                                <hr class="separator-thick" />
+                                <div class="shipping-subtitle text-center d-flex align-items-center mb-4 justify-content-center">
+                                    <isinlinesvg src="icon-shipping"/>
+                                    <p class="text-grey text-italic pl-2 summary-shipping-message m-0">${Resource.msg('label.shipping.cost.not.included', 'cart', null)}</p>
+                                </div>
+                                <div class="checkout-continue ${pdict.showLogInMessage ? 'hide' : ''}">
+                                    <isinclude template="cart/checkoutButtons" />
+                                </div>
+                                <div class="safe-buy d-flex align-items-center justify-content-center pt-4 pb-3">
+                                    <isinlinesvg src="icon-secure-dark" />
+                                    <p class="text-grey m-0 pl-2 summary-secure-text">${Resource.msg('label.safe.buy', 'cart', null)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <isinclude template="cart/cartRemoveCouponModal"/>
+        </div>
+        <div class="cart-recommendations py-5">
+            <isslot id="cart-recommendations-m" description="Recommended products" context="global" />
+        </div>
+        <isinclude template="customCart/trackCart" />
+    </isif>
+</isdecorate>

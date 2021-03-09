@@ -1,0 +1,153 @@
+
+.prescription-block {
+    .prescription-noreceipt {
+        text-align: center;
+        padding: 30px 30px;
+    }
+
+    .custom-control-label {
+        line-height: 25px;
+
+        &::before {
+            left: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &::after {
+            left: -28px;
+            top: 50%;
+            transform: translateY(-83%);
+        }
+    }
+
+    .prescription-message {
+        border: 1px dotted $tertiary-yellow;
+        background-color: $tertiary-yellow-light;
+        font-size: rem-calc(16px);
+        color: $secondary-grey;
+        border-radius: 5px;
+        padding: 10px 15px;
+
+        .important {
+            color: $brand-color-primary;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    }
+
+    .js-prescription-valid-to-all-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 0;
+        margin-left: 28px;
+
+        .custom-control-label {
+            font-size: rem-calc(14px);
+            line-height: rem-calc(18px);
+        }
+    }
+
+    .js-prescription-card {
+        border: 1px solid $primary-grey-light;
+        margin-top: 25px;
+        padding-right: 30px;
+
+        .item-data {
+            display: flex;
+            width: 100%;
+
+            .item-image {
+                flex-shrink: 0;
+
+                img {
+                    max-width: 75px;
+                }
+            }
+        }
+
+        .error-msg {
+            text-align: center;
+            margin-top: 10px;
+            color: $promotional-red;
+            font-size: rem-calc(14px);
+        }
+
+        .js-prescription-form {
+            max-width: 100%;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+
+            .js-prescription-file-name-container {
+                display: flex;
+                max-width: 100%;
+                padding-right: 25px;
+                position: relative;
+
+                .js-prescription-file-name {
+                    color: $brand-color-secondary;
+                    font-size: rem-calc(14px);
+                    max-width: 100%;
+                    text-decoration: underline;
+                    word-break: break-all;
+                }
+
+                .js-exclude-prescription {
+                    cursor: pointer;
+                    margin-left: 5px;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .js-prescription-upload {
+                border-radius: 10px;
+                height: 33px;
+                padding: 0 18px;
+
+                .icon {
+                    margin-top: -3px;
+                    margin-right: 4px;
+                }
+            }
+
+            &.no-need {
+                color: $brand-color-secondary;
+                padding: 0 20px;
+            }
+        }
+
+        .item-info {
+            color: $secondary-grey;
+            font-size: rem-calc(12px);
+            padding-right: 12px;
+            flex-basis: 100%;
+
+            .line-item-qty {
+                font-style: italic;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .prescription-block {
+        .js-prescription-card {
+            .error-msg {
+                position: absolute;
+                right: 0;
+                top: 78%;
+                margin: 0;
+            }
+
+            .js-prescription-form {
+                max-width: 280px;
+                margin-top: 0;
+                margin-left: auto;
+            }
+        }
+    }
+}

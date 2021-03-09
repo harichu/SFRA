@@ -1,0 +1,5 @@
+<isif condition="${!empty(pdict.folderBodyTitle)}">
+    <div class="page-content-body-title text-center m-auto pt-4 pt-lg-5 w-100 w-lg-75">
+        <isprint value="${pdict.folderBodyTitle}" encoding="off" />
+    </div>
+</isif>

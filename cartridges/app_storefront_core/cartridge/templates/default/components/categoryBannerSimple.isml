@@ -1,0 +1,36 @@
+<div class="search-results-banner position-relative">
+    <iscontentasset aid="${pdict.backgroundasset}"/>
+    <isif condition="${pdict.hasbreadcrumbs}">
+        <div class="search-results-breadcrumb position-absolute top-0 w-100">
+            <div class="container">
+                <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+            </div>
+        </div>
+    </isif>
+    <div class="position-absolute top-0 w-100 bottom-0 d-flex align-items-center justify-content-center">
+        <div class="text-center pt-2 d-flex align-items-center flex-wrap justify-content-center">
+            <isif condition="${!empty(pdict.searchtext)}">
+                <p class="search-results-text mb-0 w-100">
+                    <isprint value="${pdict.searchtext}" />
+                </p>
+            </isif>
+            <isif condition="${!empty(pdict.bannertitle)}">
+                <div class="font-weight-bold text-truncate category-simple-title mb-0">
+                    <isif condition="${pdict.bannertitle.length > 100}">
+                        <isprint value="${StringUtils.truncate(pdict.bannertitle, 100 , "TRUNCATE_WORD" , "...")}" encoding="off"/>
+                    <iselse>
+                        ${pdict.bannertitle}
+                    </isif>
+                </div>
+            </isif>
+            <isif condition="${!empty(pdict.customicon)}">
+                <img src="${pdict.customicon}" alt="Custom Category Icon" class="pl-2"/>
+            </isif>
+            <isif condition="${!empty(pdict.bannersubtitle)}">
+                <p class="font-italic category-simple-subtitle text-grey w-100">
+                    <isprint value="${pdict.bannersubtitle}" encoding="off"/>
+                </p>
+            </isif>
+        </div>
+    </div>
+</div>

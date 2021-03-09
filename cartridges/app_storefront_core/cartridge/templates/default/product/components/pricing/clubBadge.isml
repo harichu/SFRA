@@ -1,0 +1,20 @@
+<span class="promo-price-club d-flex justify-content-center align-items-center">
+    <isif condition="${pdict.haspromotionalbadge}">
+        <isloop items="${pdict.promotions}" var="promotion" end="0">
+            <isif condition="${!empty(promotion.custom.promotionPriceBadge) && !empty(promotion.showBadgesAndRibbon) && promotion.showBadgesAndRibbon}">
+                <img src="${promotion.custom.promotionPriceBadge.getAbsURL()}" alt="${promotion.name}" class="price-promotion-badge"/>
+            <iselseif condition="${promotion.badgeUrl != null && !empty(promotion.badgeUrl)}">
+                <img src="${promotion.badgeUrl}" alt="${promotion.name}" class="price-promotion-badge"/>
+            </isif>
+        </isloop>
+    <iselse>
+        <div class="tile-club-image">
+            <isinlinesvg src="club-green" />
+        </div>
+        <isif condition="${pdict.showtext}">
+            <span>
+                ${Resource.msg('tile.promotional.club.text', 'common', null)}
+            </span>
+        </isif>
+    </isif>
+</span>

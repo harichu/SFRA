@@ -1,0 +1,25 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/orderHistory.js');
+        assets.addCss('/css/account/account.css');
+        assets.addCss('/css/account/orders.css');
+    </isscript>
+
+    <div class="d-print-none">
+        <isaccountbanner bannertitle="${Resource.msg('heading.order.details', 'account', null)}" hasbreadcrumbs="${true}"/>
+        <hr class="separator confirmation-separator my-0 mx-0">
+    </div>
+
+    <div class="background-grey" data-gtm="${require('int_gtm').gtmEventListener('show', 'OrderDetails', pdict.order.orderNumber, 'OrderNumber')}">
+        <div class="container receipt <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
+            <div class="row justify-content-center">
+                <div class="col-12 mt-5 printable-order">
+                    <isinclude template="account/order/omsOrderDetails" />
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

@@ -1,0 +1,262 @@
+<!--- Hidden inputs --->
+<input type="hidden" class="form-control" id="token" name="${mercadoPagoFields.token.htmlName}" data-mp-token>
+<input type="hidden" class="form-control" id="cardId" name="${mercadoPagoFields.cardId.htmlName}" data-mp-card-id data-checkout="cardId">
+
+
+<div class="row pt-3 ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''}" data-mp-container>
+    <div class="col-12">
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.cardNumber.mandatory === true}">required</isif>
+            ${mercadoPagoFields.cardNumber.htmlName}">
+            <div class="card-number-wrapper">
+                <label class="form-control-label form-control-label-large" for="mercadoPagoCardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
+                <input type="text" class="form-control cardNumber" id="mercadoPagoCardNumber"
+                    data-missing-error="${Resource.msg("payment.card.number.missing", "forms", null)}"
+                    data-parse-error="${Resource.msg("payment.card.number.missing", "forms", null)}"
+                    <isprint value="${mercadoPagoFields.cardNumber.attributesWithoutName}" encoding="off"/>
+                    autocomplete="cc-number"
+                    <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                    data-checkout="cardNumber"
+                    data-mp-card-number
+                >
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''}" data-mp-container>
+    <div class="col-12">
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.cardOwner.mandatory === true}">required</isif>
+            ${mercadoPagoFields.cardOwner.htmlName}">
+            <label class="form-control-label form-control-label-large" for="mercadoPagoCardOwner">${Resource.msg('field.credit.card.owner', 'creditCard', null)}</label>
+            <input type="text" class="form-control" id="mercadoPagoCardOwner"
+                data-missing-error="${Resource.msg("payment.card.titular.missing", "forms", null)}"
+                data-parse-error="${Resource.msg("payment.card.titular.missing", "forms", null)}"
+                <isprint value="${mercadoPagoFields.cardOwner.attributes}" encoding="off"/>
+                autocomplete="cc-owner"
+                <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                data-checkout="cardholderName"
+                data-mp-card-holder
+            >
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-4 ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''}" data-mp-container>
+        <div class="form-group required-marker mb-0 mb-lg-3
+            <isif condition="${mercadoPagoFields.expirationMonth.mandatory === true}">required</isif>
+            ${mercadoPagoFields.expirationMonth.htmlName}">
+            <label class="form-control-label form-control-label-large text-nowrap" for="mercadoPagoExpirationMonth">${Resource.msg('field.credit.card.expiration.date', 'creditCard', null)}</label>
+            <select
+                class="form-control custom-select"
+                id="mercadoPagoExpirationMonth"
+                data-missing-error="${Resource.msg("creditcard.monthmissingerror", "forms", null)}"
+                data-parse-error="${Resource.msg("creditcard.monthmissingerror", "forms", null)}"
+                <isprint value="${mercadoPagoFields.expirationMonth.attributes}" encoding="off"/>
+                autocomplete="cc-exp-month"
+                <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                data-checkout="cardExpirationMonth"
+                data-mp-card-month
+            >
+                <isloop items="${mercadoPagoFields.expirationMonth.options}" var="month">
+                    <option id="${month.id}" value="${month.htmlValue}">
+                        ${month.label}
+                    </option>
+                </isloop>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''}" data-mp-container>
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.expirationYear.mandatory === true}">required</isif>
+            ${mercadoPagoFields.expirationYear.htmlName}">
+            <label class="form-control-label form-control-label-large invisible" for="mercadoPagoExpirationYear">${Resource.msg('field.credit.card.expiration.year','creditCard',null)}</label>
+            <select
+                class="form-control custom-select"
+                id="mercadoPagoExpirationYear"
+                data-missing-error="${Resource.msg("creditcard.yearmissingerror", "forms", null)}"
+                data-parse-error="${Resource.msg("creditcard.yearmissingerror", "forms", null)}"
+                <isprint value="${mercadoPagoFields.expirationYear.attributes}" encoding="off"/>
+                autocomplete="cc-exp-year"
+                <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                data-checkout="cardExpirationYear"
+                data-mp-card-year
+            >
+                <option value="${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].htmlValue}">${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].label}</option>
+                <isloop items="${pdict.expirationYears}" var="year">
+                    <option id="${year.toFixed(0)}" value="${year.toFixed(0)}">
+                    <isprint value="${year}" formatter="####" /></option>
+                </isloop>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-4" data-mp-container>
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.securityCode.mandatory === true}">required</isif>
+            ${mercadoPagoFields.securityCode.htmlName}">
+            <label class="form-control-label form-control-label-large" for="mercadoPagoSecurityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
+
+            <input type="password" autocomplete="new-password" class="form-control" id="mercadoPagoSecurityCode"
+                data-missing-error="${Resource.msg("error.card.info.missing.securityCode", "forms", null)}"
+                data-parse-error="${Resource.msg("error.card.info.missing.securityCode", "forms", null)}"
+                <isprint value="${mercadoPagoFields.securityCode.attributesWithoutName}" encoding="off"/> data-checkout="securityCode" data-mp-security-code>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row d-none" data-mp-container data-mail-phone-container>
+    <div class="col-6">
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.email.mandatory === true}">required</isif>
+            ${mercadoPagoFields.email.htmlName}">
+            <label class="form-control-label form-control-label-large" for="mercadoPagoEmail">
+                ${Resource.msg('field.customer.email', 'checkout', null)}
+            </label>
+            <input type="text"
+                data-missing-error="${Resource.msg('error.parse.email', 'forms', null)}"
+                data-parse-error="${Resource.msg('error.parse.email', 'forms', null)}"
+                class="form-control"
+                id="mercadoPagoEmail"
+                value="${customer.profile ? customer.profile.email : ''}"
+                <isprint value="${mercadoPagoFields.email.attributes}" encoding="off"/>
+                <isif condition="${customerCardsPresent.length > 0}">disabled</isif> data-mp-email>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group required-marker
+            <isif condition="${mercadoPagoFields.phone.mandatory === true}">required</isif>
+            ${mercadoPagoFields.phone.htmlName}">
+            <label class="form-control-label form-control-label-large" for="mercadoPagoPhoneNumber">
+                ${Resource.msg('field.customer.phone.number', 'checkout', null)}
+            </label>
+            <input type="tel"
+                data-missing-error="${Resource.msg('error.parse.phone', 'forms', null)}"
+                data-parse-error="${Resource.msg('error.parse.phone', 'forms', null)}"
+                class="form-control"
+                id="mercadoPagoPhoneNumber"
+                value="${pdict.order.billing.billingAddress.address ? pdict.order.billing.billingAddress.address.phone : ''}"
+                <isprint value="${mercadoPagoFields.phone.attributes}" encoding="off"/>
+                <isif condition="${customerCardsPresent.length > 0}">disabled</isif> data-mp-phone>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+
+<!--- Extended field --->
+<isif condition="${pdict.mercadoPago.preferences.enableDocTypeNumber === true}">
+    <div class="row ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''} ${pdict.customerHasCC || pdict.customerHasCE || pdict.customerHasPasaporte || pdict.customerHasRut ? 'd-none' : ''}" data-mp-container>
+        <div class="col-12">
+            <div class="form-group required-marker
+                <isif condition="${mercadoPagoFields.docType.mandatory === true}">required</isif>
+                ${mercadoPagoFields.docType.htmlName}">
+                <label class="form-control-label form-control-label-large" for="docType">${Resource.msg('field.credit.card.docType','creditCard',null)}</label>
+                <select class="form-control custom-select" id="docType"
+                    data-has-cc="${JSON.stringify(pdict.customerHasCC)}"
+                    data-has-ce="${JSON.stringify(pdict.customerHasCE)}"
+                    data-has-pasaporte="${JSON.stringify(pdict.customerHasPasaporte)}"
+                    data-has-rut="${JSON.stringify(pdict.customerHasRut)}"
+                    <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                    <isprint value="${mercadoPagoFields.docType.attributes}" encoding="off"/> autocomplete="docType" data-checkout="docType" data-mp-doc-type>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''} ${pdict.customerHasCC || pdict.customerHasCE || pdict.customerHasPasaporte || pdict.customerHasRut ? 'd-none' : ''}" data-mp-container>
+        <div class="col-12">
+            <div class="form-group required required-marker ${mercadoPagoFields.docNumber.htmlName}" data-mp-doc-number-wrapper>
+                <label class="form-control-label form-control-label-large" for="docNumber" data-mp-doc-number-label>
+                    ${Resource.msg('field.credit.card.docNumber', 'creditCard', null)}
+                </label>
+
+                <input type="text" class="form-control" id="docNumber"
+                    <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                    data-missing-error="${Resource.msg("error.identification.number.missing", "forms", null)}"
+                    data-parse-error="${Resource.msg("error.identification.number.missing", "forms", null)}"
+                    <isprint value="${mercadoPagoFields.docNumber.attributes}" encoding="off"/>
+                    autocomplete="docNumber"
+                    data-checkout="docNumber"
+                    data-mp-doc-number
+                    required
+                >
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+</isif>
+
+<!--- Extended field --->
+
+<div class="row">
+    <isif condition="${pdict.mercadoPago.preferences.enableInstallments === true}">
+        <div class="col-12 col-lg-4 d-none ${customerCardsPresent.length > 0 ? 'checkout-hidden' : ''}" data-mp-container>
+            <div class="form-group required-marker
+                <isif condition="${mercadoPagoFields.issuer.mandatory === true}">required</isif>
+                ${mercadoPagoFields.issuer.htmlName}">
+                <label class="form-control-label form-control-label-large" for="issuer">
+                    ${Resource.msg('field.credit.card.issuer', 'creditCard', null)}
+                </label>
+                <select class="form-control custom-select" id="issuer"
+                    <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                    <isprint value="${mercadoPagoFields.issuer.attributes}" encoding="off"/> autocomplete="issuer" data-checkout="issuer" data-mp-issuer>
+                    <option value="${mercadoPagoFields.issuer.options[0].htmlValue}">${mercadoPagoFields.issuer.options[0].label}</option>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8 col-xl-6" data-mp-container>
+            <div class="form-group required-marker
+                <isif condition="${mercadoPagoFields.installments.mandatory === true}">required</isif>
+                ${mercadoPagoFields.installments.htmlName}">
+                <label class="form-control-label form-control-label-large" for="installments">${Resource.msg('field.credit.card.installments', 'creditCard', null)}</label>
+                <select class="form-control custom-select" id="installments"
+                    data-missing-error="${Resource.msg("error.installments.option.missing", "forms", null)}"
+                    data-parse-error="${Resource.msg("error.installments.option.missing", "forms", null)}"
+                    <isprint value="${mercadoPagoFields.installments.attributes}" encoding="off"/> autocomplete="installments" data-checkout="installments" data-mp-installments>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </isif>
+
+    <isif condition="${customerCardsPresent.length > 0}">
+        <div class="col-12 col-lg-4 d-flex align-items-center">
+            <button
+                class="btn text-primary-color add-payment-method-button text-bold p-0"
+                type="button"
+                data-toggle-payment-type="new"
+                data-new-payment-text="${Resource.msg('button.add.payment', 'checkout', null)}"
+                data-stored-payment-text="${Resource.msg('button.back.to.stored.payments', 'checkout', null)}"
+            >
+                ${Resource.msg(customerCardsPresent.length > 0 ? 'button.add.payment': 'button.back.to.stored.payments', 'checkout', null)}
+            </button>
+        </div>
+    </isif>
+    <isif condition="${pdict.customer.registeredUser}">
+        <div class="col-12 align-items-center save-credit-card-container py-2" data-mp-container>
+            <div class="save-credit-card custom-control custom-checkbox text-grey">
+                <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="mercadoPagoSaveCreditCard"
+                    name="${mercadoPagoFields.saveCard.htmlName}"
+                    value="true"
+                    checked
+                    <isif condition="${customerCardsPresent.length > 0}">disabled</isif>
+                    data-mp-save-card
+                >
+                <label class="custom-control-label" for="mercadoPagoSaveCreditCard">
+                    ${mercadoPagoFields.saveCard.label}
+                </label>
+            </div>
+        </div>
+    </isif>
+</div>

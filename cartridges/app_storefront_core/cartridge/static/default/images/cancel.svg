@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+    <defs>
+        <style>
+            .cls-1{fill:red}
+        </style>
+    </defs>
+    <g id="boton-cancelar" transform="translate(3 -2)">
+        <g id="cancel" transform="translate(-3 2)">
+            <path id="Trazado_1547" d="M9 0a9 9 0 1 0 9 9 9.026 9.026 0 0 0-9-9zm4.5 12.24l-1.26 1.26L9 10.26 5.76 13.5 4.5 12.24 7.74 9 4.5 5.76 5.76 4.5 9 7.74l3.24-3.24 1.26 1.26L10.26 9z" class="cls-1" data-name="Trazado 1547"/>
+        </g>
+    </g>
+</svg>

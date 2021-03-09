@@ -1,0 +1,45 @@
+<div class="store-choosed-info px-lg-5 first-step-shipment">
+    <div class="fields-who-takes mt-4 mx-lg-4 d-none">
+        <div class="form-group required required-marker">
+            <label class="form-control-label text-bold" for="who-takes-name">${Resource.msg('field.whotakes.name', 'storeLocator', null)}</label>
+            <input
+                type="text"
+                class="form-control"
+                id="who-takes-name"
+                name="whoTakesName"
+                value="${shippingModel.shippingAddress.whotakesName || ""}"
+                autocomplete="nofill"
+                data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                data-pattern-mismatch="${Resource.msg('checkout.login.name.error', 'checkout', null)}"
+                data-range-error="${Resource.msg('checkout.login.name.error', 'checkout', null)}"
+                aria-describedby="form-fname-error"
+                pattern="${Resource.msg("regex.name.field", "forms", null)}"
+                required>
+            <div class="invalid-feedback" id="form-fname-error"></div>
+        </div>
+        <div class="form-group required required-marker">
+            <label class="form-control-label text-bold" for="who-takes-rut">${Resource.msg('field.whotakes.rut', 'storeLocator', null)}</label>
+            <input
+                type="text"
+                class="form-control rut-inputfield js-document-validation"
+                data-type="rut"
+                id="who-takes-rut"
+                name="whoTakesRut"
+                value="${shippingModel.shippingAddress.whotakesRut || ""}"
+                autocomplete="nofill"
+                data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                data-pattern-mismatch="${Resource.msg('error.rut.invalid', 'forms', null)}"
+                maxlength="9"
+                pattern="\d{1,3}(?:(\.?)\d{3}){2}(-?)[\dkK]"
+                required>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+<div class="store-confirm-who-takes first-step-shipment">
+    <div class="px-lg-5 d-flex mt-4 justify-content-end">
+        <button class="btn btn-secondary checkout-button-small confirm-who-takes">
+            ${Resource.msg('button.select.store', 'storeLocator', null)}
+        </button>
+    </div>
+</div>

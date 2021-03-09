@@ -1,0 +1,58 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/dashboard.js');
+        assets.addCss('/css/account/dashboard.css');
+        assets.addCss('/css/account/account.css');
+        assets.addJs('/js/account.js');
+        assets.addJs('/js/documentsValidator.js');
+    </isscript>
+
+    <input type="hidden" id="customer-loyalty-level" value="${pdict.loyalty.level}" />
+
+    <isdashboardbanner bannertitle="${Resource.msgf('page.heading.dashboard', 'account', null, pdict.profile.firstName)}" hasbreadcrumbs="${true}"/>
+    <hr class="separator confirmation-separator my-0 mx-0">
+
+    <div class="container">
+        <div class="dashboard-top">
+            <div class="dashboard-shipping">
+                <iscomment>
+                    The element below will be available only for future releases
+                </iscomment>
+                <iscomment>
+                    <a href="#" class="dashboard-link">
+                        <isinlinesvg src="icon-shipping-green" />
+                        <span class="dashboard-shipping-label">
+                            ${Resource.msg('label.dashboard.order.any' ,'account', null)}
+                        </span>
+                        <span class="dashboard-shipping-bar fill-4">
+                        </span>
+                    </a>
+                </iscomment>
+            </div>
+            <a href="${URLUtils.url('Account-EditProfile')}" class="btn dashboard-btn">
+                <span class="icon">
+                    <isinlinesvg src="user-icon-white" />
+                </span>
+                ${Resource.msg('label.profile.title' ,'account', null)}
+            </a>
+        </div>
+    </div>
+
+    <div class="background-grey py-5" data-gtm="${require('int_gtm').gtmEventListener('show', 'AccountDashboard')}">
+        <div class="container">
+            <isinclude template="account/dashboardProfileCards"/>
+        </div>
+        <isif condition="${pdict.isMissingDocumentData}">
+            <div class="modal modal-checkout p-0 d-sm-none" id="modal-facebook" tabindex="-1" role="dialog">
+                <isinclude template="account/modalFacebook" />
+            </div>
+        </isif>
+    </div>
+</isdecorate>

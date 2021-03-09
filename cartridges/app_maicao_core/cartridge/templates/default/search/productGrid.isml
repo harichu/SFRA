@@ -1,0 +1,28 @@
+<isinclude template="search/components/productTiles" />
+
+<div class="col-12 grid-footer pt-4 js-pagination-data"
+     data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
+     data-page-size="${pdict.productSearch.pageSize}"
+     data-page-number="${pdict.productSearch.pageNumber}"
+     data-count="${pdict.productSearch.count}"
+     data-default-url="${pdict.productSearch.defaultSearchURL}"
+>
+
+    <div class="${pdict.showPagination ? "disabled" : ""} js-loadmore-trigger loadmore-trigger" data-url="${pdict.lazyLoadURL}"></div>
+
+    <div class="pagination pagination-footer justify-content-center align-items-center flex-md-wrap ${pdict.showPagination ? "d-flex" : "d-none"} ">
+        <isif condition="${pdict.productSearch.count > pdict.productSearch.pageSize}">
+            <isloop items="${pdict.pageLinks}" var="page" status="loopstatus">
+                <button
+                    class="btn btn-page ml-2 mobile-margin-left ${page.selected ? 'current-page' : ''} ${page.dots ? 'dots' : ''}"
+                    data-gtm="${require('int_gtm').gtmEventListener('click', 'Pagination', page.name, 'PageNumber')}"
+                    data-url="${page.url}">${page.name}</button>
+            </isloop>
+        </isif>
+    </div>
+
+    <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
+    <isif condition="${pdict.productSearch.category != null}">
+        <input type="hidden" class="category-id" value="${pdict.productSearch.category.id}" />
+    </isif>
+</div>

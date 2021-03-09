@@ -1,0 +1,8 @@
+<isdecorate template="common/layout/page">
+   <isinclude template="components/content/contentTopBanner"/>
+    <div class="container" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.content.ID, 'ContentID')}">
+        <div class="page-content py-4 py-lg-5">
+            <isprint value="${pdict.content.body}" encoding="off" />
+        </div>
+    </div>
+</isdecorate>

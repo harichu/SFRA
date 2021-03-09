@@ -1,0 +1,33 @@
+<isdecorate template="common/layout/page">
+    <div class="content-page" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <isinclude template="components/content/bodyTitle"/>
+            <div class="page-content py-4 py-lg-5">
+
+                <div class="background-white rounded p-3 m-lg-3">
+                    <isprint value="${pdict.folderHTML}" encoding="off"/>
+                    <isloop items="${pdict.folderContent}" var="collapseAsset" status="loopState">
+                        <div class="content-asset mb-4">
+                            <isif condition="${loopState.first}">
+                                <isset name="checked" value="${true}" scope="page" />
+                            <iselse/>
+                                <isset name="checked" value="${false}" scope="page" />
+                            </isif>
+                            <input class="content-collapse-trigger d-none" id="${collapseAsset.ID}" name="${collapseAsset.name}" type="checkbox" ${(checked)?'checked':''}/>
+                            <label class="content-collapse-label d-flex justify-content-between align-items-center py-lg-3 mx-lg-3 cursor-pointer" for="${collapseAsset.ID}">
+                                <div class="content-collapse-title">${collapseAsset.name}</div>
+                                <span class="content-checkmark d-flex align-items-center"> <i class="fa fa-chevron-down"></i> </span>
+                            </label>
+                            <div class="content-collapse overflow-hidden">
+                                <div class="p-lg-3">
+                                    <isprint value="${collapseAsset.custom.body}" encoding="off"/>
+                                </div>
+                            </div>
+                        </div>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

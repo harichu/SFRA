@@ -1,0 +1,86 @@
+<isset name="shouldDisplayGuestTotal" value="${!customer.authenticated || !pdict.hasClubProducts || pdict.order.totals.shouldDisplayGuestTotalPrice}" scope="page" />
+
+<isif condition="${shouldDisplayGuestTotal}">
+    <div class="row estimated-total">
+        <div class="col-8 d-flex align-items-center">
+            <p class="sub-total-label d-flex align-items-center text-green text-bold mb-0">
+                ${Resource.msg('minicart.subtotal', 'common', null)}
+            </p>
+        </div>
+        <div class="col-4">
+            <p class="text-right sub-club text-red text-bold">${pdict.order.totals.guestTotal}</p>
+        </div>
+    </div>
+</isif>
+
+<div class="row estimated-total">
+    <div class="col-8 d-flex align-items-center">
+        <p class="sub-total-label d-flex align-items-center text-green text-bold mb-0">
+            <isif condition="${pdict.isMemberOfClubVerde && pdict.hasClubProducts}">
+                ${Resource.msg('minicart.subtotal', 'common', null)}
+                <div class="pl-2 pb-1">
+                    <isinlinesvg src="club-green" />
+                </div>
+            </isif>
+        </p>
+    </div>
+    <div class="col-4">
+        <isif condition="${pdict.isMemberOfClubVerde && pdict.hasClubProducts}">
+            <p class="text-right sub-club text-red text-bold mb-0">${pdict.order.totals.clubTotal}</p>
+        </isif>
+    </div>
+</div>
+
+<!--- Order Discount --->
+<div class="row order-discount mt-2 ${pdict.order.totals.orderLevelDiscountTotal.value === 0 ? 'hide-order-discount' : ''}">
+    <div class="col-8 d-flex align-items-center">
+        <p class="text-bold text-green summary-total mb-0">${pdict.order.totals.discountsTitles.orderLevel}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right order-discount-total text-red text-bold summary-price mb-0">- ${pdict.order.totals.orderLevelDiscountTotal.formatted}</p>
+    </div>
+</div>
+<isif condition="${pdict.order.shipping[0].selectedShippingMethod}">
+    <isset name="currentShipping" value="${pdict.order.shipping[0].selectedShippingMethod}" scope="page" />
+    <div class="row leading-lines shipping-item mt-2">
+        <div class="col-8 d-flex">
+            <p class="d-flex align-items-center text-green text-bold mb-0 shipping-method-name">
+                ${currentShipping.displayName}
+            </p>
+        </div>
+        <div class="col-4">
+            <p class="text-right text-red text-bold mb-0 shipping-total-cost">${currentShipping.shippingCost}</p>
+        </div>
+    </div>
+</isif>
+<!--- Shipping Discount --->
+<div class="row shipping-discount mt-2 ${pdict.order.totals.shippingLevelDiscountTotal.value === 0 ? 'hide-shipping-discount' : ''}">
+    <div class="col-8 d-flex align-items-center">
+        <p class="text-bold text-green summary-total mb-0">${pdict.order.totals.discountsTitles.shippingLevel}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right shipping-discount-total text-red text-bold summary-price mb-0">- ${pdict.order.totals.shippingLevelDiscountTotal.formatted}</p>
+    </div>
+</div>
+<hr class="separator-thin dark"/>
+<div class="checkout-summary-preshipping">
+    <div class="shipping-subtitle text-center d-flex align-items-center mb-4 justify-content-center">
+        <isinlinesvg src="icon-shipping"/>
+        <p class="text-grey text-italic pl-2 summary-shipping-message m-0">${Resource.msg('label.shipping.cost.not.included', 'cart', null)}</p>
+    </div>
+</div>
+<div class="row grand-total mt-2">
+    <div class="col-8 d-flex">
+        <p class="sub-total-label d-flex align-items-center text-green text-bold mb-0">
+            ${Resource.msg('minicart.label.grand.total', 'common', null)}
+        </p>
+    </div>
+    <div class="col-4">
+        <isif condition="${pdict.isMemberOfClubVerde && pdict.hasClubProducts}">
+            <p class="text-right text-red text-bold mb-0 club-grand-total-sum">${pdict.order.totals.clubGrandTotal}</p>
+        <iselse/>
+            <p class="text-right text-red text-bold mb-0 grand-total-sum">${pdict.order.totals.grandTotal}</p>
+        </isif>
+    </div>
+</div>
+<hr class="separator-thin dark payment-separator"/>

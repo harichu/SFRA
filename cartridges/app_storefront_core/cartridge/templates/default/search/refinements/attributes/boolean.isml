@@ -1,0 +1,23 @@
+<li class="col-12 ${!refinementValue.selectable ? 'disabled' : ''}">
+    <button
+        data-href="${refinementValue.url}"
+        class="refinement-option d-flex align-items-center mb-2 ${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>
+        data-gtm="${require('int_gtm').gtmEventListener('link,hover,click', 'Refinement' + refinementValue.id + 'Filter', refinementValue.displayValue, '')}"
+    >
+        <iscomment>Checkbox</iscomment>
+        <isif condition="${refinementValue.selected && refinementValue.selectable}">
+            <div class="refinement-checked mr-3 position-relative"></div>
+        <iselse/>
+            <div class="refinement-check mr-3"></div>
+        </isif>
+        <iscomment>Label</iscomment>
+        <span class="refinement-item text-uppercase text-left <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" aria-hidden="true">
+            ${refinementValue.displayValue}
+        </span>
+        <span class="sr-only selected-assistive-text">
+            ${refinementValue.selected && refinementValue.selectable ? Resource.msg('msg.assistive.selected.text', 'common', null) : ''}
+            ${refinementValue.title}
+        </span>
+    </button>
+</li>
+

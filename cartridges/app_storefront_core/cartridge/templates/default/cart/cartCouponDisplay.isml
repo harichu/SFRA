@@ -1,0 +1,19 @@
+<isloop items="${pdict.totals.discounts}" var="discount">
+    <isif condition="${discount.type === 'coupon'}">
+        <div class="coupon-price-adjustment pt-2 align-items-center justify-content-between d-flex coupon-uuid-${discount.UUID}" data-uuid="${discount.UUID}">
+            <button type="button" class="remove-coupon border-0 cursor-pointer text-underline"
+                    data-code="${discount.couponCode}"
+                    aria-label="${Resource.msgf('text.remove.coupon','cart', null, discount.couponCode)}"
+                    data-action="${pdict.actionUrls.removeCouponLineItem}"
+                    data-uuid="${discount.UUID}">
+                <span aria-hidden="true">
+                    ${Resource.msg('prodo.code.change.text', 'cart', null)}
+                </span>
+            </button>
+            <div class="coupon-code text-red text-italic">
+                ${discount.couponCode}
+            </div>
+        </div>
+    </isif>
+</isloop>
+

@@ -1,0 +1,73 @@
+<!--- contact us first name, last name --->
+<div class="row contact-us-name">
+    <div class="col-sm-6">
+        <div class="form-group required">
+            <label class="form-control-label" for="contact-first-name">
+                ${Resource.msg('label.input.contact-us.first-name', 'contactUs', null)}
+            </label>
+            <input type="text" required class="form-control required" aria-describedby="form-contact-first-name-error" id="contact-first-name" name="contactFirstName"/>
+            <div class="invalid-feedback" id="form-contact-first-name-error"></div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group required">
+            <label class="form-control-label" for="contact-last-name">
+                ${Resource.msg('label.input.contact-us.last-name', 'contactUs', null)}
+            </label>
+            <input type="text" required class="form-control required" aria-describedby="form-contact-last-name-error" id="contact-last-name" name="contactLastName"/>
+            <div class="invalid-feedback" id="form-contact-last-name-error"></div>
+        </div>
+    </div>
+</div>
+
+<!--- contact us email --->
+<div class="row contact-us-email">
+    <div class="col">
+        <div class="form-group required">
+            <label class="form-control-label" for="contact-email">
+                ${Resource.msg('label.input.contact-us.email', 'contactUs', null)}
+            </label>
+            <input type="email" required class="form-control required" aria-describedby="form-contact-email-error" id="contact-email" name="contactEmail"/>
+            <div class="invalid-feedback" id="form-contact-email-error"></div>
+        </div>
+    </div>
+</div>
+
+<!--- contact us phone --->
+<div class="row contact-us-phone">
+    <div class="col">
+        <div class="form-group required">
+            <label class="form-control-label" for="contact-phone">
+                ${Resource.msg('label.input.contact-us.phone', 'contactUs', null)}
+            </label>
+            <input type="tel" required class="form-control required" aria-describedby="form-contact-phone-error" id="contact-phone" name="contactPhone" placeholder="${Resource.msg('label.input.placeholder.phone', 'contactUs', null)}"/>
+            <div class="invalid-feedback" id="form-contact-phone-error"></div>
+        </div>
+    </div>
+</div>
+
+<!--- contact us city --->
+<div class="row contact-us-city">
+    <div class="col">
+        <div class="form-group">
+            <label class="form-control-label" for="contact-email">
+                ${Resource.msg('label.input.contact-us.city', 'contactUs', null)}
+            </label>
+            <input type="text" class="form-control" aria-describedby="form-contact-city-error" id="contact-city" name="contactCity"/>
+        </div>
+    </div>
+</div>
+
+<!--- contact us rut --->
+<div class="row contact-us-rut">
+    <div class="col">
+        <div class="form-group required">
+            <label class="form-control-label" for="contact-rut">
+                ${Resource.msg('label.input.contact-us.rut', 'contactUs', null)}
+            </label>
+            <input type="tel" required class="form-control required" aria-describedby="form-contact-rut-error" id="contact-rut" name="contactRut" placeholder="${Resource.msg('label.input.placeholder.rut', 'contactUs', null)}"/>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>

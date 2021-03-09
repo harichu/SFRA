@@ -1,0 +1,43 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+@import "../components/datepicker";
+
+.profile-form-container {
+    width: 100%;
+    padding-top: 20px;
+
+    .profile-actions {
+        display: flex;
+        padding: 20px 0;
+    }
+
+    .form-group {
+        padding: 0 10px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .profile-form-container {
+        width: 85%;
+        padding-top: 30px;
+    }
+
+    .profile-identification-number {
+        .form-control-label {
+            font-size: rem-calc(11px);
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .profile-form-container {
+        width: 71%;
+        padding-top: 30px;
+    }
+
+    .profile-identification-number {
+        .form-control-label {
+            font-size: rem-calc(13px);
+        }
+    }
+}

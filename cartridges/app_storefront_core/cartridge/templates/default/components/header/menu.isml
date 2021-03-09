@@ -1,0 +1,55 @@
+<isinclude template="/components/modules" />
+<a href="${'#'}" class="navigation-back-link back-link d-none">
+    ${Resource.msg('navigation.back.link', 'common', null)}
+</a>
+<nav class="navbar navbar-expand-md p-0">
+    <div class="menu-group w-100" role="navigation">
+        <ul class="nav navbar-nav accordion" role="menu">
+            <isif condition="${pdict.categories}">
+                <isloop items="${pdict.categories}" var="category" status="loopState">
+                    <isif condition="${category.subCategories}">
+                        <li class="nav-item dropdown d-flex align-items-center ${loopState.first ? 'pt-2 pt-lg-0' : ''}" role="presentation">
+                            <a href="${'#navigation-item-' + category.id}" id="${category.id}" data-gtm="${require('int_gtm').gtmEventListener('click,hover', 'Category', category.url.toString(), '')}" class="nav-link d-flex align-items-center w-100" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="${'navigation-items-' + category.id}" tabindex="0">
+                                <div class="navigation-icon-container d-flex justify-content-center">
+                                    <isif condition="${category.iconURL !== null}">
+                                        <img src="${category.iconURL}" alt="${Resource.msg('navigation.icon.alt', 'common', null)}" class="navigation-icon"/>
+                                    </isif>
+                                </div>
+                                ${category.name}
+                                <span class="category-arrow">
+                                    <isinlinesvg src="arrow-icon"/>
+                                </span>
+                            </a>
+                        </li>
+                        <isset name="menuItem" value="${category}" scope="page"/>
+                        <isinclude template="components/header/menuItem"/>
+                    <iselse/>
+                        <li class="nav-item d-flex align-items-center" role="presentation">
+                            <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" data-gtm="${require('int_gtm').gtmEventListener('click,hover', 'Category', category.url.toString(), '')}"  class="nav-link d-flex align-items-center w-100" role="link" tabindex="0">
+                                <div class="navigation-icon-container d-flex justify-content-center">
+                                    <isif condition="${category.iconURL !== null}">
+                                        <img src="${category.iconURL}" alt="Category icon image" class="navigation-icon"/>
+                                    </isif>
+                                </div>
+                                ${category.name}
+                            </a>
+                        </li>
+                    </isif>
+                </isloop>
+            </isif>
+        </ul>
+        <ul class="nav-bottom-links">
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="${URLUtils.https('Order-History')}">
+                    <div class="navigation-icon-container d-flex justify-content-center">
+                        <div class="navigation-icon w-100">
+                            <isinlinesvg src="track-icon"/>
+                        </div>
+                    </div>
+                    ${Resource.msg('navigation.order.track', 'common', null)}
+                </a>
+            </li>
+            <isinclude url="${URLUtils.url('Stores-ZoneSelector', 'isOnSideMenu', 'true')}"/>
+        </ul>
+    </div>
+</nav>

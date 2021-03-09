@@ -1,0 +1,35 @@
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="components/header" />
+<isinclude template="bm/util/sor_modules"/>
+
+<isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+
+<div id='edit-cancelationfee'>
+<p class="button button--right back-from-fee" data-link="${URLUtils.https('SmartOrderRefillReport-ShowSubscriptions', 'client', pdict.customer)}">
+    &#171; ${Resource.msg('forms.sorsubscriptions.backTo.label', 'sor_forms', null)}
+    ${Resource.msg('forms.sorsubscriptions.subscriptionDetails.label', 'sor_forms', null)}
+</p>
+
+<h1 class="order-section-main-title">${Resource.msg('forms.sorsubscriptions.cancelSubscriptionsFeeMessageInfo.label', 'sor_forms', null)}</h1>
+    <div class="sor-module">
+        <form method="post" id='fee-form'>
+            <div class="sor-table">
+                    <div>
+                        <isinputfield formfield="${pdict.CurrentForms.cancelationfee.fee}" type="input"></field>
+                    </div>
+                    <div>
+                        <input type="hidden" name="${pdict.CurrentForms.cancelationfee.save.htmlName}" value="true">
+                        <input class="button confirm_btn blue" id="confirm_fee" type="button"
+                            value="${Resource.msg('forms.sorsubscriptions.confirm.label', 'sor_forms', null)}"
+                            data-link="${pdict.continueURL}">
+                    </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<isinclude template="components/footer" />

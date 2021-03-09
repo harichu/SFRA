@@ -1,0 +1,364 @@
+.product-tile {
+    border: 1px solid $primary-grey-light;
+    flex-flow: column;
+
+    .price {
+        min-height: 71px;
+    }
+
+    .quantity-select {
+        border-radius: 0;
+        background-color: $secondary-grey-light;
+    }
+
+    .variation-selector label {
+        display: none;
+    }
+
+    .product-badges {
+        max-width: 55px;
+    }
+
+    .swatches-container {
+        justify-content: center;
+    }
+
+    .product-swatch-link:first-of-type {
+        padding-left: 0;
+    }
+
+    .price-promotion-badge {
+        max-width: 40px;
+    }
+}
+
+.quantity-error {
+    font-size: rem-calc(12px);
+}
+
+.attributes-container {
+    margin: 0 -5px;
+
+    .tile-attribute-selector {
+        margin: 0 5px;
+    }
+}
+
+.product-tile-pum {
+    color: $background-grey;
+    font-size: rem-calc(12px);
+    bottom: 0;
+    left: 0;
+}
+
+.product-badges {
+    top: 12px;
+    z-index: 3;
+    right: 8px;
+}
+
+.products-carousel {
+    .product-tile {
+        min-height: 530px;
+    }
+
+    .full-height {
+        min-height: 540px;
+
+        &.no-selects {
+            min-height: 495px;
+        }
+    }
+
+    .sales {
+        font-size: rem-calc(19px);
+    }
+}
+
+.swatch.swatch-circle {
+    width: 28px;
+    height: 28px;
+
+    .selected & {
+        border: 2px solid $accent-grey;
+    }
+
+    .unselectable & {
+        opacity: 0.2;
+        cursor: default;
+    }
+}
+
+.pdp-link {
+    height: 72px;
+    line-height: rem-calc(17px);
+    overflow: hidden;
+
+    .link {
+        color: $quaternary-green;
+        font-family: $font-family-primary-bold;
+        font-size: rem-calc(19px);
+        line-height: rem-calc(23px);
+    }
+}
+
+.product-brand {
+    color: $secondary-grey;
+    font-family: $font-family-primary-italic;
+    font-size: rem-calc(16px);
+}
+
+.strike-through {
+    .value {
+        font-size: rem-calc(11px);
+    }
+}
+
+.product-tile-shipping {
+    padding: 12px 0 0;
+    font-size: rem-calc(10px);
+    height: 50px;
+
+    .product-tile-shipping-item {
+        color: $text-grey;
+        font-size: rem-calc(10px);
+    }
+}
+
+.product-tile-swatch-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid $primary-grey;
+    margin: 0 5px;
+}
+
+.cart-button-icon {
+    margin-right: 5px;
+}
+
+.product-tile-selects {
+    justify-content: flex-end;
+
+    .quantity label {
+        display: none;
+    }
+}
+
+.slick-slide {
+    .product-tile-selects {
+        justify-content: flex-start;
+    }
+}
+
+.basic-variation-select {
+    select {
+        border-radius: 0;
+    }
+}
+
+.grid-tile {
+    padding-bottom: 20px;
+}
+
+.cart-icon-symbol {
+    font-size: rem-calc(20px);
+    line-height: rem-calc(20px);
+}
+
+.line-item-name,
+.tile-product-name-small {
+    font-size: rem-calc(14px);
+    font-family: $font-family-primary-bold;
+    color: $brand-color-primary;
+}
+
+.product-swatch-link {
+    border: none;
+    background: none;
+    outline: none;
+    padding-bottom: 5px;
+
+    &:active,
+    &:focus {
+        outline: none;
+    }
+}
+
+.product-color-label {
+    display: none;
+}
+
+.tile-body {
+    background-color: $white;
+
+    .sales,
+    .price-original {
+        color: $text-grey;
+        font-size: rem-calc(10px);
+    }
+
+    .large-price .value {
+        font-size: rem-calc(19px);
+        color: $promotional-red;
+        font-family: $font-family-primary-bold;
+    }
+
+    .price-original {
+        .original-value {
+            text-decoration: line-through;
+        }
+    }
+}
+
+.promo-price-club {
+    color: $secondary-grey;
+    font-size: rem-calc(11px);
+    line-height: rem-calc(13px);
+
+    .tile-club-image {
+        margin-top: -2px;
+
+        svg {
+            width: 30px;
+            margin-right: 5px;
+        }
+    }
+}
+
+.price .range {
+    display: flex;
+    font-family: $font-family-primary-bold;
+    color: $promotional-red;
+
+    .sales {
+        padding: 0 5px;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .search-results.list-view {
+        .product-tile {
+            flex-flow: row;
+            flex-wrap: wrap;
+        }
+
+        .custom-separator {
+            display: none;
+        }
+
+        .image-container {
+            width: 30%;
+            padding-left: 24px;
+        }
+
+        .tile-body {
+            width: 70%;
+        }
+
+        .product-badges {
+            display: none !important;
+        }
+
+        .product-brand {
+            font-size: rem-calc(12px);
+        }
+
+        .promo-price-club,
+        .product-tile-shipping-item {
+            font-size: rem-calc(11px);
+        }
+
+        .large-price .value {
+            font-size: rem-calc(22px);
+        }
+
+        .sales,
+        .price-original {
+            font-size: rem-calc(13px);
+        }
+
+        .pdp-link .link {
+            font-size: rem-calc(15px);
+        }
+    }
+
+    .product-tile-shipping {
+        .product-tile-shipping-item {
+            font-size: rem-calc(10px);
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .product-brand {
+        font-size: rem-calc(12px);
+    }
+
+    .carousel-inner:hover + .product-badges {
+        opacity: 0;
+    }
+
+    .pdp-link {
+        height: auto;
+        min-height: 50px;
+
+        .link {
+            font-size: rem-calc(15px);
+        }
+    }
+
+    .full-height {
+        min-height: 600px;
+
+        &.no-selects {
+            min-height: 550px;
+        }
+
+        .price {
+            min-height: 70px;
+        }
+    }
+
+    .cart-button-icon {
+        margin-right: 12px;
+    }
+
+    .promo-price-club {
+        font-size: rem-calc(11px);
+    }
+
+    .product-tile-shipping {
+        .product-tile-shipping-item {
+            font-size: rem-calc(10px);
+        }
+    }
+
+    .products-carousel {
+        .product-tile {
+            min-height: 535px;
+        }
+
+        .full-height {
+            min-height: 605px;
+
+            &.no-selects {
+                min-height: 560px;
+            }
+        }
+    }
+
+    .product-tile-selects {
+        justify-content: flex-start;
+    }
+
+    .tile-body {
+        .large-price .value {
+            font-size: rem-calc(20px);
+        }
+
+        .sales,
+        .price-original {
+            font-size: rem-calc(11px);
+        }
+    }
+}

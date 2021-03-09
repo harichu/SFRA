@@ -1,0 +1,30 @@
+<isdecorate template="common/layout/page">
+<isinclude template="/components/modules"/>
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+    <div class="background-grey" data-gtm="${require('int_gtm').gtmEventListener('show', 'Register')}">
+        <isaccountbanner bannertitle="${Resource.msg('register.section.title', 'registration', null)}"/>
+        <div class="container py-3 py-lg-5 d-flex justify-content-center login-page">
+            <div class="content-box background-white rounded w-100">
+                <div class="content-box-body content-align">
+                    <div class="d-flex align-items-center mb-lg-3 justify-content-center justify-content-lg-start">
+                        <div class="register-icon">
+                            <isinlinesvg src="contact-us-icon" />
+                        </div>
+                        <h4 class="content-box-title d-block d-lg-none mb-0 w-50 text-center text-green">${Resource.msg("register.section.form.header", "registration", null)}</h4>
+                        <h4 class="content-box-title d-none d-lg-block ml-3 mb-0 text-green">${Resource.msg("register.section.form.header", "registration", null)}</h4>
+                    </div>
+                    <hr/>
+                    <isinclude template="account/components/registerForm" />
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

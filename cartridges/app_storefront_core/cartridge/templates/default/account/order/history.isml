@@ -1,0 +1,81 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/orderHistory.js');
+        assets.addCss('/css/account/account.css');
+        assets.addCss('/css/account/orders.css');
+    </isscript>
+
+    <input type="hidden" id="sor-modal-url" value="${URLUtils.url('Order-SorModal')}" />
+    <input type="hidden" id="sor-order-no" />
+
+    <div class="account-page account-orders background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('label.orderhistory', 'account', null)}" hasbreadcrumbs="${true}"/>
+        <hr class="separator confirmation-separator mx-0 mt-0 mb-5">
+        <div class="container" data-gtm="${require('int_gtm').gtmEventListener('show', 'OrderHistory')}">
+            <div class="col-12 justify-content-center">
+                <div class="order-list-container">
+                    <div class="d-none d-lg-flex card addressbook-row addressbook-header order-history-header ${pdict.isOmsOrderServiceEnabled ? '' : 'no-oms'}">
+                        <div class="order-header-item status">
+                            ${Resource.msg('label.order.header.status','order',null)}
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item date order-date">
+                            ${Resource.msg('label.order.header.date','order',null)}
+                            <isif condition="${pdict.isOmsOrderServiceEnabled}">
+                                <div class="sort-icon" data-url="${URLUtils.url('Order-SortHistory', 'attr', 'date', 'order', 'asc')}">
+                                    <isinlinesvg src="order-icon" />
+                                </div>
+                            </isif>
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item number">
+                            ${Resource.msg('label.order.header.number','order',null)}
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item address">
+                            ${Resource.msg('label.order.header.address','order',null)}
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item products">
+                            ${Resource.msg('label.order.header.products','order',null)}
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item shipping">
+                            ${Resource.msg('label.order.header.shipping','order',null)}
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="order-header-item total order-total">
+                            ${Resource.msg('label.order.header.total','order',null)}
+                            <isif condition="${pdict.isOmsOrderServiceEnabled}">
+                                <div class="sort-icon" data-url="${URLUtils.url('Order-SortHistory', 'attr', 'total', 'order', 'asc')}">
+                                    <isinlinesvg src="order-icon" />
+                                </div>
+                            </isif>
+                        </div>
+                    </div>
+                    <isif condition="${pdict.orders.length === 0}">
+                        <div class="card addressbook-row">
+                            <span class="no-orders">${Resource.msg('label.order.none','account',null)}</span>
+                        </div>
+                    </isif>
+                    <span class="order-cards-container">
+                        <isinclude template="account/order/orderList"/>
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col justify-content-left">
+                    <a href="${URLUtils.url('Account-Show')}" class="btn btn-back">
+                        <i class="mr-3 fa fa-chevron-left text-orange"></i>
+                        ${Resource.msg('link.profile.backtomyaccount','account',null)}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sor-modal"></div>
+    </div>
+</isdecorate>

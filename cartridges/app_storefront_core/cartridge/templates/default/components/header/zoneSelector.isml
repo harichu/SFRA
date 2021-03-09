@@ -1,0 +1,126 @@
+<isinclude template="/components/modules"/>
+
+<input type="hidden"   id="main-store-selected" value="${session.custom.mainStore}" />
+<input type="checkbox" class="d-none" id="is-zone-city-zone-mapping-enabled" ${pdict.isZoneCityMappingEnabled ? "checked=checked" : ""} />
+
+<isif condition="${pdict.isOnSideMenu}">
+    <isif condition="${pdict.isZoneCityMappingEnabled}">
+        <isif condition="${!session.custom.mainStore}">
+            <isset name="initialZoneData" value="${require("*/cartridge/scripts/helpers/storeHelpers").initZoneForFirstSiteAccess()}" scope="page" />
+            <input type="hidden"   id="initial-city"    value="${initialZoneData.city}" />
+            <input type="hidden"   id="initial-state"   value="${initialZoneData.state}" />
+            <input type="checkbox" id="is-first-access" class="d-none" checked="checked" />
+        </isif>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="#zoneFinder" data-toggle="modal" role="button" aria-expanded="false" aria-controls="zoneFinder">
+                <div class="navigation-icon-container d-flex justify-content-center">
+                    <isinlinesvg src="header-zone-icon" />
+                </div>
+                ${Resource.msg('navigation.storelocator', 'common', null)}
+                <div class="header-arrow-icon dynamic ml-auto">
+                    <isinlinesvg src="arrow-icon" />
+                </div>
+            </a>
+        </li>
+    <iselse/>
+        <div class="col-9 offset-2 mt-2">
+            <select class="form-control dropdown-zone dropdown-zone-nav custom-select background-white border-green" id="zone" name="zone-selector" data-action="${URLUtils.url('Stores-SetMainStoreByZone')}">
+                <isloop items=${pdict.zoneOptions} var="zone">
+                    <option
+                        value="${zone.ID}"
+                        data-zone-name="${zone.name}"
+                        <isif condition="${zone.ID == session.custom.mainStore}">selected</isif>
+                        data-gtm="${require('int_gtm').gtmEventListener('click', 'Sonze', zone.name, 'SelectedZone')}"
+                    >
+                        ${zone.name}
+                    </option>
+                </isloop>
+            </select>
+        </div>
+    </isif>
+
+<iselse/>
+    <isif condition="${!session.custom.mainStore}">
+        <isset name="initialZoneData" value="${require("*/cartridge/scripts/helpers/storeHelpers").initZoneForFirstSiteAccess()}" scope="page" />
+        <input type="hidden"   id="initial-city"    value="${initialZoneData.city}" />
+        <input type="hidden"   id="initial-state"   value="${initialZoneData.state}" />
+        <input type="checkbox" id="is-first-access" class="d-none" checked="checked" />
+    </isif>
+
+    <isif condition="${pdict.isZoneCityMappingEnabled}">
+        <div class="selectzone-modal modal fade p-0" id="zoneFinder" tabindex="-1" role="dialog" aria-labelledby="zoneFinder">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header background-primary d-flex align-items-center py-1">
+                        <h5 class="modal-title text-white text-center w-100">
+                            <div class="d-inline-block">
+                                <isinlinesvg src="location-icon" />
+                            </div>
+                            <span class="pl-2">
+                                ${Resource.msg("zone.selector.title", "common", null)}
+                            </span>
+                        </h5>
+                        <button type="button" class="close no-outline" data-dismiss="modal" aria-label="Close">
+                            <isinlinesvg src="close-icon-light" />
+                        </button>
+                    </div>
+
+                    <div class="modal-body modal-selectzone-body text-grey">
+                        <p>
+                            ${Resource.msg("zone.selector.description", "common", null)}
+                        </p>
+
+                        <div class="state-city-container selectzone-form">
+                            <div class="form-group required">
+                                <label class="form-control-label text-bold pr-3" for="store-departamentos">
+                                    ${Resource.msg("field.billing.address.state", "address", null)}
+                                </label>
+                                <select name="store-departamentos" id="store-departamentos" class="custom-select form-control required state-select">
+                                    <option value="">${Resource.msg("select.state", "common", null)}</option>
+                                    <isloop items=${pdict.departamentos} var="state">
+                                        <option id="${state}" value="${state}" ${typeof initialZoneData !== "undefined" && state === initialZoneData.state ? 'selected' : ''}>${state || ' '}</option>
+                                    </isloop>
+                                </select>
+                            </div>
+                            <div class="form-group required">
+                                <label class="form-control-label text-bold pr-3" for="store-municipios">
+                                    ${Resource.msg("field.billing.address.city", "address", null)}
+                                </label>
+                                <select name="store-municipios" data-municipios="${pdict.municipios}" id="store-municipios" class="custom-select city-select form-control required">
+                                    <option value="">${Resource.msg("select.city", "common", null)}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="selectzone-actions">
+                        <button class="btn btn-secondary btn-confirm set-active-zone-btn" data-url="${URLUtils.url('Stores-SetMainStoreByZone')}">
+                            ${Resource.msg('zone.selector.button', 'common', null)}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <iselse>
+        <div class="selected-zone-city text-uppercase" data-target="#zoneFinder" data-toggle="collapse">
+            <isprint value="${(typeof initialZoneData !== "undefined" && initialZoneData.city) || pdict.cityName}" />
+        </div>
+        <div id="zoneFinder" class="collapse zone-finder position-absolute background-white p-3 shadow pb-4 header-collapse left-0">
+            <p class="mb-2 text-green text-uppercase w-100 text-center text-bold zone-finder-title">
+                ${Resource.msg("zone.selector.title", "common", null)}
+            </p>
+            <select class="form-control dropdown-zone custom-select" id="zone" name="zone-selector" data-action="${URLUtils.url('Stores-SetMainStoreByZone')}">
+                <isloop items=${pdict.zoneOptions} var="zone">
+                    <option
+                        value="${zone.ID}"
+                        data-zone-name="${zone.name}"
+                        <isif condition="${zone.ID == session.custom.mainStore}">selected</isif>
+                        data-gtm="${require('int_gtm').gtmEventListener('click', 'Sonze', zone.name, 'SelectedZone')}"
+                    >
+                        ${zone.name}
+                    </option>
+                </isloop>
+            </select>
+        </div>
+    </isif>
+</isif>

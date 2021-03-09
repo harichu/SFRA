@@ -1,0 +1,1074 @@
+.full-width .primary-content {
+    border: 0 none;
+    width: 100%;
+}
+ul.options_link {
+    list-style-type: none;
+    padding-left: 0;
+}
+ul.options_link li {
+    display: inline;
+}
+
+// decorators pt_manageoreplen, pt_payerauthentication
+.primary-content {
+    float: right;
+    margin-left: -1px;
+    padding: 0 0 20px;
+    position: relative;
+    width: 75%;
+}
+// decorator pt_payerauthentication
+.primary-focus .primary-content {
+    border: 0 none;
+    float: left;
+    margin: 0;
+    width: 75%px;
+}
+
+// decorator pt_manageoreplen
+.page-content .primary-content {
+    padding-left: 29px;
+}
+#secondary {
+    width: 210px;
+}
+
+// Login
+#login {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+#login .ui-dialog-content {
+    padding: 0;
+    width: 90% !important;
+    margin: 0 auto;
+}
+
+// Orders & Subscriptions Tables
+table.orders,
+table#subscriptions {
+    border: 2px solid white;
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin-left: -2px;
+    width: 97%;
+}
+table.orders th,
+table#subscriptions th {
+    background-color: #ccc;
+    padding: 1em;
+}
+table.orders tbody tr:nth-child(odd),
+table#subscriptions tbody tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+// order & subscription VIEW dialogs
+.ui-dialog .ui-dialog-content {
+    padding: 0;
+    width: 90% !important;
+    margin: 0 auto;
+}
+#orderview,
+#subscriptionview {
+    z-index: 99;
+    padding: 2em 0 4em 0;
+}
+#orderview .header,
+#orderview .order-section,
+#orderview .payment-section,
+#subscriptionview .header,
+#subscriptionview .order-section,
+#subscriptionview .payment-section {
+    border-bottom: 1px solid black;
+}
+#orderview .last,
+#subscriptionview .last {
+    border: none;
+}
+#orderview .title,
+#orderview .payment-section p,
+#subscriptionview .title,
+#subscriptionview .payment-section p {
+    font-weight: 900;
+}
+
+#orderview .payment-section p.tax,
+#subscriptionview .payment-section p.tax {
+    font-weight: normal;
+    display: block;
+}
+#orderview .order-section,
+#subscriptionview .order-section {
+    padding: 1em 0;
+}
+#orderview .order-section p.title,
+#subscriptionview .order-section p.title {
+    margin-left: 0;
+    width: 25%;
+}
+#orderview .order-section .submit,
+#subscriptionview .order-section .submit {
+    position: relative;
+    bottom: 2.85em;
+    left: 90%;
+}
+#orderview .order-section table.product,
+#subscriptionview .order-section table.product {
+    margin-top: 1em;
+}
+#orderview .content-section,
+#subscriptionview .content-section {
+    display: inline-block;
+}
+#orderview .content-section table,
+#subscriptionview .content-section table {
+    margin-left: -1em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    table-layout: fixed;
+}
+#orderview .content-section table tr td:first-child,
+#subscriptionview .content-section table tr td:first-child {
+    font-weight: 900;
+    padding: 0.4em 0;
+    padding-left: 1em;
+}
+#orderview .content-section table td,
+#subscriptionview .content-section table td {
+    max-width: 10%;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+#orderview .content-section table td span.name,
+#subscriptionview .content-section table td span.name {
+    font-weight: normal;
+}
+#orderview .content-section table td.phone-number,
+#subscriptionview .content-section table td.phone-number {
+    width: 7em;
+}
+
+#orderview .product td,
+#subscriptionview .product td{
+    vertical-align: top;
+    padding: 1em;
+    width: 25%;
+}
+#orderview .product input,
+#subscriptionview .product input,
+#orderview .product select,
+#subscriptionview .product select {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+#orderview #actions,
+#subscriptionview #actions {
+    display: inline-block;
+    position: relative;
+    top: 0.75em;
+    width: 100%;
+}
+#orderview #actions span,
+#subscriptionview #actions span {
+    margin: 0.2em 0;
+}
+
+#subscriptionview #actions span {
+    float: left;
+}
+
+#addresschange {
+    width: 500px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 1em 1.5em;
+}
+#addresschange .form-row {
+    margin: 0;
+}
+#addresschange #editprofile {
+    margin: 1em auto;
+}
+#addresschange #editAddressForm {
+    margin: 0;
+}
+#addresschange #editAddressForm #dialogApplyBtn {
+    position: absolute;
+    right: 24%;
+    display: none;
+}
+#addresschange #editAddressForm .select label {
+    padding: 0;
+}
+#addresschange .keynote {
+    margin-bottom: 1em;
+}
+#addresschange + .ui-dialog-buttonpane .ui-dialog-buttonset {
+    margin-top: -2em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+#orderview + .ui-dialog-buttonpane .ui-dialog-buttonset,
+#subscriptionview + .ui-dialog-buttonpane .ui-dialog-buttonset {
+    margin: -2em 1em 3em 0;
+}
+#cancel-all-dialog h3 {
+    width: 95%;
+    margin: 2em auto 0;
+}
+
+.select-group {
+    float: left;
+}
+.group-change-refill,
+.update-change-refill {
+    display: inline-block;
+
+    .title-little {
+        width: auto !important;
+        white-space: nowrap;
+    }
+
+    .select-group {
+        float: none !important;
+    }
+}
+
+.update-change-refill {
+    margin-right: 10px;
+}
+
+
+.payment-section {
+    &__card,
+    &__order {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px 0;
+        border-top: 0;
+        border-bottom: 1px solid #c5c5c5;
+
+        &--item {
+            display: inline-block;
+            width: 50%;
+
+            .title-order {
+                font-weight: 900;
+            }
+
+            > * {
+                display: inline;
+            }
+        }
+
+        &--item-full {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+
+            > * {
+                display: inline;
+                margin: 0;
+            }
+        }
+
+        &--item-last {
+            text-align: right;
+        }
+    }
+}
+
+#orderview,
+#subscriptionview {
+    .content-section {
+        width: 100%;
+    }
+
+    .order-section {
+        p {
+            &.title{
+                width: 100%;
+            }
+
+            &.title-little {
+                width: 25%;
+            }
+        }
+
+        .product {
+            border-top: 1px solid black;
+            thead tr th {
+                border-bottom: 1px solid #c5c5c5;
+                padding: 10px 0;
+            }
+
+            .no-padding-left {
+                padding-left: 0;
+            }
+
+            .quantity {
+                width: 25%;
+            }
+        }
+    }
+}
+
+.update-card {
+    display: block;
+    margin: 1em 0;
+}
+// *** end of orders & subscriptions VIEW dialogs ***
+
+
+// ALL SUBSCRIPTIONS
+#my_subscriptions {
+    font-family: $font-family-primary;
+
+    .subscriptionSection {
+        margin-bottom: 50px;
+        .product-out-of-stock {
+            font-weight: bold;
+            color: red;
+            display: block;
+        }
+    }
+    .subscriptionHeader {
+        font-size: 1.75em;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    .subscriptionSection-img {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img {
+            width: 90px;
+            height: auto;
+            margin: 15px 15px 15px 0;
+        }
+        .quantity-name {
+            font-weight: 400;
+            margin: 10px;
+            font-size: 18px;
+            span {
+                font-weight: 600;
+            }
+        }
+        .description-label {
+            margin-left: 10px;
+        }
+    }
+    .description-label {
+        font-size: 1.3em;
+        font-weight: 400;
+    }
+    .description-value {
+        font-size: 1.3em;
+        font-weight: 400;
+        display: inline-block;
+        >span {
+            display: inline-block;
+            font-weight: 700;
+            line-height: 1em;
+            padding-right: 10px;
+            border-right: 1px solid #333;
+        }
+        >span:last-child {
+            border: none;
+        }
+    }
+    .subscription-buttons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+// upcoming orders (show/hide) button
+#my_subscriptions {
+    .show-hide-orders {
+        cursor: pointer;
+        font-size: 1.5em;
+        border-bottom: 1px solid #9e9e9e;
+        padding-bottom: 10px;
+        width: calc(100%-100px);
+        margin-right: 100px;
+    }
+    .show-hide-orders:hover {
+        text-shadow: 4px 4px 6px rgb(204, 202, 202);
+    }
+    .subscriptionOrders {
+        display: none;
+    }
+}
+
+// Upcoming Order
+.subscriptionOrders .orders {
+    list-style-type: none;
+    padding: 5px;
+    margin: 10px 100px 10px 0;
+    li {
+        border-bottom: 1px solid rgb(224, 222, 222);
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    li:last-child {
+        border: none;
+    }
+    &-date {
+        font-weight: 700;
+        font-size: 1.3em;
+    }
+    &-buttons {
+        font-weight: 700;
+        display: flex;
+    }
+}
+
+// Order buttons
+.subscriptionOrders {
+    .orders-buttons {
+        display: flex;
+            // changes SKIP view
+        .order.skip.sorlink {
+            all:unset;
+            color: #e27252;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 20px;
+            font-size: 1.3em;
+            margin: 10px 0;
+            cursor:pointer;
+
+            img {
+                width: 12px;
+                height: auto;
+                margin-right: 3px;
+            }
+        }
+        // change VIEW view
+        #subscriptionOrders__view-button.order.view.sorlink {
+            color:rgba(127, 188, 0, 1);
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 20px;
+            font-size: 1.3em;
+            img {
+                width: 13px;
+                height: auto;
+                margin-right: 3px;
+            }
+        }
+        // change CANCEL view
+        .order.pause.sorlink, .order.reactivate.sorlink {
+            color:rgba(38, 152, 232, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 25px;
+            font-size: 1.3em;
+            margin: 10px 0;
+            img {
+                width: 12px;
+                height: auto;
+                margin-right: 3px;
+            }
+        }
+        .order.reactivate.sorlink {
+            width: 90px;
+            height: 20px;
+        }
+    }
+
+}
+
+// Subscription buttons
+// PAUSE & REACTIVATE buttons
+#my_subscriptions .sorlink.pausesubscription, #my_subscriptions .sorlink.reactivatesubscription{
+    background-color:rgba(38, 152, 232, 1);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 40px;
+    margin: 10px;
+    font-size: 1.3em;
+    img {
+        width: 12px;
+        height: auto;
+        margin-right: 3px;
+    }
+}
+#my_subscriptions .sorlink.reactivatesubscription {
+    width: 120px;
+}
+
+// VIEW subscription
+#my_subscriptions .sorlink.view {
+    background-color:rgba(127, 188, 0, 1);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 40px;
+    margin: 10px;
+    font-size: 1.3em;
+    img {
+        width: 15px;
+        height: auto;
+        margin-right: 3px;
+    }
+}
+// CANCEL subscription
+#my_subscriptions .sorlink.cancelsubscription, #my_subscriptions .sorlink.cancelrenewal {
+    background-color: #e27252;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 40px;
+    margin: 10px;
+    font-size: 1.3em;
+    img {
+        width: 12px;
+        height: auto;
+        margin-right: 3px;
+    }
+}
+#my_subscriptions .sorlink.cancelrenewal {
+    width: 165px;
+}
+
+/* general sor elements */
+
+span.sorlink {
+    cursor: pointer;
+    color: #84bd00;
+    outline: medium none;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 14px;
+}
+.hide {
+    display: none;
+}
+
+// Pdp
+#pdpMain {
+}
+/* Refill options PDP */
+.sor-options-description {
+    all: initial;
+    font-size: 16px;
+    margin-top: 0px;
+    color: #333;
+    display: block;
+}
+
+.smart-order-refill-options .or-cancel-edit-text {
+    all: initial;
+    position: relative;
+    max-width: 100%;
+    font-size: 15px;
+    margin: 10px 10px 15px 10px;
+    color: #333;
+    display: block;
+}
+
+.smart-order-refill-options .full_row {
+    position: relative;
+    padding: 0 6px;
+    margin: 15px 0;
+}
+
+.smart-order-refill-options .full_row input[type="radio"] {
+    display: none;
+}
+
+.smart-order-refill-options .full_row label {
+    all: initial;
+    color: #666;
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+    max-width: 85%;
+    position: relative;
+    vertical-align: middle;
+}
+
+.smart-order-refill-options .full_row label:before {
+    all: initial;
+    content: " ";
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin: 0 5px 0 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 11px;
+    border: 2px solid #84bd00;
+    background-color: transparent;
+}
+
+.smart-order-refill-options .full_row input[type=radio]:checked + label:after {
+    border-radius: 11px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    content: " ";
+    display: block;
+    background: #84bd00;
+}
+
+.smart-order-refill-options .smart-order-refill-period{
+    display: inline-block;
+    vertical-align: middle;
+}
+.sor-single-option {
+    font-size: 16px;
+    font-weight: 600;
+    margin:0;
+}
+.sor-single-option__message {
+    font-weight: 400;
+}
+
+.smart-order-refill-options .sor-price {
+    all: initial;
+    font-size: 20px;
+    margin: 0;
+    max-width: 85%;
+    position: relative;
+    display: block;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+#everyDelivery, #SorDeliveryMonthInterval, #SorDeliveryWeekInterval {
+    display: inline-block;
+    margin-left: 7px;
+    width: inherit;
+}
+.smartOrderRefillOnly h3 {
+    all: initial;
+    font-size: 20px;
+    margin: 0;
+    max-width: 85%;
+    position: relative;
+    display: block;
+    font-weight: bold;
+    margin-left: 6px;
+    margin-bottom: 10px;
+}
+/* refill info*/
+.refill-info-links {
+    font-size: 12px;
+    line-height: 1em;
+
+    svg {
+        margin-top: -1px;
+    }
+}
+/* refill modify dialog */
+
+#modify-smart-order-refill .option {
+    position: relative;
+    padding: 0 6px;
+    margin: 15px 0;
+}
+#modify-smart-order-refill .option input[type="radio"] {
+    display: none;
+}
+#modify-smart-order-refill .option label {
+    all: initial;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+}
+#modify-smart-order-refill .option label.hide {
+    display: none;
+}
+#modify-smart-order-refill .option label:before {
+    all: initial;
+    content: " ";
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin: 0 5px 0 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 11px;
+    border: 2px solid #84bd00;
+    background-color: transparent;
+}
+
+#modify-smart-order-refill .option input[type=radio]:checked + label:after {
+    border-radius: 11px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 3px;
+    left: 4px;
+    content: " ";
+    display: block;
+    background: #84bd00;
+}
+
+#modify-smart-order-refill .refill-period {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#modify-smart-order-refill select {
+    border: 1px solid darkgray;
+    position: relative;
+    margin-left: 5px;
+    height: 18px;
+    font-size: 11px;
+    width: inherit;
+}
+
+#modifyRefill + #removeRefill:before {
+    content: '|';
+    padding: 0 4px 0 2px;
+    color: initial;
+}
+
+/* cart login message */
+#message_wrapper {
+    all: unset;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    background-color: #e27252;
+    cursor:default;
+}
+#message_wrapper a,
+#message_wrapper a strong,
+#message_wrapper p {
+    all:unset;
+    color: #ffffff;
+    font-size:1em;
+}
+#message_wrapper a {
+    cursor: pointer;
+}
+#message_wrapper a strong {
+    font-weight: bold;
+}
+/* Login modal */
+.sorlogin-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.sorlogin-col {
+    flex: 1;
+    max-width: 48%;
+}
+.sorlogin-col h2 {
+    all: unset;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 21px;
+    margin: 5px auto
+}
+#sorlogin .login-rememberme {
+    display: inline-block;
+    margin: 6px;
+}
+#sorlogin .login-rememberme label,
+#sorlogin .login-rememberme .field-wrapper
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#loginFromCartError {
+    background-color: #cebdb3;
+    border: 1px solid #990000;
+    border-radius: .5em;
+    color: #990000;
+    margin: 1px 0;
+    padding:10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+/* sor forms */
+.sor-form-row .hide {
+    display: none;
+}
+
+.sor-form-row {
+    margin: 8px 0 16px;
+}
+
+.sor-form-row label {
+    all: unset;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: .3rem;
+    font-family: Arial, sans-serif;
+}
+
+.sor-form-row.label-inline label {
+    display: inline;
+    float: none;
+    margin-top: 0;
+    text-align: left;
+    width: auto;
+}
+
+.sor-form-row.label-inline input[type="checkbox"],
+.sor-form-row.label-inline input[type="radio"] {
+    margin: 0 5px 0 0;
+}
+
+.sor-form-row button {
+    display: inline-block;
+}
+
+.sor-form-row.label-inline:after {
+    content: ' ';
+    clear: both;
+}
+
+.sor-form-row.label-inline .field-wrapper {
+    float: left;
+    padding-left: 0;
+    width: auto;
+}
+
+.sor-form-row .required-indicator {
+    all: unset;
+    color: #990000;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.sor-form-row label span {
+    all: unset;
+}
+
+.sor-form-row .field-wrapper {
+    all: unset;
+    box-sizing: border-box;
+    margin-bottom: 1px;
+    width: 100%;
+    display: block;
+}
+
+.sor-form-row input[type="text"],
+.sor-form-row input[type="number"],
+.sor-form-row input[type="password"],
+.sor-form-row input[type="date"],
+.sor-form-row select,
+.sor-form-row textarea {
+    all: unset;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    height: 32px;
+    padding: 8px 6px;
+    text-indent: 0;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.sor-form-row .field-wrapper label.error {
+    background-color: #faeded;
+    color: #990000;
+    padding: 5px;
+    margin-top: 3px;
+}
+
+/* minicart */
+.mini-cart-link-checkout.hide-checkout-link {
+    visibility: hidden;
+    margin: 0;
+}
+
+/* credit card warning */
+.credit_card_save_text {
+    margin: 10px auto;
+    width: 55%;
+}
+.tab-content .credit_card_save_text{
+    width: auto;
+}
+
+.credit_card_save_text .credit_card_expiration_warning{
+	font-weight: bold;
+    color: red;
+    margin: 0;
+}
+
+.payment-method .save_card {
+    display: none;
+}
+/* manage subscriptions */
+.refill-dashboard {
+    font-size: 12px;
+}
+#subscriptionview,
+#orderview {
+    font-size: 14px;
+    font-family: Arial,sans-serif;
+}
+/* update card */
+.sor-form-row label.updatecard-expiration-label {
+    display: block;
+    width: 100%;
+}
+
+.form-row.sor-form-row.month {
+    margin-right: 10px;
+}
+
+// including breakpoint to mobile
+@media (min-width: 750px) and ( max-width: 1024px ) {
+    #primary {
+        width: 75%;
+        padding-left: 0;
+        border: 0;
+    }
+
+    .primary-focus #secondary,
+    #secondary {
+        width: 23%;
+    }
+}
+
+@media (max-width: 750px) {
+    #main {
+        padding-top: 15px;
+    }
+
+    #my_subscriptions {
+        overflow-x: scroll;
+    }
+
+    .primary-content {
+        width: 100%;
+
+        .form-row {
+            &:not(.label-inline) {
+                .field-wrapper {
+                    width: 100%;
+                }
+            }
+
+            &.form-row-button {
+                text-align: center;
+            }
+        }
+    }
+    .primary-focus .primary-content,
+    #secondary {
+        width: 100%;
+    }
+
+    .group-change-refill {
+        margin: 0 0 10px 0;
+    }
+
+    .payment-section {
+        &__card,
+        &__order {
+            &--item {
+                width: 100%;
+            }
+        }
+    }
+
+    #subscriptionview #actions span:last-of-type {
+        float: left;
+    }
+
+    #subscriptionview {
+        .order-section {
+            p {
+                &.title-little {
+                    display: inline;
+                }
+            }
+        }
+    }
+
+    #my_subscriptions {
+        .subscriptionSection-img {
+            flex-direction: column-reverse;
+        }
+        .subscription-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .show-hide-orders {
+            width: 100%;
+            margin-right: 0;
+            text-align: center;
+            .down-arrow {
+                display: inline-block;
+                // float: left;
+                margin-top: 5px;
+                width: 10px;
+                margin: 10px;
+            }
+        }
+        .subscriptionHeader {
+            text-align: center;
+        }
+    }
+    .subscriptionOrders .orders {
+        margin: 10px 10px 10px 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .orders-buttons {
+            flex-direction: column;
+        }
+}
+
+.hide-mobile {
+    display: block;
+
+    @media (max-width: 450px) {
+        display: none;
+    }
+}
+
+.show-mobile {
+    display: none;
+
+    @media (max-width: 450px) {
+        display: block;
+    }
+}

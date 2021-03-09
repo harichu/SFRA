@@ -1,0 +1,17 @@
+<isset name="product" value="${pdict.product}" scope="page">
+<label for="quantityElement">${Resource.msg('label.quantity', 'common', null)}</label>
+<select class="quantity-select custom-select form-control double-select" id="quantityElement" ${!product.readyToOrder || !product.available ? 'disabled' : ''}>
+    <isif condition="${!empty(product.quantitiesWrapper)}">
+        <isloop items="${product.quantitiesWrapper}" var="quantity">
+            <option value="${quantity.value}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', 'Quantity', quantity.value, 'SelectedValue')}"
+                <isif condition="${product.productType !== 'bundle'}">data-url="${quantity.url}"</isif>
+                ${quantity.selected ? 'selected' : ''}
+            >
+                ${quantity.value}
+            </option>
+        </isloop>
+    <iselse>
+        <option data-gtm="${require('int_gtm').gtmEventListener('click', 'Quantity', 1, 'SelectedValue')}" value="1">1</option>
+    </isif>
+</select>

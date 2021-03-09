@@ -1,0 +1,74 @@
+.modal-checkout {
+    .form-group {
+        padding: 0 20px;
+        margin-bottom: 10px;
+    }
+
+    .modal-title {
+        font-size: rem-calc(19px);
+    }
+
+    .form-control-label,
+    .custom-control-label,
+    .account-footer-elements {
+        font-size: rem-calc(14px);
+    }
+}
+
+.modal-checkout-text {
+    color: $text-grey;
+    font-size: rem-calc(15px);
+    padding: 0 15px;
+}
+
+.modal-checkout-wrapper {
+    padding: 30px;
+}
+
+.sor-form-row {
+    margin-bottom: 10px;
+}
+
+#modal-facebook {
+    pointer-events: none;
+
+    .modal-dialog {
+        pointer-events: all;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .modal-checkout {
+        .modal-title {
+            font-size: rem-calc(20px);
+        }
+
+        .form-group {
+            padding: 0 70px;
+            margin-bottom: 10px;
+        }
+
+        .form-control-label,
+        .custom-control-label,
+        .account-footer-elements {
+            font-size: rem-calc(14px);
+        }
+
+        .modal-footer {
+            font-size: rem-calc(14px);
+        }
+    }
+
+    .modal-checkout-text {
+        padding: 0 70px;
+        font-size: rem-calc(16px);
+    }
+
+    .modal-title {
+        font-size: rem-calc(24px);
+    }
+
+    .modal-checkout-wrapper {
+        padding: 30px 70px;
+    }
+}

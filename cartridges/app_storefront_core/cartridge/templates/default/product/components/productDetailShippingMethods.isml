@@ -1,0 +1,42 @@
+<isset name="storePickup" value="${product.custom.storePickup || product.availableForInStorePickup}" scope="page" />
+<isset name="homeDelivery" value="${product.custom.homeDelivery}" scope="page" />
+<isset name="prescription" value="${product.custom.difarmaPrescriptionModel && product.custom.difarmaPrescriptionModel.value}" scope="page" />
+<div class="product-detail-shipping d-flex row py-3 justify-content-start">
+    <div class="track-shipping pl-1 pr-lg-2 w-lg-auto text-nowrap" style="display:${homeDelivery ? 'flex' : 'none'}">
+        <div class="product-detail-shipping-item d-flex align-items-center justify-content-start pr-0 w-100">
+            <div class="tile-club-image online-shopping mr-2">
+                <isinlinesvg src="track-icon" />
+            </div>
+            <span>
+                <p class="m-0" style="display:${!storePickup ? 'inline-block' : 'none' }">${Resource.msg('tile.shopping.singular', 'common', null)}</p>
+                ${Resource.msg('tile.shopping.online.text', 'common', null)}
+            </span>
+        </div>
+    </div>
+
+    <div class="store-shipping pl-1 pr-lg-2 w-lg-auto text-nowrap" style="display:${storePickup ? 'flex' : 'none' }">
+        <div class="product-detail-shipping-item d-flex align-items-center justify-content-end pl-0 w-100">
+            <div class="tile-club-image online-shopping mr-2">
+                <isinlinesvg src="store-icon" />
+            </div>
+            <span>
+                <p class="m-0" style="display:${!homeDelivery ? 'inline-block' : 'none' }">${Resource.msg('tile.shopping.singular', 'common', null)}</p>
+                ${Resource.msg('tile.shopping.store.text', 'common', null)}
+            </span>
+        </div>
+    </div>
+    <isif condition="${!empty(prescription)}">
+        <div class="receta-shipping pl-1 pr-lg-2 w-lg-auto">
+            <div class="product-detail-shipping-item d-flex align-items-center justify-content-end pl-0 w-100">
+                <div class="prescription-icon online-shopping mr-2">
+                    <isinlinesvg src="receta-icon" width="17" height="18"/>
+                </div>
+                <isif condition="${prescription.toString() === 'simple'}">
+                    <span>${Resource.msg('tile.receta.simple.text', 'common', null)}</span>
+                <iselse/>
+                    <span>${Resource.msg('tile.receta.restricted.text', 'common', null)}</span>
+                </isif>
+            </div>
+        </div>
+    </isif>
+</div>

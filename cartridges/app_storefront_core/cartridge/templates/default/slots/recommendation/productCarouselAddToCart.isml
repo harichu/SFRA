@@ -1,0 +1,11 @@
+<isinclude template="/components/modules" />
+
+<div class="recommendation-mini-cart-carousel">
+    <isloop items="${slotcontent.content}" var="product" status="loopState" end="7">
+        <div class="slider-tile">
+            <isobject object="${product}" view="recommendation">
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+            </isobject>
+        </div>
+    </isloop>
+</div>

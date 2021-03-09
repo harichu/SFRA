@@ -1,0 +1,113 @@
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<script>
+    (function(){
+        if (typeof window.SmartOrderRefill !== 'undefined' && typeof window.SmartOrderRefill.initializePdp !== undefined) {
+            window.SmartOrderRefill.initializePdp()
+        }
+    })()
+</script>
+<isif condition="${pdict.RefillOptions.isSORProduct && pdict.orderable && (pdict.RefillOptions.weekIntervals.enabled || pdict.RefillOptions.monthIntervals.enabled)}" >
+    <p class="sor-options-description text-grey"><isprint value="${Resource.msg('modal.body.optionsdescription', 'modal', null)}" encoding="off"/></p>
+    <div class="smart-order-refill-options" data-sor-one-time="${pdict.RefillOptions.sorOneTime}">
+        <div class="full_row d-flex justify-content-between align-items-center">
+            <input type="radio"
+            name="hasSmartOrderRefill"
+            value="true"
+            id="OsfSorRefillProductYes"
+            class="clearfix OsfSorRefillProductYes d-none"
+            checked="checked"/>
+            <iscomment> <label for="OsfSorRefillProductYes" class="text-grey"><isprint value="${Resource.msg('modal.label.frequency', 'modal', null)}" encoding="off"/> </label>
+            <label for="OsfSorRefillProductYes" class="text-grey"><isprint value="${Resource.msg('modal.label.quantity', 'modal', null)}" encoding="off"/> </label> </iscomment>
+
+                <isif condition="${pdict.RefillOptions.weekIntervals.enabled}" >
+                    <isset name="weekOption" value="${true}" scope="page"/>
+                <iselse>
+                    <isset name="weekOption" value="${false}" scope="page"/>
+                </isif>
+
+                <isif condition="${pdict.RefillOptions.monthIntervals.enabled}" >
+                    <isset name="monthOption" value="${true}" scope="page"/>
+                <iselse>
+                    <isset name="monthOption" value="${false}" scope="page"/>
+                </isif>
+                <div class="smart-order-refill-period smart-order-refill-period w-100" style="display:none">
+                    <div class="mb-4 mb-lg-2 row">
+                        <span class="text-grey col-lg-6 align-items-center text-bold mb-3 mb-lg-0 d-lg-flex">
+                            ${Resource.msg('modal.sor.label.first', 'modal', null )}
+                        </span>
+
+                        <isif condition="${( ((!weekOption && monthOption) && (pdict.RefillOptions.monthIntervals.intervals.length == 1)) || ((weekOption && !monthOption) && (pdict.RefillOptions.weekIntervals.intervals.length == 1)))}">
+                            <p class="sor-single-option" data-disable-dropdown='true'>
+                                <isif condition="${!pdict.RefillOptions.sorOneTime}" >
+                                    <span class="sor-single-option__message">${Resource.msg('smartorderrefill.dashboard.singleoption', 'smartorderrefill', null)}</span>
+                                <iselse/>
+                                </isif>:<em> ${pdict.RefillOptions.monthIntervals.intervals.length == 1 ? (pdict.RefillOptions.monthIntervals.intervals[0].value + ' ' + Resource.msg('modal.label.month', 'modal', null) ) : (pdict.RefillOptions.weekIntervals.intervals[0].value + ' ' + Resource.msg('modal.label.week', 'smartorderrefill', null) )}</em>
+                            </p>
+                        </isif>
+
+                        <isif condition="${weekOption && monthOption}">
+                            <select id="everyDelivery" class="everydelivery sor-select form-control custom-select text-uppercase text-grey col-8 offset-2 offset-lg-0 col-lg-6" name="everyDelivery">
+                                <option value="${pdict.RefillOptions.PERIODICITY.WEEK}" <isif condition="${pdict.RefillOptions.weekIntervals.selected}">selected</isif>>
+                                    ${Resource.msg( 'modal.label.week', 'modal', null )}
+                                </option>
+                                <option value="${pdict.RefillOptions.PERIODICITY.MONTH}" <isif condition="${pdict.RefillOptions.monthIntervals.selected}">selected</isif>>
+                                    ${Resource.msg( 'modal.label.month', 'modal', null )}
+                                </option>
+                            </select>
+                        <iselseif condition="${!weekOption && monthOption}" >
+                            <input id="everyDelivery" type='hidden' name="everyDelivery" value="${pdict.RefillOptions.PERIODICITY.MONTH}">
+                            <isset name="SorPeriodicity" value="${pdict.RefillOptions.PERIODICITY.MONTH}" scope="page"/>
+
+                        <iselseif condition="${weekOption && !monthOption}" >
+                            <input id="everyDelivery" type='hidden' name="everyDelivery" value="${pdict.RefillOptions.PERIODICITY.WEEK}">
+                            <isset name="SorPeriodicity" value="${pdict.RefillOptions.PERIODICITY.WEEK}" scope="page"/>
+                        </isif>
+                    </div>
+
+                    <isif condition="${pdict.RefillOptions.weekIntervals.selected}">
+                        <isset name="displayWeek" value="inline-block" scope="page" />
+                        <isset name="displayMonth" value="none" scope="page" />
+                    <iselseif condition="${pdict.RefillOptions.monthIntervals.selected}">
+                            <isset name="displayWeek" value="none" scope="page" />
+                            <isset name="displayMonth" value="inline-block" scope="page" />
+                    <iselse>
+                        <isset name="displayWeek" value="none" scope="page" />
+                        <isset name="displayMonth" value="none" scope="page" />
+                    </isif>
+
+                    <div class="row mb-4 mb-lg-0">
+                        <span class="text-grey col-lg-6 align-items-center text-bold mb-3 mb-lg-0 d-lg-flex">
+                            ${Resource.msg('modal.sor.label.second', 'modal', null )}
+                        </span>
+
+                        <isif condition="${weekOption}" >
+                            <select id="SorDeliveryWeekInterval" name="SorDeliveryWeekInterval" class="sor-select custom-select col-8 offset-2 offset-lg-0 col-lg-6">
+                                <isloop items="${pdict.RefillOptions.weekCount.intervals}" var="woption">
+                                    <isif condition="${woption.value > 0}">
+                                        <option value="${woption.value}" <isif condition="${woption.selected}">selected</isif> >
+                                            ${Resource.msgf('modal.label.pedidos', 'modal', null, Number(woption.value))}
+                                        </option>
+                                    </isif>
+                                </isloop>
+                            </select>
+                        </isif>
+
+                        <select name="SorDeliveryMonthInterval" id="SorDeliveryMonthInterval" class="sor-select custom-select col-8 offset-2 offset-lg-0 col-lg-6">
+                            <isloop items="${pdict.RefillOptions.monthCount.intervals}" var="option">
+                                <isif condition="${option.value > 0}">
+                                    <option value="${option.value}" <isif condition="${option.selected}">selected="selected"</isif>>
+                                        ${Resource.msgf('modal.label.pedidos', 'modal', null, Number(option.value))}
+                                    </option>
+                                </isif>
+                            </isloop>
+
+                        </select>
+                    </div>
+                </div>
+            <iscomment> PASTED </iscomment>
+          </div>
+    </div>
+</isif>

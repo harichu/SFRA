@@ -1,0 +1,24 @@
+<isif condition="${typeof lineItem === "undefined"}">
+    <isset name="lineItem" value="${null}" scope="page" />
+</isif>
+
+<p class="shipping-subtitle text-grey pt-3 pb-4 d-none d-lg-block">
+    ${Resource.msg("checkout.shipping.address.select", "checkout", null)}
+</p>
+<p class="d-lg-none w-100 d-flex justify-content-center align-items-center text-grey">
+    <span class="mr-2 shipping-step-icon">
+        <isinlinesvg src="icon-shipping"/>
+    </span>
+    ${Resource.msg('title.checkout.formshipping.short', 'checkout', null)}
+</p>
+
+<p class="shipping-subtitle-second mt-3">
+    ${Resource.msg('select.address.client', 'checkout', null)}
+</p>
+
+<div class="form-group addressSelector" id="shipmentSelector-${lineItem ? lineItem.UUID : 'default'}" name="shipmentSelector" data-create-shipment-url="${URLUtils.https('CheckoutAddressServices-CreateNewAddress')}">
+    <isinclude template="checkout/shipping/shipmentSelectorOptions" />
+</div>
+<p class="btn-add-new cursor-pointer text-bold text-primary-color" data-gtm="${require('int_gtm').gtmEventListener('click', 'AddAddressOnCheckout')}">
+    ${Resource.msg('action.add.new', 'checkout', null)}
+</p>

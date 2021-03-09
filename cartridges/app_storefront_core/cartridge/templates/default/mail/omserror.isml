@@ -1,0 +1,4 @@
+
+<p>${Resource.msgf("omserror.line1", "error", null, pdict.orderNo)}</p>
+<p>${pdict.errorMessage}</p>
+

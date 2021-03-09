@@ -1,0 +1,24 @@
+<div class="address-summary">
+    <div>
+        <span class="firstName">
+            <isif condition="${address && address.firstName}">${address.firstName}</isif>
+        </span>
+        <span class="lastName">
+            <isif condition="${address && address.lastName}">${address.lastName}</isif>
+        </span>
+    </div>
+
+    <div class="d-flex">
+        <div class="address1 pr-1">
+            <isif condition="${address && address.address1}">${address.address1}</isif>
+        </div>
+
+        <div class="address2 pr-1">
+            <isif condition="${address && address.address2}">${address.address2}</isif>
+        </div>
+
+        <span class="city pr-1">
+            <isif condition="${address && address.city}">${address.city}</isif>
+        </span>
+    </div>
+</div>

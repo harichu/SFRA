@@ -1,0 +1,16 @@
+<isinclude template="/components/modules" />
+
+<div class="carousel-section" style="background-color: ${slotcontent.custom.sectionBackground ? slotcontent.custom.sectionBackground : 'transparent'}">
+    <div class="row products-carousel">
+        <div class="col-12 pr-0 pr-lg-3">
+            <h2 class="carousel-title text-center">
+                <isprint value="${slotcontent.custom.sectionTitle}" encoding="off" />
+            </h2>
+            <div class="slick-slider ${slotcontent.custom.carouselCircular ? 'circular-carousel' : ''}" data-slick='{"slidesToShow": 4.25, "infinite": ${slotcontent.custom.carouselCircular ? true : false}, "responsive":[{"breakpoint": 1024, "settings": {"slidesToShow": 2.1, "arrows": false}}, {"breakpoint": 767, "settings": {"slidesToShow": 1.2, "arrows": false}}]}'>
+                <isloop items="${slotcontent.content}" var="product" status="loopState">
+                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+                </isloop>
+            </div>
+        </div>
+    </div>
+</div>

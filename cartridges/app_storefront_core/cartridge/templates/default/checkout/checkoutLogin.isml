@@ -1,0 +1,89 @@
+<isdecorate template="common/layout/checkout">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/checkout/checkoutLogin.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+
+    <isinclude template="/components/modules"/>
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <div class="background-grey pb-5">
+        <div class="container login-checkout">
+            <div class="modal modal-checkout p-0 d-sm-none" id="modal-guest" tabindex="-1" role="dialog">
+                <isinclude template="checkout/modalGuest" />
+            </div>
+            <div class="d-flex justify-content-center row">
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        <div class="checkout-login-column col-12 col-lg-6">
+                            <div class="card h-100">
+                                <div class="account-subtitle card-title align-items-center px-3 pt-2 text-center d-none d-lg-flex">
+                                    <div class="pr-3">
+                                        <isinlinesvg src="account-user-icon" />
+                                    </div>
+                                    <div class="text-left">
+                                        <isprint value="${Resource.msg('login.section.subtitle', 'login', null)}"/>
+                                        <span class="card-subtitle d-block text-grey">
+                                            <isprint value="${Resource.msg('checkout.login.subtitle', 'checkout', null)}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr class="custom-separator mx-3 d-none d-lg-flex"/>
+                                <div class="card-body card-body-small">
+                                    <isinclude template="account/components/loginForm" />
+                                    <isinclude template="account/password/requestPasswordResetModal"/>
+                                    <isinclude template="account/components/oauth" />
+                                    <a href="${URLUtils.url('Account-StartRegister', 'rurl', pdict.oAuthReentryEndpoint)}" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreate', '', '')}" class="btn btn-outline-secondary btn-text-small w-100 subscribe-button mt-3">
+                                        ${Resource.msg('button.create.customer.account', 'checkout', null)}
+                                        <i class="ml-2 fa fa-chevron-right text-orange"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-login-column col-12 col-lg-6">
+                            <div class="card h-100 pt-0 pt-lg-3">
+                                <div class="account-subtitle card-title align-items-center px-3 pt-2 text-center d-none d-lg-flex">
+                                    <div class="pr-lg-3">
+                                        <isinlinesvg src="account-subscribe-icon" />
+                                    </div>
+                                    <div class="text-left">
+                                        <isprint value="${Resource.msg('login.section.checkout.title', 'checkout', null)}"/>
+                                        <span class="card-subtitle d-block text-grey">
+                                            <isprint value="${Resource.msg('checkout.register.subtitle', 'checkout', null)}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr class="custom-separator mx-3 d-none d-lg-flex"/>
+                                <div class="card-body card-body-small text-grey mb-4">
+                                    <div class="d-none d-lg-block">
+                                        <iscontentasset aid="account-benefits-checkout"/>
+                                    </div>
+                                    <a
+                                        href="${URLUtils.https('Checkout-Begin')}"
+                                        data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'CheckoutGuest', '', '')}"
+                                        class="btn btn-block btn-secondary mb-3 checkout-as-guest my-lg-5 pointer-events-none">
+                                        <isinlinesvg src="icon-secure" />
+                                        <span class="pl-2">
+                                            ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="checkout-minicart-column flex-fill-fit ml-lg-2">
+                        <div class="card h-100 p-0">
+                            <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

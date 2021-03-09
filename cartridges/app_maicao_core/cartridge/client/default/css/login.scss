@@ -1,0 +1,199 @@
+@import "./utilities/utilities";
+@import "./components/fonts";
+
+.forgot-password {
+    font-size: rem-calc(18px);
+}
+
+.subscribe-button {
+    margin-top: 50px;
+
+    &:hover,
+    &:active {
+        color: $brand-color-secondary;
+    }
+}
+
+.password-reset-link {
+    font-size: rem-calc(18px);
+}
+
+.login-page {
+    padding: 60px 10px 55px;
+}
+
+.form-group {
+    label {
+        white-space: nowrap;
+    }
+
+    &.required .form-control-label::after {
+        content: "*";
+        margin-left: -4px;
+    }
+}
+
+.cl-container {
+    .form-group {
+        &.required .form-control-label::after {
+            content: "";
+            margin-left: -4px;
+        }
+    }
+
+    .form-control {
+        &.required::placeholder {
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.21;
+            text-align: left;
+            color: #ccc;
+        }
+    }
+
+    .custom-select {
+        &.form-control {
+            font-style: italic;
+            line-height: 1.21;
+            text-align: left;
+            color: #ccc;
+
+            option {
+                font-style: normal;
+            }
+        }
+    }
+}
+
+.form-control-label,
+.form-control {
+    font-size: rem-calc(16px);
+}
+
+.register-terms {
+    .custom-checkbox {
+        padding-left: 35px;
+        padding-right: 10px;
+    }
+
+    .form-group {
+        label {
+            white-space: normal;
+        }
+    }
+}
+
+.content-box-body {
+    &.content-align {
+        padding: 20px 10px;
+    }
+}
+
+.register-icon {
+    svg {
+        width: 30px;
+        height: 32px;
+    }
+}
+
+.lds-ring {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 22px;
+    top: 35px;
+
+    @include media-breakpoint-up(lg) {
+        right: 33px;
+        top: 33px;
+    }
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    margin: 3px;
+    border: 3px solid $accent-grey-light;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: $accent-grey-light transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.is-member {
+    border-color: $primary-pink;
+}
+
+.is-member-text {
+    color: $primary-pink;
+    font-size: rem-calc(12px);
+    margin-top: 8px;
+}
+
+.is-member {
+    border-color: $primary-pink;
+}
+
+.account-subtitle {
+    justify-content: flex-start;
+}
+
+@include media-breakpoint-up(lg) {
+    .login-simple-title {
+        font-size: rem-calc(24px);
+    }
+
+    .forgot-password {
+        font-size: rem-calc(14px);
+    }
+
+    .password-reset-link {
+        font-size: rem-calc(14px);
+    }
+
+    .login-page {
+        padding: 60px 90px 55px;
+    }
+
+    .form-control-label,
+    .form-control {
+        font-size: rem-calc(13px);
+    }
+
+    .content-box-body {
+        &.content-align {
+            padding: 30px;
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .login-page {
+        padding: 60px 110px 55px;
+    }
+}

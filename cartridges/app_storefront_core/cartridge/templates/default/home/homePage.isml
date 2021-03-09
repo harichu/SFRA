@@ -1,0 +1,26 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/productTile.js');
+        assets.addCss('/css/homePage.css');
+    </isscript>
+
+    <div class="home-main homepage">
+        <isslot id="homepage-slot-1" description="Homepage slot 1" context="global" />
+        <isslot id="homepage-slot-2" description="Homepage slot 2" context="global" />
+        <isslot id="homepage-slot-3" description="Homepage slot 3" context="global" />
+        <isslot id="homepage-slot-4" description="Homepage slot 4" context="global" />
+        <isslot id="homepage-slot-5" description="Homepage slot 5" context="global" />
+        <isslot id="homepage-slot-6" description="Homepage slot 6" context="global" />
+        <isslot id="homepage-slot-7" description="Homepage slot 7" context="global" />
+        <isslot id="homepage-slot-8" description="Homepage slot 8" context="global" />
+        <div data-gtm="${require('int_gtm').gtmAddDynamicData('.homepage-cta', 'link,click,hover', 'AssetLink', '', '')}"></div>
+        <div data-gtm="${require('int_gtm').gtmAddDynamicData("[alt='Promo push']", 'link,click,hover', 'AssetLink', '', '')}"></div>
+
+        <div class="container">
+            <iscontentasset aid="home-shopping-benefits"/>
+        </div>
+    </div>
+</isdecorate>

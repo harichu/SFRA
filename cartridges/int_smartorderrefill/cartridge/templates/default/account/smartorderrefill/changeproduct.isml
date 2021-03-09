@@ -1,0 +1,29 @@
+<!--- TEMPLATENAME: changeaddress.isml --->
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="util/modules"/>
+<isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+<isset name="ProductUtils" value="${require('*/cartridge/scripts/product/ProductUtils.js')}" scope="page"/>
+<form method="post" id="editProductForm" action="${URLUtils.continueURL()}">
+    <fieldset>
+        <div id="editprofile" class="editaddress">
+            <div class="formfield clearfix">
+                <select class="input-select product-select">
+                    <isloop items="${pdict.ListOfProducts}" var="product">
+                        <isif condition="${product.isMaster()}">
+                            <isset name="product" value="${ProductUtils.getDefaultVariant(product.variationModel)}" scope="page"/>
+                        </isif>
+                        <isif condition="${product && product.custom.SorClubPlan}">
+                            <option value="${product.ID}" ${product.ID == pdict.CurrentProduct.ID ? 'selected' : ''}>
+                                <isprint value="${product.name}">
+                            </option>
+                        </isif>
+                    </isloop>
+                </select>
+                <span class="icon-arrow-down-solid change-product-arrow-down-solid"></span>
+            </div>
+        </div>
+    </fieldset>
+</form>

@@ -1,0 +1,54 @@
+<isinclude template="/components/modules" />
+<isdecorate template="common/layout/page">
+    <input type="checkbox" id="is-store-locator-page" class="d-none" ${pdict.isStoreLocatorPage ? "checked=checked" : ""} />
+    <isset name="site" value="${dw.system.Site.current}" scope="page" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        if (pdict.stores.googleMapsApi) {
+            assets.addJs(pdict.stores.googleMapsApi+"&libraries=places");
+        }
+        assets.addJs('/js/storeLocator.js');
+        assets.addCss('/css/storeLocator.css');
+    </isscript>
+    <isif condition="${pdict.showMap}">
+        <input class="current-site-data" type="hidden" name="current-site-data"
+            data-current-site-id="${site.getID()}"
+            data-country-code="${site.getCustomPreferenceValue("CountryCode")}"
+        />
+    </isif>
+    <isif condition="${pdict.showMap === 'true'}">
+        <img id="map-marker-base" style="display: none;" src="${URLUtils.staticURL('/images/store-locator-pin.png')}"/>
+        <img id="map-marker-active-base" style="display: none;" src="${URLUtils.staticURL('/images/store-locator-active-pin.png')}"/>
+        <div class="jumbotron map-canvas rounded-0" data-has-google-api="${pdict.stores.googleMapsApi ? true : false}" data-locations="${pdict.stores.locations}" data-default-lat="${pdict.defaultLat}" data-default-lon="${pdict.defaultLong}">
+            <div class="container">
+                <div class="row">
+                    <p class="store-locator-no-apiKey alert alert-danger">${Resource.msg('error.no.api.key','storeLocator',null)}</p>
+                </div>
+            </div>
+        </div>
+    </isif>
+    <div class="background-grey store-locator-container" data-gtm="${require('int_gtm').gtmEventListener('show', 'StoreLocator')}">
+        <div class="background-white radius-small container shadow position-relative storelocator-search-container">
+            <div class="hero store-locator-hero">
+                <h1 class="storelocator-title text-primary-color text-center mb-3">${Resource.msg('title.hero.text','storeLocator', null)}</h1>
+                <p class=" text-center text-lg-left storelocator-title-second">${Resource.msg('title.hero.subtitle.text', 'storeLocator', null)}</p>
+            </div>
+            <div class="storelocator-search-form position-relative">
+                <input type="text"
+                       class="form-control italic-placeholder"
+                       data-autocomplete="source"
+                       id="storelocatorInput"
+                       aria-describedby="default"
+                       data-missing-error="without"
+                       placeholder="${Resource.msg("store.search.text", "storeLocator", null)}"
+                       encoding="off"/>
+                <div class="position-absolute right-0 top-0 h-100 d-flex align-items-center px-2">
+                    <isinlinesvg src="search-icon" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <isif condition="${!pdict.showMap === 'true'}">
+        <isinclude template="storeLocator/storeLocatorNoDecorator" />
+    </isif>
+</isdecorate>

@@ -1,0 +1,255 @@
+.shipping-card-title {
+    font-size: rem-calc(18px);
+}
+
+.shipping-subtitle {
+    font-size: rem-calc(16px);
+}
+
+.shipping-subtitle-second {
+    color: $text-grey;
+}
+
+.shipping-subtitle-highlighted {
+    text-align: center;
+    color: $text-grey;
+}
+
+.shipping-form-element {
+    padding: 0 10px;
+}
+
+.shipping-form-element-container {
+    margin: 0 -10px;
+}
+
+.addressSelector {
+    .btn-show-details {
+        bottom: -30px;
+        right: 10px;
+    }
+
+    .show-details-text {
+        font-size: rem-calc(12px);
+        color: $brand-color-primary;
+    }
+
+    .shippig-address-details {
+        font-size: rem-calc(11px);
+    }
+}
+
+.custom-radio {
+    background-color: $secondary-grey-light;
+
+    &.active {
+        background-color: $highlighter-primary;
+        border: 2px solid $primary-yellow;
+
+        .btn-show-details {
+            display: block;
+        }
+    }
+}
+
+.shipping-step-icon {
+    path {
+        fill: $brand-color-secondary;
+        stroke: $brand-color-secondary;
+    }
+}
+
+.card-address.deactivated {
+    background-color: $secondary-grey-light;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.change-address {
+    font-size: rem-calc(13px);
+}
+
+.shipping-method-list {
+    flex-wrap: wrap;
+
+    .display-name {
+        font-size: rem-calc(13px);
+        font-family: $font-family-primary-bold;
+    }
+
+    .arrival-time {
+        font-size: rem-calc(14px);
+    }
+
+    .shipping-cost {
+        font-size: rem-calc(19px);
+    }
+
+    .custom-radio {
+        flex: 0 0 45%;
+    }
+}
+
+.note-link {
+    font-size: rem-calc(14px);
+}
+
+.note-link-text {
+    &::after {
+        content: "+";
+    }
+
+    &.expanded::after {
+        content: "-";
+    }
+}
+
+.store-map {
+    .store-map-address {
+        font-size: rem-calc(12px);
+        line-height: 1.17;
+        text-align: left;
+        color: $text-grey;
+
+        .shipping-address {
+            .shipping-subtitle-second {
+                font-size: rem-calc(14px);
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.custom-label-terms {
+    font-size: rem-calc(14px);
+}
+
+.unavailableproducts-modal {
+    .product-line-item {
+        margin-bottom: 15px;
+
+        .product-icon {
+            margin-right: 15px;
+            max-width: 75px;
+            flex-shrink: 0;
+        }
+
+        .product-description {
+            flex-flow: column wrap;
+        }
+
+        .divisor {
+            width: 1px;
+            background: $divisor-color;
+            height: 55px;
+            display: inline-block;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .product-delete-link {
+            flex-flow: column wrap;
+            padding: 0 20px;
+
+            .remove-text {
+                color: $text-grey-dark;
+                margin-top: 5px;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .unavailableproducts-actions {
+        background-color: $secondary-grey-light;
+        padding: 24px 15px;
+
+        .btn {
+            font-size: rem-calc(15px);
+            font-weight: bold;
+            width: 200px;
+        }
+
+        .btn-style {
+            border-color: $brand-color-primary;
+            color: $brand-color-primary;
+        }
+    }
+}
+
+.home-delivery-methods {
+    .inactive-home-shipping-method {
+        display: none;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .custom-radio .custom-control-label::before,
+    .custom-radio .custom-control-label::after {
+        display: none;
+
+        .payment-element-radio-container & {
+            display: block;
+        }
+    }
+
+    .saved-address {
+        .shipping-subtitle {
+            font-size: rem-calc(14px);
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .shipping-content {
+        padding: 0 20px;
+
+        .pickup-content,
+        .delivery-content {
+            padding: 0 100px;
+        }
+    }
+
+    .shipping-method-list {
+        .custom-radio {
+            flex: 0 0 30.5%;
+        }
+    }
+
+    .shipping-subtitle-second,
+    .shipping-input-title,
+    .shipping-subtitle,
+    .btn-add-new {
+        font-size: rem-calc(14px);
+    }
+
+    .home-delivery-block {
+        padding-bottom: 120px;
+    }
+
+    .custom-radio.active {
+        border: none;
+    }
+
+    .addressSelector {
+        .btn-show-details {
+            bottom: 5px;
+        }
+    }
+
+    .shipping-card-title {
+        font-size: rem-calc(15px);
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .shipping-subtitle-second,
+    .shipping-input-title,
+    .btn-add-new {
+        font-size: rem-calc(16px);
+    }
+
+    .shipping-subtitle {
+        font-size: rem-calc(18px);
+    }
+}

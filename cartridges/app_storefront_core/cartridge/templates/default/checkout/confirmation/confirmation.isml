@@ -1,0 +1,61 @@
+<isdecorate template="common/layout/confirmation">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/checkout/checkout.css');
+        assets.addJs('/js/checkoutRegistration.js');
+    </isscript>
+
+    <isset name="currentSite"          value="${require("dw/system/Site").current}"    scope="page" />
+    <isset name="sitePreferences"      value="${currentSite.preferences.custom}"       scope="page" />
+    <isset name="pendingOrderTitle"    value="${sitePreferences.pendingOrderTitle}"    scope="page" />
+    <isset name="pendingOrderSubtitle" value="${sitePreferences.pendingOrderSubtitle}" scope="page" />
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <div class="receipt printable-order" data-gtm="${require('int_gtm').gtmOrderConfirmation(pdict.order.orderNumber)}">
+        <div class="row py-3 py-lg-5 flex-column mx-0">
+            <div class="confirmation-checkmark-container text-center mb-3">
+                <img src="${URLUtils.staticURL('/images/checked-mark.png')}" alt="${Resource.msg('msg.placed.order.thank.you', 'confirmation', null)}"/>
+            </div>
+            <h2 class="order-thank-you-msg text-bold text-green text-center">
+                <isif condition="${pdict.isPaymentAuthorized}">
+                    ${Resource.msg('msg.placed.order.thank.you', 'confirmation', null)}
+                <iselse>
+                    ${pendingOrderTitle}
+                </isif>
+            </h2>
+            <p class="order-thank-you-subtitle px-2 text-center text-grey">
+                <isif condition="${pdict.isPaymentAuthorized}">
+                    <isif condition="${pdict.order.shipping[0].selectedShippingMethod.storePickupEnabled}">
+                        <isprint value="${Resource.msgf('info.receive.email.confirmation.shippingeneable', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" />
+                    <iselse/>
+                        <isprint value="${Resource.msgf('info.receive.email.confirmation', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" />
+                    </isif>
+                <iselse>
+                    ${pendingOrderSubtitle}
+                </isif>
+            </p>
+        </div>
+        <div class="background-grey">
+            <div class="container">
+                <div class="row pt-4 pt-lg-5">
+                    <div class="col-12">
+                        <isinclude template="checkout/confirmation/confirmationDetails" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <isif condition="${pdict.returningCustomer === false && !pdict.userExists}">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <isinclude template="checkout/confirmation/confirmationCreateAccount" />
+                </div>
+            </div>
+        </div>
+    </isif>
+    <isinclude template="customCart/trackOrder" />
+</isdecorate>

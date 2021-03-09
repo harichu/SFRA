@@ -1,0 +1,9 @@
+<div class="pdp-link">
+    <a class="link" href="${pdict.urls.product}">
+        <isif condition="${product.productName.length > 55}">
+            ${StringUtils.truncate(product.productName, 50 , "TRUNCATE_WORD" , "...")}
+        <iselse>
+            ${product.productName}
+        </isif>
+    </a>
+</div>

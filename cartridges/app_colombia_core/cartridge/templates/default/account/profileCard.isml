@@ -1,0 +1,63 @@
+<isset name="validationHelpers" value="${require('*/cartridge/scripts/helpers/validationHelpers')}" scope="page" />
+<div class="card account-pages-card rounded-0 p-0 mb-4">
+    <div class="card-header-account clearfix p-4">
+        <h2 class="pull-left profile-header m-0 text-green">${Resource.msg('label.profile', 'account', null)}</h2>
+        <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <a href="${URLUtils.url('Account-EditProfile')}" class="pull-right" aria-label="${Resource.msg('label.profile.edit', 'account', null)}">${Resource.msg('link.edit', 'account', null)}</a>
+        </isif>
+    </div>
+    <hr class="separator m-0"/>
+    <div class="card-body p-4">
+        <isif condition="${!empty(pdict.profile.ccDocument)}">
+            <dl>
+                <dt>${Resource.msg('label.input.document.type.cc', 'forms', null)}</dt>
+                <dd>${pdict.profile.ccDocument}</dd>
+            </dl>
+        <iselseif condition="${!empty(pdict.profile.ceDocument)}" />
+            <dl>
+                <dt>${Resource.msg('label.input.document.type.ce', 'forms', null)}</dt>
+                <dd>${pdict.profile.ceDocument}</dd>
+            </dl>
+        <iselseif condition="${!empty(pdict.profile.passport)}" />
+            <dl>
+                <dt>${Resource.msg('label.input.document.type.passport', 'forms', null)}</dt>
+                <dd>${pdict.profile.passport}</dd>
+            </dl>
+        </isif>
+        <dl>
+            <dt>${Resource.msg('label.profile.fullname','account', null)}</dt>
+            <isif condition="${pdict.profile.firstName === pdict.profile.lastName}">
+                <dd>${pdict.profile.firstName}</dd>
+            <iselse/>
+                <dd>${pdict.profile.firstName + " " + pdict.profile.lastName}</dd>
+            </isif>
+        </dl>
+        <dl>
+            <dt>${Resource.msg('label.profile.email','account', null)}</dt>
+            <dd>${validationHelpers.validateEmail(pdict.profile.email) ? pdict.profile.email : ''}</dd>
+        </dl>
+        <isif condition="${parseInt(pdict.profile.gender) > 0}">
+            <dl>
+                <dt>${Resource.msg('label.profile.gender','account', null)}</dt>
+                <isif condition="${pdict.profile.gender == 1}">
+                    <dd>${Resource.msg('label.profile.gender.male', 'account', null)}</dd>
+                <iselseif condition="${pdict.profile.gender == 2}"/>
+                    <dd>${Resource.msg('label.profile.gender.female', 'account', null)}</dd>
+                </isif>
+            </dl>
+        </isif>
+        <isif condition="${pdict.profile.birthdate}">
+            <dl>
+                <dt>${Resource.msg('label.profile.birth', 'account', null)}</dt>
+                <dd>${pdict.profile.birthdate.split("-").reverse().join("/")}</dd>
+            </dl>
+        </isif>
+        <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <dl>
+                <dt>${Resource.msg('label.profile.phone','account',null)}</dt>
+                <dd>${pdict.profile.phone}</dd>
+            </dl>
+        </isif>
+
+    </div>
+</div>

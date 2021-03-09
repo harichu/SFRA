@@ -1,0 +1,22 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules"/>
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/jobOffer.js');
+    </isscript>
+
+    <div class="content-page">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <div class="page-content row py-4 py-lg-5">
+                <isloop items="${pdict.folderContent}" var="collapseAsset">
+                    <isprint value="${collapseAsset.custom.body}" encoding="off"/>
+                </isloop>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal modal-job-offer job-offer fade" id="modal-job-offer" tabindex="-1" role="dialog" aria-labelledby="modal-job-offer" aria-hidden="true">
+    </div>
+</isdecorate>

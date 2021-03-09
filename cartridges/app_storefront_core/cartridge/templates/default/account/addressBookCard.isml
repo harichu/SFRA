@@ -1,0 +1,23 @@
+<div class="card account-pages-card rounded-0 p-0 mb-4">
+    <div class="card-header-account clearfix p-4">
+        <h2 class="pull-left m-0 text-primary-color">${Resource.msg('label.addressbook','account',null)}</h2>
+        <isif condition="${pdict.account.preferredAddress}">
+            <a href="${URLUtils.url('Address-List')}" class="pull-right" aria-label="${Resource.msg('label.addressbook.viewaddress','account',null)}">${Resource.msg('link.view','account',null)}</a>
+        </isif>
+    </div>
+    <hr class="separator m-0"/>
+    <isif condition="${pdict.account.preferredAddress}">
+        <div class="card-body p-4">
+            <div>
+                <div class="dashboard-cards-block-title">${Resource.msg('label.addressbook.defaultaddress','account',null)}</div>
+                <div class="dashboard-info"><isprint value="${pdict.account.preferredAddress.address.ID}" encoding="off" /></div>
+                <div><isprint value="${pdict.account.preferredAddress.address.firstName}" encoding="off" /> <isprint value="${pdict.account.preferredAddress.address.lastName}" encoding="off" /></div>
+                <div><isprint value="${pdict.account.preferredAddress.address.address1}" encoding="off" /></div>
+                <div><isprint value="${pdict.account.preferredAddress.address.city}" encoding="off" />, <isprint value="${pdict.account.preferredAddress.address.stateCode}" encoding="off" /> <isprint value="${pdict.account.preferredAddress.address.postalCode}" encoding="off" /></div>
+            </div>
+        </div>
+    </isif>
+    <div class="card-footer-account card-footer-border text-center p-4">
+        <a href="${URLUtils.url('Address-AddAddress')}" class="card-link" aria-label="${Resource.msg('label.addressbook.addnewaddress', 'account', null)}">${Resource.msg('link.addnew', 'account', null)}</a>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+
+.payment-item {
+    margin-bottom: 5px;
+    padding: 13px 18px;
+
+    button:focus {
+        outline: 0;
+    }
+
+    .payment-item-content {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: $text-grey;
+        flex-flow: column;
+
+        .card-info {
+            line-height: rem-calc(18px);
+
+            .card-image {
+                margin-right: 10px;
+            }
+        }
+
+        .card-expiration {
+            color: $inactive-grey;
+        }
+
+        .divisor {
+            width: 1px;
+            background: $divisor-color;
+            height: 52px;
+            display: none;
+            margin-left: auto;
+        }
+
+        .payment-actions {
+            display: flex;
+        }
+
+        .payment-action {
+            padding: 20px 0 5px 0;
+            background: none;
+            border: none;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            justify-content: center;
+
+            .action-label {
+                margin-top: 8px;
+                text-transform: uppercase;
+                color: $text-grey;
+                font-size: rem-calc(12px);
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+.payment-form {
+    .form-group.required .form-control-label::before {
+        content: none;
+    }
+}
+
+.new-payment {
+    font-size: rem-calc(16px);
+}
+
+@include media-breakpoint-up(lg) {
+    .payment-item {
+        .payment-item-content {
+            flex-flow: row wrap;
+            padding: 0 20px;
+
+            .card-info {
+                width: 40%;
+
+                .card-image {
+                    margin-right: 25px;
+                }
+            }
+
+            .divisor {
+                display: inline-block;
+            }
+
+            .payment-action {
+                padding: 0 0 0 20px;
+            }
+        }
+    }
+}

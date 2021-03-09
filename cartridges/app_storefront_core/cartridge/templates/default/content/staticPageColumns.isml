@@ -1,0 +1,46 @@
+<isdecorate template="common/layout/page">
+    <div class="content-page-header" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <div class="page-content row py-4 py-lg-5">
+                <isprint value="${pdict.folderHTML}" encoding="off"/>
+            </div>
+        </div>
+    </div>
+    <div class="page-content background-grey py-4 py-lg-5">
+        <div class="container px-3">
+            <isinclude template="components/content/bodyTitle"/>
+            <div class="row py-5">
+                <isloop items="${pdict.folderContent}" var="contentAsset">
+                    <div class="col-12 col-lg-4 px-3 py-2">
+                        <div class="background-white px-2 py-3 radius-small alianza-element">
+                            <div class="row">
+                                <div class="col-6 pr-4 alianza-element-image">
+                                    <isif condition="${!empty(contentAsset.custom.bodyImgLarge) && !empty(contentAsset.custom.bodyImgSmall)}">
+                                        <picture>
+                                            <source media="(max-width: 992px)" srcset="${contentAsset.custom.bodyImgSmall.getAbsURL()}"/>
+                                            <img class="" src="${contentAsset.custom.bodyImgLarge.getAbsURL()}" alt="${contentAsset.custom.bodyImgLarge}"/>
+                                        </picture>
+                                    </isif>
+                                </div>
+                                <div class="col-6 pl-4 text-right">
+                                    <p class="mb-2 text-grey text-bold">
+                                        <isprint value="${contentAsset.name}" encoding="off"/>
+                                    </p>
+                                    <p class="mb-2 text-danger text-bold">
+                                        <isprint value="${contentAsset.description}" encoding="off"/>
+                                    </p>
+                                    <p class="see-more-link-container m-0 text-right">
+                                        <a href="${URLUtils.url('Page-Show','cid', contentAsset.ID)}" class="see-more-link text-bold">
+                                            ${Resource.msg("button.see.moore.link", "common", null)}
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </isloop>
+            </div>
+        </div>
+    </div>
+</isdecorate>

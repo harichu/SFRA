@@ -1,0 +1,297 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+
+.dashboard-card-out {
+    padding: 15px;
+    width: 100%;
+}
+
+.dashboard-card {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: $white;
+    color: $text-grey-dark;
+    border-radius: 5px;
+    padding: 30px 20px 10px;
+    text-align: center;
+    width: 100%;
+    height: 202px;
+    position: relative;
+
+    &-title {
+        font-weight: bold;
+        font-size: rem-calc(18px);
+        margin-top: 28px;
+        margin-bottom: 7px;
+        line-height: rem-calc(20px);
+    }
+
+    &-desc {
+        font-weight: normal;
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        max-width: 100%;
+        color: $secondary-grey;
+    }
+
+    &.assistant {
+        display: flex;
+        flex-flow: column wrap;
+        padding: 15px;
+        height: auto;
+        text-align: center;
+        background-color: $lighter-green;
+
+        .dashboard-card-desc {
+            color: $text-grey;
+        }
+
+        .card-content {
+            padding: 20px 0;
+        }
+
+        .card-title {
+            display: block;
+            margin-top: 0;
+            font-size: rem-calc(20px);
+        }
+
+        .arrow-icon {
+            font-size: rem-calc(30px);
+        }
+    }
+
+    &.loyalty-card {
+        flex-flow: column;
+        padding: 0;
+        padding-bottom: 15px;
+        height: auto;
+
+        svg {
+            position: absolute;
+            right: 17px;
+            top: 21px;
+            width: 65px;
+            height: 42px;
+        }
+
+        .text-underline {
+            font-size: rem-calc(14px);
+        }
+
+        .card-title {
+            font-size: rem-calc(20px);
+            margin-top: 17px;
+            margin-bottom: 15px;
+        }
+
+        .item-column {
+            display: flex;
+            flex-flow: column;
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        .loyalty-card-content {
+            display: flex;
+            flex-flow: row wrap;
+            width: 100%;
+            padding: 0 10px;
+            margin-bottom: 10px;
+        }
+
+        .loyalty-card-item {
+            border-radius: 5px;
+            background-color: $lighter-green;
+            margin-bottom: 6px;
+            font-size: rem-calc(14px);
+            padding: 1px 4px 1px 15px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .value {
+                color: $lighter-red;
+                font-size: rem-calc(25px);
+                font-weight: bold;
+                margin-right: 10px;
+                min-width: 53px;
+            }
+
+            &.big {
+                flex-flow: column wrap;
+                padding: 10px 30px;
+                line-height: rem-calc(18px);
+
+                .value {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-top {
+    width: 100%;
+    flex-flow: column wrap;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+
+    .dashboard-shipping {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+
+        .dashboard-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .dashboard-shipping-label {
+            margin-left: 10px;
+            font-size: rem-calc(14px);
+            color: $text-grey-dark;
+        }
+
+        .dashboard-shipping-bar {
+            width: 180px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: $background-grey;
+            margin-left: 10px;
+            position: relative;
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                left: 0;
+                width: 0%;
+                background: $brand-color-secondary;
+                height: 100%;
+                border-radius: 5px;
+            }
+
+            &.fill-1::before {
+                width: 20%;
+            }
+
+            &.fill-2::before {
+                width: 40%;
+            }
+
+            &.fill-3::before {
+                width: 60%;
+            }
+
+            &.fill-4::before {
+                width: 80%;
+            }
+
+            &.fill-5::before {
+                width: 100%;
+            }
+        }
+    }
+
+    .dashboard-btn {
+        background-color: $brand-color-secondary;
+        letter-spacing: 0.2px;
+        color: $white;
+        padding: 9px 22px;
+
+        .icon {
+            margin-right: 7px;
+        }
+    }
+}
+
+.loyalty-header {
+    padding-top: 5px;
+
+    .loyalty-level {
+        background-color: $primary-yellow;
+        border-radius: 5px;
+        color: white;
+        font-size: rem-calc(14px);
+        width: 124px;
+        line-height: 16px;
+        padding: 7px;
+        margin-right: 20px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            bottom: 100%;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 11px 10px 11px;
+            border-color: transparent transparent #fcd305 transparent;
+        }
+    }
+
+    .loyalty-link {
+        color: $brand-color-secondary;
+        font-size: rem-calc(14px);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .loyalty-header {
+        .loyalty-level {
+            width: 152px;
+        }
+    }
+
+    .dashboard-top {
+        flex-flow: row wrap;
+
+        .dashboard-shipping {
+            margin: 0;
+        }
+    }
+
+    .dashboard-card-out {
+        width: 25%;
+        padding: 15px;
+
+        &.bottom {
+            width: 50%;
+        }
+    }
+
+    .dashboard-card {
+        height: 216px;
+
+        &.assistant {
+            flex-flow: row nowrap;
+            padding: 30px;
+            text-align: left;
+            height: 198px;
+
+            .card-content {
+                padding-left: 30px;
+            }
+        }
+
+        &.loyalty-card {
+            padding-bottom: 0;
+            height: 198px;
+
+            .item-column {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .dashboard-card {
+        height: 202px;
+    }
+}

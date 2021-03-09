@@ -1,0 +1,23 @@
+<isif condition="${pdict.enabled}">
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+    <isif condition="${pdict.showCard}" >
+        <div class="card rounded-0 p-0 mb-4 account-pages-card">
+            <div class="card-header-account clearfix p-4">
+                <h4 class="pull-left m-0 text-green">${Resource.msg('smartorderrefill.dashboard.card.title','smartorderrefill',null)}</h4>
+            </div>
+            <hr class="separator m-0"/>
+            <div class="card-footer-account p-4 text-center">
+                <a href="${URLUtils.https('SmartOrderRefillController-Manage')}" class="card-link">${dw.web.Resource.msg('smartorderrefill.accountmenu.linktext', 'account', null)}</a>
+            </div>
+        </div>
+    <iselse/>
+        <li>
+            <a title="${dw.web.Resource.msg('smartorderrefill.accountmenu.linktitle', 'account', null)}" href="${URLUtils.https('SmartOrderRefillController-Manage')}">
+                ${dw.web.Resource.msg('smartorderrefill.accountmenu.linktext', 'account', null)}
+            </a>
+        </li>
+    </isif>
+</isif>

@@ -1,0 +1,63 @@
+<isinclude template="/components/modules" />
+
+<div class="card confirm-details mb-5">
+    <div class="confirmation-card-header">
+        <h4 class="text-primary-color pb-2 pl-4">
+            ${Resource.msgf('label.order.number', 'confirmation', null, pdict.order.orderNumber)}
+        </h4>
+        <hr class="separator confirmation-separator" />
+    </div>
+
+    <div class="card-body px-0">
+        <div class="row">
+            <div class="col-12 col-lg-6 pr-lg-5 pl-lg-3">
+                <isinclude template="checkout/orderProductSummary" />
+            </div>
+            <div class="col-12 col-lg-6 px-lg-5 confirmation-vertical-separator">
+                <!--- Payment information --->
+                <div class="summary-details">
+                    <span class="summary-section-label text-bold payment-info-label pr-1 text-grey d-flex">
+                        <span class="pr-1">
+                            <isif condition="${pdict.isPaymentAuthorized}">
+                                ${Resource.msg('label.order.payment.info', 'confirmation', null)}
+                            <iselse>
+                                ${Resource.msg('label.order.payment.pending', 'confirmation', null)}
+                            </isif>
+                        </span>
+                        <isinclude template="checkout/billing/paymentOptions/paymentOptionsSummary" />
+                    </span>
+                </div>
+
+                <div class="confirmation-totals-details">
+                    <isif condition="${(pdict.order.billing.payment.paymentStatus === pdict.order.billing.payment.paymentStatuses.PAYMENT_STATUS_NOTPAID)
+                        && pdict.order.orderTransactionNote}">
+                        <isinclude template="checkout/pendingPaymentLink" />
+                    </isif>
+                    <span class="order-total confirmation-text-item d-block text-grey"> ${Resource.msgf('span.confirmation.order.total', 'checkout', null, pdict.order.totals.grandTotal)} </span>
+                    <a href="${URLUtils.https('Order-History')}" style="cursor:pointer;"class="transaction-id confirmation-text-item d-block text-grey"> ${Resource.msgf('span.confirmation.transaction.id', 'checkout', null, pdict.order.orderNumber)} </a>
+                    <span class="order-date confirmation-text-item d-block text-grey"> ${pdict.order.formattedDate} ${Resource.msg('span.confirmation.order.hours', 'checkout', null)} </span>
+                </div>
+
+                <div class="confirmation-shipping-details mt-4">
+                    <isif condition="${pdict.order.shipping[0].selectedShippingMethod.storePickupEnabled}">
+                        <span class="pickup-in-store text-bold text-grey"> ${Resource.msg('span.pickup.in.store.title', 'checkout', null)} </span>
+                        <span class="store-address d-block confirmation-text-item"> ${pdict.order.shipping[0].shippingAddress.address1} </span>
+                        <span class="pickup-date-time d-block confirmation-text-item"> ${Resource.msgf('span.pickup.in.store.date.time', 'checkout', null, pdict.order.pickupTimeDayOfWeek, pdict.order.pickupTime.getDate(), pdict.order.pickupTimeMonth, pdict.order.pickupTime.getHours())} </span>
+                        <div id="map" class="confirmation-map-element mt-3" data-lat="${pdict.order.pickUpStoreLatAndLng.lat}" data-lng="${pdict.order.pickUpStoreLatAndLng.lng}"></div>
+                    <iselse>
+                        <isinclude template="checkout/shipping/shippingSummary" />
+                    </isif>
+                </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center mt-5 mb-4 mb-lg-0 d-print-none">
+                <a href="${'#'}" class="print-order text-uppercase text-green">
+                    <isinlinesvg src="download-icon"/>
+                    ${Resource.msg("confirmation.print.button.text", "confirmation", null)}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<isset name="site" value="${dw.system.Site.current}" scope="page" />
+<isset name="key" value="${site.getCustomPreferenceValue("GooglePlacesAPIKEY")}" scope="page" />
+<script src="https://maps.googleapis.com/maps/api/js?key=${key}"></script>

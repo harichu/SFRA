@@ -1,0 +1,54 @@
+<div class="bundled-line-item clearfix">
+    <div class="d-flex flex-row flex-wrap flex-lg-nowrap justify-content-between ${bonuslineitemrow}">
+        <div class="item-image d-flex align-items-center order-1">
+            <iscomment> Bonus Product Image </iscomment>
+            <img class="product-image mr-lg-4"
+                src="${productLineItem.images.small[0].url}"
+                alt="${productLineItem.images.small[0].alt}"
+                title="${productLineItem.images.small[0].title}"
+            >
+        </div>
+
+        <div class="item-info cart-product-item d-flex flex-column order-2 pr-lg-3">
+            <iscomment> Bonus Product Name </iscomment>
+            <div class="line-item-name mb-2">
+                ${productLineItem.productName}
+            </div>
+            <div class="shipping-text-container">
+                <iscomment> Bonus Product Attributes </iscomment>
+                <isloop items="${productLineItem.variationAttributes}" var="attribute">
+                    <p class="mb-1 text-bold text-grey line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                </isloop>
+                <div class="item-options">
+                    <isloop items="${productLineItem.options}" var="option">
+                        <div class="mb-1 text-bold text-grey line-item-option">${option}</div>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-product-item p-0 d-flex flex-column align-items-center order-4 order-lg-3">
+            <iscomment> Bonus Product Price Info </iscomment>
+            <p class="line-item-price-info">${Resource.msg('label.each.item.price', 'cart', null)}</p>
+            <span class="value">${productLineItem.bonusUnitPrice}</span>
+        </div>
+
+        <div class="item-quantity cart-product-item d-flex px-4 pt-2 pt-lg-0 flex-column align-items-end align-items-lg-center order-5 order-lg-4">
+            <iscomment> Bonus Product Quantity </iscomment>
+            <p class="line-item-price-info">${Resource.msg('field.selectquantity', 'cart', null)}</p>
+            <p><isprint value="${productLineItem.quantity}" formatter="#"/></p>
+        </div>
+
+        <div class="item-price cart-product-item d-flex flex-column align-items-end order-3 order-lg-5 pb-2 pb-lg-0">
+            <iscomment> Bonus Product Total Price </iscomment>
+            <p class="line-item-price-info">
+                ${Resource.msg('label.total.price', 'cart', null)}
+            </p>
+            <div class="price">
+                <div class="pricing line-item-total-price-amount item-total-${productLineItem.UUID}">
+                    ${productLineItem.priceTotal.price}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

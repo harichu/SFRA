@@ -1,0 +1,37 @@
+<iscomment>define reusable input field and label rendering</iscomment>
+<iscomment>
+ Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+ Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<ismodule template="bm/util/sor_inputfield.isml"
+    name="inputfield"
+    attribute="formfield"
+    attribute="type"
+    attribute="maxlength"
+    attribute="size"
+    attribute="xhtmlclass"
+    attribute="label"
+    attribute="value"
+    attribute="p_dynamic"
+    attribute="attribute1"
+    attribute="value1"
+    attribute="attribute2"
+    attribute="value2"
+    attribute="attribute3"
+    attribute="value3"
+    attribute="requiredtext"
+    attribute="info"
+/>
+
+<iscomment>navigation</iscomment>
+<ismodule template="bm/util/sor_navigation.isml"
+    name="navigation"
+    attribute="step"
+    attribute="subs"
+    attribute="type"
+/>
+<ismodule template = "components/reportspagingbar"
+    name="reportspagingbar"
+    attribute="pageurl"
+    attribute="pagingmodel"
+/>

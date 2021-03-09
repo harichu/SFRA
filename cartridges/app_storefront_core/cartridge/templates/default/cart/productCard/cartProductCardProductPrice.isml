@@ -1,0 +1,13 @@
+<isif condition="${!lineItem.isBonusProductLineItem}"/>
+    <!---item price--->
+    <div class="line-item-price-${lineItem.UUID}">
+        <isset name="price" value="${lineItem.price}" scope="page"/>
+        <isinclude template="/product/components/pricing/main" />
+    </div>
+
+    <!--- Product promotion callout message --->
+    <div class="line-item-promo text-bold text-red text-right item-${lineItem.UUID}">
+        <isinclude template="checkout/productCard/productCardProductPromotions" />
+    </div>
+</isif>
+

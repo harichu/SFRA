@@ -1,0 +1,196 @@
+<isinclude template="components/header" />
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isset name="dateFormat" value="${Resource.msg('club.subscription.dateFormat', 'sor_smartorderrefill', null)}" scope="page" />
+
+<div class="sor-module">
+    <isnavigation step="2">
+
+        <h2 class="sor-module__name-title">${pdict.Client.firstName + ' ' + pdict.Client.lastName}</h2>
+        <h4 class="sor-module__name-email">${pdict.Client.email}</h4>
+
+        <isset name="subscriptionsList" value="${pdict.SubscriptionsList}" scope="page" />
+
+        <div class="line"></div>
+
+        <isscript>
+            var sorConstants = require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js'),
+                propertyComparator = new dw.util.PropertyComparator('createdAt', false);
+
+            subscriptionsList.sort(propertyComparator);
+        </isscript>
+        <isset name="auto_renewal" value="${dw.system.Site.current.preferences.custom.SorAutomaticRenewalEnabled}"
+            scope="page" />
+        <div>
+            <div class="sor-table">
+            <isif condition="${!empty(subscriptionsList) && subscriptionsList.length >= 1}" >
+                <div class="subscription-info">
+                    <isloop items="${subscriptionsList}" var="subscription">
+                        <div class="sor-table__subscriptions">
+                            <div data-label="${Resource.msg('club.products', 'sor_smartorderrefill', null)}:">
+                                <isloop items="${subscription.products}" var="product">
+                                    <div class="subscriptionSection-img">
+                                        <img itemprop="image" class="primary-image" src="${dw.catalog.ProductMgr.getProduct(product.ID).getImage('small', 0).getURL()}"
+                                            alt="${product.name}" title="${product.name}" />
+                                        <div class="img-info">
+                                            <div class="product-name" data-label="${Resource.msg('club.products', 'sor_smartorderrefill', null)}:">
+                                                x${product.quantity} &nbsp; <strong>
+                                                    ${dw.catalog.ProductMgr.getProduct(product.ID).name}</strong>
+                                            </div>
+                                            <div class="refill-interval">
+                                                <isif condition="${subscription.type == sorConstants.TYPE.SOR}">
+                                                    ${Resource.msg('club.vieworder.refillinterval',
+                                                    'sor_smartorderrefill', null)}:&nbsp;
+                                                    <strong> ${product.interval}
+                                                        <isif condition="${product.periodicity == sorConstants.PERIODICITY.WEEK}">
+                                                            ${Resource.msg('club.subscription.weeks',
+                                                            'sor_smartorderrefill', null)}
+                                                            <br />
+                                                        <iselseif condition="${product.periodicity == sorConstants.PERIODICITY.MONTH}">
+                                                                ${Resource.msg('club.subscription.months',
+                                                                'sor_smartorderrefill', null)}
+                                                                <br />
+                                                        </isif>
+                                                    </strong>
+                                                </isif>
+                                            </div>
+                                            <div class="refill-interval">
+                                                <isif condition="${product.commitment > product.commitmentDone}" >
+                                                    ${Resource.msg('club.subscription.commitment','sor_smartorderrefill', null)}:
+                                                    <strong>${product.commitmentDone}/${product.commitment} ${Resource.msg('club.subscription.months',
+                                                        'sor_smartorderrefill', null)}</strong>
+                                                </isif>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </isloop>
+                            </div>
+                            <div class="line"></div>
+                            <div class="sor-module__subscription-status">
+                                <span>${Resource.msg('club.subscription.subscriptionstatus', 'sor_smartorderrefill', null)}:</span>
+                                <strong>${subscription.status}</strong>
+                            </div>
+                            <div class="sor-module__subscription-date" data-label="${Resource.msg('club.subscription.dateofsubs', 'sor_smartorderrefill', null)}:">
+                                ${Resource.msg('club.subscription.dateofsubs', 'sor_smartorderrefill', null)}:
+                                <strong>
+                                    <isif condition="${new Date(subscription.createdAt).toDateString() != sorConstants.DATE.INVALID}">
+                                        <isprint value="${StringUtils.formatCalendar(new dw.util.Calendar(new Date(subscription.createdAt)), dateFormat)}" />
+                                    <iselse/>
+                                        ${new Date(subscription.createdAt).toDateString()}
+                                    </isif>
+                                </strong>
+                            </div>
+
+                            <isif condition="${subscription.status != sorConstants.STATUS.CANCELED && subscription.status != sorConstants.STATUS.EXPIRED}">
+                                <isif condition="${auto_renewal}">
+                                    <isif condition="${new Date(subscription.validUntil).toDateString() != sorConstants.DATE.INVALID}">
+                                        <div class='exp-date'>
+                                            <p>${Resource.msg('club.subscription.expiration', 'sor_smartorderrefill', null)}:</p>
+                                            <div data-label="${Resource.msg('club.subscription.daterenewal', 'sor_smartorderrefill', null)}:">
+                                                <strong>
+                                                    <isprint value="${StringUtils.formatCalendar(new dw.util.Calendar(new Date(subscription.validUntil)), dateFormat)}" />
+                                                </strong>
+                                            </div>
+                                        </div>
+
+                                    <iselse/>
+                                        <strong>
+                                            ${new Date(subscription.validUntil).toDateString()}
+                                        </strong>
+                                    </isif>
+
+                                    <br>
+                                    <p class='renewal-button'>
+                                        <isif condition="${!subscription.renewal}">
+                                            <a class="button reactivate renewal blue" id="reactRenewal" data-link="${URLUtils.https('SmartOrderRefillReport-UpdateRenewal', 'sid', subscription.ID, 'client', pdict.Client.customerNo, 'status', true)}">
+                                                <isprint value="${Resource.msg('club.subscription.reactiverenewal', 'sor_smartorderrefill', null)}" />
+                                            </a>
+                                            <iselse>
+                                                <a class="button cancel renewal orange" id="cancelRenewal" data-link="${URLUtils.https('SmartOrderRefillReport-UpdateRenewal', 'sid', subscription.ID, 'client', pdict.Client.customerNo, 'status', false)}">
+                                                    <isprint value="${Resource.msg('club.subscription.cancelrenew', 'sor_smartorderrefill', null)}" />
+                                                </a>
+                                        </isif>
+                                    </p>
+                                    <iselse>
+                                            <div class='exp-date'>
+                                                <p>${Resource.msg('club.subscription.expiration', 'sor_smartorderrefill', null)}: </p>&nbsp;
+                                                <strong>
+                                                    <isif condition="${new Date(subscription.validUntil).toDateString() != sorConstants.DATE.INVALID}">
+                                                        <isprint value="${StringUtils.formatCalendar(new dw.util.Calendar(new Date(subscription.validUntil)), dateFormat)}" />
+                                                    <iselse/>
+                                                        ${new Date(subscription.validUntil).toDateString()}
+                                                    </isif>
+                                                </strong>
+                                            </div>
+
+                                </isif>
+                            <iselse/>
+                                <div class=canceled-in>
+                                    ${Resource.msg('club.canceledin', 'sor_smartorderrefill', null)}
+                                    <isif condition="${new Date(subscription.lastUpdate).toDateString() != sorConstants.DATE.INVALID}">
+                                        <strong>
+                                            <isprint value="${StringUtils.formatCalendar(new dw.util.Calendar(new Date(subscription.lastUpdate)), dateFormat)}" />
+                                        </strong>
+                                    <iselse/>
+                                        <strong>
+                                            ${new Date(subscription.lastUpdate).toDateString()}
+                                        </strong>
+                                    </isif>
+                                </div>
+                            </isif>
+
+                            <p class="cancel-button">
+                                <a class="button cancel subscription orange" id="cancelSubscription"
+                                    data-link="${URLUtils.https('SmartOrderRefillReport-CancelSubscription', 'sid', subscription.ID, 'client', pdict.Client.customerNo)}">
+                                    <isprint value="${Resource.msg('club.cancel', 'sor_smartorderrefill', null)}" />
+                                </a>
+                            </p>
+
+
+                           <isscript>
+                                var year = new Date().getYear() + 1;
+                                var miliseconds = new Date().setYear(year);
+                                var oneYear = new Date(miliseconds).toISOString().slice(0,-14);
+                           </isscript>
+                            <isif condition="${dw.system.Site.current.getCustomPreferenceValue('SorPauseSubscription')}" >
+                                <isif condition="${subscription.status == 'paused'}">
+                                    <p class="reactivate-button">
+                                        <a class="button reactivate subscription blue" id="pauseSubscription"
+                                            data-link="${URLUtils.https('SmartOrderRefillReport-ReactivateSubscriptionPeriod', 'sid', subscription.ID, 'client', pdict.Client.customerNo, 'remainDate', (new Date(subscription.validUntil)).toISOString().slice(0,-14), 'oneYear', oneYear)}">
+                                            <isprint value="${Resource.msg('club.reactivate', 'sor_smartorderrefill', null)}" />
+                                        </a>
+                                    </p>
+                                <iselse/>
+                                    <p class="pause-button">
+                                        <a class="button pause subscription orange" id="pauseSubscription"
+                                            data-link="${URLUtils.https('SmartOrderRefillReport-PauseSubscription', 'sid', subscription.ID, 'client', pdict.Client.customerNo)}">
+                                            <isprint value="${Resource.msg('club.pause', 'sor_smartorderrefill', null)}" />
+                                        </a>
+                                    </p>
+                                </isif>
+                            </isif>
+
+                            <p class="detail-button">
+                                <a class="button details blue" href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', subscription.ID, 'client', pdict.Client.customerNo,
+                                    'viewType', sorConstants.VIEWTYPE.SUBSCRIPTION)}">
+                                <isprint value="${Resource.msg('club.view', 'sor_smartorderrefill', null)}" />
+                                </a>
+                            </p>
+                            <p class="cancelMessage"></p>
+                        </div>
+                    </isloop>
+                </div>
+            <iselse/>
+                <p class="no-subscriptions">
+                    ${Resource.msg('club.subscription.empty','sor_smartorderrefill', null)}
+                </p>
+            </isif>
+
+            </div>
+        </div>
+
+
+</div>
+<isinclude template="components/footer" />

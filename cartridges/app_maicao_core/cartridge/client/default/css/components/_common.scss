@@ -1,0 +1,261 @@
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.invalid-feedback.show {
+    display: block;
+}
+
+.background-white {
+    background-color: $white;
+}
+
+.background-primary {
+    background: $brand-color-primary;
+}
+
+.background-pink {
+    background: $brand-color-primary;
+}
+
+.background-pink-secondary {
+    background: $brand-color-secondary;
+}
+
+.background-pink-tertiary {
+    background: $brand-color-tertiary;
+}
+
+.background-pink-light {
+    background: $brand-color-secondary;
+}
+
+.background-grey {
+    background-color: #f5f5f5;
+}
+
+.text-primary-color {
+    color: $brand-color-primary;
+}
+
+.text-pink {
+    color: $brand-color-primary;
+}
+
+.text-pink-secondary {
+    color: $brand-color-secondary;
+}
+
+.text-pink-light {
+    color: $brand-color-tertiary;
+}
+
+.text-grey {
+    color: $text-grey;
+}
+
+.text-brand-secondary {
+    color: $brand-color-secondary;
+}
+
+.text-grey-dark {
+    color: $text-grey-dark;
+}
+
+.text-black {
+    color: $black;
+}
+
+.text-red {
+    color: $promotional-red;
+}
+
+.text-highlight {
+    color: $highlight-color;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.left-0 {
+    left: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.flex-fill-fit {
+    flex: 1 1;
+}
+
+.flex-ie-fix {
+    flex: 0 0 auto;
+}
+
+.back-link {
+    color: $text-grey;
+    line-height: rem-calc(25px);
+
+    &::before {
+        content: "\F104";
+        padding-right: 8px;
+        color: $brand-color-secondary;
+        font-family: $font-family-icons;
+        font-size: rem-calc(25px);
+        line-height: rem-calc(25px);
+    }
+}
+
+.custom-separator {
+    border: none;
+    height: 2px;
+    background-color: $brand-color-secondary;
+}
+
+.separator-thin {
+    border-top: 1px solid $primary-grey-light;
+
+    &.dark {
+        border-color: $secondary-grey;
+    }
+}
+
+.separator-thick {
+    border-top: 2px solid $secondary-grey-light;
+}
+
+img {
+    max-width: 100%;
+}
+
+.no-outline {
+    outline: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+.basic-link {
+    text-decoration: underline;
+    font-family: $font-family-primary-bold;
+
+    &--dark {
+        color: $text-grey;
+    }
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-bold {
+    font-family: $font-family-primary-bold;
+}
+
+.text-italic {
+    font-family: $font-family-primary-italic;
+}
+
+.close {
+    opacity: 1;
+}
+
+.radius-small {
+    border-radius: 8px;
+}
+
+.radius-medium {
+    border-radius: 12px;
+}
+
+.form-group.required-marker .form-control-label::after {
+    content: "*";
+}
+
+.banner-simple-title {
+    font-family: $font-family-primary-bold;
+    font-size: rem-calc(24px);
+    color: $brand-color-primary;
+    text-transform: uppercase;
+}
+
+.content-box-title {
+    font-family: $font-family-primary-bold;
+    font-size: rem-calc(28px);
+}
+
+.account-form-title {
+    color: $text-grey;
+}
+
+.account-image-placeholder {
+    min-height: 200px;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.warning-message {
+    border: 1px dotted $brand-color-tertiary;
+    background-color: $brand-color-tertiary;
+    font-size: rem-calc(16px);
+    color: $lighter-red;
+    border-radius: 5px;
+    padding: 10px 15px;
+
+    .important {
+        color: $lighter-red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+}
+
+.callout-triangle::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: -10px;
+}
+
+@include media-breakpoint-up(lg) {
+    .container-large {
+        max-width: 1280px;
+    }
+
+    .v-lg-invisible {
+        visibility: hidden;
+    }
+
+    .banner-simple-title {
+        font-size: rem-calc(32px);
+    }
+
+    .content-box-title {
+        font-size: rem-calc(20px);
+    }
+}

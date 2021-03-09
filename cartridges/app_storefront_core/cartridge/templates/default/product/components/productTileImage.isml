@@ -1,0 +1,21 @@
+<div class="image-container d-flex justify-content-center align-items-center flex-grow-1 flex-shrink-1 position-relative h-100 p-2">
+    <a href="${pdict.urls.product}" class="w-100 text-center no-outline">
+        <isif condition="${!empty(product.images) && !empty(product.images.medium)}">
+            <img class="tile-image m-auto"
+                src="${product.images.medium[0].url}"
+                alt="${product.productName}"
+                title="${product.images.medium[0].title}"
+                data-gtm="${require('int_gtm').gtmProductName(product.id)}"
+            />
+        </isif>
+    </a>
+
+    <isset name="pumSettings" value="${JSON.parse(dw.system.Site.current.getCustomPreferenceValue("difarmaPUMPreferences"))}" scope="page" />
+
+    <isif condition="${pumSettings.pumVisibilityOptions.showOnTiles && !empty(product.custom.pum)}">
+        <p class="product-pum product-tile-pum position-absolute mx-3 mb-2">
+            <isprint value="${pumSettings.pumPrefix}"/>
+            <isprint value="${product.custom.pum}"/>
+        </p>
+    </isif>
+</div>

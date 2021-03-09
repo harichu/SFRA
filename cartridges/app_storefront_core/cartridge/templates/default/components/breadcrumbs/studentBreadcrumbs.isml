@@ -1,0 +1,25 @@
+<isif condition="${!empty(pdict.breadcrumbs)}">
+    <div class="page-topbanner-breadcrumbs position-absolute w-100">
+        <div class="container">
+            <div class="row hidden-xs-down" role="navigation" aria-label="Breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="${URLUtils.home().toString()}">
+                            ${Resource.msg("global.home", "common", null)}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${URLUtils.url("Search-ShowContent", "fdid", "static-pages-content-trabaja-con-nosotros")}">
+                            ${Resource.msg("global.workwithus", "common", null)}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a aria-current="page">
+                            ${pdict.content.name}
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</isif>

@@ -1,0 +1,55 @@
+<div class="product-line-item row mt-2 w-100">
+    <div class="col-3 flex-basis-box">
+        <div class="product-line-item-details d-flex flex-row w-100">
+            <div class="item-image w-100">
+                <img class="product-image bonus-product-image"
+                    src="${nestedLineItem.images.small[0].url}"
+                    alt="${nestedLineItem.images.small[0].alt}"
+                    title="${nestedLineItem.images.small[0].title}">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-9 flex-basis-box">
+        <div class="line-item-brand product-brand">
+            <a href="${URLUtils.url('Search-Show', 'q', nestedLineItem.brand)}" class="product-brand text-uppercase m-0">
+                <span class="product-brand"><isprint value="${nestedLineItem.brand}"/></span>
+            </a>
+        </div>
+        <isif condition=${miniCart}>
+            <div class="line-item-name mb-3">
+                <a class="text-green" href="${URLUtils.url('Product-Show', 'pid', nestedLineItem.id)}" aria‐label="${nestedLineItem.productName}">
+                    <span>${nestedLineItem.productName}</span>
+                </a>
+            </div>
+        </isif>
+
+        <div class="line-item-total-price pb-4">
+            <p class="line-item-pricing-info mb-1">
+                <span class="item-total-${nestedLineItem.UUID} price">
+                    <span class="pricing line-item-total-price-amount d-block item-total-${nestedLineItem.UUID}">
+                        ${Resource.msgf('label.price.sale', 'pricing', null, nestedLineItem.priceTotal.price)}
+                    </span>
+                    <isif condition="${!empty(nestedLineItem.priceTotal.nonAdjustedPrice)}">
+                        <span class="price-original price-original-bonus">
+                            <span class="original-value">
+                                <isprint value="${nestedLineItem.priceTotal.nonAdjustedPrice}" />
+                            </span>
+                            ${Resource.msg('label.price.original', 'pricing', null)}
+                        </span>
+                    </isif>
+                </span>
+            </p>
+        </div>
+
+        <div class="quantity-form bonus-quantity-form">
+            <div class="incremental-select d-flex position-relative">
+                <button type="button" class="subtract-product-quantity incremental-select-button">-</button>
+                <input type="number" class="form-control quantity rounded-0 text-center"
+                    value="<isprint value="${nestedLineItem.quantity}" formatter="##" />"
+                />
+                <button type="button" class="add-product-quantity incremental-select-button"> + </button>
+            </div>
+        </div>
+    </div>
+</div>

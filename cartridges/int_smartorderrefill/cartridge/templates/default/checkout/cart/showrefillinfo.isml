@@ -1,0 +1,42 @@
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="/components/modules"/>
+<isif condition="${pdict.RefillOptions.isSORProduct}">
+    <div class="refill-text-container" id="refill">
+        <isif condition="${pdict.RefillOptions.weekIntervals.selected}">
+            <isset name="displayWeek" value="inline-block" scope="page" />
+            <isset name="displayMonth" value="none" scope="page" />
+        <iselse>
+            <isset name="displayWeek" value="none" scope="page" />
+            <isset name="displayMonth" value="inline-block" scope="page" />
+        </isif>
+
+        <isif condition="${pdict.RefillOptions.monthCount.selected}">
+            <p class="text-highlight text-bold mb-1 d-flex flex-column align-items-start">
+                <span class="text-bold subscription-title">${Resource.msg('cart.product.smartorderrefill', 'checkout', null)}</span>
+                <span class="w-100">
+                    ${Resource.msgf('cart.product.refill.month', 'checkout', null, pdict.RefillOptions.monthCount.selectedInterval)}
+                </span>
+            </p>
+        <iselseif condition="${pdict.RefillOptions.weekCount.selected}" >
+            <p class="text-highlight text-bold mb-1 d-flex flex-column align-items-start">
+                <span class="text-bold subscription-title">${Resource.msg('cart.product.smartorderrefill', 'checkout', null)}</span>
+                <span class="w-100">
+                    ${Resource.msgf('cart.product.refill.week', 'checkout', null, pdict.RefillOptions.weekCount.selectedInterval)}
+                </span>
+            </p>
+        </isif>
+
+        <isif condition="${pdict.showLinks}" >
+            <p class="refill-info-links cursor-pointer mt-2 mb-1">
+                <iscomment>If we have only weeks or only month interval and that interval has only one option then we don't need modify button</iscomment>
+                <isif condition="${!(pdict.RefillOptions.weekCount.intervals.length == 0 && pdict.RefillOptions.monthCount.intervals.length == 1) || (pdict.RefillOptions.monthCount.intervals.length == 0 && pdict.RefillOptions.weekCount.intervals.length == 1 )}">
+                    <isinlinesvg src="edit-cart-icon"/>
+                    <span id="modifyRefill" class="sorlink basic-link" data-link="${URLUtils.url('SmartOrderRefillController-UpdateCartProductRefillInformation', 'liuuid', pdict.lineItemID, 'action', 'modify')}">${Resource.msg('smartorderrefill.modify', 'smartorderrefill', null)}</span>
+                </isif>
+            </p>
+        </isif>
+    </div>
+</isif>

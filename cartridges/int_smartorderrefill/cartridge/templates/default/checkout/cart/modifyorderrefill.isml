@@ -1,0 +1,91 @@
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+<form action="${URLUtils.url('SmartOrderRefillController-UpdateCartProductRefillInformation', 'action', 'update', 'liuuid', pdict.lineItemID)}" method="post" id="${pdict.CurrentForms.smartorderrefill.htmlName}" id="modifyForm">
+    <fieldset>
+        <div id="refillOption">
+            <div class="option" id="single" data-sor-one-time="${!pdict.RefillOptions.sorOneTime}">
+                <input id="singleRefill" type="radio" value="false" name="hasSmartOrderRefill"
+                    <isif condition="${!pdict.RefillOptions.weekIntervals.selected && !pdict.RefillOptions.monthIntervals.selected}">checked="checked"</isif>>
+                <label class="${!pdict.RefillOptions.sorOneTime ? 'hide':''}" for="singleRefill">${Resource.msg( 'refill.single', 'forms', null )}</label>
+            </div>
+            <div class="option" style="position: relative">
+                <isif condition="${pdict.RefillOptions.weekIntervals.enabled}" >
+                    <isset name="weekOption" value="${true}" scope="page"/>
+                <iselse>
+                    <isset name="weekOption" value="${false}" scope="page"/>
+                </isif>
+
+                <isif condition="${pdict.RefillOptions.monthIntervals.enabled}" >
+                    <isset name="monthOption" value="${true}" scope="page"/>
+                <iselse>
+                    <isset name="monthOption" value="${false}" scope="page"/>
+                </isif>
+                <input id="multipleRefill" type="radio" value="true" name="hasSmartOrderRefill"
+                    <isif condition="${pdict.RefillOptions.weekIntervals.selected || pdict.RefillOptions.monthIntervals.selected}">checked="checked"</isif>>
+                <label class="${!pdict.RefillOptions.sorOneTime ? 'hide':''}" for="multipleRefill">
+                    ${Resource.msg( 'refill.multiple', 'forms', null )}
+                </label>
+                <isif condition="${!pdict.RefillOptions.sorOneTime}">
+                    <div class='smartOrderRefillOnly'><h3><isprint value="${Resource.msg('smartorderrefill.SorDeliveryOneTime', 'smartorderrefill', null)}" encoding="off"/></h3></div>
+                </isif>
+                <div class="refill-period row">
+                    <div class="col-6">
+                        <isif condition="${weekOption && monthOption}" >
+                            <select id="everyDelivery" class="everyDelivery form-control custom-select text-uppercase text-grey" name="everyDelivery">
+                                <option disabled>
+                                    ${Resource.msg('smartorderrefill.oneitem','smartorderrefill',null)}
+                                </option>
+                                <option value="${pdict.RefillOptions.PERIODICITY.WEEK}" <isif condition="${pdict.RefillOptions.weekIntervals.selected}">selected</isif>>
+                                    ${Resource.msg( 'refill.multiple.weeks', 'forms', null )}
+                                </option>
+                                <option value="${pdict.RefillOptions.PERIODICITY.MONTH}" <isif condition="${pdict.RefillOptions.monthIntervals.selected}">selected</isif>>
+                                    ${Resource.msg( 'refill.multiple.months', 'forms', null )}
+                                </option>
+                            </select>
+                            <iselseif condition="${!weekOption && monthOption}" >
+                                <input type='hidden' name="everyDelivery" class="everyDelivery" value="${pdict.RefillOptions.PERIODICITY.MONTH}">
+                                <isset name="SorPeriodicity" value="${pdict.RefillOptions.PERIODICITY.MONTH}" scope="page"/>
+                            </iselseif>
+                            <iselseif condition="${weekOption && !monthOption}" >
+                                <input type='hidden' name="everyDelivery" class="everyDelivery" value="${pdict.RefillOptions.PERIODICITY.WEEK}">
+                                <isset name="SorPeriodicity" value="${pdict.RefillOptions.PERIODICITY.WEEK}" scope="page"/>
+                            </iselseif>
+                        </isif>
+                    </div>
+                    <div class="col-6 d-flex align-items-center">
+                        <p class="mb-0 mr-3">
+                            ${Resource.msg("modal.sor.label.second.short", "modal", null)}
+                        </p>
+                        <isif condition="${pdict.RefillOptions.weekIntervals.enabled}" >
+                            <select id="SorDeliveryWeekInterval" name="SorDeliveryWeekInterval" class="everyDelivery form-control custom-select text-uppercase text-grey">
+                                <isloop items="${pdict.RefillOptions.weekCount.intervals}" var="woption">
+                                    <isif condition="${woption.value > 0}">
+                                        <option value="${woption.value}"
+                                                <isif condition="${woption.selected}">selected</isif> >
+                                                ${Resource.msgf('modal.label.pedidos', 'modal', null, Number(woption.value))}
+                                        </option>
+                                    </isif>
+                                </isloop>
+                            </select>
+                        </isif>
+                        <isif condition="${pdict.RefillOptions.monthIntervals.enabled}" >
+                            <select name="SorDeliveryMonthInterval" id="SorDeliveryMonthInterval" class="everyDelivery form-control custom-select text-uppercase text-grey ">
+                                <isloop items="${pdict.RefillOptions.monthCount.intervals}" var="option">
+                                    <isif condition="${option.value > 0}">
+                                        <option value="${option.value}"
+                                            <isif condition="${option.selected}">selected</isif> >
+                                                ${Resource.msgf('modal.label.pedidos', 'modal', null, Number(option.value))}
+                                        </option>
+                                    </isif>
+                                </isloop>
+                            </select>
+                        </isif>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

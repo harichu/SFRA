@@ -1,0 +1,8 @@
+<isdecorate template="common/layout/customerror">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/maintenance.css');
+    </isscript>
+
+    <isprint value="${dw.content.ContentMgr.getContent('page-404').custom.body}" encoding="off" />
+</isdecorate>

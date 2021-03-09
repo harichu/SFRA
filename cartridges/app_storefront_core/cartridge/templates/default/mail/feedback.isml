@@ -1,0 +1,92 @@
+<iscomment> This template is yet to be defined </iscomment>
+
+<isset name="form" value="${pdict.form}" scope="page" />
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">${Resource.msg("email.first-name", "contactUs", null)}</th>
+            <td>${form.contactFirstName}</td>
+        </tr>
+        <tr>
+            <th scope="row">${Resource.msg("email.last-name", "contactUs", null)}</th>
+            <td>${form.contactLastName}</td>
+        </tr>
+        <tr>
+            <th scope="row">${Resource.msg("email.email-address", "contactUs", null)}</th>
+            <td>${form.contactEmail}</td>
+        </tr>
+        <tr>
+            <th scope="row">${Resource.msg("email.phone", "contactUs", null)}</th>
+            <td>${form.contactPhone}</td>
+        </tr>
+        <isif condition="${!empty(form.contactCity)}">
+            <tr>
+                <th scope="row">${Resource.msg("email.city", "contactUs", null)}</th>
+                <td><isprint value="${form.contactCity}"/></td>
+            </tr>
+        </isif>
+        <isif condition="${!empty(form.contactRut)}">
+            <tr>
+                <th scope="row">${Resource.msg("email.rut", "contactUs", null)}</th>
+                <td>${form.contactRut}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.contactIdenficationNumber}">
+            <tr>
+                <th scope="row">${form.contactDocument}</th>
+                <td>${form.contactIdenficationNumber}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.feedbackTopic}">
+            <tr>
+                <th scope="row">${Resource.msg("email.subject.text", "contactUs", null)}</th>
+                <td>${form.feedbackTopic}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.career}">
+            <tr>
+                <th scope="row">${Resource.msg("email.career", "jobOffer", null)}</th>
+                <td>${Resource.msg('label.input.jobOffer.career.option.'+form.career, 'jobOffer', null)}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.studyNivel}">
+            <tr>
+                <th scope="row">${Resource.msg("email.studyNivel", "jobOffer", null)}</th>
+                <td>${Resource.msg("label.input.jobOffer.studyNivel.option."+form.studyNivel, "jobOffer", null)}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.jobOfferTellUs}">
+            <tr>
+                <th scope="row">${Resource.msg("email.jobOfferTellUs", "jobOffer", null)}</th>
+                <td>${form.jobOfferTellUs}</td>
+            </tr>
+        </isif>
+        <isif condition="${form.university}">
+            <tr>
+                <th scope="row">${Resource.msg("email.university", "jobOffer", null)}</th>
+                <isif condition="${ form.university == "other"}">
+                    <td>${Resource.msg("label.input.jobOffer.university.option."+form.university, "jobOffer", null)}</td>
+                <iselse/>
+                    <td>${form.university}</td>
+                </isif>
+            </tr>
+        </isif>
+        <isif condition="${form.academicYear}">
+            <tr>
+                <th scope="row">${Resource.msg("email.academicYear", "jobOffer", null)}</th>
+                <isif condition="${ form.academicYear == "other"}">
+                    <td>${Resource.msg("label.input.jobOffer.academicYear.option."+form.academicYear, "jobOffer", null)}</td>
+                <iselse/>
+                    <td>${Resource.msgf("label.input.jobOffer.academicYear.option.year", "jobOffer", null, form.academicYear)}</td>
+                </isif>
+            </tr>
+        </isif>
+    </tbody>
+</table>
+
+<isif condition="${form.contactComment}">
+    <h1>${Resource.msg("email.message", "contactUs", null)}</h1>
+    <p>
+        ${form.contactComment}
+    </p>
+</isif>

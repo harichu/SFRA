@@ -1,0 +1,289 @@
+<!--- TEMPLATENAME: vieworder.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isset name="order" value="${pdict.ProductList}" scope="page"  />
+<isset name="ordersList" value="${pdict.ordersList}" scope="page" />
+<isset name="now" value="${new Date()}" scope="page"/>
+<isset name="today" value="${new Date(now.getFullYear(), now.getMonth(), now.getDate())}" scope="page"/>
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="ProductMgr" value="${dw.catalog.ProductMgr}" scope="page" />
+
+<script type="text/javascript">
+    $('.everydelivery-select').each(function() {
+        var item  = $(this).attr('id').split('select-everydelivery-').pop(),
+            month = '[id=sorMonth-' + item + ']',
+            week  = '[id=sorWeek-' + item + ']';
+        $(this).on('change', function() {
+            if ($(this).val() === 'month') {
+                $(week).hide();
+                $(month).show();
+            } else {
+                $(week).show();
+                $(month).hide();
+            }
+        });
+        $(this).trigger('change');
+    });
+</script>
+<isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+<div class="header d-flex justify-content-between" >
+    <div class="order-id" >${order.ID}</div>
+    <div class="order-date" >
+        ${new Date(order.createdAt).getDate().toString()} ${Resource.msg('smartorderrefill.subscription.months.month' + (new Date(order.createdAt).getMonth() + 1),'account',null)}
+    </div>
+
+</div>
+<isset name="isPaused" value="${pdict.ProductList.status == sorConstants.STATUS.PAUSED}" scope="page"/>
+<div class="order-section" >
+    <p class="title"> ${dw.web.Resource.msg('smartorderrefill.vieworder.shippingaddr','account',null)}</p>
+    <div class="content-section full-width" >
+    <isset name="shippingObj" value="${order.shippingAddress}" scope="page" />
+        <table>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.subscription.name','account',null)}: </td><td>${shippingObj.fullName}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.address1','account',null)}: </td><td >${shippingObj.address1}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.address2','account',null)}: </td><td >${(shippingObj.address2) ? shippingObj.address2 : ''}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.city','account',null)}: </td><td >${shippingObj.city}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.state','account',null)}: </td><td >${shippingObj.stateCode}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.country','account',null)}: </td><td >${shippingObj.countryCode.value.toUpperCase()}</td></tr>
+            <tr><td>${dw.web.Resource.msg('smartorderrefill.vieworder.phone','account',null)}: </td><td class="phone-number">${(shippingObj.phone) ? shippingObj.phone : ''}</td></tr>
+        </table>
+        <isif condition="${!isPaused}" >
+            <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'addressType', 'shipping', pdict.viewType=='subscription'?'sid':'oid', order.ID, 'action', 'updateAddress')}" class="changeaddress sorlink">${dw.web.Resource.msg('smartorderrefill.vieworder.changeaddress','account',null)}</span>
+        </isif>
+    </div>
+</div>
+
+<isif condition="${order.type == sorConstants.TYPE.SOR}" >
+    <div class="order-section" >
+        <p class="title" >${dw.web.Resource.msg('smartorderrefill.vieworder.shippingmet','account',null)}</p>
+        <div class="content-section" >
+            ${pdict.ShippingMethodName}
+        </div>
+    </div>
+</isif>
+
+<div class="order-section oreplen-product-list last" >
+    <isset name="total" value="${0}" scope="page"/>
+    <table class="product">
+        <thead>
+            <tr>
+                <th>${dw.web.Resource.msg('smartorderrefill.vieworder.product','account',null)}</th>
+                <th>${dw.web.Resource.msg('smartorderrefill.vieworder.quantity','account',null)}</th>
+                <isif condition="${order.type == sorConstants.TYPE.SOR && pdict.viewType === sorConstants.VIEWTYPE.SUBSCRIPTION}">
+                    <th>${dw.web.Resource.msg('smartorderrefill.vieworder.refillinterval','account',null)}</th>
+                </isif>
+                <th>${dw.web.Resource.msg('smartorderrefill.vieworder.variation','account',null)}</th>
+                <th>
+                    <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                        ${dw.web.Resource.msg('smartorderrefill.vieworder.price','account',null)}
+                    </isif>
+                </th>
+            </tr>
+        </thead>
+        <tbody >
+            <isloop items="${order.products}" var="listItem" >
+                <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                    <isset name="product" value="${ProductMgr.getProduct(listItem.ID)}" scope="page"/>
+                    <tr class="product-item">
+                        <td class="product-name">
+                            <span class="mobile-label">${dw.web.Resource.msg('smartorderrefill.vieworder.product','account',null)}: </span>
+                            <span class="productName" >${product.name}</span>
+                            <div class="plitemimage" >
+                                <isif condition="${!empty(product.getImage('small', 0))}">
+                                    <isset name="imageUrl" value="${product.getImage('small', 0).getURL()}" scope="page" />
+                                    <img itemprop="image" class="primary-image" src="${imageUrl}" alt="${product.name}" title="${product.name}"/>
+                                </isif>
+                            </div>
+                        </td>
+                        <td class="quantity">
+                            <span class="mobile-label">${dw.web.Resource.msg('smartorderrefill.vieworder.quantity','account',null)}: </span>
+                            <isif condition="${!listItem.cancelDate}">
+                                <input type="number" class="quantity-input" value="${listItem.quantity}" min="0" name="quantity" id="quantity_${listItem.ID}" required/>
+                                <input type="hidden" value="${listItem.ID}" name="item" id="item_${listItem.ID}" />
+                            <iselse>
+                                ${listItem.quantity}
+                            </isif>
+
+                            <isif condition="${!isPaused}" >
+                                <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', pdict.viewType=='subscription'?'sid':'oid', order.ID, 'item', listItem.ID, 'action', 'updateQuantity')}" class="update-item sorlink">${dw.web.Resource.msg('smartorderrefill.updatequantity', 'smartorderrefill', null)}</span>
+                            </isif>
+                        </td>
+                        <isif condition="${order.type == sorConstants.TYPE.SOR && pdict.viewType === sorConstants.VIEWTYPE.SUBSCRIPTION}">
+                        <td class="periodicity">
+                            <span class="mobile-label">${dw.web.Resource.msg('smartorderrefill.vieworder.refillinterval.mobile','account',null)}: </span>
+                            <div class="group-change-refill">
+                                <div class="select-group d-flex">
+                                    <select id="${'select-everydelivery-'+listItem.ID}" class="everydelivery-select custom-select" name="everyDelivery">
+                                        <option disabled>${dw.web.Resource.msg('smartorderrefill.oneitem','smartorderrefill',null)}</option>
+                                    <isif condition="${!empty(sitePref.SorDeliveryWeekCount)}" >
+                                        <option value="${sorConstants.PERIODICITY.WEEK}" <isif condition="${listItem.periodicity === sorConstants.PERIODICITY.WEEK}">selected</isif>>${dw.web.Resource.msg('refill.multiple.weeks', 'forms', null)}</option>
+                                    </isif>
+                                    <isif condition="${!empty(sitePref.SorDeliveryMonthCount)}" >
+                                        <option value="${sorConstants.PERIODICITY.MONTH}" <isif condition="${listItem.periodicity === sorConstants.PERIODICITY.MONTH}">selected</isif>>${dw.web.Resource.msg('refill.multiple.months', 'forms', null)}</option>
+                                    </isif>
+                                    </select>
+
+                                    <isif condition="${!empty(sitePref.SorDeliveryWeekCount)}" >
+                                        <select class="week-select custom-select" id="${'sorWeek-'+listItem.ID}" name="sorWeek">
+                                            <isloop items="${pdict.sorDeliveryWeekCount}" var="woption">
+                                                <isif condition="${woption > 0}">
+                                                    <option value="${woption}" <isif condition="${woption == listItem.sorWeekInterval}">selected</isif> > ${woption} </option>
+                                                </isif>
+                                            </isloop>
+                                        </select>
+                                    </isif>
+
+                                    <isif condition="${!empty(sitePref.SorDeliveryMonthCount)}" >
+                                        <select class="month-select custom-select" id="${'sorMonth-'+listItem.ID}" name="sorMonth">
+                                            <isloop items="${pdict.sorDeliveryMonthCount}" var="option">
+                                                <isif condition="${option > 0}">
+                                                    <option value="${option}" <isif condition="${option == listItem.sorMonthInterval}">selected</isif> > ${option} </option>
+                                                </isif>
+                                            </isloop>
+                                        </select>
+                                    </isif>
+                                </div>
+                            </div>
+                            <isif condition="${!isPaused}" >
+                                <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', order.ID, 'item', listItem.ID, 'action', 'updateRefill')}" class="update-refill sorlink">${dw.web.Resource.msg('smartorderrefill.update', 'smartorderrefill', null)}</span>
+                            </isif>
+                        </td>
+                        </isif>
+                        <td class="${product.isVariant() ? '' : 'd-none d-lg-table-cell'} variation">
+                            <isif condition="${product.isVariant()}">
+                                <span class="mobile-label">${dw.web.Resource.msg('smartorderrefill.vieworder.variation','account',null)}: </span>
+                                <isloop items="${product.variationModel.getProductVariationAttributes()}" var="VA">
+                                    <isset name="SelectedVariationValue" value="${product.variationModel.getSelectedValue(VA)}" scope="page"/>
+                                    <div class="attribute" data-attribute="${VA.ID}">
+                                        <span class="label">${VA.displayName}:</span>
+                                        <span class="value">
+                                            <isif condition="${SelectedVariationValue != null}">
+                                                <isprint value="${SelectedVariationValue.displayValue}"/>
+                                            <iselse/>
+                                                -
+                                            </isif>
+                                        </span>
+                                    </div>
+                                </isloop>
+                            <iselse>
+                                <span class="text-center">
+                                    -
+                                </span>
+                            </isif>
+                        </td>
+                        <td class="price">
+                            <span class="mobile-label">${dw.web.Resource.msg('smartorderrefill.vieworder.price','account',null)}: </span>
+                            <isset name="currencyCode" value="${listItem.currencyCode}" scope="page"/>
+                            <isprint value="${new dw.value.Money(listItem.price, currencyCode)}" />
+                        </td>
+                    </tr>
+                    <isset name="total" value="${total + (listItem.price * listItem.quantity)}" scope="page"/>
+                </isif>
+            </isloop>
+        </tbody>
+    </table>
+
+    <isif condition="${ordersList.length > 0}">
+        <div class="payment-section next-orders" >
+            <p class="title" >${Resource.msg("smartorderrefill.subscription.upcomingorders", "smartorderrefill", null)}</p>
+            <div class="content-section" >
+                <isloop items="${ordersList}" var="orderItem">
+                    <isset name="product" value="${ProductMgr.getProduct(orderItem.products[0].ID)}" scope="page" />
+                    <span class="next-order-item d-flex justify-content-between align-items-center">
+                        <isset name="year" value="${parseInt(orderItem.createdAt.substr(0, 4))}" scope="page" />
+                        <isset name="month" value="${parseInt(orderItem.createdAt.substr(5, 2)) - 1}" scope="page" />
+                        <isset name="day" value="${parseInt(orderItem.createdAt.substr(8, 2))}" scope="page" />
+                        <isset name="orderItemDate" value="${new Date(year, month, day)}" scope="page" />
+                        <isif condition="${orderItem.status != 'canceled' && orderItemDate.getTime() >= today.getTime()}">
+                            <span>
+                                ${product.name} -
+                                ${orderItemDate.getDate().toString()}
+                                ${Resource.msg('smartorderrefill.subscription.months.month' + (orderItemDate.getMonth() + 1),'account', null)}
+                                ${Resource.msgf('smartorderrefill.subscription.year', 'account', null, orderItemDate.getFullYear().toString())}
+                            </span>
+                            <button class="skip-order btn btn-secondary" data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'oid', orderItem.ID, 'action', sorConstants.STATUS.CANCELED)}">${Resource.msg('smartorderrefill.skiporder.title', 'smartorderrefill', null)}</button>
+                        </isif>
+                    </span>
+                </isloop>
+            </div>
+        </div>
+    </isif>
+
+    <isif condition="${order.type == sorConstants.TYPE.SOR}" >
+        <div class="payment-section payment-section__order">
+            <div class="payment-section__order--item">
+                <p>${dw.web.Resource.msg('smartorderrefill.vieworder.subtotal','account',null)}</p>
+            </div>
+            <div class="payment-section__order--item">
+                <span ><isprint value="${new dw.value.Money(total, currencyCode)}" /></span>
+            </div>
+        </div>
+
+        <div class="payment-section payment-section__order">
+            <div class="payment-section__order--item">
+                <p>${dw.web.Resource.msg('smartorderrefill.vieworder.shipping','account',null)} (${pdict.ShippingMethodName})</p>
+            </div>
+
+            <div class="payment-section__order--item">
+                <span><isprint value="${new dw.value.Money(pdict.ShippingCost, currencyCode)}" /></span>
+            </div>
+        </div>
+
+        <div class="payment-section payment-section-order payment-section__order">
+            <div class="payment-section__order--item-full">
+                <p class="tax">${dw.web.Resource.msg('smartorderrefill.vieworder.taxtext','account',null)}</p>
+            </div>
+        </div>
+
+        <div class="payment-section__order">
+            <div class="payment-section__order--item">
+                <p class="total title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.ordertotal','account',null)}</p>
+            </div>
+            <div class="payment-section__order--item">
+                <span class="payment-section__order--value"><isprint value="${new dw.value.Money(total + pdict.ShippingCost, currencyCode)}" /></span>
+            </div>
+        </div>
+     </isif>
+
+     <isif condition="${pdict.viewType === sorConstants.VIEWTYPE.SUBSCRIPTION && pdict.currentCreditCard}" >
+        <isset name="credit" value="${pdict.currentCreditCard}" scope="page"  />
+        <div class="payment-section__card">
+            <div class="payment-section__card--item">
+                <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.cardNumber','account',null)}</p>
+                <span>${credit.number}</span>
+            </div>
+            <div class="payment-section__card--item">
+                <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.cardType','account',null)}</p>
+                <span>${credit.type}</span>
+            </div>
+        </div>
+        <div class="payment-section__card">
+            <isif condition="${credit.expMonth && credit.expYear}" >
+                <div class="payment-section__card--item">
+                    <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.expirationMonth','account',null)}</p>
+                    <span><isprint value="${credit.expMonth.toFixed(0)}" /></span>
+                </div>
+                <div class="payment-section__card--item">
+                    <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.expirationYear','account',null)}</p>
+                    <span><isprint value="${credit.expYear.toFixed(0)}" /></span>
+                </div>
+            <iselse/>
+                <isset name="expDate" value="${new Date(order.cardExpirationDate)}" scope="page" />
+                <div class="payment-section__card--item">
+                    <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.expirationMonth','account',null)}</p>
+                    <span> <isprint value="${expDate.getMonth() + 1}" style="INTEGER" /> </span>
+                </div>
+                <div class="payment-section__card--item">
+                    <p class="title-order">${dw.web.Resource.msg('smartorderrefill.vieworder.expirationYear','account',null)}</p>
+                    <span> <isprint value="${expDate.getFullYear().toString()}" style="INTEGER" /> </span>
+                </div>
+            </isif>
+        </div>
+        <isif condition="${!isPaused}" >
+            <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', order.ID, 'viewType', pdict.viewType, 'action', 'updateCreditCard')}" class="update-card sorlink">${dw.web.Resource.msg('smartorderrefill.updatecreditcard', 'smartorderrefill', null)}</span>
+        </isif>
+    </isif>
+</div>

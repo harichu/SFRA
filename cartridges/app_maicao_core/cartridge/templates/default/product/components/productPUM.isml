@@ -1,0 +1,7 @@
+<isif condition="${PUM}">
+    <div class="pum px-3 py-1 d-inline-block">
+        <span class="pum-text pum-text-special">
+            ${PUM}
+        </span>
+    </div>
+</isif>

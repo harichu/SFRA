@@ -1,0 +1,41 @@
+<isinclude template="/components/modules" />
+
+<span class="address-list-container">
+    <isloop items="${pdict.addressBook}" var="address">
+        <div id="uuid-${address.address.UUID}" class="card addressbook-row address-item">
+            <div class="address-name">
+                <strong class="d-lg-none">${Resource.msg('label.addressbook.name','account',null)}: </strong>
+                ${address.address.ID}
+            </div>
+            <span class="divisor"></span>
+            <div class="address-direction">
+                <strong class="d-lg-none">${Resource.msg('label.addressbook.direction','account',null)}: </strong>
+                <isprint value="${address.address.address1}" encoding="off" />,
+                <isprint value="${address.address.city}" encoding="off" />,
+                <isprint value="${address.address.stateCode}" encoding="off" />
+            </div>
+            <div class="address-actions">
+                <a class="address-action edit" href="${URLUtils.url('Address-EditAddress', 'addressId', address.address.ID)}" aria-label="${Resource.msg('label.addressbook.editaddress','account',null)} : ${address.address.ID}">
+                    <isinlinesvg src="edit-cart-icon" />
+                    <span class="action-label">
+                        ${Resource.msg('label.addressbook.edit', 'account', null)}
+                    </span>
+                </a>
+                <span class="divisor"></span>
+                <span
+                    class="address-action remove-address delete"
+                    data-toggle="modal"
+                    data-target="#deleteAddressModal"
+                    data-id="${address.address.ID}"
+                    data-url="${pdict.actionUrls.deleteActionUrl}"
+                    aria-label="${Resource.msg('label.addressbook.deleteaddress','account',null)}"
+                    >
+                    <isinlinesvg src="icon-remove-red" />
+                    <span class="action-label">
+                        ${Resource.msg('label.addressbook.remove', 'account', null)}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </isloop>
+</span>

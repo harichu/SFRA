@@ -1,0 +1,96 @@
+.modal-open {
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-body {
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 100%;
+    max-width: 590px;
+    min-height: calc(100% - 1rem);
+
+    @include media-breakpoint-up(lg) {
+        min-height: calc(100% - 3.5rem);
+    }
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+    overflow-y: auto;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modal-header .close {
+    padding: 10px;
+}
+
+.modal-backdrop {
+    z-index: 12;
+    background-color: $primary-grey;
+    opacity: 0.4;
+}
+
+.modal-job-offer {
+    .modal-dialog {
+        max-width: 1050px;
+    }
+
+    .modal-icon {
+        svg {
+            width: 60px;
+            height: 48px;
+            margin-right: 4px;
+        }
+    }
+
+    .close {
+        margin-top: -30px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+
+            path {
+                fill: $quinary-green;
+            }
+        }
+    }
+
+    .content-box-title {
+        text-align: center;
+        color: $brand-color-secondary;
+    }
+
+    .custom-checkbox {
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    .custom-control-label {
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .modal-job-offer {
+        .close {
+            svg {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    }
+}

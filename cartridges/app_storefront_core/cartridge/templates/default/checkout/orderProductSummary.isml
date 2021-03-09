@@ -1,0 +1,41 @@
+<isset name="miniCart" value="${false}" scope="page" />
+<isset name="isCheckout" value="${true}" scope="page" />
+<div class="card order-product-summary">
+    <div class="summary-card-body">
+        <div class="product-summary-block">
+            <isloop items="${pdict.order.shipping}" var="shippingModel">
+                <isif condition="${pdict.order.shipping.length > 1}">
+                    <div class="shipment-block">
+                </isif>
+
+                <isloop items="${shippingModel.productLineItems.items}" var="lineItem" status="loopStateContainer">
+                    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                        <div class="card p-0 ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                            <div class="card-body-summary">
+                                <isinclude template="checkout/productCard/bonusProductCardSummary" />
+                            </div>
+                        </div>
+                    <iselse/>
+                        <isinclude template="checkout/productCard/productCard" />
+                        <isif condition="${!loopStateContainer.last}">
+                            <hr class="separator-thin"/>
+                        </isif>
+                    </isif>
+                </isloop>
+
+                <isif condition="${pdict.order.shipping.length > 1}">
+                    <isinclude template="checkout/shipping/shippingCard" />
+                    </div>
+                </isif>
+            </isloop>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <a class="return-to-cart" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+            <span class="text-underline pr-1">
+                ${Resource.msg('link.view.cart', 'cart', null)}
+            </span>
+            <isinlinesvg src="edit-cart-icon"/>
+        </a>
+    </div>
+</div>

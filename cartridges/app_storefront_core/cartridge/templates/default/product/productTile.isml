@@ -1,0 +1,46 @@
+<isset name="miniCart" value="${false}" scope="page"/>
+<isset name="showProductSelectors" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('showProductSelectors')}" scope="page" />
+
+<div class="product-tile background-white d-flex mb-3 position-relative full-height ${showProductSelectors ? '' : 'no-selects'}" data-gtm="${require('int_gtm').gtmProductTile(product.id)}">
+    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+    <isinclude template="product/components/productTileBadges" />
+    <isinclude template="product/components/productTileImage" />
+    <hr class="custom-separator w-100 my-0"/>
+    <div class="tile-body px-3 pt-3 pb-0 d-flex flex-column ${showProductSelectors ? 'pb-2' : 'pb-0'}">
+        <isif condition="${!empty(product.brand)}">
+            <a href="${URLUtils.url('Search-Show', 'q', product.brand)}" class="product-brand text-uppercase m-0">
+                ${product.brand}
+            </a>
+        </isif>
+
+        <isinclude template="product/components/productTileName" />
+
+        <isset name="price" value="${product.price}" scope="page" />
+        <isif condition="${product.productType === 'set'}">
+            <isinclude template="product/components/pricing/setPrice" />
+        <iselse/>
+            <isinclude template="product/components/pricing/main" />
+        </isif>
+
+        <isinclude template="product/components/productTileshippingMethods" />
+    </div>
+
+    <div class="tile-body-bottom px-3 pb-3 d-flex flex-column w-100 mt-auto">
+        <div class="product-tile-selects d-flex flex-row flex-wrap mt-auto">
+            <isset name="swatchLimit" value="${4}" scope="page" />
+            <isif condition="${showProductSelectors}">
+                <isinclude template="product/components/productSelectors" />
+            <iselse>
+                <input class="quantity-select d-none" value="1"/>
+            </isif>
+            <p class="text-danger quantity-error text-italic d-none m-0 pt-3"></p>
+            <isif condition="${pdict.smallTile !== null && pdict.smallTile}">
+                <isinclude url="${URLUtils.url('Product-Nocache', 'pid', product.id, 'template', 'addToCartProductSmall')}" />
+            <iselse>
+                <isset name="isQuickView" value="${typeof isQuickView !== 'undefined' ? isQuickView : false}" scope="page">
+                <isinclude url="${URLUtils.url('Product-Nocache', 'pid', product.id, 'template', 'addToCartProduct', 'isQuickView', isQuickView)}" />
+            </isif>
+        </div>
+    </div>
+    <!-- END_dwmarker -->
+</div>

@@ -1,0 +1,42 @@
+<isset name="shouldDisplayGuestTotal" value="${!customer.authenticated || !pdict.hasClubProducts || pdict.totals.shouldDisplayGuestTotalPrice}" scope="page" />
+
+<div class="row sub-total-container ${shouldDisplayGuestTotal ? '' : 'd-none'}">
+    <div class="col-8">
+        <p class="text-bold text-green summary-total">${Resource.msg('label.total.sub.total', 'cart', null)} </p>
+    </div>
+    <div class="col-4">
+        <p class="text-right sub-total text-red text-bold summary-price">${pdict.totals.guestTotal}</p>
+    </div>
+</div>
+
+<div class="row sub-total-club-container ${pdict.hasClubProducts ? '' : 'd-none'}">
+    <div class="col-8 d-flex align-items-center">
+        <p class="text-bold text-green summary-total m-0">${Resource.msg('label.total.sub.total', 'cart', null)} </p>
+        <div class="pl-2">
+            <isinlinesvg src="club-green" />
+        </div>
+    </div>
+    <div class="col-4">
+        <p class="text-right text-red text-bold summary-price m-0 sub-total-club">${pdict.totals.clubTotal}</p>
+    </div>
+</div>
+
+<!--- Order Discount --->
+<div class="row order-discount mt-3 ${pdict.totals.orderLevelDiscountTotal.value === 0 ? 'hide-order-discount' : ''}">
+    <div class="col-8 d-flex align-items-center">
+        <p class="text-bold text-green summary-total mb-0">${pdict.totals.discountsTitles.orderLevel}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right order-discount-total text-red text-bold summary-price mb-0">- ${pdict.totals.orderLevelDiscountTotal.formatted}</p>
+    </div>
+</div>
+
+<!--- Shipping Discount --->
+<div class="row shipping-discount mt-3 ${pdict.totals.shippingLevelDiscountTotal.value === 0 ? 'hide-shipping-discount' : ''}">
+    <div class="col-8 d-flex align-items-center">
+        <p class="text-bold text-green summary-total mb-0">${pdict.totals.discountsTitles.shippingLevel}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right shipping-discount-total text-red text-bold summary-price mb-0">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</p>
+    </div>
+</div>

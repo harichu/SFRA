@@ -1,0 +1,171 @@
+.order-thank-you-msg {
+    font-size: rem-calc(26px);
+    color: $brand-color-primary;
+    font-family: $font-family-secondary;
+    font-weight: bold;
+}
+
+.order-thank-you-subtitle {
+    font-size: rem-calc(14px);
+    color: $brand-color-secondary;
+}
+
+.confirmation-card-header {
+    font-size: rem-calc(21px);
+    font-family: $font-family-primary-bold;
+
+    h4 {
+        font-family: $font-family-primary-bold;
+    }
+}
+
+.confirmation-text-item,
+.address-summary,
+.shipping-phone,
+.shipping-method,
+.summary-details {
+    font-family: $font-family-primary-light;
+}
+
+.shipping-addr-label {
+    font-family: $font-family-primary-bold;
+    color: $text-grey;
+    margin: 0;
+}
+
+.confirm-details {
+    .price,
+    .return-to-cart,
+    .credit-card-number,
+    .credit-card-expiration-date,
+    .shipping-method-label,
+    .multi-shipping,
+    .shipping-method-price,
+    .shipping-phone {
+        display: none;
+    }
+
+    .credit-card-type,
+    .address-summary,
+    .shipping-phone,
+    .summary-details {
+        color: $text-grey;
+    }
+
+    .product-line-item {
+        margin-bottom: 30px;
+    }
+
+    .product-brand {
+        font-size: rem-calc(12px);
+    }
+}
+
+.order-confirm-create-account path {
+    fill: $white;
+}
+
+.confirmation-map-element {
+    width: 100%;
+    height: 220px;
+}
+
+.confirmation-account-description {
+    font-size: rem-calc(14px);
+}
+
+.confirmation-description {
+    font-size: rem-calc(14px);
+}
+
+.checkout-registration {
+    .confirmation-label {
+        font-size: rem-calc(14px);
+        color: $text-grey;
+    }
+}
+
+.line-item-pricing-info {
+    display: flex;
+    font-size: rem-calc(12px);
+    color: $secondary-grey;
+    padding-top: 5px;
+    margin-bottom: 4px;
+}
+
+.btn-direction {
+    font-size: rem-calc(14px);
+}
+
+.see-prescription {
+    color: $brand-color-primary;
+    font-size: rem-calc(9px);
+
+    svg {
+        height: 12px;
+        width: 15px;
+        margin-top: -2px;
+    }
+}
+
+.order-product-summary {
+    .line-item-name a {
+        color: $text-grey-dark;
+    }
+
+    .line-item-attributes {
+        display: none;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .order-thank-you-msg {
+        font-size: rem-calc(25px);
+    }
+
+    .order-thank-you-subtitle {
+        font-size: rem-calc(16px);
+    }
+
+    .confirmation-card-header,
+    .confirmation-card-header h4 {
+        font-size: rem-calc(19px);
+    }
+
+    .confirmation-separator {
+        margin: 0 -20px;
+    }
+
+    .print-order {
+        font-size: rem-calc(15px);
+    }
+
+    .confirm-details {
+        .product-line-item {
+            padding-right: 130px;
+        }
+    }
+
+    .confirmation-vertical-separator {
+        border-left: 1px solid $secondary-grey-light;
+    }
+
+    .confirmation-account-description {
+        font-size: rem-calc(16px);
+    }
+
+    .confirmation-map-element {
+        height: 300px;
+    }
+
+    .checkout-registration {
+        .confirmation-label {
+            font-size: rem-calc(16px);
+            color: $text-grey;
+        }
+    }
+
+    .confirmation-description {
+        font-size: rem-calc(17px);
+    }
+}

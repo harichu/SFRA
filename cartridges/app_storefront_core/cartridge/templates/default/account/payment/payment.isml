@@ -1,0 +1,101 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/paymentInstruments.js');
+        assets.addCss('/css/account/payment.css');
+        assets.addCss('/css/account/account.css');
+    </isscript>
+    <isinclude template="account/payment/deletePaymentModal"/>
+
+    <input type="checkbox" id="is-mercado-pago-enabled" class="d-none" ${pdict.isMercadoPagoEnabled ? 'checked=checked' : ''} />
+
+    <div class="account-page account-payment background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('page.heading.payments', 'payment', null)}" hasbreadcrumbs="${true}"/>
+        <div class="container account-page-content" data-gtm="${require('int_gtm').gtmEventListener('show', 'PaymentInstrumentList')}">
+            <div class="row">
+                <isinclude template="account/components/sidebar" />
+                <div class="col-12 col-lg-9">
+                    <div id="empty-cards" class="card addressbook-row ${empty(pdict.customerCards) ? '' : 'd-none'}">
+                        <span class="no-addresses">${Resource.msg('label.nocards','payment',null)}</span>
+                    </div>
+
+                    <!-- Rows for Credit Cards -->
+                    <isif condition="${pdict.isMercadoPagoEnabled}">
+                        <isloop items="${pdict.customerCards}" var="card">
+                            <div class="card payment-item" id="card-id-${card.cardID}">
+                                <div class="payment-item-content">
+                                    <span class="card-info d-flex align-items-center">
+                                        <img class="card-image" alt="${card.creditCardType}" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, ('cards/' + card.creditCardType + '.png'))}">
+                                        ${card.creditCardType} ${Resource.msg('label.card.finished','payment',null)}
+                                        ${card.lastFourDigits}
+                                    </span>
+                                    <span class="card-expiration">${Resource.msg('label.payment.ending','account',null)} ${card.creditCardExpirationMonth}/${card.creditCardExpirationYear}</span>
+                                    <div class="payment-actions">
+                                        <div class="divisor"></div>
+                                        <button
+                                            type="button"
+                                            class="payment-action remove-payment"
+                                            data-toggle="modal"
+                                            data-target="#deletePaymentModal"
+                                            data-customer-id="${card.customerID}"
+                                            data-card-id="${card.cardID}"
+                                            data-card="${card.creditCardType} ${Resource.msg('label.card.finished','payment',null)} ${card.lastFourDigits}"
+                                            data-url="${pdict.actionUrl}"
+                                            aria-label="${Resource.msg('label.payment.deletepayment','payment',null)}">
+                                                <isinlinesvg src="icon-remove-red" />
+                                                <span class="action-label">
+                                                    ${Resource.msg('label.addressbook.remove', 'account', null)}
+                                                </span>
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </isloop>
+                    <iselse>
+                        <isloop items="${pdict.paymentInstruments}" var="card">
+                            <div class="card payment-item" id="card-id-${card.UUID}">
+                                <div class="payment-item-content">
+                                    <span class="card-info d-flex align-items-center">
+                                        <img class="card-image" alt="${card.creditCardType}" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, ('cards/' + card.creditCardType + '.png'))}">
+                                        ${card.creditCardType} ${Resource.msg('label.card.finished','payment',null)}
+                                        ${card.maskedCreditCardNumber.slice(-4)}
+                                    </span>
+                                    <span class="card-expiration">${Resource.msg('label.payment.ending','account',null)} ${card.creditCardExpirationMonth}/${card.creditCardExpirationYear}</span>
+                                    <div class="payment-actions">
+                                        <div class="divisor"></div>
+                                        <button
+                                            type="button"
+                                            class="payment-action remove-payment"
+                                            data-toggle="modal"
+                                            data-target="#deletePaymentModal"
+                                            data-customer-id="${card.customerID}"
+                                            data-card-id="${card.UUID}"
+                                            data-url="${pdict.actionUrl}"
+                                            aria-label="${Resource.msg('label.payment.deletepayment','payment',null)}">
+                                                <isinlinesvg src="icon-remove-red" />
+                                                <span class="action-label">
+                                                    ${Resource.msg('label.addressbook.remove', 'account', null)}
+                                                </span>
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </isloop>
+                    </isif>
+
+                    <div class="row mt-3 mb-5">
+                        <div class="col-12">
+                            <div class="pull-right">
+                                <a href="${URLUtils.url('PaymentInstruments-AddPayment')}" class="text-green text-bold new-payment" aria-label="${Resource.msg('label.payment.addnewpayment','payment',null)}">
+                                    ${Resource.msg('button.addnew','payment',null)}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

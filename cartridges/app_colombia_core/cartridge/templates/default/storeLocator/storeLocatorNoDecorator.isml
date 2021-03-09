@@ -1,0 +1,49 @@
+<isinclude template="/components/modules" />
+<isset name="storePickupRadius" value="${dw.system.Site.current.preferences.custom.storePickupRadius}" scope="page"/>
+
+<div class="container store-locator-container p-0" data-gtm="${require('int_gtm').gtmEventListener('show', 'StoreLocator')}">
+    <div class="${pdict.horizontalView === 'true' ? 'col-sm-6 d-flex align-items-start flex-column' : 'col-sm-12'}">
+        <div class="card search-form d-none">
+            <isinclude template="storeLocator/storeLocatorFields" />
+        </div>
+    </div>
+
+    <div class="block-results">
+        <p class="selected-location-text text-bold pb-2 text-grey text-center text-lg-left">
+            <span class="d-none d-lg-inline-flex">
+                ${Resource.msg("checkout.shipping.pickup.location", "checkout", null)}
+            </span>
+            <span class="selected-location-municipio"></span>,
+            <span class="selected-location-departamento"></span>
+            <a href="${'#'}" class="text-bold text-brand-secondary checkout-link">
+                ${Resource.msg('button.change.store.selected', 'storeLocator', null)}
+                <span class="ml-1">
+                    <isinlinesvg src="edit-cart-icon" />
+                </span>
+            </a>
+        </p>
+        <div class="card results-card p-0 rounded-0 mb-3">
+            <div class="card-header d-none">
+                <isinclude template="storeLocator/storeLocatorRadius" />
+            </div>
+            <div class="card-body p-0">
+                <p class="text-center store-locator-no-results p-3 m-0">
+                    ${(pdict.stores.storesNoFoundMsg) ? pdict.stores.storesNoFoundMsg : Resource.msg('error.no.results','storeLocator',null)}
+                </p>
+                <div class="results striped overflow-auto" data-search-key="${JSON.stringify(pdict.stores.searchKey)}" data-radius="${storePickupRadius}" data-has-results="${pdict.stores.stores.length > 0}">
+                    <isinclude template="storeLocator/storeLocatorResults" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <isif condition="${pdict.showMap === false || pdict.showMap === 'false'}">
+        <div class="btn-save-store row text-right">
+            <div class="${pdict.horizontalView === 'true' ? 'col-sm-6' : 'col-sm-12'}">
+                <button class="btn btn-secondary checkout-button-small select-store" data-url="${URLUtils.url("Stores-StoreTime")}" disabled>
+                    ${Resource.msg('button.select.store', 'storeLocator', null)}
+                </button>
+            </div>
+        </div>
+    </isif>
+</div>
+

@@ -1,0 +1,4 @@
+<iscomment>This pushes the trackOrder data to SFMC using the custom collect.js</iscomment>
+<script>
+    _etmc_custom.push(["trackOrder", { "order": "${pdict.order.orderNumber}" , "basket": "${session.custom.basketIdSession}"}]);
+</script>

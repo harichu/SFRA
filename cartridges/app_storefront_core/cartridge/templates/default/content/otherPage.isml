@@ -1,0 +1,13 @@
+<isdecorate template="common/layout/page">
+   <isinclude template="components/content/contentTopBanner"/>
+    <div class="container" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.content.ID, 'ContentID')}">
+        <div class="page-content">
+            <isif condition="${!empty(pdict.content.custom.bodyImgLarge) && !empty(pdict.content.custom.bodyImgSmall)}">
+                <picture>
+                    <source media="(max-width: 992px)" srcset="${pdict.content.custom.bodyImgSmall.getAbsURL()}"/>
+                    <img class="w-100 h-100" src="${pdict.content.custom.bodyImgLarge.getAbsURL()}" alt="${pdict.content.custom.bodyImgLarge}"/>
+                </picture>
+            </isif>
+        </div>
+    </div>
+</isdecorate>

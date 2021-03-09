@@ -1,0 +1,37 @@
+<ismodule template="/components/content/contentAsset"
+    name="contentasset"
+    attribute="aid"
+/>
+
+<ismodule template="/components/inlinesvg"
+    name="inlinesvg"
+    attribute="src"
+/>
+
+<ismodule template="/components/categoryBannerSimple"
+    name="categorybanner"
+    attribute="backgroundasset"
+    attribute="bannertitle"
+    attribute="bannersubtitle"
+    attribute="searchtext"
+    attribute="customicon"
+/>
+
+<ismodule template="/account/components/accountBanner"
+    name="accountbanner"
+    attribute="bannertitle"
+    attribute="hasbreadcrumbs"
+/>
+
+<ismodule template="/account/components/dashboardBanner"
+    name="dashboardbanner"
+    attribute="bannertitle"
+    attribute="hasbreadcrumbs"
+/>
+
+<ismodule template="/product/components/pricing/clubBadge"
+    name="clubbadge"
+    attribute="showtext"
+    attribute="promotions"
+    attribute="haspromotionalbadge"
+/>

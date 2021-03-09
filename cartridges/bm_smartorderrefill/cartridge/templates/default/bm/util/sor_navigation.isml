@@ -1,0 +1,81 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<div class="flex">
+    <a href="${dw.web.URLUtils.url('SmartOrderRefillReport-Manage')}">
+        ${Resource.msg('forms.mainmenu.label','sor_forms',null)}
+    </a>
+    &nbsp; &gt; &nbsp;
+
+    <isif condition="${pdict.step >= 1}">
+        <isif condition="${pdict.step == 1}">
+            <strong> ${pdict.sorType + ' ' + Resource.msg('forms.sorsubscriptions.subscriptions.label', 'sor_forms', null)} </strong>
+        <iselse>
+            <a href="${dw.web.URLUtils.url('SmartOrderRefillReport-Manage' + pdict.sorType)}">
+                ${pdict.sorType + ' ' + Resource.msg('forms.sorsubscriptions.subscriptions.label', 'sor_forms', null)}
+            </a>
+            &nbsp; &gt; &nbsp;
+        </isif>
+
+        <isif condition="${pdict.step >= 2}">
+            <isif condition="${pdict.step == 2}">
+                <strong> ${Resource.msg('forms.sorsubscriptions.customersubscriptions.label', 'sor_forms', null)} </strong>
+            <iselse>
+                <a href="${URLUtils.url('SmartOrderRefillReport-ShowSubscriptions', 'client', pdict.CustomerNo, 'sorType', pdict.sorType)}">
+                    ${Resource.msg('forms.sorsubscriptions.customersubscriptions.label', 'sor_forms', null)}
+                </a>
+                &nbsp; &gt; &nbsp;
+            </isif>
+
+            <isif condition="${pdict.step >= 3}">
+                <isif condition="${pdict.step == 3}">
+                    <strong> ${Resource.msg('forms.sorsubscriptions.subscriptionDetails.label','sor_forms', null)} </strong>
+                </isif>
+
+                <isif condition="${pdict.step >= 4}">
+                    <isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+                    <a href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', pdict.subs, 'client', pdict.CustomerNo, 'viewType', sorConstants.VIEWTYPE.SUBSCRIPTION, 'sorType', pdict.sorType)}">
+                        ${Resource.msg('forms.sorsubscriptions.subscriptionDetails.label','sor_forms', null)}
+                    </a>
+                    &nbsp; &gt; &nbsp;
+                    <isif condition="${pdict.step == 4}">
+                        <isif condition="${pdict.type == sorConstants.NAVIGATION.ADDRESS}">
+                            <strong> ${Resource.msg('forms.sorsubscriptions.changeaddress.label','sor_forms', null)} </strong>
+                        <iselseif condition="${pdict.type == sorConstants.NAVIGATION.EDIT}">
+                            <strong> ${Resource.msg('club.vieworder.editproduct', 'sor_smartorderrefill', null)} </strong>
+                        <iselseif condition="${pdict.type == sorConstants.NAVIGATION.CANCEL}">
+                            <strong> ${Resource.msg('forms.sorsubscriptions.cancelSubscriptions.label', 'sor_forms', null)} </strong>
+                        <iselseif condition="${pdict.type == sorConstants.NAVIGATION.CARD}">
+                            <strong> ${Resource.msg('forms.sorsubscriptions.updatecard', 'sor_forms', null)} </strong>
+                        <iselse/>
+                            <strong> ${Resource.msg('forms.sorsubscriptions.subscriptionorders.label','sor_forms', null)} </strong>
+                        </isif>
+                    <iselse>
+                        <a href="${URLUtils.url('SmartOrderRefillReport-ShowOrders', 'sid', pdict.subs, 'client', pdict.CustomerNo, 'sorType', pdict.sorType)}">
+                            ${Resource.msg('forms.sorsubscriptions.subscriptionorders.label','sor_forms', null)}
+                        </a>
+                        &nbsp; &gt; &nbsp;
+                        <isif condition="${pdict.step == 5}">
+                            <strong> ${Resource.msg('forms.sorsubscriptions.orderDetails.label','sor_forms', null)} </strong>
+                        </isif>
+
+                        <isif condition="${pdict.step == 6}">
+                            <a href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', pdict.ord, 'client', pdict.CustomerNo, 'viewType', sorConstants.VIEWTYPE.ORDER, 'sorType', pdict.sorType)}">
+                                ${Resource.msg('forms.sorsubscriptions.orderDetails.label','sor_forms', null)}
+                            </a>
+                            &nbsp; &gt; &nbsp;
+                            <isif condition="${pdict.type == sorConstants.NAVIGATION.ADDRESS}">
+                                <strong> ${Resource.msg('forms.sorsubscriptions.changeaddress.label','sor_forms', null)} </strong>
+                            <iselseif condition="${pdict.type == sorConstants.NAVIGATION.EDIT}">
+                                <strong> ${Resource.msg('club.vieworder.editproduct', 'sor_smartorderrefill', null)} </strong>
+                            </isif>
+                        </isif>
+                    </isif>
+                </isif>
+            </isif>
+        </isif>
+    </isif>
+
+</div>

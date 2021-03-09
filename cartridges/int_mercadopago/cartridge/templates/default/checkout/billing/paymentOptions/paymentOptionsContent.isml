@@ -1,0 +1,8 @@
+<isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopState">
+    <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+        <isinclude template="checkout/billing/paymentOptions/creditCardContent" />
+    </isif>
+    <isif condition="${pdict.mercadoPago && pdict.mercadoPago.enable && paymentOption.ID === Resource.msg('payment.method.id', 'mercadoPagoPreferences', null)}">
+        <isinclude template="checkout/billing/paymentOptions/mercadoPagoContent" />
+    </isif>
+</isloop>

@@ -1,0 +1,287 @@
+.custom-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:invalid {
+        color: $text-grey-light;
+    }
+
+    [disabled] {
+        color: $text-grey-light;
+    }
+
+    .custom-option {
+        color: $text-grey-dark;
+    }
+
+    option {
+        color: $text-grey-dark;
+    }
+}
+
+.custom-select.double-select {
+    background: url("../images/dropdown-custom.svg") no-repeat right 0 center/35px 45px;
+    background-color: $secondary-grey-light;
+
+    &:disabled {
+        color: $white;
+        background: url("../images/dropdown-custom-light.svg") no-repeat right 0 center/35px 45px;
+        background-color: $background-grey;
+    }
+}
+
+#datefield.calendar-icon {
+    background: url("../images/calendar.png") no-repeat right 10px center/20px 20px;
+    background-color: $secondary-grey-light;
+    padding-right: 40px;
+
+    &.is-invalid {
+        background: url("../images/calendar.png") no-repeat right 10px center/20px 20px;
+        background-color: $secondary-grey-light;
+    }
+}
+
+input[type="date"].calendar-icon:not(.has-value) {
+    &::before {
+        content: attr(placeholder);
+        color: $accent-grey-dark;
+    }
+
+    &::-webkit-datetime-edit {
+        color: transparent;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-calendar-picker-indicator {
+        visibility: hidden;
+    }
+}
+
+input[type="date"].custom-select:focus::before {
+    content: "";
+}
+
+.custom-control.custom-checkbox {
+    input:disabled ~ .custom-control-label::before {
+        border-color: $secondary-grey;
+    }
+}
+
+/* - Internet Explorer 10–11 */
+.form-control {
+    &::placeholder {
+        color: $text-grey-light;
+    }
+
+    &:-ms-input-placeholder {
+        color: $text-grey-light !important;
+    }
+
+    &:required {
+        box-shadow: none;
+    }
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    border-color: $secondary-grey;
+}
+
+.incremental-select {
+    width: 116px;
+
+    .incremental-select-button {
+        font-size: rem-calc(13px);
+        font-weight: bold;
+        border: none;
+        width: 27px;
+        height: 35px;
+        color: $brand-color-primary;
+        background-color: $primary-grey-light;
+        outline: none;
+    }
+
+    input {
+        font-size: rem-calc(17px);
+        height: 35px;
+        width: 55px;
+        pointer-events: none;
+        padding: 0;
+        background-clip: border-box;
+        -webkit-padding-start: 2px;
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+    }
+}
+
+.form-control-label {
+    color: $text-grey-dark;
+    font-size: rem-calc(18px);
+    line-height: rem-calc(18px);
+
+    &--small {
+        font-size: rem-calc(15px);
+    }
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    box-shadow: 0 0 0 1px $danger;
+    background-image: none;
+}
+
+.was-validated .custom-select:invalid,
+.custom-select.is-invalid,
+.custom-select.is-invalid:focus {
+    background: url(../images/dropdown.svg) no-repeat right 0 center/35px 45px;
+    background-color: $secondary-grey-light;
+}
+
+.styled-select {
+    padding: 22px 10px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::after {
+        background-image: none;
+        width: 12px;
+        height: 12px;
+        background-color: $brand-color-secondary;
+        margin: 4px;
+        border-radius: 2px;
+    }
+
+    .custom-control-input.is-invalid ~ .custom-control-label {
+        color: $text-grey-dark;
+
+        a {
+            color: $brand-color-secondary;
+        }
+
+        &::before {
+            background-color: white;
+        }
+    }
+}
+
+.custom-control-label {
+    color: $text-grey;
+}
+
+.is-invalid + .custom-control-label {
+    .checkbox-link {
+        color: $danger;
+
+        .custom-control-label::before {
+            background-color: $white;
+        }
+    }
+}
+
+.custom-radio {
+    padding-left: 25px;
+
+    &.account-creditcard-input {
+        padding-left: 33px;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::after {
+        border-radius: 50%;
+        background: $radio-checked;
+        width: 10px;
+        height: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        margin-left: -2px;
+    }
+
+    .custom-control-label::before,
+    input:checked ~ .custom-control-label::before {
+        border-width: 2px;
+        border-color: $accent-grey;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        left: -35px;
+        pointer-events: all;
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+
+        .custom-control-label::before {
+            pointer-events: none;
+        }
+    }
+}
+
+textarea {
+    background-color: $secondary-grey-light;
+    border-radius: 10px;
+    color: $text-grey;
+    font-size: rem-calc(15px);
+    border-color: $secondary-grey-light;
+    min-height: 120px;
+    padding: 10px 12px;
+}
+
+@include media-breakpoint-up(sm) {
+    .g-recaptcha {
+        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .form-control-label {
+        font-size: rem-calc(13px);
+        line-height: rem-calc(17px);
+
+        &.text-style-size {
+            font-size: rem-calc(16px);
+            font-family: $font-family-base;
+        }
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .custom-radio {
+        padding-left: 60px;
+
+        label.custom-control-label::before,
+        label.custom-control-label::after {
+            content: "";
+            display: block;
+        }
+    }
+}
+
+.italic-placeholder {
+    &::placeholder {
+        font-style: italic;
+    }
+
+    &:-ms-input-placeholder {
+        font-style: italic;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .g-recaptcha {
+        transform: none;
+        -webkit-transform: none;
+    }
+}

@@ -1,0 +1,38 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/account.css');
+        assets.addCss('/css/account/addressBook.css');
+        assets.addJs('/js/addressBook.js');
+    </isscript>
+
+    <input type="checkbox" id="is-zone-city-zone-mapping-enabled" class="d-none" ${pdict.isZoneCityMappingEnabled ? "checked=checked" : ""} />
+
+    <div class="account-page account-address background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('label.addressbook', 'account', null)}" hasbreadcrumbs="${true}"/>
+        <isif condition="${!empty(pdict.addressId)}">
+            <isset name="gtmData" value="${require('int_gtm').gtmEventListener('show', 'EditAddress', pdict.addressId, 'AddressID')}" scope="page" />
+        <iselse>
+            <isset name="gtmData" value="${require('int_gtm').gtmEventListener('show', 'AddAddress')}" scope="page" />
+        </isif>
+        <div class="container account-page-content" data-gtm="${require('int_gtm').gtmEventListener('show', 'AddressList')}">
+            <div class="row">
+                <isinclude template="account/components/sidebar" />
+                <div class="col-12 col-lg-9">
+                    <div class="card align-items-center">
+                        <div class="account-form-container">
+                            <isif condition="${pdict.addressId}">
+                                <span class="account-form-title">${Resource.msg('label.addressbook.editaddress', 'account', null)}</span>
+                            <iselse/>
+                                <span class="account-form-title">${Resource.msg('label.addressbook.addnewaddress.title', 'account', null)}</span>
+                            </isif>
+                            <isinclude template="account/addressForm"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

@@ -1,0 +1,21 @@
+<isif condition="${shippingModel.selectedShippingMethod && shippingMethod.ID === shippingModel.selectedShippingMethod.ID}">
+    <input
+        id="shippingMethod-${shippingMethod.ID}-${shippingModel.UUID}"
+        name="${shippingAddress.shippingMethodID.htmlName}"
+        data-gtm="${require('int_gtm').gtmEventListener('change,hover', 'CheckoutShippingMethod', '', '')}"
+        type="radio" class="form-check-input"
+        value="${shippingMethod.ID}"
+        data-pickup="${shippingMethod.storePickupEnabled}"
+        data-is-today="${shippingMethod.isToday}"
+        checked />
+    <iselse/>
+        <input
+            id="shippingMethod-${shippingMethod.ID}-${shippingModel.UUID}"
+            data-gtm="${require('int_gtm').gtmEventListener('change,hover', 'CheckoutShippingMethod', '', '')}"
+            name="${shippingAddress.shippingMethodID.htmlName}"
+            type="radio"
+            value="${shippingMethod.ID}"
+            class="form-check-input"
+            data-is-today="${shippingMethod.isToday}"
+            data-pickup="${shippingMethod.storePickupEnabled}" />
+</isif>

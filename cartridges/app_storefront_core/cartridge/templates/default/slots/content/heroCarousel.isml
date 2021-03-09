@@ -1,0 +1,9 @@
+<isif condition="${slotcontent != null}">
+    <div class="slick-slider homepage-hero-carousel mb-0" data-slick='{"dots": true, "autoplay": ${slotcontent.custom.carouselInterval ? true : false}, "autoplaySpeed": ${slotcontent.custom.carouselInterval ? slotcontent.custom.carouselInterval : 0}, "responsive":[{"breakpoint": 991, "settings": {"dots": false}}]}'>
+        <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
+            <div class="slick-slide ${loopState.first ? 'active' : ''}">
+                <isprint value="${contentAsset.custom.body}" encoding="off"/>
+            </div>
+        </isloop>
+    </div>
+</isif>

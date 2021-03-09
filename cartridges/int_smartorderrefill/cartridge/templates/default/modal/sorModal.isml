@@ -1,0 +1,63 @@
+<button type="button" class="btn btn-outline-secondary mt-3 w-100" data-toggle="modal" data-target="#sor-modal" id="sor-modal-opener" <isif condition="${!product.readyToOrder || !product.available}">disabled</isif>>
+    ${Resource.msg("modal.button.toggle", "modal", null)}
+</button>
+
+<isset name="isUserLoggedIn" value="${customer.isRegistered() && customer.isAuthenticated()}" scope="page" />
+
+<div class="modal modal-sor" id="sor-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header background-primary d-flex align-items-center py-1">
+                <h5 class="modal-title text-white text-center w-100">
+                    <isif condition="${isUserLoggedIn}">
+                        ${Resource.msg("modal.title", "modal", null)}
+                    <iselse>
+                        ${Resource.msg("modal.guest.title", "modal", null)}
+                    </isif>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <isinlinesvg src="close-icon-light" />
+                </button>
+            </div>
+            <div class="modal-body">
+                <isif condition="${isUserLoggedIn}">
+                    <isinclude url="${URLUtils.url('SmartOrderRefillController-PDPRefillOptions','pid', product.id)}"/>
+                <iselse>
+                    ${Resource.msg("modal.guest.body", "modal", null)}
+                </isif>
+            </div>
+            <div class="modal-footer background-grey border-0 justify-content-center d-row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 order-2 order-lg-1">
+                            <button type="button" class="btn btn-outline-secondary btn-close-sor w-100" data-dismiss="modal">
+                                ${Resource.msg("modal.button.dismiss", "modal", null)}
+                            </button>
+                        </div>
+                        <div class="col-12 col-lg-6 order-1 order-lg-2 mb-3 mb-lg-0">
+                            <isif condition="${isUserLoggedIn}">
+                                <button id="add-to-cart-sor" class="add-to-cart btn btn-secondary w-100"
+                                    data-toggle="modal" data-target="#chooseBonusProductModal"
+                                    data-pid="${product.id}"
+                                    ${!product.readyToOrder || !product.available ? "disabled" : ""}
+                                >
+                                    ${Resource.msg("modal.button.subscribe", "modal", null)}
+                                </button>
+                            <iselse>
+                                <form action="${URLUtils.url("Product-GuestSor", "pid", product.id).toString()}" method="POST">
+                                    <button
+                                        class="btn btn-secondary w-100"
+                                        type="submit"
+                                        ${!product.readyToOrder || !product.available ? "disabled" : ""}
+                                    >
+                                        ${Resource.msg("modal.guest.button.subscribe", "modal", null)}
+                                    </button>
+                                </form>
+                            </isif>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

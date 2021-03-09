@@ -1,0 +1,191 @@
+.pickup-in-store-block {
+    .prescription-message {
+        border: 1px dotted $tertiary-yellow;
+        background-color: $tertiary-yellow-light;
+        font-size: rem-calc(16px);
+        color: $lighter-red;
+        border-radius: 5px;
+        padding: 10px 15px;
+
+        .important {
+            color: $brand-color-primary;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    }
+
+    .results-card {
+        padding: 0;
+        border: 1px solid $secondary-grey-light;
+    }
+
+    .store-result-item {
+        border-bottom: 1px solid $secondary-grey-light;
+
+        &.active {
+            background-color: $highlighter-primary;
+        }
+    }
+
+    address {
+        margin-bottom: 0;
+    }
+
+    .timeslot-store {
+        font-size: rem-calc(13px);
+    }
+
+    .selectedStore {
+        background: $secondary-grey-light;
+        padding: 10px 20px 10px 50px;
+        margin: 0;
+        position: relative;
+
+        &::before {
+            content: "";
+            background: url("../../images/store-location-icon.svg") no-repeat;
+            width: 23px;
+            height: 24px;
+            display: inline-block;
+            background-size: 100%;
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+
+    .who-takes {
+        .shipping-subtitle {
+            font-size: rem-calc(15px);
+            line-height: 1.19;
+            color: $text-grey;
+
+            .shipping-subtitle-header {
+                font-size: rem-calc(15px);
+                line-height: 1.19;
+                text-align: center;
+                color: $text-grey;
+            }
+        }
+    }
+
+    .results {
+        max-height: 300px;
+    }
+
+    .store-name {
+        color: $text-grey;
+        font-family: $font-family-primary-bold;
+        font-size: rem-calc(13px);
+
+        .store-name-first {
+            line-height: normal;
+        }
+    }
+
+    .store-hours,
+    .store-distance-long,
+    .btn-storelocator {
+        display: none;
+    }
+
+    .store-map {
+        pointer-events: none;
+        color: $text-grey;
+        font-size: rem-calc(12px);
+    }
+
+    .store-details {
+        cursor: pointer;
+    }
+}
+
+.selection-type-stores-radios {
+    .selection-type-stores-radios-button {
+        width: 40%;
+
+        .custom-control-label {
+            width: 80px;
+            text-align: left;
+        }
+    }
+
+    .custom-radio {
+        padding-left: 35px;
+
+        &.radios-button {
+            padding: 10px 20px 10px 15px;
+        }
+    }
+}
+
+.location-select-label {
+    font-size: rem-calc(13px);
+    line-height: rem-calc(15px);
+}
+
+.selected-location-text {
+    font-size: rem-calc(14px);
+}
+
+.shipping-subtitle-align {
+    text-align: center;
+}
+
+@include media-breakpoint-up(lg) {
+    .location-select-label {
+        font-size: rem-calc(15px);
+        line-height: rem-calc(18px);
+    }
+
+    .shipping-subtitle-align {
+        text-align: left;
+    }
+
+    .selectedStore {
+        margin: 0 24px;
+    }
+
+    .store-locator-no-results {
+        font-size: rem-calc(15px);
+    }
+
+    .selection-type-stores-radios {
+        .selection-type-stores-radios-button {
+            width: 50%;
+
+            .custom-control-label {
+                width: auto;
+                text-align: left;
+            }
+        }
+
+        .custom-radio {
+            padding-left: 50px;
+
+            &.radios-button {
+                padding: 20px 20px 20px 15px;
+            }
+        }
+    }
+
+    .selected-location-text {
+        font-size: rem-calc(15px);
+    }
+
+    .pickup-in-store-block {
+        padding-bottom: 50px;
+
+        .timeslot-store {
+            font-size: rem-calc(14px);
+        }
+    }
+
+    .custom-control-label {
+        &.control-label {
+            width: 55%;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+<isinclude template="/components/modules" />
+<div>
+    <div class="card order-confirm-create-account px-0 mt-lg-3 mb-3 mb-lg-0 d-print-none">
+        <div class="card-header-confirmation background-primary radius-small py-3 d-flex justify-content-center align-items-center">
+            <isinlinesvg src="account-user-icon" />
+            <h3 class="confirmation-card-header text-center text-white m-0 pl-3">${Resource.msg('title.save.customer.information', 'confirmation', null)}</h3>
+        </div>
+        <div class="card-body row">
+            <div class="col-12 col-lg-7 px-4 px-lg-0">
+                <p class="confirmation-account-description confirmation-description text-grey pt-4 pt-lg-0 text-center text-lg-left">
+                    ${Resource.msg("confirmation.create-account.description", "confirmation", null)}
+                </p>
+                <form
+                    action="${URLUtils.url('Order-CreateAccount', 'ID', pdict.order.orderNumber, 'UUID', pdict.order.UUID)}"
+                    class="checkout-registration"
+                    method="POST"
+                    name="checkout-register-form" ${pdict.passwordForm.attributes} novalidate>
+                    <div class="form-group
+                        <isif condition="${pdict.passwordForm.newpassword.mandatory === true}">required</isif>">
+                        <label class="form-control-label text-bold confirmation-label" for="newPassword">
+                            ${Resource.msg('field.password', 'confirmation', null)}
+                        </label>
+                        <input
+                        type="password"
+                        class="form-control"
+                        id="newPassword"
+                            data-missing-error="${Resource.msg('error.message.required','forms',null)}"
+                        data-range-error="${Resource.msg('error.message.8_255characters','forms',null)}"
+                        <isprint value="${pdict.passwordForm.newpassword.attributes}" encoding="off" />>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group
+                        <isif condition="${pdict.passwordForm.newpasswordconfirm.mandatory === true}">required</isif>">
+                        <label class="form-control-label text-bold confirmation-label" for="newPasswordConfirm">
+                            ${Resource.msg('field.confirm.password', 'confirmation', null)}
+                        </label>
+                        <input
+                        type="password"
+                        class="form-control"
+                        id="newPasswordConfirm"
+                        data-missing-error="${Resource.msg('error.message.required','forms',null)}"
+                        data-range-error="${Resource.msg('error.message.8_255characters','forms',null)}"
+                        <isprint value="${pdict.passwordForm.newpasswordconfirm.attributes}" encoding="off" />>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group custom-control pl-sm-5 pl-lg-4 custom-checkbox d-flex flex-wrap">
+                        <input type="checkbox" required class="form-control required custom-control-input w-auto h-auto d-inline-block position-absolute" name="termsAndConditions" id="termsAndConditions" value="1" data-missing-error="${Resource.msg('error.terms.policy', 'forms',null)}"/>
+                        <label class="form-control-label custom-control-label d-flex justify-content-center align-items-center" for="termsAndConditions">
+                            <span class="custom-label-terms">
+                                ${Resource.msg('label.policy.accept', 'forms', null)}
+                                <a href="${URLUtils.url('Page-Show','cid','terminos-y-condiciones')}">
+                                    <u>${Resource.msg('label.policy.terms-and-conditions', 'forms', null)}</u>
+                                </a>
+                                ${Resource.msg('label.policy.club-join', 'forms', null)}
+                                <a href="${URLUtils.url('Page-Show','cid','club-terminos-y-condiciones')}">
+                                    <u>${Resource.msg('label.policy.club', 'forms', null)}</u>
+                                </a>
+                            </span>
+                        </label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+                    <div class="text-center text-lg-left w-100 pt-3 pb-5 py-lg-0">
+                        <button class="btn btn-secondary checkout-button">
+                            ${Resource.msg('button.create.account','confirmation',null)}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

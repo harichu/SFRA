@@ -1,0 +1,17 @@
+<isloop items="${lineItem.bonusProducts}" var="productLineItem" status="loopState">
+    <isinclude template="cart/productCard/cartNestedBonusProductCard" />
+</isloop>
+<div class="bundled-line-item clearfix"></div>
+<isloop items="${lineItem.discountLineItems}" var="discountLineItem">
+    <div
+        class="text-center my-4 bonus-product-button d-none"
+        data-duuid="${discountLineItem.uuid}"
+        data-pliuuid="${discountLineItem.pliuuid}"
+        data-maxpids="${discountLineItem.maxpids}"
+        data-pageStart="0"
+        data-pageSize="0"
+        data-url="${discountLineItem.url}"
+    >
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#chooseBonusProductModal">${discountLineItem.msg}</button>
+    </div>
+</isloop>

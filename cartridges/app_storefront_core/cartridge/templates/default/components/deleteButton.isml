@@ -1,0 +1,10 @@
+<button type="button" class="remove-btn-lg remove-product btn btn-light" data-toggle="modal"
+        data-target=".cart.cart-page #removeProductModal" data-pid="${lineItem.id}"
+        data-name="${lineItem.productName}"
+        data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+        data-uuid="${lineItem.UUID}"
+        data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'RemoveProduct', lineItem.productName, '')}"
+        aria-label="${Resource.msgf('text.remove.line.item','cart', null, lineItem.productName)}"
+    >
+    <span aria-hidden="true">&times;</span>
+</button>

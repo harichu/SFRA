@@ -1,0 +1,22 @@
+<div class="price">
+    <span class="sales d-flex flex-wrap">
+        <span class="large-price w-100 d-flex mb-1">
+            <span class="value">
+                <isprint value="${lineItem.priceTotal.price}"/>
+                <isif condition="${lineItem.priceTotal.nonAdjustedPrice}">
+                    ${Resource.msg('product.price.reduced', 'product', null)}
+                </isif>
+            </span>
+        </span>
+    </span>
+    <isif condition="${lineItem.priceTotal.nonAdjustedPrice}">
+        <span class="list d-block">
+            <span class="price-original">
+                <span class="original-value">
+                    <isprint value="${lineItem.priceTotal.nonAdjustedPrice}" />
+                </span>
+                ${Resource.msg('label.price.original', 'pricing', null)}
+            </span>
+        </span>
+    </isif>
+</div>

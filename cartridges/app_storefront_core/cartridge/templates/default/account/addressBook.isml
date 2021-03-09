@@ -1,0 +1,50 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/addressBook.js');
+        assets.addCss('/css/account/addressBook.css');
+        assets.addCss('/css/account/orders.css');
+        assets.addCss('/css/account/account.css');
+    </isscript>
+    <isinclude template="account/deleteAddressModal"/>
+
+    <div class="account-page account-address background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('label.addressbook', 'account', null)}" hasbreadcrumbs="${true}"/>
+        <div class="container account-page-content" data-gtm="${require('int_gtm').gtmEventListener('show', 'AddressList')}">
+            <div class="row">
+                <isinclude template="account/components/sidebar" />
+                <div class="col">
+                    <div class="d-none d-lg-flex card addressbook-row addressbook-header">
+                        <div class="address-name addressbook-header-item">
+                            ${Resource.msg('label.addressbook.name','account',null)}
+                            <div class="sort-icon" data-url="${URLUtils.url('Address-Sort', 'attr', 'name', 'order', 'asc')}">
+                                <isinlinesvg src="order-icon" />
+                            </div>
+                        </div>
+                        <span class="divisor"></span>
+                        <div class="address-direction addressbook-header-item">
+                            ${Resource.msg('label.addressbook.direction','account',null)}
+                        </div>
+                    </div>
+                    <isif condition="${pdict.addressBook.length === 0}">
+                        <div class="card addressbook-row">
+                            <span class="no-addresses">${Resource.msg('msg.no.saved.addresses','address',null)}</span>
+                        </div>
+                    </isif>
+                    <isinclude template="account/addressList" />
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <div class="pull-right">
+                                <a href="${URLUtils.url('Address-AddAddress')}" class="new-address" aria-label="${Resource.msg('label.addressbook.addnewaddress', 'account', null)}">
+                                    ${Resource.msg('label.addressbook.addnewaddress', 'account', null)}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

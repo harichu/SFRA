@@ -1,0 +1,98 @@
+<div class="product-line-item row m-0" data-product-line-item="${lineItem.UUID}">
+    <div class="col-3">
+        <isif condition="${lineItem.productType === 'bundle'}">
+            <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
+            <!--- individual bundled line items --->
+            <isinclude template="cart/productCard/cartProductCardBundledItems" />
+        <iselse/>
+            <div class="product-line-item-details d-flex flex-row w-100">
+                <div class="item-image w-100">
+                    <img class="product-image"
+                        src="${lineItem.images.small[0].url}"
+                        alt="${lineItem.images.small[0].alt}"
+                        title="${lineItem.images.small[0].title}">
+                </div>
+            </div>
+        </isif>
+    </div>
+
+    <div class="col-9 pr-sm-0">
+        <div class="line-item-brand product-brand">
+            <a href="${URLUtils.url('Search-Show', 'q', lineItem.brand)}" class="product-brand text-uppercase m-0">
+                <span class="product-brand"><isprint value="${lineItem.brand}"/></span>
+            </a>
+        </div>
+        <div class="line-item-header d-flex flex-row align-items-center">
+            <isinclude template="checkout/productCard/productCardProductName" />
+
+            <isif condition="${lineItem.productType === 'bundle'}">
+                <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
+                <!--- individual bundled line items --->
+                <isinclude template="cart/productCard/cartProductCardBundledItems" />
+            <iselse/>
+                <div class="product-line-item-details d-flex flex-row">
+                    <div class="item-attributes">
+                        <isloop items="${lineItem.variationAttributes}" var="attribute">
+                            <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                        </isloop>
+
+                        <div class="item-options">
+                            <isloop items="${lineItem.options}" var="option">
+                                <div class="line-item-option">${option}</div>
+                            </isloop>
+                        </div>
+                    </div>
+                </div>
+            </isif>
+            <isif condition="${!isCheckout}">
+                <div class="line-item-unit-price line-item-total-price-amount">
+                    <isif condition="${lineItem.price}">
+                        <p class="line-item-pricing-info">
+                            <isset name="price" value="${lineItem.price}" scope="page"/>
+                            <isinclude template="/product/components/pricing/main.isml" />
+                        </p>
+                    </isif>
+                </div>
+            <iselse>
+                <div class="item-total-${lineItem.UUID} price col-3 px-0">
+                    <div class="pricing ml-0 text-left line-item-total-price-amount item-total-${lineItem.UUID}">
+                        <isset name="formatMoney" value="${require("dw/util/StringUtils").formatMoney}" scope="page" />
+
+                        <isif condition="${pdict.isMemberOfClubVerde && lineItem.price.club && lineItem.price.club.value}">
+                            ${formatMoney(lineItem.price.club.money.multiply(lineItem.quantity))}
+                        <iselseif condition="${lineItem.price}">
+                            <isif condition="${lineItem.price.sales && lineItem.price.sales.value}">
+                                ${formatMoney(lineItem.price.sales.money.multiply(lineItem.quantity))}
+                            <iselseif condition="${lineItem.price.list && lineItem.price.list.value}">
+                                ${formatMoney(lineItem.price.list.money.multiply(lineItem.quantity))}
+                            </isif>
+                        </isif>
+                    </div>
+                </div>
+            </isif>
+        </div>
+
+        <isif condition="${isCheckout}">
+            <isinclude template="checkout/productCard/productCartshippingMethods" />
+        </isif>
+
+        <isinclude template="checkout/productCard/productCardQuantityDisplay" />
+    </div>
+
+    <isif condition="${miniCart && !isCheckout}">
+        <div class="line-item-promo text-red text-bold w-100 text-right item-${lineItem.UUID}">
+            <isinclude template="checkout/productCard/productCardProductPromotions" />
+        </div>
+    </isif>
+
+    <isif condition="${!loopStateContainer.last}">
+        <hr class="separator-thin w-100"/>
+    </isif>
+
+    <isloop items="${lineItem.bonusProducts}" var="nestedLineItem" status="loopState">
+        <isinclude template="checkout/productCard/embeddedBonusProductSummary" />
+        <isif condition="${!loopStateContainer.last}">
+            <hr class="separator-thin w-100"/>
+        </isif>
+    </isloop>
+</div>

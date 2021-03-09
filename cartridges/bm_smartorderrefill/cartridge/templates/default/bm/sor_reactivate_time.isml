@@ -1,0 +1,17 @@
+<isinclude template="bm/util/sor_modules" />
+<isinclude template="components/header" />
+
+<form data-link="${dw.web.URLUtils.https('SmartOrderRefillReport-ReactivateSubscription', 'sid', pdict.sid, 'client', pdict.client )}"
+        method="post"
+        id="reactivatePeriodForm">
+    <div class="sor-filter-checkbox">
+        <input type="radio" id="reactivateRemaining" name="reactivateType"  value="remainig" checked>
+        <label for="reactivateRemaining">${Resource.msgf('forms.sorsubscriptions.reactivate.remainperiod.label','sor_smartorderrefill',null, pdict.validUntil)}</label>
+    </div>
+
+    <div class="sor-filter-checkbox">
+        <input type="radio" id="reactivateOneYear" name="reactivateType" value="year" >
+        <label for="reactivateOneYear">${Resource.msgf('forms.sorsubscriptions.reactivate.oneyear.label','sor_smartorderrefill',null, pdict.oneYear)}</label>
+    </div>
+
+</form>

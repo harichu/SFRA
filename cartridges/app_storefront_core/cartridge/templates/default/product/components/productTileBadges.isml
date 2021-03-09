@@ -1,0 +1,13 @@
+<isset name="bioequivalence" value="${product.custom.bioequivalence}" scope="page" />
+<isset name="expressdelivery" value="${product.custom.expressdelivery}" scope="page" />
+<isset name="bioequivalenceUrl" value="${empty(bioequivalence)? '' : bioequivalence.getAbsURL()}" scope="page" />
+<isset name="expressdeliveryUrl" value="${empty(expressdelivery)? '' : expressdelivery.getAbsURL()}" scope="page" />
+<div class="product-badges position-absolute d-flex flex-column align-items-center">
+    <img class="bioequivalence" src="${bioequivalenceUrl}" alt="Bioequivalence" style="display:${bioequivalenceUrl ? 'block' : 'none' }"/>
+    <img class="expressdelivery" src="${expressdeliveryUrl}" alt="Express Delivery" style="display:${expressdeliveryUrl ? 'block' : 'none' }"/>
+    <isloop items="${product.promotions}" var="promotion">
+        <isif condition="${!empty(promotion.showBadgesAndRibbon) && promotion.showBadgesAndRibbon && !empty(promotion.custom.badge)}">
+            <img src="${promotion.custom.badge.getAbsURL()}" alt="${promotion.name}" />
+        </isif>
+    </isloop>
+</div>

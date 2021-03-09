@@ -1,0 +1,5 @@
+<div class="line-item-brand product-brand">
+    <a href="${URLUtils.url('Search-Show', 'q', lineItem.brand)}" class="product-brand text-uppercase m-0">
+        <span class="product-brand"><isprint value="${lineItem.brand}"/></span>
+    </a>
+</div>

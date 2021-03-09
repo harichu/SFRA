@@ -1,0 +1,6 @@
+<div><isprint value="${address.firstName}" /> <isprint value="${address.lastName}" /></div>
+<div><isprint value="${address.address1}" /></div>
+<isif condition="${!empty(address.address2)}">
+    <div>${address.address2}</div>
+</isif>
+<div><isprint value="${address.city}" />, <isprint value="${address.stateCode}" /> <isprint value="${address.postalCode}" /></div>

@@ -1,0 +1,83 @@
+<isinclude template="/components/modules"/>
+
+<isif condition="${pdict.subCategories}">
+    <div class="subCategories refinement d-none d-lg-block">
+        <div class="category-title text-uppercase refinement-header px-3 py-2 mb-0">
+            <span class="category-name"> ${pdict.productSearch.productSearch.category.displayName} </span>
+        </div>
+        <div class="subcategory-list p-4 overflow-auto">
+            <isloop items="${pdict.subCategories}" var="subCategory">
+                <a href="${URLUtils.url('Search-Show', 'cgid', subCategory.ID)}" class="basic-link basic-link--dark d-block">
+                    <p class="subcategory-link-text">${subCategory.displayName}</p>
+                </a>
+            </isloop>
+        </div>
+    </div>
+</isif>
+
+<div class="modal fade d-lg-block" id="filters">
+    <div class="modal-dialog refinement-dialog d-flex flex-column justify-content-center align-items-center mt-lg-0" role="document">
+        <div class="modal-content refinement-content overflow-hidden">
+            <div class="filter-header m-0 d-lg-none">
+                <div class="header-bar px-3 text-center text-white">
+                    ${Resource.msg('label.filter.by', 'search', null)}
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="py-3">
+                <div class="refinements">
+                    <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                            <isif condition="${refinement.isCategoryRefinement}">
+                                <div class="refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')} d-none d-lg-block">
+                                    <div class="refinement-header text-uppercase px-3 py-2">
+                                        <isset name="categories" value="${refinement.values}" scope="page" />
+                                        <isloop items="${categories}" var="category">
+                                            ${category.displayValue}
+                                        </isloop>
+                                    </div>
+                                    <div class="refinement-body overflow-auto content value" id="refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                                        <isset name="categories" value="${refinement.values}" scope="page" />
+                                        <isinclude template="search/refinements/categories" />
+                                    </div>
+                                </div>
+                            </isif>
+                    </isloop>
+                    <div class="refinement-title text-uppercase mb-3 d-none d-lg-block pl-2">${Resource.msg('label.filter', 'search', null)}</div>
+                    <div class="mb-0">
+                        <isloop items="${pdict.productSearch.refinements}" var="refinement" status="loopState">
+                            <isif condition="${!refinement.isCategoryRefinement}">
+                                <div class="refinement refinement-collapse position-relative">
+                                    <isset name="expandAllCategoryFilters" value="${dw.system.Site.current.preferences.custom.difarmaExpandCategoryFilters}" scope="page" />
+                                    <input type="checkbox" name="${'content-'+loopState.index}" id="${'content-'+loopState.index}" class="content-trigger position-absolute ${'trigger-'+loopState.index} ${expandAllCategoryFilters || !expandAllCategoryFilters && loopState.index < 2 ? "expanded-large" : ""}">
+                                    <label for="${'content-'+loopState.index}" class="refinement-header refinement-header-label d-flex justify-content-between align-items-center text-uppercase px-3 py-2 mb-0 cursor-pointer w-100">
+                                        ${refinement.displayName}
+                                        <span class="checkmark-content">
+                                            <div class="checkmark-content-icon">
+                                                <isinlinesvg src="arrow-icon" />
+                                            </div>
+                                        </span>
+                                    </label>
+                                    <div class="refinement-body overflow-auto content value" id="refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                                        <!--- ATTRIBUTE REFINEMENTS --->
+                                        <isif condition="${refinement.isAttributeRefinement}">
+                                            <isinclude template="search/refinements/attributes" />
+                                        </isif>
+                                        <!--- PRICE REFINEMENTS --->
+                                        <isif condition="${refinement.isPriceRefinement}">
+                                            <isinclude template="search/refinements/prices" />
+                                        </isif>
+                                    </div>
+                                </div>
+                            </isif>
+                        </isloop>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="apply-filters w-100 px-3 py-2 text-uppercase text-center text-white fixed-bottom cursor-pointer" disabled>
+        ${Resource.msg('button.apply.filters', 'search', null)}
+    </button>
+</div>

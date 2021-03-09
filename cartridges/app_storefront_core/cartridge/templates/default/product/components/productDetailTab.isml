@@ -1,0 +1,12 @@
+<isif condition="${title && content}">
+    <isset name="idTab" value="${idTab.replace(/\s/g, '').toLowerCase()}" scope="page" />
+    <input type="radio" name="info-collapse" id="${idTab}" class="content-trigger position-absolute" ${(checked)?'checked':''}/>
+    <label for="${idTab}" class="info-collapse-header info-collapse-header-label mb-lg-0 d-flex justify-content-between align-items-center text-uppercase px-5 py-2 cursor-pointer">
+        <span class="${idTab}Title">${title}</span>
+    </label>
+    <div class="info-content-container order-lg-10 w-100 overflow-auto p-lg-0">
+        <div class="info-content p-3 p-lg-4">
+            <span class="${idTab}Content info-content-collapse"><isprint value="${content}" encoding="off" /></span>
+        </div>
+    </div>
+</isif>

@@ -1,0 +1,22 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="components/content/folderTopBanner"/>
+    <div class="container" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/bodyTitle"/>
+        <div class="page-content d-flex flex-wrap justify-content-around py-4 py-lg-3">
+            <isloop items="${pdict.folderContent}" var="collapseAsset">
+                <div class="legal-document text-center mb-4">
+                    <isprint value="${collapseAsset.custom.body}" encoding="off"/>
+                </div>
+            </isloop>
+        </div>
+        <isif condition="${pdict.pageLinks}">
+            <div class="pagination pagination-footer d-flex justify-content-center align-items-center py-4">
+                <span class="text-uppercase">${Resource.msg('label.pages', 'search', null)} </span>
+                <isloop items="${pdict.pageLinks}" var="page" status="loopstatus">
+                    <a class="btn btn-page ml-3 rounded-0 ${page.selected ? 'current-page' : ''} ${page.dots ? 'dots' : ''} "
+                        href="${page.url}">${page.name}</a>
+                </isloop>
+            </div>
+        </isif>
+    </div>
+</isdecorate>

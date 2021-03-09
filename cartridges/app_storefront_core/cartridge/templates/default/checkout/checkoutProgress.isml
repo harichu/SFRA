@@ -1,0 +1,66 @@
+<isinclude template="/components/modules"/>
+<isset name="checkoutBackgroundActive" value="${dw.content.ContentMgr.getContent("checkout-banner-image").online}" scope="page"/>
+<isif condition="${checkoutBackgroundActive}">
+<div class="position-relative">
+    <iscontentasset aid="checkout-banner-image"/>
+    <div class="position-absolute top-0 w-100 bottom-0 d-flex align-items-center justify-content-center">
+</isif>
+        <div class="container steps-container text-center">
+            <div class="checkout-steps py-lg-3 pt-2 w-100 ${activeStep == "cart" ? 'd-none d-lg-flex' : 'd-flex'}">
+                <div class="checkout-step w-100 checkout-step-bag position-relative text-center progress-bag d-none d-lg-block ${activeStep == "login" || activeStep == "shipping" || activeStep == "billing" || activeStep == "payment" ? 'completed' : ''}">
+                    <span class="d-none d-lg-block">${Resource.msg('checkout.step.cart', 'checkout', null)}</span>
+                </div>
+                <div class="checkout-step w-100 checkout-step-login position-relative text-center counter ${activeStep == "shipping" || activeStep == "billing" || activeStep == "payment" ? 'completed' : ''}">
+                    <span class="d-none d-lg-block">${Resource.msg('checkout.step.login', 'checkout', null)}</span>
+                </div>
+                <div class="checkout-step w-100 checkout-step-shipping position-relative text-center counter ${activeStep == "billing" || activeStep == "payment" ? 'completed' : ''}">
+                    <span class="d-none d-lg-block">${Resource.msg('checkout.step.shipping', 'checkout', null)}</span>
+                </div>
+                <div class="checkout-step w-100 checkout-step-payment position-relative text-center counter">
+                    <span class="d-none d-lg-block">${Resource.msg('checkout.step.billing', 'checkout', null)}</span>
+                </div>
+            </div>
+            <isif condition="${activeStep != "cart"}">
+                <div class="d-flex d-lg-none">
+                    <div class="w-100 cleafix text-center mb-3">
+                        <div class="account-subtitle card-title d-flex align-items-center px-3 pt-2 text-center mb-0">
+                            <isif condition="${activeStep == "login"}">
+                                <isprint value="${Resource.msg('login.section.subtitle', 'login', null)}"/>
+                            <iselseif condition="${activeStep == "shipping"}">
+                                <span class="checkout-title-small checkout-title-shipping">${Resource.msg('checkout.shipping.header.mobile', 'checkout', null)}</span>
+                            <iselseif condition="${activeStep == "billing"}">
+                                <span class="checkout-title-small checkout-title-billing">${Resource.msg('checkout.billing.header.mobile', 'checkout', null)}</span>
+                            </isif>
+                        </div>
+                        <isif condition="${activeStep == "login"}">
+                            <span class="total-items-label text-grey">
+                                ${Resource.msgf('label.number.items.in.cart', 'cart', null, pdict.details.totalQuantity)}
+                            </span>
+                        <iselse>
+                            <span class="total-items-label text-grey">
+                                ${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}
+                            </span>
+                        </isif>
+                    </div>
+                </div>
+            <iselse>
+                <div class="checkout-steps checkout-steps-cart d-flex d-lg-none pt-2 justify-content-center flex-column justify-content-center align-items-center w-100 h-100">
+                    <div class="checkout-steps-cart-image">
+                        <img src="${URLUtils.staticURL('/images/icons/cart-icon-highlighted.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" />
+                    </div>
+                    <div class="w-100 cleafix text-center mb-3">
+                        <div class="account-subtitle card-title d-flex align-items-center px-3 pt-2 text-center mb-0">
+                            <isprint value="${Resource.msg('cart.section.subtitle', 'cart', null)}"/>
+                        </div>
+                        <span class="total-items-label text-grey">
+                            <span class="cart-qty">${pdict.numItems.toFixed(0)}</span>
+                            ${Resource.msg('label.number.items.in.cart.label', 'cart', null)}
+                        </span>
+                    </div>
+                </div>
+            </isif>
+        </div>
+<isif condition="${checkoutBackgroundActive}">
+    </div>
+</div>
+</isif>

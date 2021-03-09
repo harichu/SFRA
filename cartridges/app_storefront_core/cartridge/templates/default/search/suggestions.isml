@@ -1,0 +1,132 @@
+<isinclude template="/components/modules" />
+<isif condition="${pdict.suggestions.product && pdict.suggestions.product.phrases.length > 0}">
+    <div class="suggestions shadow position-relative">
+        <div class="suggestions-body d-flex flex-wrap flex-lg-nowrap">
+            <isif condition="${pdict.suggestions.product.availableBrands || pdict.suggestions.product.availableCategories}">
+                <div class="suggestions-lists px-3 px-lg-0 order-1 order-lg-0 flex-grow-1 flex-lg-grow-0">
+                    <iscomment>The brands suggestions are related to the products found instead of the search term</iscomment>
+                    <isif condition="${pdict.suggestions.product.availableBrands}">
+                        <div class="suggestions-header background-white justify-content-between p-3 mb-2 d-none d-lg-flex">
+                            <div class="suggestions-brand suggestions-title background-white d-flex align-items-center w-100">
+                                <div class="suggestions-brand-icon mr-2">
+                                    <isinlinesvg src="search-brands-icon" />
+                                </div>
+                                ${Resource.msg('label.search.brand.suggestions', 'common', null)}
+                            </div>
+                        </div>
+                        <div class="suggestions-brand suggestions-title background-white d-flex d-lg-none align-items-center w-100 mb-2 p-3">
+                            <div class="suggestions-brand-icon mr-2">
+                                <isinlinesvg src="search-brands-icon" />
+                            </div>
+                            ${Resource.msg('label.search.brand.suggestions', 'common', null)}
+                        </div>
+                        <ul class="suggestions-brand-list list-unstyled pl-5">
+                            <isloop items="${pdict.suggestions.product.brands}" var="brand" status="listindex">
+                                <li class="mb-2">
+                                    <a href="${brand.url}" title="${brand.name}">
+                                        ${brand.name}
+                                    </a>
+                                </li>
+                            </isloop>
+                        </ul>
+                    </isif>
+                    <iscomment>The categories suggestions are related to the products found instead of the search term</iscomment>
+                    <isif condition="${pdict.suggestions.product.availableCategories}">
+                        <div class="suggestions-category suggestions-title background-white d-flex align-items-center w-100 mb-2 p-3">
+                            <div class="suggestions-category-icon mr-2">
+                                <isinlinesvg src="search-categories-icon" />
+                            </div>
+                            ${Resource.msg('label.search.category.suggestions', 'common', null)}
+                        </div>
+                        <ul class="suggestions-category-list list-unstyled pl-5">
+                            <isloop items="${pdict.suggestions.product.categories}" var="category" status="listindex">
+                                <li class="mb-2">
+                                    <a href="${category.url}" title="${category.name}">
+                                        ${category.name}
+                                    </a>
+                                </li>
+                            </isloop>
+                        </ul>
+                    </isif>
+                </div>
+            </isif>
+            <div class="suggestions-products w-100 mb-2">
+                <div class="suggestions-header background-white d-flex justify-content-between p-3 mb-2">
+                    <div class="suggestions-word px-2 w-100">
+                        ${Resource.msg('label.search.suggestions.results', 'common', null)}
+                        <span class="suggestions-term">
+                            <isloop items="${pdict.suggestions.product.phrases}" var="phrase" status="listindex">
+                                “${phrase.value}”
+                            </isloop>
+                        </span>
+                    </div>
+                </div>
+                <div class="suggestions-products-list px-3">
+                    <isloop items="${pdict.suggestions.product.products}" var="product" status="listindex">
+                        <isif condition="${listindex.index <= 4}">
+                            <isset name="hasClubPromotion" value="${product.hasClubPromotionAdjusment}" scope="page" />
+                            <isset name="hasPromotionWithBadge" value="${product.hasPromotionWithBadge}" scope="page" />
+
+                            <div class="suggestions-product background-white p-2 mb-2 row">
+                                <div class="col-3">
+                                    <a href="${product.url}" aria‐label="${product.name}">
+                                        <img class="suggestions-product-image mr-2 w-100" alt="${product.name}" src="${product.imageUrl}" />
+                                    </a>
+                                </div>
+                                <div class="col-9 pb-2">
+                                    <isif condition="${!empty(product.brand)}">
+                                        <a href="${URLUtils.url('Search-Show', 'q', product.brand)}" class="product-brand m-0 d-block w-100">
+                                            ${product.brand}
+                                        </a>
+                                    </isif>
+                                    <a href="${product.url}" aria‐label="${product.name}">
+                                        <span class="suggestions-product-name">${product.name}</span>
+                                    </a>
+                                    <div class="d-flex w-100 align-items-center py-1">
+                                        <isif condition="${product.price.club.value}">
+                                            <span class="suggestions-final-price">
+                                                <isprint value="${require('*/cartridge/scripts/util/formatting').formatCurrency(product.price.club.value, product.price.club.currency)}" />
+                                            </span>
+                                            <div class="suggestions-price-icon pl-1">
+                                                <isclubbadge showtext="${false}" promotions="${product.promotions}" haspromotionalbadge="${hasPromotionWithBadge}"/>
+                                            </div>
+                                        </isif>
+                                    </div>
+
+                                    <isif condition="${!product.price.club.value && product.price.sales.value}">
+                                        <span class="suggestions-final-price">
+                                            <isprint value="${require('*/cartridge/scripts/util/formatting').formatCurrency(product.price.sales.value, product.price.sales.currency)}" />
+                                            <isif condition="${hasClubPromotion || hasPromotionWithBadge}">
+                                                <isclubbadge showtext="${false}" promotions="${product.promotions}" haspromotionalbadge="${hasPromotionWithBadge}"/>
+                                            <iselse>
+                                                ${Resource.msg('label.price.to', 'pricing', null)}
+                                            </isif>
+                                        </span>
+                                    </isif>
+
+                                    <isif condition="${product.price.club.value && product.price.sales.value}">
+                                        <div class="d-block">
+                                            <span class="suggestions-reduced-price">
+                                                <isprint value="${require('*/cartridge/scripts/util/formatting').formatCurrency(product.price.sales.value, product.price.sales.currency)}" />
+                                                ${Resource.msg('label.price.to', 'pricing', null)}
+                                            </span>
+                                        </div>
+                                    </isif>
+
+                                    <div class="d-block">
+                                        <span class="suggestions-reduced-price">
+                                            <isprint value="${require('*/cartridge/scripts/util/formatting').formatCurrency(product.price.list.value, product.price.list.currency)}" />
+                                            <isif condition="${product.price.club.value || product.price.sales.value}">
+                                                ${Resource.msg('label.price.original', 'pricing', null)}
+                                            </isif>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </isif>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

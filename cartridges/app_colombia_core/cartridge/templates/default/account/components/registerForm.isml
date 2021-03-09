@@ -1,0 +1,232 @@
+<form
+    action="${pdict.createAccountUrl}"
+    class="registration mt-lg-5"
+    method="POST"
+    id="registration-form"
+    data-validation-url="${URLUtils.url('Account-Validate')}">
+
+    <input type="hidden" id="validate-document-url" value="${URLUtils.url('Account-ValidateID')}" />
+    <input type="checkbox" class="d-none" id="is-loyalty-enabled" ${pdict.isLoyaltyEnabled ? 'checked=checked' : ''} />
+
+    <!-- First row -->
+    <div class="row">
+        <div class="col-sm-12 col-lg-4">
+            <div class="row">
+                <div class="col-4">
+                    <label class="form-control-label" for="registration-document">
+                        ${Resource.msg('label.input.document', 'forms', null)}
+                    </label>
+                    <select type="text" required class="custom-select form-control" id="registration-document" name="document">
+                        <option value="${Resource.msg('label.input.document.type.cc', 'forms', null)}" data-doc-type="cedula">
+                            ${Resource.msg('label.input.document.type.cc', 'forms', null)}
+                        </option>
+                        <option value="${Resource.msg('label.input.document.type.ce', 'forms', null)}" data-doc-type="cedula">
+                            ${Resource.msg('label.input.document.type.ce', 'forms', null)}
+                        </option>
+                        <option value="${Resource.msg('label.input.document.type.passport', 'forms', null)}" data-doc-type="pasaporte">
+                            ${Resource.msg('label.input.document.type.passport', 'forms', null)}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-8">
+                    <div class="form-group required">
+                        <label class="form-control-label" for="registration-indentification-number">
+                            ${Resource.msg('label.input.identification-number', 'forms', null)}
+                        </label>
+                        <input type="text"
+                            class="form-control required js-document-validation js-doc-validation"
+                            data-type="cedula"
+                            required
+                            minlength="6"
+                            maxlength="10"
+                            aria-describedby="form-registration-identification-number-error"
+                            id="registration-identification-number"
+                            name="identificationNumber"
+                            pattern=".{6,10}"
+                            autocomplete="name"
+                            data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                            data-pattern-mismatch="${Resource.msg('error.document.cc', 'forms', null)}"
+                            data-passport-error="${Resource.msg('error.document.passport', 'forms', null)}"
+                            data-ce-error="${Resource.msg('error.document.ce', 'forms', null)}"
+                            data-cc-error="${Resource.msg('error.document.cc', 'forms', null)}"
+                        />
+                        <div class="invalid-feedback" id="form-registration-indentification-number-error"></div>
+                        <div class="is-member-text d-none">
+                            ${Resource.msg('register.verify.club.true', 'registration', null)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4">
+             <div class="form-group required">
+                <label class="form-control-label" for="registration-fullname">
+                    ${Resource.msg('label.input.fullname.profile', 'forms', null)}
+                </label>
+                <input type="text"
+                    class="form-control required" required
+                    id="registration-form-fullname"
+                    aria-describedby="form-fullname-error"
+                    name="fullName" placeholder="Ej: Javier Maldonado Césped"
+                    data-missing-error="${Resource.msg('error.missing.name', 'forms', null)}"
+                    pattern="${Resource.msg("regex.name.field", "forms", null)}"
+                    data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreateFirstName', '', '')}"
+                    autocomplete="name"
+                    data-pattern-mismatch="${Resource.msg('checkout.login.name.error', 'checkout', null)}"
+                />
+                <div class="invalid-feedback" id="registration-fullname-error"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4">
+            <div class="form-group required">
+                <label class="form-control-label" for="registration-email">
+                    ${Resource.msg('label.input.email.register', 'forms', null)}
+                </label>
+                <input type="text" required
+                    class="form-control required"
+                    aria-describedby="form-email-error"
+                    id="registration-email"
+                    <isprint value="${pdict.profileForm.customer.email.attributes}" encoding="off" />
+                    data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreateEmail', '', '')}"
+                    data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                    data-pattern-mismatch="${Resource.msg('error.parse.email', 'forms', null)}"
+                    data-range-error="${Resource.msg('error.parse.email', 'forms', null)}"
+                    pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,}$"
+                    maxlength="50"
+                />
+                <div class="invalid-feedback" id="form-email-error"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second row -->
+    <div class="row">
+        <div class="col-sm-12 col-lg-4">
+            <div class="form-group required">
+                <label class="form-control-label" for="registration-phone">
+                    ${Resource.msg('label.input.phone.profile', 'forms', null)}
+                </label>
+                <input type="tel" required
+                    class="form-control required phone-field"
+                    aria-describedby="form-phone-error"
+                    id="registration-phone" name="phone"
+                    data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreatePhone', '', '')}"
+                    data-prefix="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                    value="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                    data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                    data-pattern-mismatch="${Resource.msg('error.parse.phone', 'forms', null)}"
+                    data-range-error="${Resource.msg('error.message.8_255characters', 'forms', null)}"
+                    pattern="^[\(\+57\)(\d)(\d){7,12}|(\d){3}(-)(\d){4}(-)(\d){3}]{15,}$"
+                    data-mask="(+00)0000000000"
+                />
+                <div class="invalid-feedback" id="form-phone-error"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4">
+            <div class="form-group required">
+                <label class="form-control-label" for="registration-gender">
+                    ${Resource.msg('label.input.gender.profile', 'forms', null)}
+                </label>
+                <select type="text" class="custom-select form-control required" required name="gender" data-missing-error="${Resource.msg('validate.required', 'forms', null)}">
+                    <option selected disabled value="">
+                        ${Resource.msg('label.gener.select', 'registration', null)}
+                    </option>
+                    <option class="custom-option" value="1">
+                        ${Resource.msg('label.gender.male', 'registration', null)}
+                    </option>
+                    <option class="custom-option" value="2">
+                        ${Resource.msg('label.gender.female', 'registration', null)}
+                    </option>
+                </select>
+                <div class="invalid-feedback" id="form-gender-error"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4 datefield">
+            <div class="form-group required">
+                <label class="form-control-label" for="registration-birth">
+                    ${Resource.msg('label.input.birth', 'forms', null)}
+                </label>
+                <input type="text"
+                    id="datefield"
+                    data-mask="00/00/0000"
+                    class="custom-select custom-validation form-control required date calendar-icon"
+                    required name="birth"
+                    data-toggle="datepicker"
+                    placeholder="dd/mm/año"
+                    data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                    data-minimum-error="${Resource.msg("error.birth.minimum.age", "forms", null)}"
+                    data-pattern-mismatch="${Resource.msg("error.birth", "forms", null)}"
+                />
+                <div class="docs-datepicker-container justify-content-center position-relative d-none"></div>
+                <div class="invalid-feedback" id="form-birth-error"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third row -->
+    <div class="row">
+         <div class="col-sm-12 col-lg-4">
+            <div class="form-group required">
+                <label class="form-control-label" for="registration-form-password">
+                    ${Resource.msg('label.input.password.profile', 'forms', null)}
+                </label>
+                <input type="password"
+                    class="form-control" required
+                    id="registration-form-password"
+                    autocomplete="new-password"
+                    name="password"
+                    data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreatePassword', '', '')}"
+                    data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                    data-range-error="${Resource.msg('error.message.8_255characters', 'forms', null)}"
+                    minlength="8"
+                    maxlength="255"
+                />
+                <div class="invalid-feedback" id="form-password-error"></div>
+            </div>
+         </div>
+
+         <div class="col-sm-12 col-lg-4">
+             <div class="form-group required">
+                <label class="form-control-label" for="registration-form-password-confirm">
+                    ${Resource.msg('label.input.password-confirm.profile', 'forms', null)}
+                </label>
+                <input type="password" class="form-control" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreatePasswordConfirm', '', '')}" required id="registration-form-password-confirm" autocomplete="off" name="passwordConfirm" data-missing-error="${Resource.msg('validate.required', 'forms', null)}"/>
+                <div class="invalid-feedback" id="form-password-error"></div>
+            </div>
+         </div>
+    </div>
+
+    <div class="row register-terms">
+        <div class="col">
+            <div class="form-group custom-control custom-checkbox d-flex justify-content-center flex-wrap text-center">
+                <input type="checkbox" required class="form-control required custom-control-input w-auto h-auto d-inline-block position-absolute" name="termsAndConditions" id="termsAndConditions" value="1" data-missing-error="${Resource.msg('error.terms.policy', 'forms', null)}"/>
+                <label class="form-control-label custom-control-label d-flex justify-content-center align-items-center" for="termsAndConditions">
+                    <span>${Resource.msg('label.policy.accept', 'forms', null)}
+                    <a href="${URLUtils.url('Page-Show','cid','terminos-y-condiciones')}">
+                        <u>${Resource.msg('label.policy.terms-and-conditions', 'forms', null)}</u>
+                    </a>
+                    ${Resource.msg('label.policy.club-join', 'forms', null)}
+                    <a href="${URLUtils.url('Page-Show','cid','club-terminos-y-condiciones')}">
+                        <u>${Resource.msg('label.policy.club', 'forms', null)}</u>
+                    </a>
+                    </span>
+                </label>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+    <div class="row">
+        <div class="col">
+            <div class="form-group text-center">
+                <button type="submit" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'AccountCreate', '', '')}" class="btn btn-secondary w-100 w-lg-25">
+                    ${Resource.msg('button.create-account.registration', 'registration', null)}
+                </button>
+            </div>
+        </div>
+    <div>
+</form>

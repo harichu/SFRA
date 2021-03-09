@@ -1,0 +1,97 @@
+.checkout-summary {
+    .minicart-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .minicart-header-title {
+        font-family: $font-family-secondary;
+        font-size: rem-calc(16px);
+    }
+
+    .line-item-total-price-amount {
+        color: $promotional-red;
+        font-family: $font-family-primary-bold;
+        font-size: rem-calc(16px);
+        margin-left: 10px;
+    }
+
+    .line-item-pricing-info {
+        display: flex;
+        font-size: rem-calc(12px);
+        color: $secondary-grey;
+        padding-top: 5px;
+    }
+
+    .line-item-availability {
+        font-family: $font-family-primary-italic;
+        color: $danger;
+        font-size: rem-calc(12px);
+    }
+
+    .bonus-product-line-item {
+        padding-bottom: 0;
+    }
+
+    .qty-card-quantity-count {
+        padding-left: 5px;
+    }
+
+    .return-to-cart {
+        font-size: rem-calc(11px);
+        font-family: $font-family-primary-bold;
+    }
+
+    .estimated-total {
+        font-size: rem-calc(16px);
+    }
+
+    .minicart-footer-message {
+        font-size: rem-calc(11px);
+    }
+
+    .sub-total-label {
+        font-size: rem-calc(15px);
+    }
+
+    .end-lines {
+        font-size: rem-calc(19px);
+    }
+
+    .hide-order-discount {
+        display: none;
+    }
+
+    .hide-shipping-discount {
+        display: none;
+    }
+
+    .product-brand {
+        font-size: rem-calc(12px);
+    }
+
+    .shipping-text-container {
+        font-size: rem-calc(11px);
+    }
+
+    .tile-club-image {
+        min-width: 25px;
+    }
+
+    .shipping-items-container {
+        margin: 10px 0;
+    }
+}
+
+.summary-shipping-message,
+.summary-secure-text {
+    font-size: rem-calc(12px);
+}
+
+@include media-breakpoint-down(lg) {
+    .checkout-summary {
+        .line-item-total-price-amount {
+            font-size: rem-calc(14px);
+        }
+    }
+}

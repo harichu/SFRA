@@ -1,0 +1,100 @@
+<isdecorate template="application/MenuFrame">
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+    <isinclude template="bm/util/sor_modules" />
+    <isinclude template="components/header" />
+    <isnavigation step="4" subs="${pdict.SubscriptionListID}">
+    <h1 class="order-section-main-title aldi table_title">${Resource.msg('forms.sorsubscriptions.orders.label', 'sor_forms', null)}</h1>
+
+    <iscontent type="text/html" charset="UTF-8" compact="true"/>
+    <isset name="ordersList" value="${pdict.OrdersList}" scope="page" />
+    <isscript>
+        var sorConstants       = require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js'),
+            propertyComparator = new dw.util.PropertyComparator('createdAt', false);
+
+        ordersList.sort(propertyComparator);
+    </isscript>
+
+    <div class="sor-module sor-module__subscription-details">
+        <div class="order-section">
+            <div class="content-section">
+                <table class="sor-table sor-module__subscription_table">
+                    <tr class="sor-module__titles-row">
+                        <td class="sor-module__m-name">
+                            ${Resource.msg('club.order.orderdate', 'sor_smartorderrefill', null)}
+                        </td>
+
+                        <td class="sor-module__m-name">
+                           ${Resource.msg('club.order.items', 'sor_smartorderrefill', null)}
+                        </td>
+
+                        <td>
+                            ${Resource.msg('club.subscription.information', 'sor_smartorderrefill', null)}
+                        </td>
+
+                        <td>
+                            ${Resource.msg('club.subscription.actions', 'sor_smartorderrefill', null)}
+                        </td>
+                    </tr>
+
+                    <tbody>
+                        <isloop items="${ordersList}" var="order">
+                            <tr class="sor-table__subscriptions">
+                                <td class="sor-module__m-name">
+                                    ${new Date(order.createdAt).toDateString()}
+                                    <isif condition="${order.status === sorConstants.STATUS.PAUSED}">
+                                        <span class="order-text-red">${Resource.msg('report.ordertable.pause', 'sor_smartorderrefill', null)}</span>
+                                    </isif>
+                                </td>
+
+                                <td>
+                                    <isloop items="${order.products}" var="product">
+                                        ${dw.catalog.ProductMgr.getProduct(product.ID).name} (x${product.quantity}) <br />
+                                    </isloop>
+                                </td>
+
+                                <td>
+                                    <isscript>
+                                        var orderStatus   = order.status,
+                                            today         = new Date(),
+                                            orderDate     = new Date(order.createdAt),
+                                            canReschedule = (today.getMonth() == orderDate.getMonth() && today.getFullYear() == orderDate.getFullYear());
+
+                                        if (orderStatus == sorConstants.STATUS.UPDATED) {
+                                            orderStatus = sorConstants.STATUS.SCHEDULED;
+                                        } else if (orderStatus == sorConstants.STATUS.CCEXPIRED) {
+                                            orderStatus = sorConstants.TEXT.CCEXPIRED;
+                                        } else if (orderStatus == sorConstants.STATUS.OUTOFSTOCK) {
+                                            orderStatus = sorConstants.TEXT.OUTOFSTOCK;
+                                        }
+                                    </isscript>
+                                    ${orderStatus.toUpperCase()}
+                                </td>
+
+                                <td data-label="${Resource.msg('club.subscription.actions', 'sor_smartorderrefill', null)}:">
+                                    <p>
+                                        <a class="button" href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', order.ID, 'client', pdict.CustomerNo, 'viewType', sorConstants.VIEWTYPE.ORDER, 'sorType', pdict.sorType)}"><isprint value="${Resource.msg('club.view','sor_smartorderrefill', null)}"/></a>
+
+                                        <isif condition="${orderStatus == sorConstants.STATUS.CANCELED && canReschedule}">
+                                            <a class="button" href="${URLUtils.https('SmartOrderRefillReport-Reschedule', 'sid', pdict.SubscriptionListID, 'oid', order.ID, 'client', pdict.CustomerNo, 'viewType', sorConstants.VIEWTYPE.ORDER)}"><isprint value="${Resource.msg('club.reschedule','sor_smartorderrefill', null)}"/></a>
+                                        </isif>
+                                    </p>
+                                </td>
+                            </tr>
+                        </isloop>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a class="button button--right" href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', pdict.SubscriptionListID, 'client', pdict.CustomerNo, 'viewType', sorConstants.VIEWTYPE.SUBSCRIPTION, 'sorType', pdict.sorType)}">
+            &lt;&lt; ${Resource.msg('forms.sorsubscriptions.backTo.label', 'sor_forms', null)}
+            ${Resource.msg('forms.sorsubscriptions.subscriptionDetails.label','sor_forms', null)}
+        </a>
+    </div>
+
+
+</isdecorate>

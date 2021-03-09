@@ -1,0 +1,8 @@
+<div class="item-image">
+    <a href="${URLUtils.url('Product-Show', 'pid', lineItem.id)}" aria‐label="${lineItem.productName}">
+        <img class="product-image"
+            src="${lineItem.images.small[0].url}"
+            alt="${lineItem.images.small[0].alt}"
+            title="${lineItem.images.small[0].title}">
+    </a>
+</div>

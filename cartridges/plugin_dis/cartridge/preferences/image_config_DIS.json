@@ -1,0 +1,38 @@
+{
+	"viewTypeMapping": {
+		"medium": "large",
+		"small": "large",
+		"pdplarge": "large",
+		"colorswatch": "swatch",
+		"suggestions": "large"
+	},
+	"large": {
+		"scaleWidth": 800,
+		"scaleHeight": 800
+	},
+	"pdplarge": {
+		"scaleWidth": 1000,
+		"scaleHeight": 1000
+	},
+	"medium": {
+		"scaleWidth": 295,
+		"scaleHeight": 295
+	},
+	"small": {
+		"scaleWidth": 100,
+		"scaleHeight": 100
+	},
+	"colorswatch": {
+		"scaleWidth": 28,
+		"scaleHeight": 28
+	},
+	"suggestions": {
+		"scaleWidth": 130,
+		"scaleHeight": 130
+	},
+	"missingImages": {
+		"large": "images/noimagelarge.png",
+		"medium": "images/noimagemedium.png",
+		"small": "images/noimagesmall.png"
+	}
+}

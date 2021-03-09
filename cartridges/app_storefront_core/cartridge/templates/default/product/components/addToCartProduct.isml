@@ -1,0 +1,19 @@
+<isset name="product" value="${pdict.product}" scope="page">
+<isset name="isQuickView" value="${!empty(pdict.isQuickView) ? pdict.isQuickView : false}" scope="page">
+<div class="col-12 add-to-card-button tile-button-container pt-3 px-0">
+    <input type="hidden" class="add-to-cart-url" value="${URLUtils.url("Cart-AddProduct")}"/>
+    <input type="hidden" class="add-to-cart-text-enabled" value="${Resource.msg('button.addtocart', 'common', null)}"/>
+    <input type="hidden" class="add-to-cart-text-disabled" value="${Resource.msg('button.addtocart.out', 'common', null)}"/>
+    <button id="add-to-cart-main" class="add-to-cart btn btn-secondary w-100 d-flex align-items-center justify-content-center pl-0 pr-0 btn-slim btn-text-small" data-toggle="modal" data-gtm="${require('int_gtm').gtmEventListener('hover,click', 'AddToCart'+ (isQuickView ? 'QV' : 'PDP'), '', '')}" data-target="#chooseBonusProductModal" data-pid="${product.id}" ${!product.readyToOrder || !product.available ? "disabled" : ""}>
+        <img src="${URLUtils.staticURL('/images/icons/cart-icon.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" class="cart-button-icon" />
+        <isif condition="${!product.readyToOrder || !product.available}">
+            <span class="add-to-cart-text">
+                ${Resource.msg('button.addtocart.out', 'common', null)}
+            </span>
+        <iselse>
+            <span class="add-to-cart-text" data-gtm="${require('int_gtm').gtmEventListener('click', 'AddToCart', product.id, 'ProductID')}">
+                ${Resource.msg('button.addtocart', 'common', null)}
+            </span>
+        </isif>
+    </button>
+</div>

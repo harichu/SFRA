@@ -1,0 +1,121 @@
+<isinclude template="/components/modules"/>
+<isset name="miniCart" value="${true}" scope="page" />
+<isset name="isCheckout" value="${true}" scope="page" />
+<div class="cart minicart-container checkout-summary ${pdict.items.length === 0 ? 'empty-container': ''}">
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <div class="d-flex flex-column justify-content-between minicart-container-tiles">
+        <div class="minicart-header d-flex align-items-center justify-content-center text-white px-3 py-2 background-primary">
+            <div class="minicart-header-title">
+                <img src="${URLUtils.staticURL('/images/icons/cart-icon.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" />
+                <span class="ml-2">${Resource.msg('minicart.checkout.title','checkout', null)}</span>
+            </div>
+        </div>
+
+        <isif condition="${pdict.items.length === 0}">
+            <div class="container cart-empty text-center">
+                <img src="${URLUtils.staticURL('/images/icons/bolsa-color-grey.png')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}"/>
+                <div class="text-uppercase mt-3">${Resource.msg('minicart.empty','common', null)}</div>
+            </div>
+
+            <div class="minicart-footer">
+                <a class="btn btn-secondary w-100 rounded-0" href="${#}" title="${Resource.msg('link.view.cart','cart',null)}"  aria-label="Close" data-toggle="collapse" data-target="#minicart-collapse, .minicart-overlay" aria-controls="minicart-collapse, minicart-overlay" aria-expanded="false" >
+                    ${Resource.msg('minicart.continue', 'common', null)}
+                </a>
+            </div>
+        <iselse/>
+            <div class="product-summary overflow-auto mx-auto">
+                <isloop items="${pdict.items}" var="lineItem" status="loopStateContainer">
+                    <div class="row minicart-product m-0">
+                        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                            <div class="pl-2 pr-4 card border-0 w-100 ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                                <div class="card-body-bonus">
+                                    <isinclude template="checkout/productCard/bonusProductCardSummary" />
+                                </div>
+                            </div>
+                        <iselse/>
+                            <div class="pl-2 pr-4 card border-0 w-100 uuid-${lineItem.UUID}">
+                                <div class="card-body p-0">
+                                    <isif condition="${lineItem.noProduct === true}">
+                                        <isinclude template="checkout/productCard/uncategorizedProductCard" />
+                                    <iselse/>
+                                        <isinclude template="checkout/productCard/productCard" />
+                                    </isif>
+                                    <isif condition="${!loopStateContainer.last}">
+                                        <hr class="separator-thin"/>
+                                    </isif>
+                                </div>
+                            </div>
+                        </isif>
+                    </div>
+                </isloop>
+            </div>
+
+            <div class="minicart-footer">
+                <div class="container minicart-footer-container">
+                    <div class="d-flex justify-content-end">
+                        <a class="return-to-cart" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+                            <span class="text-underline pr-1">
+                                ${Resource.msg('link.view.cart', 'cart', null)}
+                            </span>
+                            <isinlinesvg src="edit-cart-icon"/>
+                        </a>
+                    </div>
+                    <hr class="separator-thin dark"/>
+                    <isif condition="${!pdict.isMemberOfClubVerde}">
+                        <div class="row estimated-total">
+                            <div class="col-8">
+                                <p class="sub-total-label text-green text-bold mb-0">${Resource.msg('minicart.subtotal','common',null)}</p>
+                            </div>
+                            <div class="col-4">
+                                <p class="text-right sub-total text-red text-bold mb-0">${pdict.totals.subTotal}</p>
+                            </div>
+                        </div>
+                    </isif>
+
+                    <div class="row estimated-total sub-total-club-container mt-3 ${pdict.hasClubProducts ? '' : 'd-none'}">
+                        <div class="col-8 d-flex">
+                            <p class="sub-total-label d-flex align-items-center text-green text-bold mb-0">
+                                ${Resource.msg('minicart.subtotal', 'common', null)}
+                                <div class="pl-2">
+                                    <isinlinesvg src="club-green" />
+                                </div>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-right sub-total text-red text-bold mb-0">${pdict.totals.clubTotal}</p>
+                        </div>
+                    </div>
+                    <!--- Order Discount --->
+                    <div class="row order-discount mt-3 ${pdict.totals.orderLevelDiscountTotal.value === 0 ? 'hide-order-discount' : ''}">
+                        <div class="col-8 d-flex align-items-center">
+                            <p class="text-bold text-green summary-total mb-0">${pdict.totals.discountsTitles.orderLevel}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-right order-discount-total text-red text-bold summary-price mb-0">- ${pdict.totals.orderLevelDiscountTotal.formatted}</p>
+                        </div>
+                    </div>
+
+                    <!--- Shipping Discount --->
+                    <div class="row shipping-discount mt-3 ${pdict.totals.shippingLevelDiscountTotal.value === 0 ? 'hide-shipping-discount' : ''}">
+                        <div class="col-8 d-flex align-items-center">
+                            <p class="text-bold text-green summary-total mb-0">${pdict.totals.discountsTitles.shippingLevel}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-right shipping-discount-total text-red text-bold summary-price mb-0">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</p>
+                        </div>
+                    </div>
+                    <hr class="separator-thin dark"/>
+                    <div class="minicart-footer-message text-center mt-2 d-flex">
+                        <isinlinesvg src="icon-shipping"/>
+                        <span class="text-italic text-grey pl-2">
+                            ${Resource.msg('minicart.shipping.message', 'checkout', null)}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </isif>
+    </div>
+</div>

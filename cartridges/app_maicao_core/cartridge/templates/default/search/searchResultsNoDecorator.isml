@@ -1,0 +1,81 @@
+<isinclude template="/components/modules"/>
+
+<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+    <isinclude template="reporting/reportingUrls" />
+</isif>
+
+<div class="search-body pt-2 pb-4">
+    <div class="container search-results py-lg-3 list-view">
+        <div class="row">
+            <div class="tab-content col-12 p-0">
+                <div class="tab-pane container active" id="product-search-results" role="tabpanel" aria-labelledby="product-tab">
+                    <isif condition="${pdict.productSearch.productIds.length > 0}">
+                        <!--- Refinement bar --->
+                        <div class="row">
+                            <div class="refinement-bar col-lg-3 d-lg-block overflow-hidden px-3">
+                                <isinclude url="${pdict.refineurl}"/>
+                            </div>
+                            <div class="col-sm-12 col-lg-9 pl-lg-5 product-grid-container">
+                                <div class="sort-options px-2">
+                                    <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                        <div class="d-none d-lg-block container pb-4">
+                                            <div class="row align-items-center sort-bar px-2 justify-content-between">
+                                                <div class="order col-lg-8 col-xl-6 d-flex justify-content-start align-items-center">
+                                                    <span class="mr-2 text-uppercase order-select-title"> ${Resource.msg('label.sort.by', 'search', null)} </span>
+                                                    <div class="w-50 custom-select d-flex align-items-center position-relative h-auto">
+                                                        <isinclude template="search/sortOrderMenu" />
+                                                    </div>
+                                                </div>
+                                                <isset name="searchGridPreferencesJSON" value="${JSON.parse(dw.system.Site.current.getCustomPreferenceValue("difarmaSearchGridOptions"))}" scope="page" />
+
+                                                <isif condition="${!empty(searchGridPreferencesJSON) && pdict.productSearch.count > searchGridPreferencesJSON.default}">
+                                                    <isinclude template="search/searchResultsNumberOptions"/>
+                                                </isif>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex d-lg-none container px-0 py-2 justify-content-around">
+                                            <div class="order d-flex flex-column justify-content-center text-center text-uppercase py-3 cursor-pointer background-white w-100"
+                                                data-toggle="modal"
+                                                data-target="#sortOrder">
+                                                <div class="order-icon mb-2">
+                                                    <isinlinesvg src="order-icon-white" />
+                                                </div>
+                                                ${Resource.msg('button.order', 'search', null)}
+                                                <isinclude template="search/modal/sortOrderModal"/>
+                                            </div>
+                                            <div class="filter filter-results d-flex flex-column justify-content-center text-center text-uppercase py-3 mx-2 cursor-pointer background-white w-100"
+                                                data-toggle="modal"
+                                                data-target="#filters">
+                                                <div class="filter-icon mb-2">
+                                                    <isinlinesvg src="filter-icon" />
+                                                </div>
+                                                ${Resource.msg('button.filter', 'search', null)}
+                                            </div>
+                                            <div class="display-products d-flex flex-column justify-content-center text-center text-uppercase py-3 cursor-pointer background-white w-100 button-list-view">
+                                                <div class="display-products-icon mb-2">
+                                                    <isinlinesvg src="showgrid-icon-1" />
+                                                </div>
+                                                ${Resource.msg('button.display', 'search', null)}
+                                            </div>
+                                        </div>
+                                    </isif>
+                                </div>
+                                <!--- Product Grid --->
+                                <div class="row products-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+                                    <isinclude template="search/productGrid" />
+                                </div>
+                            </div>
+                        </div>
+                    </isif>
+                </div>
+                <!--- Content Grid --->
+                <div class="tab-pane container" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
+                    <div id="content-search-results" class="content-grid-header"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <isif condition="${!pdict.productSearch.productIds.length}">
+        <isinclude template="search/noResultsProduct" />
+    </isif>
+</div>

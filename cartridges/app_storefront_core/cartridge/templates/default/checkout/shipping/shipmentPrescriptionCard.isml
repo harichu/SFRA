@@ -1,0 +1,52 @@
+<isinclude template="/components/modules"/>
+
+<div class="card js-prescription-card product-info uuid-${lineItem.UUID}">
+    <!--- name and remove buttons --->
+
+    <div class="d-flex flex-row flex-wrap flex-lg-nowrap justify-content-between item-container">
+        <div class="item-data pr-lg-3">
+            <div class="item-image d-flex align-items-center order-1">
+                <img class="product-image pr-lg-8" src="${lineItem.images.small[0].url}" alt="${lineItem.images.small[0].alt}" title="${lineItem.images.small[0].title}" />
+            </div>
+            <div class="item-info cart-product-item d-flex flex-column order-2 pl-2 pr-lg-3">
+                ${lineItem.brand}
+                <div class="line-item-name">
+                    ${lineItem.productName}
+                </div>
+                <span class="line-item-qty">
+                    ${Resource.msgf('span.prescription.quantity', 'checkout', null, StringUtils.formatInteger(lineItem.quantity))}
+                </span>
+            </div>
+        </div>
+
+        <isset name="enableUploadForLineItem" value="${lineItem.custom.difarmaPrescriptionModel.value === "simple" || (pdict.isRestrictedPrescriptionUploadEnabled && lineItem.custom.difarmaPrescriptionModel.value === "restricted")}" scope="page" />
+
+        <isif condition="${enableUploadForLineItem}">
+            <div class="js-prescription-form align-items-center d-flex justify-content-end"
+                data-upload="${pdict.uploadImageUrl}"
+                data-delete="${pdict.deleteImageUrl}"
+                data-apply-to-all="${pdict.applyToAll}"
+                data-pid="${lineItem.UUID}"
+                data-image-name="${lineItem.difarmaPrescriptionFileName}"
+            >
+                <input type="file" class="d-none js-prescription-file" />
+                <div class="js-prescription-file-name-container ${lineItem.difarmaPrescriptionId ? '' : 'd-none'}">
+                    <span class="js-prescription-file-name">${lineItem.difarmaPrescriptionFileName}</span>
+                    <img class="js-exclude-prescription" src="${URLUtils.staticURL('/images/cancel.svg')}"/>
+                </div>
+                <button type="button" class="btn btn-secondary js-prescription-upload ${lineItem.difarmaPrescriptionId ? 'd-none' : ''}">
+                    <img class="icon" src="${URLUtils.staticURL('/images/camera.svg')}"/>
+                    ${Resource.msg('label.prescription.attach.file','cart',null)}
+                </button>
+            </div>
+            <div class="error-msg"></div>
+        </isif>
+    </div>
+</div>
+<isif condition="${validToAllVisible == "true"}">
+    <div class="js-prescription-valid-to-all-container d-none custom-control custom-checkbox">
+        <input class="js-prescription-valid-to-all form-control required custom-control-input" type="checkbox" id="valid-to-all-${lineItem.UUID}"  data-apply-to-all="${pdict.applyToAll}"/>
+        <label class="form-control-label custom-control-label" for="valid-to-all-${lineItem.UUID}">${Resource.msg("span.prescription.toall", "checkout", null)}</label>
+        <div class="invalid-feedback text-center"></div>
+    </div>
+</isif>

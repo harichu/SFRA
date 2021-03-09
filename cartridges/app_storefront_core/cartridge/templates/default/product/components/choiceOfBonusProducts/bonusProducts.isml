@@ -1,0 +1,133 @@
+<isloop items="${pdict.products}" var="product" status="productLoopStatus">
+    <div class="col-12 bonus-product-item ready-to-order choice-of-bonus-product" data-pid="${product.id}" data-ready-to-order="${product.readyToOrder}" data-optionID="">
+        <div class="product-quickview product-${product.productType} col product-wrapper product-detail" data-pid="${product.id}">
+            <div class="row">
+                <!-- Product Images Carousel -->
+                <isinclude template="product/components/imageCarousel" />
+
+                <!-- Product Name and Number -->
+                <div class="col-sm-6">
+                    <isif condition="${!empty(product.brand)}">
+                        <a href="${URLUtils.url('Search-Show', 'q', product.brand)}" class="product-brand m-0">
+                            ${product.brand}
+                        </a>
+                    </isif>
+                    <section class="product-name-wrapper">
+                        <h4 class="product-name">${product.productName}</h4>
+                    </section>
+
+                    <!-- Prices -->
+                    <div class="prices">
+                        <div class="bonus-price">
+                            ${Resource.msgf('label.price.sale', 'pricing', null, product.bonusUnitPrice)}
+                        </div>
+                        <div class="price-original original-value">
+                            <isif condition="${!empty(product.price.list.formatted)}">
+                                ${Resource.msgf('label.price.list', 'pricing', null, product.price.list.formatted)}
+                            </isif>
+                        </div>
+                    </div>
+
+                    <div class="detail-panel">
+                        <!-- Attributes -->
+                        <section>
+                            <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
+                                <div data-attr="${attr.id}" class="swatch row">
+                                    <isif condition="${attributeStatus.last}">
+                                        <isset name="isQuickView" value="${false}" scope="page"/>
+                                        <div class="col-12 col-lg-9 mt-3">
+                                            <isinclude template="product/components/choiceOfBonusProducts/variationAttributeBonusProducts" />
+                                        </div>
+
+                                        <isset name="isQuickView" value="${true}" scope="page"/>
+                                    <iselse>
+                                        <div class="col-12 col-lg-9 mt-3">
+                                            <isinclude template="product/components/choiceOfBonusProducts/variationAttributeBonusProducts" />
+                                        </div>
+                                    </isif>
+                                </div>
+                            </isloop>
+                        </section>
+
+                        <isif condition="${product.productType !== 'bundle'}">
+                            <!-- Options -->
+                            <isif condition="${product.options && product.options.length > 0}">
+                                <isset name="isQuickView" value="${false}" scope="page"/>
+                                    <isloop items="${product.options}" var="option" status="loopStatus">
+                                        <div class="row product-option" data-option-id="${option.id}">
+                                            <div class="bonus-option ${loopStatus.last && !isQuickView || isProductSet ? 'col-8' : 'col-12' }">
+                                                <isinclude template="product/components/option" />
+                                            </div>
+                                        </div>
+                                    </isloop>
+                                <isset name="isQuickView" value="${true}" scope="page"/>
+                            </isif>
+                        </isif>
+                        <div class="selected-bonus-products-error d-none justify-content-center justify-content-lg-start pl-0 pl-lg-4 mt-2 text-danger">
+                            ${Resource.msgf('label.choiceofbonus.selectproducterror', 'product', null, Number(pdict.maxPids))}
+                        </div>
+                        <div class="row quantity-select-box">
+                            <!-- Quantity Drop Down Menu -->
+                            <div class="col-3 quantity-select-button quantity">
+                                <isinclude template="product/components/choiceOfBonusProducts/bonusProductsQuantity" />
+                            </div>
+                            <div class="col-9 col-lg-6 pr-0">
+                                <button class="btn btn-select btn-block select-bonus-product btn-secondary select"
+                                        data-pid="${product.id}"
+                                        ${!product.readyToOrder || !product.available ? "disabled" : ""}>
+                                    <span class="bonus-select-text">
+                                        ${Resource.msg('button.choiceofbonus.select', 'product', null)}
+                                    </span>
+                                    <span class="bonus-deselect-text">
+                                        ${Resource.msg('button.choiceofbonus.deselect', 'product', null)}
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <isif condition="${pdict.moreUrl && productLoopStatus.last && pdict.showMoreButton}">
+            <div class="col-sm-12 text-center">
+                    <button class="btn btn-secondary col-12 col-sm-4 show-more-bonus-products" data-url="${pdict.moreUrl}">
+                        ${Resource.msg('button.more', 'search', null)}
+                  </button>
+              </div>
+        </isif>
+    </div>
+</isloop>
+
+<div class="modal-footer">
+    <div class="container">
+        <div class="bonus-summary row selected-bonus-products d-flex justify-content-start">
+            <span class="pre-cart-products">${pdict.selectedBonusProducts.length}</span>
+            ${Resource.msgf('label.choiceofbonus.selectproduct', 'product', null, Number(pdict.maxPids))}
+        </div>
+        <isloop items="${pdict.selectedBonusProducts}" var="selectedProduct" status="productLoopStatus">
+            <div class="selected-pid row d-none"
+                data-pid="${selectedProduct.pid}"
+                data-qty='<isprint value="${selectedProduct.submittedQty}" encoding="htmlsinglequote" formatter="#"/>'
+                data-optionid="${selectedProduct.option.optionid}"
+                data-option-selected-value="${selectedProduct.option.selectedvalue}" >
+                <div class="col-11 bonus-product-name">${selectedProduct.name}</div>
+                <div class="col-1"><i class="fa fa-times" aria-hidden="true"></i></div>
+            </div>
+        </isloop>
+        <div class="row bonus-products-btns align-items-end">
+            <div class="col-12 footer-cta-container align-items-center d-flex justify-content-center">
+                <button class="btn btn-outline-secondary btn-back-link" data-toggle="modal" data-target="#chooseBonusProductModal">
+                    ${Resource.msg('button.back.link', 'common', null)}
+                </button>
+                <button class="btn btn-secondary add-bonus-products" disabled
+                    data-pid="${product.id}"
+                    ${!product.readyToOrder || !product.available ? "disabled" : ""}>
+                        <img src="${URLUtils.staticURL('/images/icons/cart-icon.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" class="cart-button-icon add-mode" />
+                        <span class="add-mode">${Resource.msg('button.addtocart', 'common', null)}</span>
+                        <span class="remove-mode d-none">${Resource.msg('label.bonus.confirm', 'common', null)}</span>
+                </button>
+            </div>
+            <div class="col-sm-3 hidden-xs-down"></div>
+        </div>
+    </div>
+</div>

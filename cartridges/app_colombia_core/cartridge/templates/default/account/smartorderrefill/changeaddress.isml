@@ -1,0 +1,59 @@
+<!--- TEMPLATENAME: changeaddress.isml --->
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="util/sormodules"/>
+
+<form method="post" name="EditAddressForm" id="editAddressForm" action="${URLUtils.continueURL()}">
+    <fieldset>
+        <isif condition="${!empty(pdict.customerAddresses)}">
+            <div class="select-address form-row">
+                <div class="field-wrapper">
+                    <select id="${pdict.CurrentForms.changeaddress.htmlName}" name="${pdict.CurrentForms.changeaddress.htmlName}" class="custom-select input-select">
+                        <iscomment>May be preferable to replace data-address attribute with ajax call</iscomment>
+                        <option value="" selected="selected">${Resource.msg('address.list.select','forms',null)}</option>
+                        <isloop items="${pdict.customerAddresses}" var="address">
+                            <isset name="aid" value="${empty(address.key) ? address.ID : address.key}" scope="page"/>
+                            <option value="${aid}" data-address='<isprint value="${JSON.stringify(address).replace("'","^")}" encoding="on"/>'>
+                                (${!address.displayValue ? aid : address.displayValue}) ${Resource.msgf('address.saved.dropdown.format', 'forms', null, address.address1, address.city, address.stateCode, address.postalCode)}
+                            </option>
+                        </isloop>
+                    </select>
+                </div>
+            </div>
+        </isif>
+        <div id="editprofile" class="editaddress">
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.firstName}" type="text" requiredtext="${dw.web.Resource.msg('address.firstname.missing', 'forms', null)}"/>
+            </div>
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.lastName}" type="text" requiredtext="${dw.web.Resource.msg('address.lastname.missing', 'forms', null)}"/>
+            </div>
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.address1}" type="text" requiredtext="${dw.web.Resource.msg('address.address1.missing', 'forms', null)}" customattributes="data-autocomplete=source"/>
+            </div>
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.address2}" type="text"/>
+            </div>
+            <div class="formfield clearfix select">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.country}" type="select" requiredtext="${dw.web.Resource.msg('address.country.missing', 'forms', null)}"/>
+            </div>
+            <div class="formfield clearfix select">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.states.state}" type="select" />
+            </div>
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.city}" type="text" requiredtext="${dw.web.Resource.msg('address.city.missing', 'forms', null)}"/>
+            </div>
+            <div class="formfield clearfix">
+                <issorinputfield formfield="${pdict.CurrentForms.changeaddress.phone}" type="text" requiredtext="${dw.web.Resource.msg('address.phone.missing', 'forms', null)}"/>
+            </div>
+        </div>
+    </fieldset>
+
+    <input type="hidden" id="addressLatitude" name="${pdict.CurrentForms.changeaddress.latitude.htmlName}" />
+    <input type="hidden" id="addressLongitude" name="${pdict.CurrentForms.changeaddress.longitude.htmlName}" />
+
+    <input type="hidden" value="${Resource.msg('global.submit','locale', null)}" name="${pdict.CurrentForms.changeaddress.apply.htmlName}" />
+    <input type="hidden" class="csrf-token" data-url="${URLUtils.url('CSRF-Generate')}"/>
+</form>

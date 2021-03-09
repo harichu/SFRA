@@ -1,0 +1,50 @@
+<div class="modal fade modal-remove-product" id="removeProductModal" tabindex="-1" role="dialog" aria-labelledby="removeProductLineItemModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header delete-confirmation-header modal-header background-primary d-flex align-items-center py-2">
+                <h2 class="modal-title modal-title text-white text-center w-100" id="removeProductLineItemModal">
+                    ${Resource.msg('heading.remove.product.confirmation.modal', 'cart', null)}
+                </h2>
+                <button type="button" class="close no-outline" data-dismiss="modal" aria-label="Close">
+                    <isinlinesvg src="close-icon-light" />
+                </button>
+            </div>
+            <div class="modal-body delete-confirmation-body container px-4">
+                <div class="row">
+                    <div class="col-12 modal-text text-left text-grey">
+                        ${Resource.msg('msg.remove.product.confirmation.modal','cart',null)}
+                    </div>
+                    <div class="col-12 d-flex pt-3">
+                        <div class="col-4">
+                            <img src="" alt="" class="product-to-remove-img w-100">
+                        </div>
+                        <div class="col-8">
+                            <p class="product-to-remove-brand text-uppercase text-italic mb-1"></p>
+                            <p class="product-to-remove text-primary-color text-bold"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer background-grey border-0 justify-content-center d-row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6 mb-3 mb-lg-0">
+                            <button type="button" class="btn btn-outline-secondary btn-text-small w-100" data-dismiss="modal" data-target="#removeProductModal">
+                                ${Resource.msg('button.cancel', 'cart', null)}
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-secondary btn-text-small w-100 cart-delete-confirmation-btn" data-dismiss="modal" data-target="#removeProductModal">
+                                <p class="pr-1 mb-0 d-inline-block">
+                                    <isinlinesvg src="icon-remove-light" />
+                                </p>
+                                ${Resource.msg('button.eliminar', 'cart', null)}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

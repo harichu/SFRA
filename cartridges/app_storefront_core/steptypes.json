@@ -1,0 +1,85 @@
+{
+    "step-types":  {
+        "script-module-step": [
+            {
+                "@type-id": "custom.StateCodeUpdate",
+                "@supports-site-context":"true",
+                "description":"State Code Update",
+                "@supports-organization-context":"false",
+                "module":"app_chile_core/cartridge/scripts/jobs/StateCodeUpdate.js",
+                "function":"execute",
+                "transactional":"true",
+                "timeout-in-seconds":"1800",
+                "parameters": {
+                    "parameters": [
+                        {
+                            "@name": "oldValue",
+                            "@type": "string",
+                            "@required": "true",
+                            "description": "The value of the state that will be replaced.",
+                            "default-value": "Metropolitana"
+                        },
+                        {
+                            "@name": "newValue",
+                            "@type": "string",
+                            "@required": "true",
+                            "description": "The new state value.",
+                            "default-value": "Región Metropolitana"
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when the step failed with an error."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when the step finished successfully."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.RemoveCustomerAddressesWithoutCoordinates",
+                "@supports-site-context":"true",
+                "description":"Remove Customer Addresses Without Coordinates",
+                "@supports-organization-context":"false",
+                "module":"app_storefront_core/cartridge/scripts/jobs/removeCustomerAddressesWithoutCoordinates.js",
+                "function":"execute",
+                "transactional":"true",
+                "parameters": {
+                    "parameters": [
+                        {
+                            "@name": "FileName",
+                            "@type": "string",
+                            "@required": "true",
+                            "description": "File name to save customers without coordinates but associated with SOR orders.",
+                            "default-value": "customerAddresses"
+                        },
+                        {
+                            "@name": "FileFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "description": "Path to save the file with customers without coordinates but associated with SOR orders.",
+                            "default-value": "customerAddresses"
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when the step failed with an error."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when the step finished successfully."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

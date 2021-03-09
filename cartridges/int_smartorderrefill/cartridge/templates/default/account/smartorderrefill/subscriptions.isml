@@ -1,0 +1,175 @@
+<!--- TEMPLATENAME: subscriptions.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true" />
+<isinclude template="/components/modules" />
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isset name="subscriptionsList" value="${pdict.SubscriptionsList}" scope="page" />
+<isset name="sorConstants" value="${pdict.sorConstants}" scope="page" />
+<isset name="auto_renewal" value="${dw.system.Site.current.preferences.custom.SorAutomaticRenewalEnabled}" scope="page"/>
+<isset name="now" value="${new Date()}" scope="page"/>
+<isset name="today" value="${new Date(now.getFullYear(), now.getMonth(), now.getDate())}" scope="page"/>
+<isinclude template="/googlePlaces/autocomplete" />
+
+<isif condition="${!empty(subscriptionsList) && subscriptionsList.length > 0}">
+    <div class="d-none d-lg-flex card addressbook-row addressbook-header">
+        <div class="order-header-item item">
+            ${Resource.msg('email.orderconfirmation.order.item','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item quantity">
+            ${Resource.msg('email.orderconfirmation.order.quantity','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item date">
+            ${Resource.msg('email.orderconfirmation.order.date','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item mode">
+            ${Resource.msg('email.orderconfirmation.order.mode','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item id">
+            ${Resource.msg('email.orderconfirmation.order.id','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item price">
+            ${Resource.msg('email.orderconfirmation.order.price','smartorderrefill',null)}
+        </div>
+        <span class="divisor"></span>
+        <div class="order-header-item next">
+            ${Resource.msg('email.orderconfirmation.order.next','smartorderrefill',null)}
+        </div>
+    </div>
+    <isloop items="${subscriptionsList}" var="subscription">
+        <isset name="isFirstProduct" value="${true}" scope="page" />
+        <isset name="subscriptionDate" value="${new Date(subscription.createdAt)}" scope="page" />
+        <isset name="nextUpdate" value="${''}" scope="page" />
+        <isloop items="${subscription.products}" var="prod">
+            <isloop items="${pdict.OrdersList}" var="order" status="loopState">
+                <isset name="orderProduct" value="${order.products[0]}" scope="page" />
+                <isif condition="${orderProduct.ID == prod.ID}">
+                    <isset name="orderDate" value="${new Date(order.createdAt)}" scope="page" />
+                    <isif condition="${(orderDate.getTime() >= today.getTime())}">
+                        <isset name="nextUpdate" value="${orderDate}" scope="page" />
+                    </isif>
+                </isif>
+            </isloop>
+            <div class="card order-list-item flex-wrap flex-row">
+                <div class="item-info item pb-4 py-4 py-lg-0">
+                    <isset name="product" value="${dw.catalog.ProductMgr.getProduct(prod.ID)}" scope="page" />
+                    <a class="info-link" target="_blank" rel="noopener" href="${URLUtils.http('Product-Show','pid', product.ID)}">
+                        <isset name="productImage" value="${product.getImage('large', 0)}" scope="page" />
+                        <img class="item-image" src="${productImage.absURL.toString()}" alt="${productImage.alt}" />
+                        ${product.name}
+                        <isif condition="${product.isVariant}">
+                            <isset name="variationModel" value="${product.getVariationModel()}" scope="page">
+                            <br/>
+                            <isloop items="${variationModel.productVariationAttributes}" var="variationAttribute">
+                                ${variationAttribute.displayName}:  ${variationModel.getSelectedValue(variationAttribute).displayValue}
+                            </isloop>
+                        </isif>
+                    </a>
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.quantity','smartorderrefill',null)}:
+                </div>
+                <div class="item-info quantity pb-4 pb-lg-0">
+                    ${prod.quantity}
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.date','smartorderrefill',null)}:
+                </div>
+                <div class="item-info date pb-4 pb-lg-0">
+                    ${subscriptionDate.getDate().toString()} ${Resource.msg('smartorderrefill.subscription.months.month' + (subscriptionDate.getMonth() + 1),'account',null)}
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.mode','smartorderrefill',null)}:
+                </div>
+                <div class="item-info mode pb-4 pb-lg-0">
+                    <isif condition="${prod.periodicity == sorConstants.PERIODICITY.WEEK}">
+                        ${Resource.msg('smartorderrefill.subscription.weeks', 'account', null)}
+                    <iselseif condition="${prod.periodicity == sorConstants.PERIODICITY.MONTH}">
+                        ${Resource.msg('smartorderrefill.subscription.months', 'account', null)}
+                    </isif>
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.id','smartorderrefill',null)}:
+                </div>
+                <div class="item-info id pb-4 pb-lg-0">
+                    <span class="subs-line d-none ${isFirstProduct ? '' : 'd-lg-block'}"></span>
+                    ${"\#" + subscription.ID}
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.price','smartorderrefill',null)}:
+                </div>
+                <div class="item-info price pb-4 pb-lg-0">
+                    <isprint value="${new dw.value.Money(prod.price, prod.currencyCode)}" />
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-header d-lg-none w-50 px-3 pb-4">
+                    ${Resource.msg('email.orderconfirmation.order.next','smartorderrefill',null)}:
+                </div>
+                <div class="item-info next pb-4 pb-lg-0">
+                    <isif condition="${!empty(nextUpdate)}">
+                        ${nextUpdate.getDate().toString()} ${Resource.msg('smartorderrefill.subscription.months.month' + (nextUpdate.getMonth() + 1),'account',null)}
+                    </isif>
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-action ${isFirstProduct ? '' : 'disabled'}">
+                    <span class="info-link subscription view" data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', subscription.ID, 'action', 'view')}">
+                        <isinlinesvg src="edit-cart-icon" />
+                        <span class="label">
+                            ${Resource.msg('smartorderrefill.modify', 'smartorderrefill', null)}
+                        </span>
+                    </span>
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-action pause-continue ${isFirstProduct ? '' : 'disabled'}">
+                    <isif condition="${subscription.status === sorConstants.STATUS.PAUSED}">
+                        <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', subscription.ID, 'action', 'reactivate')}"
+                            class="reactivatesubscription info-link">
+                            <isinlinesvg src="continue-icon"/>
+                            <span class="label">
+                                ${Resource.msg('smartorderrefill.reactivate', 'smartorderrefill', null)}
+                            </span>
+                        </span>
+                        </a>
+                    <iselse>
+                        <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', subscription.ID, 'action', sorConstants.STATUS.PAUSED)}"
+                            data-title="${Resource.msg('smartorderrefill.pausesubs.title', 'smartorderrefill', null)}"
+                            data-content="${Resource.msg('smartorderrefill.pausesubs.message', 'smartorderrefill', null)}"
+                            data-yes="${Resource.msg('smartorderrefill.dialog.button.yes', 'smartorderrefill', null)}"
+                            data-no="${Resource.msg('smartorderrefill.dialog.button.no', 'smartorderrefill', null)}"
+                            class="info-link pause pausesubscription visually-hidden sorshowmodal">
+                            <isinlinesvg src="pause-icon"/>
+                            <span class="label">
+                                ${Resource.msg('smartorderrefill.pause', 'smartorderrefill', null)}
+                            </span>
+                        </span>
+                    </isif>
+                </div>
+                <div class="divisor d-none d-lg-block"></div>
+                <div class="item-action ${isFirstProduct ? '' : 'disabled'}">
+                    <span data-link="${URLUtils.https('SmartOrderRefillController-ManageRefillList', 'sid', subscription.ID, 'action', sorConstants.STATUS.CANCELED)}"
+                        data-title="${Resource.msg('smartorderrefill.deletesubs.title', 'smartorderrefill', null)}"
+                        data-content="${Resource.msg('smartorderrefill.deletesubs.message', 'smartorderrefill', null)}"
+                        data-yes="${Resource.msg('smartorderrefill.dialog.button.yes', 'smartorderrefill', null)}" data-no="${Resource.msg('smartorderrefill.dialog.button.no', 'smartorderrefill', null)}"
+                        class="cancelsubscription info-link sorshowmodal">
+                        <isinlinesvg src="icon-remove-red" />
+                        <span class="label">
+                            ${Resource.msg('smartorderrefill.remove', 'smartorderrefill', null)}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <isset name="isFirstProduct" value="${false}" scope="page" />
+        </isloop>
+    </isloop>
+</isif>

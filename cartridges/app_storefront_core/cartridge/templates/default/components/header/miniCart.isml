@@ -1,0 +1,34 @@
+<isinclude template="/components/modules"/>
+<div class="minicart-total d-lg-none position-relative">
+    <div class="header-cart-icon mr-2">
+        <a class="minicart-link" href="${URLUtils.https('Cart-Show')}" title="${Resource.msgf('minicart.count', 'common', null, pdict.quantityTotal)}" aria-label="${Resource.msgf('minicart.count', 'common', null, pdict.quantityTotal)}" aria-haspopup="true" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'MiniCart', '', '')}">
+            <isinlinesvg src="header-bolsa-icon"/>
+        </a>
+    </div>
+    <div class="minicart-quantity header-cart-number ${pdict.quantityTotal > 0 ? '' : 'd-none'} text-center position-absolute">
+        <isprint value="${pdict.quantityTotal}" formatter="##" />
+    </div>
+</div>
+<div class="${pdict.linkMode !== null && pdict.linkMode ? '' : 'minicart-trigger'} d-flex align-items-center" data-action-url="${URLUtils.url('Cart-MiniCartShow')}" data-checkbonusmodalurl="${URLUtils.url('Cart-GetNewBonusDiscountLineItem')}">
+    <isif condition="${pdict.linkMode !== null && pdict.linkMode}">
+        <a class="minicart-link d-flex align-items-center justify-content-center" href="${URLUtils.https('Cart-Show')}" title="${Resource.msgf('minicart.count', 'common', null, pdict.quantityTotal)}" aria-label="${Resource.msgf('minicart.count', 'common', null, pdict.quantityTotal)}" aria-haspopup="true">
+    </isif>
+        <div class="header-cart-container d-none d-lg-block position-relative">
+            <div class="header-cart-icon mr-2">
+                <isinlinesvg src="header-bolsa-icon"/>
+            </div>
+            <div class="minicart-quantity header-cart-number ${pdict.quantityTotal > 0 ? '' : 'd-none'} text-center position-absolute">
+                <isprint value="${pdict.quantityTotal}" formatter="##" />
+            </div>
+        </div>
+        <div class="header-title d-none d-lg-block text-uppercase">
+            ${Resource.msg('label.header.cart', 'common', null)}
+        </div>
+    <isif condition="${pdict.linkMode !== null && pdict.linkMode}">
+        </a>
+    </isif>
+</div>
+
+<div class="popover popover-bottom collapse position-fixed background-white top-0 right-0 minicart-container-inner rounded-0" id="minicart-collapse"></div>
+<div class="minicart-overlay collapse w-100 position-fixed top-0 left-0" data-toggle="collapse" data-target="#minicart-collapse, .minicart-overlay" aria-controls="minicart-collapse, minicart-overlay" aria-expanded="false"></div>
+<isinclude template="cart/productRecommendationAddToCart" />

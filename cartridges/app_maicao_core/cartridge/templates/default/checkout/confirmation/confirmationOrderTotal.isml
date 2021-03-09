@@ -1,0 +1,65 @@
+<tr>
+    <td style="width: 285px;border-top: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#e2007a;">${Resource.msg('label.order.subtotal','confirmation', null)}:</p>
+    </td>
+    <td style="width: 285px;text-align:right;border-top: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#c00;">
+            <isif condition="${pdict.isMemberOfCruzVerde}">
+                ${pdict.order.totals.clubTotal}
+            <iselse>
+                ${pdict.order.totals.subTotal}
+            </isif>
+        </p>
+    </td>
+</tr>
+
+<isif condition="${pdict.order.totals.orderLevelDiscountTotal.value !== 0}">
+    <tr>
+        <td style="width: 285px;border-top: 1px solid #eaeaea;">
+            <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#e2007a;">${pdict.order.totals.discountsTitles.orderLevel}:</p>
+        </td>
+        <td style="width: 285px;text-align:right;border-top: 1px solid #eaeaea;">
+            <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#c00;">- ${pdict.order.totals.orderLevelDiscountTotal.formatted}</p>
+        </td>
+    </tr>
+</isif>
+
+<tr>
+    <td style="width: 285px;border-top: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#e2007a;">${Resource.msg('label.order.shipping.cost','confirmation', null)}:</p>
+    </td>
+    <td style="width: 285px;text-align:right;border-top: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#c00;">${pdict.order.totals.totalShippingCost}</p>
+    </td>
+</tr>
+
+<isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value !== 0}">
+    <tr>
+        <td style="width: 285px;border-top: 1px solid #eaeaea;">
+            <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#e2007a;">${pdict.order.totals.discountsTitles.shippingLevel}:</p>
+        </td>
+        <td style="width: 285px;text-align:right;border-top: 1px solid #eaeaea;">
+            <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#c00;">- ${pdict.order.totals.shippingLevelDiscountTotal.formatted}</p>
+        </td>
+    </tr>
+</isif>
+
+<tr>
+    <td style="width: 285px;border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#e2007a;">
+            ${Resource.msg('label.order.grand.total','confirmation', null)}:
+            <isif condition="${pdict.isMemberOfCruzVerde}">
+                <img src="${URLUtils.httpStatic('/images/icons/clubicon.png')}" />
+            </isif>
+        </p>
+    </td>
+    <td style="width: 285px;text-align:right;border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;">
+        <p style="margin:0;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;color:#c00;">
+            <isif condition="${pdict.isMemberOfCruzVerde}">
+                ${pdict.order.totals.clubGrandTotal}
+            <iselse>
+                ${pdict.order.totals.grandTotal}
+            </isif>
+        </p>
+    </td>
+</tr>

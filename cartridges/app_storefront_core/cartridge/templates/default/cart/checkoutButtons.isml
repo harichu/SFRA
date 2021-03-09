@@ -1,0 +1,7 @@
+<div class="px-1">
+    <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-secondary btn-payment-check btn-block checkout-btn ${(pdict.showLogInMessage || pdict.hasUnavailableProducts) ? 'disabled' : ''}"
+        data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'ProceedToCheckout', '', request.httpPath.indexOf('MiniCartShow') > 0 ? 'minicart' : '')}"
+        role="button" aria-pressed="true">
+        ${Resource.msg('button.checkout','cart',null)}
+    </a>
+</div>

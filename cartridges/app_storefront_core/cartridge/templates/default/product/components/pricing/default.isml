@@ -1,0 +1,96 @@
+<isinclude template="/components/modules"/>
+<iscache status="off" />
+<span>
+    <isset name="finalOrigPrice" value="${price}" scope="page" />
+    <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+    <isset name="productDto" value="${(typeof product !== "undefined" && product) || (typeof lineItem !== "undefined" && lineItem)}" scope="page" />
+    <isset name="hasClubPromotion" value="${productDto.hasClubPromotionAdjusment}" scope="page" />
+    <isset name="hasPromotionWithBadge" value="${productDto.hasPromotionWithBadge}" scope="page" />
+    <isset name="productPromotions" value="${productDto.promotions}" scope="page" />
+    <isset name="displayBadgeText" value="${typeof miniCart !== "undefined" && !miniCart}" scope="page" />
+
+    <span class="sales d-flex flex-wrap mb-1 align-items-center">
+        <isif condition="${finalOrigPrice.club && finalOrigPrice.club.formatted}">
+            <div class="large-price w-100 d-flex align-items-center">
+                <span class="value pr-2">
+                    <isprint value="${finalOrigPrice.club.formatted}"/>
+                </span>
+                <isclubbadge showtext="${displayBadgeText}" promotions="${productPromotions}" haspromotionalbadge="${hasPromotionWithBadge}"/>
+            </div>
+            <isif condition="${isLowPrice == 'range-low'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == 'range-high'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == null}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${price.formatted && productDto.price.sales.value < productDto.price.list.value}">
+                <isinclude template="/product/components/pricing/formatted" />
+                <isif condition="${finalOrigPrice.club}">
+                    ${Resource.msg('product.price.reduced', 'product', null)}
+                </isif>
+            </isif>
+            </span>
+        <iselse>
+            <div class="large-price d-flex ${hasClubPromotion ? 'pr-2' : ''}">
+                <isif condition="${isLowPrice == 'range-low'}">
+                    <span class="value" content="${price.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == 'range-high'}">
+                    <span class="value" content="${price.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == null}">
+                    <span class="value" content="${price.decimalPrice}">
+                </isif>
+                <isif condition="${price.formatted}">
+                    <isinclude template="/product/components/pricing/formatted" />
+                    <isif condition="${finalOrigPrice.club && finalOrigPrice.list !== null}">
+                        <isif condition="${!hasClubPromotion && !hasPromotionWithBadge}">
+                            ${Resource.msg('product.price.reduced', 'product', null)}
+                        </isif>
+                    </isif>
+                </isif>
+                </span>
+            </div>
+
+            <isif condition="${hasClubPromotion || hasPromotionWithBadge}">
+                <isclubbadge showtext="${displayBadgeText}" promotions="${productPromotions}" haspromotionalbadge="${hasPromotionWithBadge}"/>
+            </isif>
+        </isif>
+    </span>
+    <isif condition="${finalOrigPrice.list !== null}">
+        <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+        <span class="list d-block">
+            <span class="value" content="${price.decimalPrice}">
+                <span class="sr-only">
+                    ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                </span>
+
+                <iscomment> This displays original price </iscomment>
+                <span class="price-original">
+                    <isif condition="${!finalOrigPrice.sales.decimalPrice && !finalOrigPrice.club.formatted}">
+                        <span class="sales">
+                            <div class="large-price w-100 d-flex mb-1">
+                                <span class="value">
+                                    <isprint value="${price.formatted}"/>
+                                </span>
+                            </div>
+                        </span>
+                    <iselse>
+                        <isset name="isUseStrike" value="${(!customer.authenticated && finalOrigPrice.sales.value) || customer.authenticated}" scope="page" />
+
+                        <span class="${isUseStrike ? 'original-value' : ''}">
+                            <isprint value="${price.formatted}"/>
+                        </span>
+                        ${Resource.msg('label.price.original', 'pricing', null)}
+                    </isif>
+                </span>
+                <span class="sr-only">
+                    ${Resource.msg('label.price.to', 'pricing', null)}
+                </span>
+            </span>
+        </span>
+    </isif>
+</span>

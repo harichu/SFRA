@@ -1,0 +1,510 @@
+.checkout-page {
+    min-height: 100%;
+
+    #maincontent {
+        padding-bottom: 210px;
+
+        &.margin-small {
+            padding-bottom: 35px;
+        }
+    }
+}
+
+.footer {
+    position: relative;
+    background: $quinary-green;
+    font-size: rem-calc(12px);
+    color: $white;
+    border-top: 7px solid $primary-yellow;
+
+    .footer-links {
+        .footer-links-content {
+            height: 0;
+            transition: height 0.2s ease-in-out;
+        }
+
+        .footer-links-title {
+            font-family: $font-family-primary-bold;
+            font-size: rem-calc(16px);
+            font-weight: bold;
+            display: block;
+            color: $white;
+        }
+
+        .footer-links-label {
+            border-bottom: 2px solid $primary-yellow;
+        }
+
+        .checkmark-content {
+            color: $white;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .footer-links-trigger {
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+
+        .footer-links-trigger:checked ~ .footer-links-content {
+            height: auto;
+        }
+
+        .footer-links-trigger:checked + .footer-links-label > .checkmark-content {
+            transform: rotate(90deg);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            margin: 0;
+            margin-top: 8px;
+            padding: 0;
+        }
+
+        .footer-links-list-item {
+            margin: 8px 0;
+        }
+    }
+
+    .footer-contact {
+        text-align: center;
+
+        .footer-contact-title {
+            font-family: $font-family-primary-bold;
+            font-size: rem-calc(16px);
+            font-weight: bold;
+        }
+
+        .footer-contact-subtitle {
+            font-family: $font-family-primary-bold;
+            font-size: rem-calc(15px);
+            font-weight: bold;
+        }
+
+        .footer-contact-phone {
+            font-size: rem-calc(17px);
+            font-weight: bold;
+            color: $primary-yellow;
+        }
+    }
+
+    .back-to-top {
+        .back-to-top-btn {
+            position: fixed;
+            border: none;
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            bottom: 40px;
+            right: 36px;
+            background-color: $brand-color-secondary;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+
+            &.move-up-btn {
+                position: absolute;
+            }
+
+            &.visible {
+                opacity: 1;
+            }
+        }
+
+        .back-to-top-icon {
+            transform: rotate(-90deg);
+
+            svg path {
+                stroke: $white;
+            }
+        }
+    }
+
+    .footer-logo {
+        height: 60px;
+
+        .footer-logo-img {
+            z-index: 1;
+        }
+
+        picture {
+            &::before,
+            &::after {
+                content: "";
+                display: block;
+                height: 44px;
+                width: 50%;
+                position: absolute;
+                top: 0;
+            }
+
+            &::before {
+                background-color: $brand-color-primary;
+                left: 0;
+            }
+
+            &::after {
+                background-color: $white;
+                right: 0;
+            }
+        }
+    }
+
+    .footer-subscription-message {
+        z-index: 9;
+        position: relative;
+    }
+
+    .footer-stripe {
+        .footer-subscription-container {
+            background-color: $brand-color-primary;
+
+            .footer-overflow {
+                height: 100%;
+                position: absolute;
+                width: 100%;
+                overflow: hidden;
+                top: 0;
+                left: 0;
+
+                &.newsletter-simple-bar {
+                    z-index: 9;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    border-right: 40px solid white;
+                    border-top: 50px solid transparent;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                }
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    background: $primary-yellow;
+                    top: 0;
+                    right: 14px;
+                    bottom: 0;
+                    width: 30px;
+                    transform: skew(-20deg);
+                }
+            }
+
+            .footer-subscription-club-logo {
+                height: 50px;
+            }
+
+            .footer-subscription-text {
+                width: 60%;
+            }
+
+            .footer-subscription-link {
+                color: $white;
+                border-bottom: 2px solid $primary-yellow;
+            }
+        }
+
+        .footer-payment-container {
+            flex: 0 0 auto;
+            background-color: $white;
+
+            .content-asset {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+        }
+    }
+
+    .footer-copyright {
+        background-color: $quaternary-green;
+    }
+
+    .email-signup {
+        width: 100%;
+        position: relative;
+
+        .error-container {
+            position: absolute;
+            background-color: #e60707;
+            padding: 10px 15px;
+            color: white;
+            max-width: 160px;
+            right: -10px;
+            bottom: 132%;
+            font-weight: bold;
+            font-size: rem-calc(12px);
+            z-index: 4;
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 95%;
+                left: 28px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 23px 20px 0 0;
+                border-color: #e60707 transparent transparent transparent;
+            }
+        }
+
+        .modal-title {
+            line-height: rem-calc(22px);
+
+            .checkmark {
+                display: inline-block;
+                width: 11px;
+                height: 20px;
+                border: solid white;
+                border-width: 0 4px 4px 0;
+                transform: rotate(45deg);
+                color: white;
+                margin-right: 16px;
+                margin-bottom: -1px;
+                border-radius: 2px;
+            }
+        }
+
+        .modal-header .close {
+            padding: 3px 0;
+            width: 33px;
+
+            svg {
+                max-width: 100%;
+            }
+        }
+
+        .newsletter-form {
+            .email-description {
+                font-size: rem-calc(16px);
+                font-weight: bold;
+                align-items: center;
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .input-container {
+                position: relative;
+                margin-right: 16px;
+                flex: 1 1 auto;
+                width: 1%;
+            }
+
+            .form-input {
+                height: 42px;
+                border-radius: 5px;
+                border: none;
+                padding: 10px 8px 10px 15px;
+                color: $black;
+                width: 100%;
+
+                &::-ms-clear {
+                    display: none;
+                }
+            }
+
+            .newsletter-icon {
+                position: absolute;
+                top: 12px;
+                right: 15px;
+            }
+
+            .subscribe-news {
+                border-radius: 5px;
+                font-size: rem-calc(13px);
+                font-weight: bold;
+            }
+        }
+
+        .modal-newsletter-body {
+            padding-top: 20px;
+        }
+
+        .newsletter-options-form {
+            font-size: rem-calc(14px);
+            color: $text-grey;
+
+            .newsletter-options {
+                padding: 10px 10px 0;
+                list-style: none;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin: 0;
+
+                .option-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    position: relative;
+                    padding: 5px 0;
+
+                    .option-input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                        height: 0;
+                        width: 0;
+                        display: none;
+
+                        &:checked ~ .custom-checkbox::after {
+                            display: block;
+                        }
+                    }
+
+                    .option-label {
+                        margin: 0;
+                        cursor: pointer;
+                    }
+
+                    .custom-checkbox {
+                        cursor: pointer;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 5px;
+                        border: solid 1px $text-grey;
+                        background-color: $white;
+                        margin: 0;
+                        position: relative;
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            display: none;
+                            left: 4px;
+                            top: 1px;
+                            width: 6px;
+                            height: 11px;
+                            border: solid $black;
+                            border-width: 0 3px 3px 0;
+                            transform: rotate(45deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        .newsletter-actions {
+            display: flex;
+            flex-flow: column-reverse wrap;
+            justify-content: center;
+            background-color: $secondary-grey-light;
+            padding: 24px 15px;
+
+            .btn {
+                font-size: rem-calc(15px);
+                font-weight: bold;
+            }
+
+            .confirm-btn {
+                margin-bottom: 5px;
+            }
+
+            .btn-style {
+                border-color: $brand-color-primary;
+                color: $brand-color-primary;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .footer {
+        font-size: rem-calc(11px);
+        padding-top: 42px;
+
+        .footer-links {
+            flex: 0 0 80%;
+
+            .footer-links-content {
+                height: auto;
+            }
+        }
+
+        .footer-contact {
+            flex: 0 0 20%;
+            text-align: left;
+
+            .footer-contact-title {
+                border-bottom: 2px solid $primary-yellow;
+                font-size: rem-calc(15px);
+                font-weight: bold;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        .footer-stripe {
+            .footer-subscription-container {
+                overflow: visible;
+
+                .footer-subscription-text {
+                    font-size: rem-calc(17px);
+                    width: auto;
+                    white-space: nowrap;
+                }
+            }
+
+            .payment-active-container {
+                flex: 0  0 70%;
+            }
+
+            .footer-payment-container {
+                flex: 1;
+
+                .content-asset {
+                    padding: 0 30px;
+                }
+            }
+        }
+
+        .email-signup {
+            margin-right: 131px;
+            max-width: 823px;
+
+            .error-container {
+                right: -30px;
+
+                &::before {
+                    left: 12px;
+                }
+            }
+
+            .newsletter-form {
+                .email-description {
+                    margin-bottom: 0;
+                }
+            }
+
+            .newsletter-options-form {
+                font-size: rem-calc(18px);
+
+                .newsletter-options {
+                    padding: 30px 60px 0;
+                }
+            }
+
+            .newsletter-actions {
+                flex-flow: row wrap;
+
+                .confirm-btn {
+                    margin-left: 15px;
+                    margin-bottom: 0;
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    .checkout-page {
+        #maincontent {
+            padding-bottom: 115px;
+        }
+    }
+}
+
+#thm_mp_cntnr {
+    display: block;
+}

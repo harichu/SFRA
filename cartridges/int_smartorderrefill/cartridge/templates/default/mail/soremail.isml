@@ -1,0 +1,76 @@
+<iscontent type="text/html " charset="UTF-8"/>
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isset name="customBrandColor" value="${dw.system.Site.current.preferences.custom.SORBrandColor}" scope="page"/>
+
+<body style="margin: 0 !important; padding: 0 !important;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="background: #ffffff;padding: 50px 0;" class="section-padding">
+                <center>
+                    <table style="background: ${customBrandColor ? customBrandColor : '#ffffff'};width: 600px;text-align: center;">
+                        </br>
+                        <tr>
+                            <td>
+                                <isprint value="${dw.content.ContentMgr.getContent("transactional-email-header").custom.body}" encoding="off" />
+                            </td>
+                        </tr>
+                        </br>
+                    </table>
+
+                    <table style="background:#f5f5f5;width:600px;border-collapse: collapse;">
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr>
+                            <td>
+                                <table style="background-color: #ffffff;width: 570px;margin-bottom: 30px;margin-left: 12px;border-radius: 20px;border-collapse: collapse;">
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h1 style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 24px;font-weight: bold;line-height: 50px;color: ${customBrandColor ? customBrandColor : '#109d48'};border-bottom: 2px solid ${customBrandColor ? customBrandColor : '#fcd305'};margin: 15px 0 0 15px;width: 540px;">
+                                                            <isset name="emailUserIcon" value="${dw.content.ContentMgr.getContent("transactional-email-user-icon").custom.body}" scope="page" />
+                                                            <isprint value="${emailUserIcon}" encoding="off" />
+                                                            ${Resource.msg('msg.passwordemail.hola', 'login', null)}&nbsp;${pdict.customerName}
+                                                        </h1>
+
+                                                        <p style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size:18px;font-weight:normal;line-height:24px;color:#555555;margin-bottom:0;width: 540px;margin-left: 15px;">
+                                                            <br>
+                                                            <isif condition="${pdict.yourorder}">
+                                                                ${pdict.yourorder}
+                                                            </isif>
+                                                            ${pdict.topcontent}
+                                                            <isif condition="${pdict.button.link}">
+                                                                <a href="${pdict.button.link}" style="color:#109d48;">${pdict.button.text}</a>
+                                                            </isif>
+                                                            <br>
+                                                            <br>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="text-align: center">
+                                                    <td>
+                                                        <p style="margin-left: 15px;width: 540px;border-top:1px solid #eaeaea;"></p>
+                                                        <isset name="emailFooter" value="${dw.content.ContentMgr.getContent("transactional-email-footer").custom.body}" scope="page" />
+                                                        <isprint value="${emailFooter}" encoding="off" />
+                                                    </td>
+                                                </tr>
+                                                <tr><td>&nbsp;</td> </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+</body>

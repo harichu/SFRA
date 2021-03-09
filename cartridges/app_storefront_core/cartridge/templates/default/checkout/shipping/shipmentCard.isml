@@ -1,0 +1,314 @@
+<isset name="isShippingSelected"  value="${shippingModel.shippingAddress != null && shippingModel.shippingAddress.postalCode != null}" scope="page" />
+<isset name="isRestrictedProductPresent" value="${pdict.isRestrictedProductPresent}" scope="page" />
+
+<isset name="needsPrescription" value="false" scope="page" />
+
+<isloop items="${pdict.order.shipping}" var="shipping">
+    <isloop items="${shipping.productLineItems.items}" var="lineItem">
+        <isif condition="${lineItem.custom.difarmaPrescriptionModel == 'simple'}">
+            <isset name="needsPrescription" value="true" scope="page" />
+        </isif>
+    </isloop>
+</isloop>
+
+<div class="card-body shipping-content pt-0">
+    <div class="d-none">
+        <input type="text" id="current-day-hour" />
+        <input type="text" id="next-day-hour" />
+    </div>
+
+    <form class="shipping-form ${pdict.customer.registeredUser ? 'user-logged' : ''}" autocomplete="on" novalidate
+          action="${shipmentLoopState
+          ? URLUtils.url('CheckoutAddressServices-AddNewAddress')
+          : URLUtils.url('CheckoutShippingServices-SubmitShipping')}"
+          data-address-mode="${pdict.customer.addresses.length > 0 ? 'edit' : 'new'}"
+          <isprint value=${pdict.forms.shippingForm.attributes} encoding="off"/>
+    >
+        <isif condition="${typeof lineItem !== "undefined"}">
+            <input name="productLineItemUUID" type="hidden" value="${lineItem.UUID}" />
+        </isif>
+
+        <input name="originalShipmentUUID" type="hidden" value="${shippingModel.UUID}" />
+        <input name="shipmentUUID" type="hidden" value="${shippingModel.UUID}" />
+
+        <div class="shipping-address">
+            <div class="home-delivery-block tab-body ${pdict.isPickupInStoreTabActive ? 'd-none' : ''}">
+                <div class="delivery-content">
+                    <fieldset class="shipment-selector-block ${shipmentLoopState || (pdict.customer.addresses && pdict.customer.addresses.length > 0) ? '' : 'd-none'} ">
+                        <isinclude template="checkout/shipping/shipmentSelector" />
+                    </fieldset>
+                    <fieldset class="shipping-address-block">
+                        <p class="shipping-card-title text-grey">
+                            <span class="d-none d-lg-block">
+                                ${Resource.msg('title.checkout.formshipping', 'checkout', null)}
+                            </span>
+                            <p class="d-lg-none w-100 d-flex justify-content-center align-items-center">
+                                <span class="mr-2 shipping-step-icon">
+                                    <isinlinesvg src="icon-shipping"/>
+                                </span>
+                                ${Resource.msg('title.checkout.formshipping.short', 'checkout', null)}
+                            </p>
+                        </p>
+                        <p class="shipping-card-saved-new shipping-subtitle text-grey mb-3">
+                            <span class="d-none d-lg-block">
+                                ${Resource.msg("checkout.shipping.completed.text", "checkout", null)}
+                            </span>
+                            <span class="d-lg-none">
+                                ${Resource.msg("checkout.shipping.completed.text.short", "checkout", null)}
+                            </span>
+                        </p>
+                        <isinclude template="checkout/shipping/shippingAddress" />
+                    </fieldset>
+                    <div class="saved-address">
+                        <p class="d-lg-none w-100 d-flex justify-content-center align-items-center">
+                            <span class="mr-2 shipping-step-icon">
+                                <isinlinesvg src="icon-shipping"/>
+                            </span>
+                            ${Resource.msg('title.checkout.formshipping.short', 'checkout', null)}
+                        </p>
+                        <p class="shipping-subtitle text-grey mb-3">
+                            <span class="d-none d-lg-block">
+                                ${Resource.msg("checkout.shipping.completed.text", "checkout", null)}
+                            </span>
+                            <span class="d-lg-none">
+                                ${Resource.msg("checkout.shipping.completed.text.short", "checkout", null)}
+                            </span>
+                        </p>
+                        <div class="card-address custom-control custom-radio pr-lg-5 py-3 mb-2 deactivated radius-small">
+                            <input type="radio" class="custom-control-input" checked id="saved-address-card" name="saved-address-card" readonly >
+                            <label class="custom-control-label cursor-pointer text-grey" for="saved-address-card">
+                                <isif condition="${shippingModel.shippingAddress.address1
+                                            && shippingModel.shippingAddress.city
+                                            && shippingModel.shippingAddress.stateCode
+                                            && shippingModel.shippingAddress.postalCode}"
+                                >
+
+                                        <p class="shipping-input-title text-bold mb-0">
+                                            ${shippingModel.shippingAddress.ID || ''}
+                                        </p>
+                                        <p class="shippig-address-details mb-0">
+                                            ${shippingModel.shippingAddress.address1 || ''}
+                                            ${shippingModel.shippingAddress.address2 || ''}
+                                            ${shippingModel.shippingAddress.city || ''}${!shippingModel.shippingAddress.city || ','}
+                                            ${shippingModel.shippingAddress.stateCode||''}
+                                        </p>
+                                </isif>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="change-address-container d-flex justify-content-end">
+                        <a href="${'#'}" class="change-address change-address-multiple">
+                            <span class="text-underline text-green d-none d-lg-inline-block">
+                                ${Resource.msg('title.checkout.changedirection', 'checkout', null)}
+                            </span>
+                            <span class="text-underline text-green d-lg-none">
+                                ${Resource.msg('title.checkout.changedirection.short', 'checkout', null)}
+                            </span>
+                            <span class="ml-1">
+                                <isinlinesvg src="edit-cart-icon" />
+                            </span>
+                        </a>
+                        <a href="${'#'}" class="change-address change-address-simple">
+                            <span class="text-underline text-green d-none d-lg-inline-block">
+                                ${Resource.msg('title.checkout.editdirection', 'checkout', null)}
+                            </span>
+                            <span class="text-underline text-green d-lg-none">
+                                ${Resource.msg('title.checkout.editdirection.short', 'checkout', null)}
+                            </span>
+                            <span class="ml-1">
+                                <isinlinesvg src="edit-cart-icon" />
+                            </span>
+                        </a>
+                    </div>
+                    <div class="confirm-button text-right">
+                        <input type="button" id="confirm-address" class="btn btn-secondary checkout-button-small address-edit-button" value="${Resource.msg('title.checkout.confirm', 'checkout', null)}"
+                            <isif condition="${pdict.customer.registeredUser && pdict.customer.addresses.length > 0}">disabled</isif>
+                        />
+
+                        <button class="btn btn-outline-secondary checkout-button-small js-address-back address-edit-button ${!pdict.customer.registeredUser || pdict.customer.addresses.length == 0 ? "d-none" : ""}">
+                            ${Resource.msg("button.back.link", "common", null)}
+                        </button>
+                    </div>
+
+                    <fieldset class="shipping-method-block mt-5">
+                        <p class="shipping-subtitle shipping-subtitle-highlighted mb-3 non-restricted-address">${Resource.msg('heading.shipping.method', 'checkout', null)}</p>
+
+                        <div class="prescription-message restricted-address">
+                            <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+                            ${Resource.msg("heading.shipping.method.restricted", "checkout", null)}
+                            <a class="return-to-cart" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+                                <span class="text-underline pr-1">
+                                    ${Resource.msg('link.view.cart', 'cart', null)}
+                                </span>
+                                <isinlinesvg src="edit-cart-icon"/>
+                            </a>
+                        </div>
+
+                        <div class="home-delivery-methods">
+                            <isinclude template="checkout/shipping/shippingMethod" />
+                            <isif condition="${pdict.isPrescriptionUploadServiceEnabled && needsPrescription == "true"}">
+                                <div class="confirm-shipping-button mt-2 text-right">
+                                    <input type="button" id="confirm-shipping-method" value="${Resource.msg('title.checkout.confirm', 'checkout', null)}" class="btn btn-secondary checkout-button-small"/>
+                                </div>
+                            </isif>
+                        </div>
+                    </fieldset>
+                </div>
+                <isinclude template="checkout/shipping/shipmentPrescription" />
+            </div>
+            <div class="pickup-in-store-block tab-body ${pdict.isPickupInStoreTabActive ? '' : 'd-none'}" data-pickup-option="detect">
+                <div class="form-group">
+                    <input type="hidden" id="zoneSelectedMunicipio" name="zoneSelectedMunicipio" value="${pdict.zone.municipio}"/>
+                    <input type="hidden" id="zoneSelectedDepartamento" name="zoneSelectedDepartamento" value="${pdict.zone.state}"/>
+                </div>
+                <isif condition="${isRestrictedProductPresent}">
+                    <div class="prescription-message">
+                        <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+                        ${Resource.msg('shipping.method.prescription.required', 'checkout', null)}
+                    </div>
+                </isif>
+                <div class="px-xl-5 d-flex flex-column first-step-shipment">
+                    <div class="pickup-content">
+                        <p class="shipping-subtitle shipping-subtitle-align text-grey pt-lg-5 pt-4 pb-3 px-4 px-lg-0">
+                            <isinlinesvg src="location-icon-secondary" />
+                            <span class="shipping-subtitle-header pl-2">
+                                ${Resource.msg('title.pickupinstore', 'storeLocator', null)}
+                            </span>
+                        </p>
+
+                        <div class="selection-type-stores px-lg-3 d-flex pb-0 rounded-0">
+                            <div class="custom-control custom-radio px-2 pr-lg-3 px-sm-2 py-3 mb-3 mb-lg-4 active w-50 mr-lg-4 mr-2 radius-small d-flex justify-content-center align-items-center">
+                                <input
+                                    type="radio"
+                                    name="selectType"
+                                    value="geolocation"
+                                    id="pickup-geolocation-radio"
+                                    class="custom-control-input pickup-geolocation-radio"
+                                    data-gtm="${require('int_gtm').gtmEventListener('click', 'Pickup', 'closestores', 'PickupType')}"
+                                    checked
+                                >
+                                <label class="custom-control-label cursor-pointer w-lg-50 text-bold text-green location-select-label" for="pickup-geolocation-radio">
+                                    ${Resource.msg('radio.type.geo', 'storeLocator', null)}
+                                </label>
+                            </div>
+
+                            <div class="custom-control custom-radio px-2 pr-lg-3 px-sm-2 py-3 mb-3 mb-lg-4 w-50 ml-lg-4 ml-2 radius-small d-flex justify-content-center align-items-center">
+                                <input
+                                    type="radio"
+                                    name="selectType"
+                                    value="choose"
+                                    id="pickup-select-radio"
+                                    class="custom-control-input pickup-select-radio"
+                                    data-gtm="${require('int_gtm').gtmEventListener('click', 'Pickup', 'otherstores', 'PickupType')}"
+                                >
+                                <label class="custom-control-label control-label cursor-pointer text-bold text-green location-select-label" for="pickup-select-radio">
+                                    ${Resource.msg('radio.type.choose', 'storeLocator', null)}
+                                </label>
+                            </div>
+                        </div>
+                        <div id="map" class="d-none"></div>
+                        <fieldset class="pickup-in-store d-flex px-lg-4" data-url="${shippingModel.pickupInstoreUrl}">
+                            <div class="pickup-in-store-info">
+                                <div class="selectedStore radius-small">
+                                    <isif condition="${shippingModel.productLineItems.items[0].fromStoreId}">
+                                        <isinclude url="${URLUtils.url('Stores-GetStoreById', 'storeId', shippingModel.productLineItems.items[0].fromStoreId)}"/>
+                                    </isif>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="after-store-selection px-lg-3">
+                        </div>
+
+                        <div class="choose-info mt-3 px-3">
+                            <div class="form-group required">
+                                <label class="form-control-label text-bold" for="store-departamentos">
+                                    ${Resource.msg("field.billing.address.state", "address", null)}
+                                </label>
+                                <select name="store-departamentos" id="store-departamentos" class="custom-select form-control required">
+                                    <isloop items=${pdict.departamentos} var="state">
+                                        <option id="${state}" value="${state}">${state || ' '}</option>
+                                    </isloop>
+                                </select>
+                            </div>
+                            <div class="form-group required">
+                                <label class="form-control-label text-bold" for="store-municipios">
+                                    ${Resource.msg("field.billing.address.city", "address", null)}
+                                </label>
+                                <select name="store-municipios" data-municipios="${pdict.municipios}" id="store-municipios" class="custom-select form-control required">
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-secondary checkout-button-small select-place">
+                                    ${Resource.msg('button.select.store', 'storeLocator', null)}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col text-right">
+                            <button class="text-bold text-primary-color checkout-link px-3 pt-2 align-self-end change-store ${shippingModel.selectedShippingMethod.storePickupEnabled && shippingModel.productLineItems.items[0].fromStoreId ? '' : 'd-none'}" name="changeStore" value="changeStore">
+                                ${Resource.msg('button.change.store', 'storeLocator', null)}
+                                <span class="ml-1">
+                                    <isinlinesvg src="edit-cart-icon" />
+                                </span>
+                            </button>
+                        </div>
+                        <div class="store-choosed-info px-lg-3">
+                            <isif condition="${pdict.isInventoryCheckServiceEnabled}">
+                                <div class="selection-pickday-radios d-flex justify-content-around" data-url="${URLUtils.url("Checkout-SetDayNightShippingTime")}">
+                                    <div class="px-2 pr-lg-3 px-sm-2 py-3 my-3 w-50 mr-lg-4 mr-2 radios-button d-flex justify-content-center align-items-center text-center custom-control custom-radio radius-small">
+                                        <input type="radio" id="pickday-today" class="custom-control-input" name="pickday" value="today" >
+                                        <label class="custom-control-label cursor-pointer text-green text-bold location-select-label" for="pickday-today">
+                                            ${Resource.msg('shiptime.today', 'checkout', null)}
+                                        </label>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="px-2 pr-lg-3 px-sm-2 py-3 my-3 w-50 radios-button d-flex justify-content-center align-items-center text-center custom-control custom-radio radius-small">
+                                        <input type="radio" id="pickday-tomorrow" class="custom-control-input" name="pickday" value="tomorrow" >
+                                        <label class="custom-control-label cursor-pointer text-green text-bold location-select-label" for="pickday-tomorrow">
+                                            ${Resource.msg('shiptime.tomorrow', 'checkout', null)}
+                                        </label>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </isif>
+                            <p class="timeslot-store background-grey mb-0 p-2 text-bold text-grey text-center my-4 radius-small">
+                                ${Resource.msg('text.timeslot', 'storeLocator', null)}
+                                <span class="timeslot-store-hour"></span>
+                                ${Resource.msg('text.timeslot.end', 'storeLocator', null)}
+                            </p>
+                            <div class="who-takes px-4 px-lg-0">
+                                <p class="shipping-subtitle text-grey mt-4 mt-lg-5 mb-4 pl-3">
+                                    ${Resource.msg('title.whotakes', 'storeLocator', null)}
+                                </p>
+                                <div class="selection-type-stores">
+                                    <div class="selection-type-stores-radios d-flex justify-content-around">
+                                        <div class="selection-type-stores-radios-button mr-lg-2 radios-button d-flex justify-content-center align-items-center text-center custom-control custom-radio radius-small active">
+                                            <input type="radio" id="select-who-takes-personal" class="d-sm-none custom-control-input" name="select-who-takes" value="me" checked="checked">
+                                            <label class="custom-control-label cursor-pointer text-green text-bold location-select-label" for="select-who-takes-personal">
+                                                ${Resource.msg('field.whotakes.me', 'storeLocator', null)}
+                                            </label>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="selection-type-stores-radios-button ml-lg-2 pl-lg-4 radios-button d-flex justify-content-center align-items-center text-center custom-control custom-radio radius-small">
+                                            <input type="radio" id="select-who-takes-familiar" class="d-sm-none custom-control-input" name="select-who-takes" value="other">
+                                            <label class="custom-control-label cursor-pointer text-green text-bold location-select-label" for="select-who-takes-familiar">
+                                                ${Resource.msg('field.whotakes.other','storeLocator', null)}
+                                            </label>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <isinclude template="checkout/shipping/familyPickupForm" />
+                <isinclude template="checkout/shipping/shipmentPickupPrescription" />
+            </div>
+        </div>
+
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+    </form>
+</div>

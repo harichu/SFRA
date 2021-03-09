@@ -1,0 +1,29 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addCss('/css/account/account.css');
+        assets.addJs('/js/profile.js');
+    </isscript>
+
+    <div class="account-page account-profile background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('label.profile.title' ,'account', null)}" hasbreadcrumbs="${true}"/>
+
+        <div class="container account-page-content" data-gtm="${require('int_gtm').gtmEventListener('show', 'EditProfile')}">
+            <div class="row">
+                <isinclude template="account/components/sidebar" />
+                <div class="col-12 col-lg-9">
+                    <div class="card">
+                        <div class="row justify-content-center">
+                            <div class="profile-form-container">
+                                <isinclude template="account/editProfileForm"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

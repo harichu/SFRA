@@ -1,0 +1,50 @@
+<isdecorate template="common/layout/page">
+<isinclude template="/components/modules"/>
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+
+    <div class="background-grey" data-gtm="${require('int_gtm').gtmEventListener('show', 'Login')}">
+        <isaccountbanner bannertitle="${Resource.msg('header.hero.image.login', 'login', null)}"/>
+        <div class="container login-page">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                    <div class="card h-100">
+                        <div class="account-subtitle card-title d-flex align-items-center px-3 pt-2 text-center mb-1">
+                            <div class="pr-0 pr-lg-3 mr-2 mr-lg-0">
+                                <isinlinesvg src="account-user-icon" />
+                            </div>
+                            <isprint value="${Resource.msg('login.section.subtitle', 'login', null)}"/>
+                        </div>
+                        <hr class="separator"/>
+                        <div class="card-body">
+                            <isinclude template="account/components/loginForm" />
+                            <isinclude template="account/password/requestPasswordResetModal"/>
+                            <isinclude template="account/components/oauth" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100">
+                        <div class="account-subtitle card-title d-flex align-items-center px-3 pt-2 text-center mb-1">
+                            <div class="pr-lg-3">
+                                <isinlinesvg src="account-subscribe-icon" />
+                            </div>
+                            <isprint value="${Resource.msg('register.section.subtitle', 'registration', null)}"/>
+                        </div>
+                        <hr class="separator"/>
+                        <div class="card-body text-grey mt-4 mb-4">
+                            <iscontentasset aid="account-benefits"/>
+                            <a href="${URLUtils.https('Account-StartRegister', 'rurl', pdict.oAuthReentryEndpoint)}" class="btn btn-style btn-text-small w-100 subscribe-button">
+                                ${Resource.msg('button.create.customer.account', 'checkout', null)}
+                                <i class="ml-2 fa fa-chevron-right text-orange"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

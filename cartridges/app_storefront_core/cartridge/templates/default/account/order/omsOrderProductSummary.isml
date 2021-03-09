@@ -1,0 +1,9 @@
+<div class="card order-product-summary">
+    <div class="summary-card-body">
+        <div class="product-summary-block">
+           <isloop items="${pdict.order.OrderLines.OrderLine}" var="lineItem">
+                <isinclude template="account/order/omsProductCard" />
+            </isloop>
+        </div>
+    </div>
+</div>

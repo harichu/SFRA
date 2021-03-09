@@ -1,0 +1,16 @@
+<div class="line-item-name">
+    <span>${lineItem.productName}</span>
+</div>
+<isif condition="${!lineItem.isBonusProductLineItem}"/>
+    <div class="remove-line-item">
+        <button type="button" class="remove-btn remove-product cart-delete-confirmation-btn"
+                data-target="#removeProductModal" data-pid="${lineItem.id}"
+                data-name="${lineItem.productName}"
+                data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                data-uuid="${lineItem.UUID}"
+                data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'RemoveProduct', lineItem.productName, 'minicart')}"
+                aria-label="${Resource.msgf('text.remove.line.item','cart', null, lineItem.productName)}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</isif>

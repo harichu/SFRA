@@ -1,0 +1,15 @@
+<isinclude template="/components/modules" />
+
+<div class="empty-subscriptions">
+    <span class="sor-empty-title ">
+        ${Resource.msg('smartorderrefill.empty.title','smartorderrefill',null)}
+    </span>
+
+    <span class="sor-empty-text ">
+        ${Resource.msg('smartorderrefill.empty.text','smartorderrefill',null)}
+    </span>
+
+    <a href="" class="sor-empty-btn btn btn-secondary">
+        ${Resource.msg('smartorderrefill.empty.button','smartorderrefill',null)}
+    </a>
+</div>

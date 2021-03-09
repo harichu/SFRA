@@ -1,0 +1,7 @@
+<iscomment>This sets a Session variable to be used if the order is confirmed</iscomment>
+<isset name="basketIdSession" value="${pdict.marketingCloudCart.basket}" scope="session" />
+<iscomment>This pushes the trackCart data to SFMC using the custom collect.js</iscomment>
+<script>
+    var marketingCloudCart = "${JSON.stringify(pdict.marketingCloudCart)}".replace(/&quot;/g, "'");
+    _etmc_custom.push(["trackCart", { "cart": marketingCloudCart }]);
+</script>

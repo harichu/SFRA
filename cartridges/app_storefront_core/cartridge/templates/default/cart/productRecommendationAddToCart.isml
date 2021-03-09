@@ -1,0 +1,37 @@
+<!-- Modal -->
+<div class="modal fade recommendation-dialog-wrapper" id="productRecommendationModal" tabindex="-1" role="dialog" data-url="${URLUtils.url('Product-Recommendation')}">
+    <span class="enter-message sr-only"></span>
+    <div class="modal-dialog recommendation-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header pb-0">
+                <button type="button" class="close pull-right js-close-add-to-cart-modal" data-dismiss="modal">
+                    <isinlinesvg src="close-icon" />
+                </button>
+                <div class="text-center text-grey-dark">
+                    <isinlinesvg src="rounded-check-mark" />
+                    <h2 class="mt-2">${Resource.msg('label.producto.agregado.title', 'product', null)}</h2>
+                    <p class="mt-2">${Resource.msg('label.te.recomendamos.text', 'product', null)}</p>
+                </div>
+            </div>
+
+            <div class="modal-body"></div>
+
+            <div class="modal-footer pt-0">
+                <div class="container">
+                    <div class="row bonus-products-btns align-items-end">
+                        <div class="col-12 align-items-center d-flex justify-content-center flex-column px-0">
+                            <button class="btn btn-outline-secondary w-100 js-close-add-to-cart-modal" type="button" data-dismiss="modal" data-target="#productRecommendationModal">
+                                ${Resource.msg('label.seguir.comprando.btn', 'product', null)}
+                            </button>
+                            <a href="${URLUtils.https('Cart-Show')}" class="btn btn-secondary w-100 mt-3">
+                                ${Resource.msg('label.ir.a.la.bolsa.btn', 'product', null)}
+                            </a>
+                        </div>
+                        <div class="col-sm-3 hidden-xs-down"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

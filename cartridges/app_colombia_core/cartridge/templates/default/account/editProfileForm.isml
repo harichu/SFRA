@@ -1,0 +1,183 @@
+<isset name="documentCC" value="${Resource.msg('label.input.document.type.cc', 'forms', null)}" scope="page" />
+<isset name="documentCE" value="${Resource.msg('label.input.document.type.ce', 'forms', null)}" scope="page" />
+<isset name="documentPassport" value="${Resource.msg('label.input.document.type.passport', 'forms', null)}" scope="page" />
+
+<form action="${URLUtils.url('Account-SaveProfile')}" class="edit-profile-form" method="POST" id="profile-form" data-validation-url="${URLUtils.url('Account-Validate')}">
+    <div class="row">
+        <div class="col-lg-3 profile-document">
+            <div class="form-group">
+                <label class="form-control-label" for="profile-document">
+                    ${Resource.msg('label.input.document', 'forms', null)}
+                </label>
+                <select type="text" required class="form-control custom-select" id="profile-document" name="document" data-missing-error="${Resource.msg("validate.required", "forms", null)}">
+                    <isif condition="${!empty(pdict.profile.ccDocument)}">
+                        <isset name="documentNumber" value="${pdict.profile.ccDocument}" scope="page" />
+                        <option value="${documentCC}">
+                            ${documentCC}
+                        </option>
+                    <iselseif condition="${!empty(pdict.profile.ceDocument)}"/>
+                        <isset name="documentNumber" value="${pdict.profile.ceDocument}" scope="page" />
+                        <option value="${documentCE}">
+                            ${documentCE}
+                        </option>
+                    <iselseif condition="${!empty(pdict.profile.passport)}"/>
+                        <isset name="documentNumber" value="${pdict.profile.passport}" scope="page" />
+                        <option value="${documentPassport}">
+                            ${documentPassport}
+                        </option>
+                    </isif>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-3 pl-lg-0">
+            <div class="row profile-identification-number">
+                <div class="col pl-lg-0">
+                    <div class="form-group pl-lg-0">
+                        <label class="form-control-label" for="profile-indentification-number">
+                            ${Resource.msg('label.input.identification-number', 'forms', null)}
+                        </label>
+                        <input type="tel" autocomplete="name" class="form-control required" readonly required aria-describedby="form-profile-identification-number-error" id="profile-identification-number" name="identificationNumber"
+                            value="${pdict.profile.ccDocument || pdict.profile.ceDocument || pdict.profile.passport}"
+                            data-missing-error="${Resource.msg('error.document.passport', 'forms', null)}"
+                        />
+                        <div class="invalid-feedback" id="form-profile-indentification-number-error"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group required">
+                <label class="form-control-label" for="profile-fullname">
+                    ${Resource.msg('label.input.fullname.profile', 'forms', null)}
+                </label>
+                <input type="text"
+                    class="form-control required" required
+                    id="profile-form-fullname"
+                    aria-describedby="form-fullname-error"
+                    name="fullName"
+                    value="${pdict.profile.fullName || ''}"
+                    pattern="${Resource.msg("regex.name.field", "forms", null)}"
+                    data-missing-error="${Resource.msg('error.missing.name', 'forms', null)}"
+                    data-pattern-mismatch="${Resource.msg('error.wrong.name', 'forms', null)}"
+                />
+                <div class="invalid-feedback" id="profile-fullname-error"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group required">
+                <label class="form-control-label" for="profile-phone">
+                    ${Resource.msg('label.input.phone.profile', 'forms', null)}
+                </label>
+                <input type="tel" required
+                    class="form-control required phone-field"
+                    aria-describedby="form-phone-error"
+                    id="profile-phone"
+                    name="phone"
+                    value="${pdict.profile.phone || Resource.msg('label.input.countrycode', 'forms', null)}"
+                    data-missing-error="${Resource.msg('error.parse.phone', 'forms', null)}"
+                    data-pattern-mismatch="${Resource.msg('error.parse.phone', 'forms', null)}"
+                    data-prefix="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                    pattern="^[\(\+57\)(\d)(\d){7,12}|(\d){3}(-)(\d){4}(-)(\d){3}]{15,}$"
+                    data-mask="(+00)0000000000"
+                />
+                <div class="invalid-feedback" id="form-phone-error"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 profile-gender">
+            <div class="form-group required">
+                <label class="form-control-label" for="profile-gender">
+                    ${Resource.msg('label.input.gender.profile', 'forms', null)}
+                </label>
+                <select type="text" class="form-control custom-select required" required name="gender">
+                    <option value="1" <isprint value="${pdict.profile.gender == 1? 'selected' : ''}" encoding="off" />>
+                        ${Resource.msg('label.gender.male', 'registration', null)}
+                    </option>
+                    <option value="2" <isprint value="${pdict.profile.gender == 2? 'selected' : ''}" encoding="off" />>
+                        ${Resource.msg('label.gender.female', 'registration', null)}
+                    </option>
+                </select>
+                <div class="invalid-feedback" id="form-gender-error"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 profile-birth datefield">
+            <div class="form-group required">
+                <label class="form-control-label" for="profile-birth">
+                    ${Resource.msg('label.input.birth', 'forms', null)}
+                </label>
+                <input type="text"
+                    id="datefield"
+                    data-mask="00/00/0000"
+                    class="custom-select custom-validation form-control required date calendar-icon"
+                    required
+                    name="birth"
+                    value="${pdict.profile.birthdate || ''}"
+                    data-toggle="datepicker"
+                    placeholder="dd/mm/año"
+                    data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                    data-minimum-error="${Resource.msg("error.birth.minimum.age", "forms", null)}"
+                    data-pattern-mismatch="${Resource.msg("error.birth", "forms", null)}"
+                />
+                <div class="docs-datepicker-container justify-content-center position-relative d-none"></div>
+                <div class="invalid-feedback" id="form-birth-error"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 profile-email">
+            <div class="form-group required">
+                <label class="form-control-label" for="profile-email">
+                    ${Resource.msg('label.input.email.profile', 'forms', null)}
+                </label>
+                <input type="email" required class="form-control required" aria-describedby="form-email-error" id="profile-email"
+                <isprint value="${pdict.profileForm.customer.email.attributes}" encoding="off" />
+                    value="${pdict.profile.email || ''}"
+                    data-missing-error="${Resource.msg('error.parse.email', 'forms', null)}"
+                />
+                <div class="invalid-feedback" id="form-email-error"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group required required-marker">
+                <label class="form-control-label" for="confirmEmail">
+                    ${Resource.msg('label.profile.confirmEmail', 'account', null)}
+                </label>
+                <input type="email" class="form-control" id="confirmEmail" required encoding="off"
+                    data-missing-error="${Resource.msg('error.message.required', 'forms', null)}"
+                    data-pattern-mismatch="${Resource.msg('error.message.parse.email.profile.form', 'forms', null)}"
+                    <isprint value="${pdict.profileForm.customer.emailconfirm.attributes}" encoding="off" />
+                >
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group required required-marker">
+                <label class="form-control-label" for="profile-form-password">
+                    ${Resource.msg('label.input.password.profile', 'forms', null)}
+                </label>
+                <input type="password" class="form-control" required id="profile-form-password" autocomplete="off" name="password"
+                    data-missing-error="${Resource.msg("validate.required", "forms", null)}"
+                />
+                <div class="invalid-feedback" id="form-password-error"></div>
+            </div>
+        </div>
+
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+        <div class="col-12">
+            <div class="profile-actions">
+                <div class="col">
+                    <button type="submit" class="mr-2 btn account-btn btn-secondary w-100 w-lg-auto mb-3 mb-lg-0" data-gtm="${require('int_gtm').gtmEventListener('click', 'ConfirmEdit', 'Profile', 'Target')}">
+                        ${Resource.msg('button.create-account.registration', 'registration', null)}
+                    </button>
+                    <a href="${URLUtils.url('Account-Show')}" class="btn account-btn btn-outline-secondary w-100 w-lg-auto">${Resource.msg('button.profile.cancel','account',null)}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

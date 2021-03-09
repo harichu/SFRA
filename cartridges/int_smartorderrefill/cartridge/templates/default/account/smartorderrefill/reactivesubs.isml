@@ -1,0 +1,66 @@
+<!--- TEMPLATENAME: reactivesubs.isml --->
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<span class="text-grey d-block mb-3">
+    <isif condition="${pdict.Available}" >
+        <isprint value="${Resource.msg('smartorderrefill.reactivesubs.message','smartorderrefill',null)}"/>
+    <iselse/>
+        <isprint value="${Resource.msg('smartorderrefill.reactivesubs.notavailable','smartorderrefill',null)}"/>
+    </isif>
+</span>
+
+    <form id="reactiveSubs" name="ReactiveSubs" action="${URLUtils.httpsContinue()}" class="form-horizontal reactivate-sor" method="post">
+        <fieldset>
+            <isif condition="${pdict.Available}">
+                <isif condition="${new Date(pdict.RemainingDate) > new Date()}">
+                     <div class="form-row label-inline">
+                        <div class="field-wrapper mr-2">
+                            <input id="remaining" type="radio" class="input-radio" name="reactiveType" value="remaining" checked/>
+                        </div>
+                        <label class="reactivate-option-label text-grey" for="remaining">
+                            <isset name="remainingDate" value="${new Date(pdict.RemainingDate).toDateString()}" scope="page"/>
+                            <isprint value="${Resource.msgf('smartorderrefill.reactivesubs.remaining','smartorderrefill',null,remainingDate)}"/>
+                        </label>
+                    </div>
+                </isif>
+                <div class="form-row label-inline">
+                    <div class="field-wrapper mr-2">
+                        <input id="year" type="radio" class="input-radio" name="reactiveType" value="year"/>
+                    </div>
+                    <label class="reactivate-option-label text-grey" for="year">
+                        <isset name="oneYearDate" value="${new Date(pdict.OneYearDate).toDateString()}" scope="page"/>
+                        <isprint value="${Resource.msgf('smartorderrefill.reactivesubs.year','smartorderrefill',null,oneYearDate)}"/>
+                    </label>
+                </div>
+                <isif condition="${dw.system.Site.current.preferences.custom.SorChangeProductPrice && pdict.PriceChanges && pdict.PriceChanges.changed}">
+                    <div>
+                        <input type="hidden" name="priceChanged" value="${true}">
+                        <isprint value="${Resource.msg('smartorderrefill.reactivesubs.pricechange','smartorderrefill',null)}"/>
+                        <br>
+                        <table class='sor-module__filter_table'>
+                            <thead>
+                                <th>
+                                    <isprint value="${Resource.msg('smartorderrefill.vieworder.product','account',null)}"/>
+                                </th>
+                                <th>
+                                    <isprint value="${Resource.msg('smartorderrefill.vieworder.oldprice','account',null)}"/>
+                                </th>
+                                <th>
+                                    <isprint value="${Resource.msg('smartorderrefill.vieworder.newprice','account',null)}"/>
+                                </th>
+                            </thead>
+                            <isloop items="${pdict.PriceChanges.products}" var="product">
+                                <td>${product.name}</td>
+                                <td>${product.oldPrice}</td>
+                                <td>${product.newPrice}</td>
+                            </isloop>
+                        </table>
+                    </div>
+                </isif>
+            </isif>
+        </fieldset>
+    </form>
+
+

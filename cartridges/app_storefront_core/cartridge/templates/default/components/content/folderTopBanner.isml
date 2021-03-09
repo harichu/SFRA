@@ -1,0 +1,29 @@
+<div class="page-topbanner overflow-hidden position-relative mb-2">
+    <isinclude template="components/breadcrumbs/contentBreadcrumbs"/>
+    <isif condition="${!empty(pdict.folderTitle)}">
+        <div class="page-topbanner-title text-center position-absolute w-100">
+            <isprint value="${pdict.folderTitle}" encoding="off" />
+            <isif condition="${!empty(pdict.folderIcon)}">
+                <img class="pl-3 banner-logo-image" src="${pdict.folderIcon}" alt="folder icon">
+            </isif>
+        </div>
+    </isif>
+    <isif condition="${!empty(pdict.folderDescription)}">
+        <div class="page-topbanner-subtitle text-center position-absolute w-100 px-3 ${!empty(pdict.folderIcon) ? 'mt-lg-3 mt-1' : ''}">
+            <isprint value="${pdict.folderDescription}" encoding="off" />
+        </div>
+    </isif>
+    <div class="page-topbanner-background position-relative overflow-hidden">
+        <div class="page-topbanner-overlay position-absolute w-100"></div>
+        <isif condition="${!empty(pdict.folderImageLarge) && !empty(pdict.folderImageSmall)}">
+            <picture>
+                <source media="(max-width: 992px)" srcset="${pdict.folderImageSmall}"/>
+                <img class="page-topbanner-background-image position-relative" src="${pdict.folderImageLarge}" alt="${pdict.folderImageAlt}"/>
+            </picture>
+        <iselseif condition="${!empty(pdict.folderImageLarge) && empty(pdict.folderImageSmall)}">
+            <img class="page-topbanner-background-image position-relative d-none d-lg-block" src="${pdict.folderImageLarge}" alt="${pdict.folderImageAlt}"/>
+        <iselseif condition="${!empty(pdict.folderImageSmall) && empty(pdict.folderImageLarge)}">
+            <img class="page-topbanner-background-image position-relative d-block d-lg-none" src="${pdict.folderImageSmall}" alt="${pdict.folderImageAlt}"/>
+        </isif>
+    </div>
+</div>

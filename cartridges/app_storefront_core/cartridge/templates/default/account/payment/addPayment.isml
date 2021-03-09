@@ -1,0 +1,31 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs(dw.system.Site.current.getCustomPreferenceValue('mercadoPagoSDK'));
+        assets.addJs('/js/paymentInstruments.js');
+        assets.addCss('/css/account/payment.css');
+        assets.addCss('/css/account/account.css');
+    </isscript>
+
+    <div class="account-page account-payment background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('page.heading.payments', 'payment', null)}" hasbreadcrumbs="${true}"/>
+        <div class="container account-page-content" data-gtm="${require('int_gtm').gtmEventListener('show', 'AddPaymentInstrument')}">
+            <div class="row">
+                <isinclude template="account/components/sidebar" />
+                <div class="col-12 col-lg-9">
+                    <div class="card align-items-center">
+                        <div class="account-form-container">
+                            <isif condition="${pdict.UUID}">
+                                <span class="account-form-title">${Resource.msg('label.payment.editpayment','payment',null)}</span>
+                            <iselse/>
+                                <span class="account-form-title">${Resource.msg('label.payment.addnewpayment','payment',null)}</span>
+                            </isif>
+                            <isinclude template="account/payment/paymentForm"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

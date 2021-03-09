@@ -1,0 +1,30 @@
+<isdecorate template="common/layout/page">
+    <div class="content-page" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <isinclude template="components/content/bodyTitle"/>
+            <div class="page-content py-4 py-lg-5">
+
+                <ul class="nav nav-tabs">
+                    <isloop items="${pdict.folderContent}" var="tabAsset" status="loopstate" end="3">
+                        <li class="tab-item text-center w-100 w-lg-25">
+                            <a data-toggle="tab" href="${'#' + tabAsset.ID}" class="tab-title d-block p-3 ${loopstate.first ? 'active first-tab' : ''} ${!loopstate.last ? 'mr-lg-3' : ''} ${loopstate.last ? 'last-tab' : ''} ">
+                                <isprint value="${tabAsset.name}" encoding="off" />
+                            </a>
+                        </li>
+                    </isloop>
+                </ul>
+
+                <div class="tab-content">
+                    <isloop items="${pdict.folderContent}" var="tabAsset" status="loopstate">
+                        <div id="${tabAsset.ID}" class="tab-pane content-box background-white p-3 p-lg-5 mb-5 ${loopstate.first ? 'active' : ''}">
+                            <isprint value="${tabAsset.custom.body}" encoding="off" />
+                        </div>
+                    </isloop>
+                </div>
+
+                <isprint value="${pdict.folderHTML}" encoding="off"/>
+            </div>
+        </div>
+    </div>
+</isdecorate>

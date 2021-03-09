@@ -1,0 +1,22 @@
+<div class="order col-lg-4 col-xl-3 d-done d-lg-flex justify-content-end align-items-center">
+    <span class="mr-2 text-uppercase order-select-title">${Resource.msg("label.generic.see", "common", null)}</span>
+
+    <div class="w-75 custom-select d-flex align-items-center position-relative h-auto js-pagination-number-select"
+        data-select-size="${pdict.maxPageSize}"
+        >
+        <div class="select-order cursor-pointer w-100">
+            <div class="styled-select select-lg d-flex align-items-center position-absolute">
+                ${Resource.msgf("label.generic.results", "common", null, pdict.maxPageSize)}
+            </div>
+            <ul class="select-options select-options-lg position-absolute select-index">
+                <isloop items="${pdict.searchOptions}" var="optionitem">
+                    <isif condition="${pdict.productSearch.count > optionitem}">
+                        <li class="option p-2 text-capitalize js-pagination-number-option ${pdict.maxPageSize == optionitem ? 'active' : ''}" data-value="${optionitem}">
+                            ${Resource.msgf("label.generic.results", "common", null, optionitem)}
+                        </li>
+                    </isif>
+                </isloop>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+.account-sidebar {
+    background-color: $white;
+    border-radius: 10px;
+    border: 1px solid $primary-grey-light;
+
+    .sidebar-title {
+        border-bottom: 1px solid $inactive-grey;
+        text-transform: uppercase;
+        color: $brand-color-primary;
+        font-size: rem-calc(17px);
+        font-weight: bold;
+        padding: 20px 20px 10px;
+    }
+
+    .sidebar-items {
+        display: flex;
+        flex-flow: column wrap;
+        padding: 20px 20px 30px;
+
+        .sidebar-link {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(34px);
+            color: $text-grey;
+            text-transform: none;
+
+            &.active {
+                color: $brand-color-secondary;
+            }
+        }
+    }
+}

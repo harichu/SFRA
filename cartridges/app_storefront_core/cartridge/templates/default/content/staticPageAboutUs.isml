@@ -1,0 +1,34 @@
+<isinclude template="/components/modules"/>
+<isdecorate template="common/layout/page">
+    <div class="content-page about-us-chile pb-5" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <isinclude template="components/content/bodyTitle"/>
+            <div class="my-4 my-lg-5">
+                <iscontentasset aid="static-pages-content-about-us" />
+            </div>
+            <div class="my-4 my-lg-5">
+                <iscontentasset aid="static-pages-content-mision-vision" />
+            </div>
+            <div class="page-content">
+                <div class="background-white rounded p-3">
+                    <div class="pt-lg-4 mx-lg-4">
+                        <isprint value="${pdict.folderHTML}" encoding="off"/>
+                    </div>
+                    <div class="d-flex flex-wrap mx-lg-2">
+                    <isloop items="${pdict.folderContent}" var="collapseAsset">
+                        <div class="about-us-collapse w-100 mb-4">
+                            <label class="content-collapse-label d-flex justify-content-between align-items-center py-lg-3 mx-lg-3" for="${collapseAsset.ID}">
+                                <div class="content-collapse-subtitle text-green">${collapseAsset.name}</div>
+                            </label>
+                            <div class="about-us-content-chile d-flex flex-column justify-content-between container p-0 p-lg-3">
+                                <isprint value="${collapseAsset.custom.body}" encoding="off"/>
+                            </div>
+                        </div>
+                    </isloop>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

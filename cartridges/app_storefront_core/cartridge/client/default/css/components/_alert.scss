@@ -1,0 +1,10 @@
+.alert {
+    font-size: rem-calc(14px);
+    padding: 15px 64px 15px 20px;
+}
+
+.alert-danger {
+    color: $danger;
+    background: $danger-background;
+    border: 0;
+}

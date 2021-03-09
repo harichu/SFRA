@@ -1,0 +1,123 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header background-primary d-flex align-items-center py-1">
+            <h5 class="modal-title text-white text-center w-100">
+                <div class="d-none d-lg-inline-block">
+                    <isinlinesvg src="account-subscribe-icon-white" />
+                </div>
+                <span class="pl-3">
+                    ${Resource.msg("modal.titleguest", "modal", null)}
+                </span>
+            </h5>
+            <button type="button" class="close no-outline" data-dismiss="modal" aria-label="Close">
+                <isinlinesvg src="close-icon-light" />
+            </button>
+        </div>
+        <div class="modal-body p-0">
+            <p class="modal-checkout-text text-center text-grey my-4">${Resource.msg("modal.textheaderguest", "modal", null)}</p>
+            <form action="${URLUtils.url("Checkout-GuestInfo").relative().toString()}" id="guest-registration" method="POST" name="${pdict.profileForm.htmlName}">
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                <isset name="firstName" value="${!empty(pdict.profileForm.customer.firstname.value) ? pdict.profileForm.customer.firstname.value + " " : ""}" scope="page" />
+                <isset name="lastName" value="${!empty(pdict.profileForm.customer.lastname.value) ? pdict.profileForm.customer.lastname.value : ""}" scope="page" />
+                <div class="form-group required">
+                    <label class="form-control-label text-bold" for="registration-form-fname">
+                        ${Resource.msg("modal.fullname", "modal", null)}
+                    </label>
+                    <input
+                        required
+                        type="text"
+                        class="form-control"
+                        id="registration-form-fname"
+                        name="name"
+                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                        data-pattern-mismatch="${Resource.msg('checkout.login.name.error', 'checkout', null)}"
+                        data-range-error="${Resource.msg('checkout.login.name.error', 'checkout', null)}"
+                        aria-describedby="form-fname-error"
+                        pattern="${Resource.msg("regex.name.field", "forms", null)}"
+                        value="${StringUtils.rtrim(firstName) + lastName}" />
+                    <div class="invalid-feedback" id="form-fname-error"></div>
+                </div>
+
+                <div class="form-group required">
+                    <label class="form-control-label text-bold" for="registration-form-rut">
+                        ${Resource.msg("modal.rut", "modal", null)}
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control required rut-inputfield js-document-validation"
+                        data-type="rut"
+                        required
+                        id="registration-form-rut"
+                        name="rut"
+                        placeholder="${Resource.msg('label.input.placeholder.rut', 'contactUs', null)}"
+                        maxlength="9"
+                        pattern="\d{1,3}(?:(\.?)\d{3}){2}(-?)[\dkK]"
+                        data-pattern-mismatch="${Resource.msg('error.rut.invalid', 'forms', null)}"
+                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                        aria-describedby="form-rut-error"
+                    />
+                    <div class="invalid-feedback" id="form-rut-error"></div>
+                </div>
+
+                <div class="form-group required">
+                    <label class="form-control-label text-bold" for="registration-form-email">
+                        ${Resource.msg("label.input.email.profile","forms", null)}
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="registration-form-email"
+                        name="email"
+                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                        data-pattern-mismatch="${Resource.msg('checkout.login.coreo.error', 'checkout', null)}"
+                        data-range-error="${Resource.msg('checkout.login.coreo.error', 'checkout', null)}"
+                        aria-describedby="form-email-error"
+                        <isprint value=${pdict.profileForm.customer.email.attributes} encoding="off" />>
+                    <div class="invalid-feedback" id="form-email-error"></div>
+                </div>
+
+                <div class="form-group required">
+                    <label class="form-control-label text-bold" for="registration-form-phone">
+                        <isprint value="${pdict.profileForm.customer.phone.label}" encoding="htmlcontent" />
+                    </label>
+                    <input
+                        type="tel"
+                        class="form-control phone-field"
+                        id="registration-form-phone"
+                        name="phone"
+                        value="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                        data-pattern-mismatch="${Resource.msg('checkout.login.celular.error', 'checkout', null)}"
+                        data-range-error="${Resource.msg('checkout.login.celular.error', 'checkout', null)}"
+                        aria-describedby="form-phone-error"
+                        maxlength="14"
+                        data-mask="(+00)000000000"
+                        data-prefix="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                        <isprint value=${pdict.profileForm.customer.phone.attributes} encoding="off" />
+                    ">
+                    <div class="invalid-feedback" id="form-phone-error"></div>
+                </div>
+
+                <div class="modal-footer background-grey border-0 justify-content-center d-row p-3 mt-4">
+                    <div class="col-lg-10 col-offset-lg-1 col-offset-0 col-12">
+                        <div class="row">
+                            <div class="col-12 col-lg-12 order-1 order-lg-2 mb-3 mb-lg-0 guest-footer">
+                                <button class="btn btn-secondary btn-slim w-100 guest-btn">
+                                    ${Resource.msg('modal.guestbutton', 'modal', null)}
+                                </button>
+                                <div class="pt-3 d-flex justify-content-center">
+                                    <p class="text-center text-grey pr-1">
+                                        ${Resource.msg('cart.guest.login.text', 'cart', null)}
+                                    </p>
+                                    <a href="${URLUtils.https('Account-StartRegister', 'action', 'register')}" class="text-bold">
+                                        ${Resource.msg('cart.guest.login.link', 'cart', null)}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<!--- applicable credit cards--->
+<div class="tab-pane ${pdict.mercadoPago && pdict.mercadoPago.enable ? '' : 'active'} credit-card-content" id="credit-card-content" role="tabpanel">
+    <fieldset class="payment-form-fields">
+
+        <!--- payment method is credit card --->
+        <input type="hidden" class="form-control"
+               name="${pdict.forms.billingForm.paymentMethod.htmlName}"
+               value="CREDIT_CARD"
+        >
+
+        <!--- register/authenticated user --->
+        <isif condition="${pdict.customer.registeredUser}">
+            <div class="user-payment-instruments container ${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? '' : 'checkout-hidden'}">
+                <!--- Stored user payments --->
+                <div class="stored-payments">
+                    <isinclude template="checkout/billing/storedPaymentInstruments" />
+                </div>
+
+                <!--- Add new credit card button --->
+                <div class="row mt-3 mb-5">
+                    <div class="col-12">
+                        <div class="pull-right">
+                            <span class="add-payment text-green text-bold" type="button">${Resource.msg('button.add.payment', 'checkout', null)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </isif>
+
+        <fieldset class="credit-card-form ${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? 'checkout-hidden' : ''}">
+            <isinclude template="checkout/billing/creditCardForm" />
+            <isif condition="${pdict.customer.registeredUser}">
+                <button class="mt-4 btn btn-outline-secondary cancel-new-payment ${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? '' : 'checkout-hidden'}" type="button">
+                    <span class="d-lg-none">${Resource.msg('button.back.to.stored.payments.mobile', 'checkout', null)}</span>
+                    <span class="d-none d-lg-inline">${Resource.msg('button.back.to.stored.payments', 'checkout', null)}</span>
+                </button>
+            </isif>
+        </fieldset>
+
+    </fieldset>
+    <iscomment> Begin - SmartOrderRefill Modification </iscomment>
+    <isif condition="${session.custom.hasSORProducts}" >
+        <isinclude url="${URLUtils.url('Page-Include', 'cid', 'smart-order-refill-credit-card')}"/>
+    </isif>
+    <iscomment> End - SmartOrderRefill Modification </iscomment>
+</div>

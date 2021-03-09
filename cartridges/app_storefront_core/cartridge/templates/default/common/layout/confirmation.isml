@@ -1,0 +1,28 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+
+<isinclude template="/components/modules" sf-toolkit="off" />
+
+<!DOCTYPE html>
+<html lang="es" class="h-100">
+    <head>
+        <!--[if gt IE 9]><!-->
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <!--<![endif]-->
+        <isinclude template="/common/htmlHead" />
+        <isactivedatahead/>
+    </head>
+    <body class="h-100">
+
+        <div class="page checkout-page position-relative">
+            <isinclude template="/components/header/pageHeaderNomenu" />
+            <div role="main" class="mt-0 ${dw.content.ContentMgr.getContent("footer-subscription").online && dw.content.ContentMgr.getContent("footer-payment-methods").online ? '' : 'margin-small'}" id="maincontent">
+                <isreplace/>
+            </div>
+
+            <isinclude template="/components/footer/pageFooterCheckout" />
+        </div>
+        <!--[if lt IE 10]>
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <![endif]-->
+    </body>
+</html>

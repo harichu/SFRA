@@ -1,0 +1,30 @@
+<div class="page-topbanner overflow-hidden position-relative mb-2">
+    <isinclude template="/components/modules"/>
+    <isinclude template="components/breadcrumbs/contentBreadcrumbs"/>
+    <isif condition="${!empty(pdict.content.pageTitle)}">
+        <div class="page-topbanner-title text-center position-absolute d-flex align-items-center">
+            <isprint value="${pdict.content.pageTitle}" encoding="off" />
+            <isif condition="${!empty(pdict.content.custom.imageClubLogo)}">
+                <img class="pl-3 banner-logo-image" src="${pdict.content.custom.imageClubLogo.getAbsURL()}">
+            </isif>
+        </div>
+    </isif>
+    <isif condition="${!empty(pdict.content.pageDescription)}">
+        <div class="page-topbanner-subtitle text-center position-absolute text-nowrap">
+            <isprint value="${pdict.content.pageDescription}" encoding="off" />
+        </div>
+    </isif>
+    <div class="page-topbanner-background position-relative overflow-hidden">
+        <div class="page-topbanner-overlay position-absolute w-100"></div>
+        <isif condition="${!empty(pdict.content.custom.imageLarge) && !empty(pdict.content.custom.imageSmall)}">
+            <picture>
+                <source media="(max-width: 992px)" srcset="${pdict.content.custom.imageSmall.getAbsURL()}"/>
+                <img class="page-topbanner-background-image position-relative" src="${pdict.content.custom.imageLarge.getAbsURL()}" alt="${pdict.content.custom.imageAlt}"/>
+            </picture>
+        <iselseif condition="${!empty(pdict.content.custom.imageLarge) && empty(pdict.content.custom.imageSmall)}">
+            <img class="page-topbanner-background-image position-relative d-none d-lg-block" src="${pdict.content.custom.imageLarge.getAbsURL()}" alt="${pdict.content.custom.imageAlt}"/>
+        <iselseif condition="${!empty(pdict.content.custom.imageSmall) && empty(pdict.content.custom.imageLarge)}">
+            <img class="page-topbanner-background-image position-relative d-block d-lg-none" src="${pdict.content.custom.imageSmall.getAbsURL()}" alt="${pdict.content.custom.imageAlt}"/>
+        </isif>
+    </div>
+</div>

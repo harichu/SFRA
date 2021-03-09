@@ -1,0 +1,45 @@
+.modal-remove-product {
+    height: 100vh;
+    z-index: 9999;
+
+    .modal-dialog {
+        max-width: 400px;
+        z-index: 3;
+    }
+
+    &.minicart-remove-popup .modal-dialog {
+        margin-right: 150px;
+        transform: translateY(0);
+        top: 15%;
+    }
+
+    .close {
+        padding-right: 5px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .modal-title {
+        font-size: rem-calc(17px);
+    }
+
+    .modal-text {
+        font-size: rem-calc(15px);
+    }
+
+    .product-to-remove-brand {
+        color: $secondary-grey;
+        font-size: rem-calc(11px);
+    }
+
+    .product-to-remove {
+        font-size: rem-calc(14px);
+    }
+
+    .btn {
+        text-transform: none;
+    }
+}

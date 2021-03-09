@@ -1,0 +1,73 @@
+.zone-reminder-modal {
+    min-width: 320px;
+    top: 98px;
+    animation: shake-animation 10s ease infinite;
+    left: 50%;
+    transition: height 0.5s;
+    height: 180px;
+
+    &.faded {
+        height: 0;
+        overflow: hidden;
+    }
+
+    &--text {
+        font-size: rem-calc(14px);
+        display: inline;
+
+        @include media-breakpoint-up(lg) {
+            font-size: rem-calc(16px);
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        min-width: 405px;
+        top: 55px;
+    }
+
+    .btn {
+        font-size: rem-calc(12px);
+        margin-top: 10px;
+        padding: 5px 30px;
+
+        @include media-breakpoint-up(lg) {
+            font-size: rem-calc(13px);
+            margin-top: auto;
+            padding: 5px 40px;
+        }
+    }
+}
+
+.header-zone {
+    @include media-breakpoint-up(lg) {
+        position: relative;
+    }
+}
+
+.zone-reminder-overlay {
+    opacity: 0.7;
+    background-color: $black;
+    z-index: 10;
+    height: 100%;
+
+    &.faded {
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+.zone-reminder-modal--content {
+    height: 100%;
+}
+
+@keyframes shake-animation {
+    0% { transform: translate(-50%, 0); }
+    1.78571% { transform: translate(-50%, 5px); }
+    3.57143% { transform: translate(-50%, 0); }
+    5.35714% { transform: translate(-50%, 5px); }
+    7.14286% { transform: translate(-50%, 0); }
+    8.92857% { transform: translate(-50%, 5px); }
+    10.71429% { transform: translate(-50%, 0); }
+    100% { transform: translate(-50%, 0); }
+}

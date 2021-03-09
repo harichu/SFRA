@@ -1,0 +1,48 @@
+.error-top-banner {
+    background-color: $brand-color-primary;
+    height: 35px;
+
+    &.grey {
+        background-color: $primary-grey;
+    }
+}
+
+.error-img {
+    margin-top: -20px;
+}
+
+.error-title {
+    font-size: rem-calc(20px);
+    font-family: $font-family-secondary;
+    color: $brand-color-primary;
+}
+
+.error-number {
+    font-size: rem-calc(150px);
+    font-family: $font-family-secondary;
+    color: $tertiary-yellow;
+    line-height: 1;
+}
+
+.error-text {
+    font-size: rem-calc(18px);
+    color: $text-grey-dark;
+}
+
+.error-cta {
+    font-size: rem-calc(18px);
+}
+
+@include media-breakpoint-up(lg) {
+    .error-number {
+        line-height: 0.5;
+    }
+
+    .error-text {
+        font-size: rem-calc(16px);
+    }
+
+    .error-cta {
+        font-size: rem-calc(14px);
+    }
+}

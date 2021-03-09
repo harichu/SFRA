@@ -1,0 +1,373 @@
+{
+    "step-types": {
+        "script-module-step" : [
+            {
+                "@type-id": "custom.ImportXML",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/import/import.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "folder",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "filePattern",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "pipeline",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["ImportCustomers", "ImportInventoryLists", "ImportStores"]
+                            }
+                        },
+                        {
+                            "@name": "numberOfAttempts",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["1", "2", "3", "4", "5"]
+                            }
+                        },
+                        {
+                            "@name": "importMode",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["MERGE", "UPDATE", "REPLACE", "DELETE"]
+                            }
+                        },
+                        {
+                            "@name": "afterImportOption",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["DELETE", "ARCHIVE", "ZIP", "NOTHING"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "NO_FILES"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.ImportOrderStatus",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/import/importOrders.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "folder",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "filePattern",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "afterImportOption",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["DELETE", "ARCHIVE", "ZIP", "NOTHING"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "NO_FILES"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.DownloadFromSFTP",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/download/download.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "filePattern",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "sourcePath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "targetPath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "afterDownloadOption",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["DELETE", "ARCHIVE", "ZIP", "NOTHING"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.UploadToSFTP",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/upload/upload.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "filePattern",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "sourcePath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "targetPath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "afterUploadOption",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["DELETE", "ARCHIVE", "ZIP", "NOTHING"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CleanupFiles",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/cleanup/cleanup.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "Days",
+                            "@type": "string",
+                            "@required": "true",
+                            "enum-values": {
+                                "value": ["7", "15", "30"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.ExportOrdersByQuery",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/export/exportOrders.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "filepath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "searchQuery",
+                            "@type": "string",
+                            "@required": "true"
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.ExportCustomersByQuery",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_jobs/cartridge/scripts/steps/export/exportCustomers.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "filepath",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "searchQuery",
+                            "@type": "string",
+                            "@required": "true"
+                        },
+                        {
+                            "@name": "exportOnlyModified",
+                            "@type": "boolean",
+                            "@required": "false"
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR"
+                        },
+                        {
+                            "@code": "OK"
+                        }
+                    ]
+                }
+            }
+        ],
+        "chunk-script-module-step": [
+            {
+                "@type-id":"custom.GoogleProductFeedExport",
+                "@supports-parallel-execution":"false",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "module":"bm_jobs/cartridge/scripts/steps/export/GoogleProductsExport.js",
+                "before-step-function":"beforeStep",
+                "total-count-function":"getTotalCount",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":10,
+                "transactional":"false",
+                "parameters":{
+                    "parameter":[
+                        {
+                            "@name":"ExportPath",
+                            "@type":"string",
+                            "@required":"true"
+                        },
+                        {
+                            "@name":"SiteHostName",
+                            "@type":"string",
+                            "@required":"true"
+                        },
+                        {
+                            "@name":"LibraryId",
+                            "@type":"string",
+                            "@required":"true"
+                        },
+                        {
+                            "@name":"FeedTitle",
+                            "@type":"string",
+                            "@required":"true"
+                        },
+                        {
+                            "@name":"FeedDescription",
+                            "@type":"string",
+                            "@required":"true"
+                        },
+                        {
+                            "@name":"locale",
+                            "@type":"string",
+                            "@required":"true"
+                        }
+                    ]
+                },
+                "status-codes":{
+                    "status":[
+                        {
+                            "@code":"ERROR"
+                        },
+                        {
+                            "@code":"OK"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

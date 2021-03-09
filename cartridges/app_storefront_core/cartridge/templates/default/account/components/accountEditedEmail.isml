@@ -1,0 +1,54 @@
+<body style="margin: 0 !important; padding: 0 !important;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="background: #ffffff;padding: 50px 0;" class="section-padding">
+                <center>
+                    <table style="background: #ffffff;width: 600px;text-align: center;">
+                        <tr>
+                            <td>
+                                <isprint value="${dw.content.ContentMgr.getContent("transactional-email-header").custom.body}" encoding="off" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="background:#f5f5f5;width:600px;border-collapse: collapse;">
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr>
+                            <td>
+                                <table style="background-color: #ffffff;width: 570px;margin-bottom: 30px;margin-left: 12px;border-radius: 20px;border-collapse: collapse;">
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <h1 style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 24px;font-weight: bold;line-height: 50px;color: #109d48;margin: 15px 0 0 15px;width: 540px;">${Resource.msg('email.msg.edited.dear', 'account', null)}&nbsp;${pdict.firstName}&nbsp;${pdict.lastName},</h1>
+
+                                                    <p style="margin: 15px 0 0 15px">${Resource.msg('email.msg.edited.body1','account',null)}</p>
+
+                                                    <p style="margin: 15px 0 0 15px"><a href="${pdict.url}">${pdict.url}</a></p>
+
+                                                    <p style="margin: 15px 0 0 15px">${Resource.msg('email.msg.edited.body2','account',null)}</p>
+                                                </tr>
+                                                <tr><td>&nbsp;</td> </tr>
+                                                <tr style="text-align: center">
+                                                    <td>
+                                                        <p style="margin-left: 15px;width: 540px;border-top:1px solid #eaeaea;"></p>
+                                                        <isset name="emailFooter" value="${dw.content.ContentMgr.getContent("transactional-email-footer").custom.body}" scope="page" />
+                                                        <isprint value="${emailFooter}" encoding="off" />
+                                                    </td>
+                                                </tr>
+                                                <tr><td>&nbsp;</td> </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                        <tr><td>&nbsp;</td> </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+</body>

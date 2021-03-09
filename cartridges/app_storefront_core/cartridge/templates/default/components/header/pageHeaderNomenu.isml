@@ -1,0 +1,33 @@
+<isinclude template="gtm" />
+
+<header class="w-100 d-print-none">
+    <isslot id="header-top-banner-cart" description="Top Bar Cart" context="global"/>
+    <div class="header-container background-white d-flex justify-content-around align-items-center w-100 shadow-sm px-lg-5">
+        <div class="header-left d-flex justify-content-around align-items-center">
+            <div class="header-logo d-none d-lg-flex justify-content-center">
+                <a class="logo-home w-100" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img mw-100" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+            <div class="header-categories invisible"></div>
+        </div>
+        <div class="header-center d-flex justify-content-center">
+            <div class="header-logo d-lg-none">
+                <a class="logo-home" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+        </div>
+        <div class="header-right d-flex justify-content-around justify-content-lg-between align-items-center">
+            <div class="header-zone w-100 invisible"></div>
+            <div class="header-login mr-3 mr-lg-0 w-100 cursor-pointer position-relative">
+                <isinclude url="${URLUtils.url('Account-Header')}" />
+            </div>
+            <div class="header-cart w-100">
+                <div class="minicart d-flex justify-content-center align-items-center" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                    <isinclude url="${URLUtils.url('Cart-MiniCart', 'linkMode', true)}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

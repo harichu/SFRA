@@ -1,0 +1,23 @@
+<div class="attribute quantity col-lg-2 col-3">
+    <isinclude url="${URLUtils.url('Product-Nocache', 'pid', product.id, 'template', 'quantity')}" />
+</div>
+<isif condition="${!empty(product.variationAttributes) && !empty(product.custom)}">
+
+    <isset name="isMedProd" value="${product.custom.isMedProduct}" scope="page"/>
+    <isset name="customAttributes" value="${product.variationAttributes.customAttributes}" scope="page" />
+    <isset name="colorAttr" value="${product.variationAttributes.colorAttribute}" scope="page" />
+    <isset name="hasSingleVariation" value="${empty(customAttributes) || customAttributes.length < 2}" scope="page"/>
+    <isif condition="${!empty(colorAttr)}">
+        <isset name="swatchValues" value="${colorAttr.values}" scope="page" />
+        <isset name="swatchLimit" value="${99}" scope="page" />
+        <div class="pl-0 d-flex">
+            <isinclude template="product/components/productSwatch" />
+        </div>
+    </isif>
+    <isloop items="${customAttributes}" var="attr" status="attributeStatus">
+        <div class="${hasSingleVariation ? 'w-lg-50 w-75' : 'flex-fill-fit'} col-4 pl-0 d-flex">
+            <isset name="disabled" value="${!attributeStatus.first}" scope="page" />
+            <isinclude template="product/components/productSelector" />
+        </div>
+    </isloop>
+</isif>

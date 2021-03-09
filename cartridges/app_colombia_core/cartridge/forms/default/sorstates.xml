@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+	<field formid="state" label="resource.state" type="string" mandatory="false" binding="stateCode" missing-error="address.state.missing" value-error="address.field.invalid">
+		<options>
+			<option optionid="" 	label="resource.select" 		value=""/>
+
+			<!-- Colombia departments -->
+			<option optionid="Amazonas" label="state.co.amazonas" value="Amazonas"/>
+			<option optionid="Antioquia" label="state.co.antioquia" value="Antioquia"/>
+			<option optionid="Arauca" label="state.co.arauca" value="Arauca"/>
+			<option optionid="Atlantico" label="state.co.atlantico" value="Atlántico"/>
+			<option optionid="Bogota" label="state.co.bogota" value="Bogotá"/>
+			<option optionid="Bolivar" label="state.co.bolivar" value="Bolívar"/>
+			<option optionid="Boyaca" label="state.co.boyaca" value="Boyacá"/>
+			<option optionid="Caldas" label="state.co.caldas" value="Caldas"/>
+			<option optionid="Caqueta" label="state.co.caqueta" value="Caquetá"/>
+			<option optionid="Casanare" label="state.co.casanare" value="Casanare"/>
+			<option optionid="Cauca" label="state.co.cauca" value="Cauca"/>
+			<option optionid="Cesar" label="state.co.cesar" value="Cesar"/>
+			<option optionid="Choco" label="state.co.choco" value="Chocó"/>
+			<option optionid="Cordoba" label="state.co.cordoba" value="Córdoba"/>
+			<option optionid="Cundinamarca" label="state.co.cundinamarca" value="Cundinamarca"/>
+			<option optionid="Guainia" label="state.co.guainia" value="Guainía"/>
+			<option optionid="Guaviare" label="state.co.guaviare" value="Guaviare"/>
+			<option optionid="Huila" label="state.co.huila" value="Huila"/>
+			<option optionid="LaGuajira" label="state.co.laGuajira" value="La Guajira"/>
+			<option optionid="Magdalena" label="state.co.magdalena" value="Magdalena"/>
+			<option optionid="Meta" label="state.co.meta" value="Meta"/>
+			<option optionid="Narino" label="state.co.narino" value="Nariño"/>
+			<option optionid="Norte" label="state.co.NorteDeSantander" value="Norte de Santander"/>
+			<option optionid="Putumayo" label="state.co.putumayo" value="Putumayo"/>
+			<option optionid="Quindio" label="state.co.quindio" value="Quindío"/>
+			<option optionid="Risaralda" label="state.co.risaralda" value="Risaralda"/>
+			<option optionid="SanAndres y Providencia" label="state.co.SanAndresYProvidencia" value="San Andrés y Providencia"/>
+			<option optionid="Santander" label="state.co.Santander" value="Santander"/>
+			<option optionid="Sucre" label="state.co.Sucre" value="Sucre"/>
+			<option optionid="Tolima" label="state.co.Tolima" value="Tolima"/>
+			<option optionid="ValleDelCauca" label="state.co.ValleDelCauca" value="Valle del Cauca"/>
+			<option optionid="Vaupes" label="state.co.vaupes" value="Vaupés"/>
+			<option optionid="Vichada" label="state.co.vichada" value="Vichada"/>
+		</options>
+	</field>
+</form>

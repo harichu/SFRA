@@ -1,0 +1,8 @@
+<div class="pum px-2 py-1 d-inline-block">
+    <span class="pum-text">
+        <isprint value="${pumSettings.pumPrefix}"/>
+    </span
+    <span class="pum-text pum-text-special">
+        ${PUM}
+    </span>
+</div>

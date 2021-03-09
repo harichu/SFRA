@@ -1,0 +1,13 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/transbank.js');
+        assets.addCss('/css/transbank.css');
+    </isscript>
+
+    <form autocomplete="on" method="POST" action="${pdict.redirectUrl}" class="ms-hide">
+        <input type="hidden" class="token" value="${pdict.token}" name="token_ws"/>
+        <input type="submit" class="remove-address button--reset" id="sendTransbank" />
+    </form>
+</isdecorate>

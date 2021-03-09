@@ -1,0 +1,314 @@
+.navigation-menu {
+    height: calc(100vh - 89px);
+    overflow: auto;
+    top: 82px;
+    z-index: 11;
+    width: 80%;
+}
+
+.navigation-overlay {
+    opacity: 0.9;
+    background-color: $white;
+    z-index: 10;
+}
+
+.expanded-subnavigation ~ .nav-bottom-links {
+    display: none;
+}
+
+.navigation-menu-inner {
+    background: $secondary-grey-light;
+}
+
+.navbar-nav {
+    background-color: $brand-color-primary;
+
+    .dropdown-items {
+        background-color: $white;
+        padding: 10px 15px;
+        width: 100%;
+        z-index: 9;
+        flex-flow: column;
+        margin: 0;
+
+        &.show {
+            display: flex;
+        }
+
+        .dropdown-item {
+            padding-left: 0;
+
+            &:hover,
+            &:active {
+                background-color: transparent;
+            }
+        }
+
+        hr {
+            border-color: $brand-color-primary;
+        }
+
+        .dropdown-item:last-child {
+            flex-grow: 1;
+            max-width: none;
+        }
+
+        .dropdown-link {
+            color: $text-grey-dark;
+            padding: 1px 0;
+            font-size: rem-calc(16px);
+            font-weight: 300;
+
+            &:hover,
+            &:active,
+            &:focus {
+                color: $brand-color-primary;
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+.header-logo-navigation {
+    .logo-home-navigation,
+    .header-close-icon {
+        height: 0px;
+        overflow: hidden;
+    }
+}
+
+.nav-item {
+    flex-flow: column;
+    background-color: $brand-color-primary;
+
+    &:last-child {
+        padding-bottom: 30px;
+    }
+
+    .nav-link {
+        color: $white;
+        padding-right: 15px;
+        padding-left: 15px;
+        font-size: rem-calc(18px);
+        font-family: $font-family-secondary;
+        text-transform: uppercase;
+        outline: none;
+
+        &:hover,
+        &:active,
+        &:focus,
+        &[aria-expanded="true"] {
+            color: $brand-color-primary;
+            background-color: $white;
+            outline: none;
+
+            .navigation-icon {
+                filter: none;
+            }
+
+            .nav-bottom-links & {
+                background-color: transparent;
+            }
+
+            .category-arrow {
+                path {
+                    stroke: $brand-color-primary;
+                }
+            }
+        }
+
+        &[aria-expanded="true"] .category-arrow svg {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.category-arrow {
+    margin-left: auto;
+    padding-left: 10px;
+
+    svg {
+        width: 8px;
+        transition: transform 0.2s ease-in-out;
+
+        path {
+            stroke: $white;
+        }
+    }
+}
+
+.navigation-icon-container {
+    margin-right: 20px;
+    width: 20px;
+}
+
+.navigation-icon {
+    max-width: 20px;
+    max-height: 24px;
+    filter: grayscale(1) brightness(10);
+    -webkit-filter: grayscale(1) brightness(10);
+    transition: filter 0.1s;
+
+    svg {
+        width: 20px;
+    }
+}
+
+.nav-bottom-links {
+    margin: 0;
+    padding: 20px 0 20px 0;
+    list-style: none;
+    background-color: $secondary-grey-light;
+
+    .nav-item {
+        background-color: transparent;
+
+        &:first-child {
+            border-bottom: 1px solid $primary-grey-light;
+        }
+
+        .nav-link {
+            color: $text-grey;
+            font-size: rem-calc(18px);
+            height: 50px;
+            font-family: $font-family-primary;
+        }
+    }
+
+    .navigation-icon {
+        filter: none;
+    }
+}
+
+.nav-link {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navigation-promo .content-asset {
+    width: 100%;
+}
+
+.subnavigation-title {
+    color: $inactive-grey;
+    font-size: rem-calc(20px);
+    font-family: $font-family-secondary;
+    font-weight: bold;
+}
+
+.navigation-back-link {
+    font-size: rem-calc(18px);
+    font-family: $font-family-secondary;
+    color: $white;
+    font-weight: 300;
+    background-color: $brand-color-primary;
+    padding: 15px 20px 7px;
+}
+
+.logo-home-navigation {
+    width: 100%;
+}
+
+@include media-breakpoint-up(sm) {
+    .navigation-menu {
+        height: calc(100vh - 83px);
+        top: 83px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .navigation-menu {
+        height: auto;
+        top: 100px;
+        overflow: visible;
+        width: auto;
+    }
+
+    .navigation-back-link {
+        font-size: rem-calc(15px);
+    }
+
+    .subnavigation-title {
+        font-size: rem-calc(16px);
+    }
+
+    .logo-home-navigation {
+        width: 225px;
+
+        img {
+            max-height: 58px;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .navigation-overlay {
+        margin-top: 100px;
+    }
+
+    .nav-bottom-links {
+        height: auto;
+        padding: 0;
+
+        .nav-item .nav-link {
+            font-size: rem-calc(15px);
+        }
+    }
+
+    .navbar-nav {
+        .dropdown-items {
+            position: absolute;
+            flex-flow: wrap;
+            left: 100%;
+            margin-left: auto;
+            width: calc(100vw - 430px);
+            z-index: -1;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 22px 42px 25px;
+
+            .dropdown-item {
+                border-bottom: 1px solid $primary-grey-light;
+
+                .dropdown-link {
+                    font-size: rem-calc(13px);
+                    padding: 8px 0;
+                }
+            }
+        }
+    }
+
+    .nav-item {
+        flex-flow: row;
+
+        &:last-child {
+            padding-bottom: 10px;
+        }
+
+        .nav-link {
+            font-size: rem-calc(15px);
+            padding-right: 15px;
+            padding-left: 40px;
+        }
+    }
+
+    .navigation-menu-inner {
+        background: $white;
+    }
+
+    .header-close-icon svg {
+        max-width: 35px;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .logo-home-navigation {
+        width: 100%;
+        max-width: 230px;
+    }
+
+    .header-close-icon svg {
+        max-width: none;
+    }
+}

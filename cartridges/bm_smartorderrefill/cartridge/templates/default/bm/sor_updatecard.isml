@@ -1,0 +1,56 @@
+<isdecorate template="application/MenuFrame">
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="components/header" />
+<isinclude template="bm/util/sor_modules"/>
+
+<isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+
+<div id="editCard">
+    <a class="button button--right" href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', pdict.SubscriptionListID, 'client', pdict.CustomerNo, 'viewType', pdict.viewType, 'sorType', pdict.sorType)}">
+       &#171; ${Resource.msg('forms.sorsubscriptions.backTo.label', 'sor_forms', null)}
+        ${Resource.msg('forms.sorsubscriptions.subscriptionDetails.label', 'sor_forms', null)}
+    </a>
+
+    <div class="sor-module sor-module__subscription-details">
+        <div class="order-section">
+            <div class="content-section">
+                <form action="${URLUtils.httpsContinue()}" method="post">
+                    <table class="sor-table sor-module__subscription_table">
+                        <tr class="sor-module__filters-row">
+                            <td>
+                                <h3 class="order-section-title"> ${Resource.msg('forms.sorsubscriptions.updatecard', 'sor_forms', null)}</h3>
+                            </td>
+                        </tr>
+                        <isif condition="${pdict.canUpdateAll}">
+                            <tr class="sor-table__member">
+                                <td>
+                                    <isinputfield placeholder="${true}" formfield="${pdict.CurrentForms.updatecard.type}" type="select" />
+                                </td>
+                            </tr>
+                            <tr class="sor-table__member">
+                                <td>
+                                    <isinputfield placeholder="${true}" formfield="${pdict.CurrentForms.updatecard.number}" type="input" dynamicname="true" />
+                                </td>
+                            </tr>
+                        </isif>
+                        <tr class="sor-table__member">
+                            <td>
+                                <isinputfield placeholder="${true}" formfield="${pdict.CurrentForms.updatecard.expiration.month}" type="select" />
+                            </td>
+                        </tr>
+                        <tr class="sor-table__member">
+                            <td>
+                                <isinputfield placeholder="${true}" formfield="${pdict.CurrentForms.updatecard.expiration.year}" type="select" />
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button button--right confirm_btn" type="submit" value="${Resource.msg('forms.sorsubscriptions.confirm.label', 'sor_forms', null)}" name="${pdict.CurrentForms.cancelationfee.save.htmlName}"/>
+
+                </form>
+            </div>
+        </div>
+</div>
+</isdecorate>

@@ -1,0 +1,129 @@
+<form
+    action="${URLUtils.url('PaymentInstruments-SavePayment', 'UUID', pdict.UUID)}"
+    class="payment-form"
+    method="POST"
+    name="payment-form"
+    data-mp-public-key="${dw.system.Site.current.getCustomPreferenceValue('mercadoPagoPublicKey')}"
+    ${pdict.paymentForm.attributes}>
+
+    <input type="hidden" class="form-control" id="docType" value="${pdict.customerDocument.docType}" data-checkout="docType"/>
+    <input type="hidden" class="form-control" id="docNumber" value="${pdict.customerDocument.docNumber}" data-checkout="docNumber"/>
+    <input type="hidden" id="mp-messages" value="${JSON.stringify(pdict.mpMessages)}" />
+
+    <div class="d-none form-group custom-control custom-radio account-creditcard-input required-marker">
+        <input
+            id="paymentOption-Credit"
+            name="paymentOption-Credit"
+            type="radio"
+            class="custom-control-input required"
+            checked
+            <isprint value="${pdict.paymentForm.paymentMethod.attributes}" encoding="off" />
+        >
+        <label for="paymentOption-Credit" class="custom-control-label">
+            <span>${Resource.msg('label.payment.credit','payment',null)}</span>
+        </label>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <!-- Name on Card -->
+    <div class="form-group
+        <isif condition="${pdict.paymentForm.cardOwner.mandatory === true}">required required-marker</isif>">
+        <label class="form-control-label" for="cardOwner">
+            <isprint value="${pdict.paymentForm.cardOwner.label}" encoding="htmlcontent" />
+        </label>
+        <input type="text" class="form-control required" id="cardOwner" data-checkout="cardholderName"
+            data-missing-error="${Resource.msg("validate.cardowner.required", "forms", null)}"
+            <isprint value="${pdict.paymentForm.cardOwner.attributes}" encoding="off" />
+            autocomplete="cc-name">
+        <div class="invalid-feedback">
+            <isprint value="${pdict.paymentForm.cardOwner.error}" encoding="htmlcontent" />
+        </div>
+    </div>
+
+
+    <!-- Card Number -->
+    <div class="form-group
+        <isif condition="${pdict.paymentForm.cardNumber.mandatory === true}">required required-marker</isif>">
+        <label class="form-control-label" for="cardNumber">
+            <isprint value="${pdict.paymentForm.cardNumber.label}" encoding="htmlcontent" />
+        </label>
+        <div class="card-number-wrapper">
+            <input type="text" class="form-control required" id="cardNumber" data-checkout="cardNumber"
+                data-missing-error="${Resource.msg("validate.cardnumber.required", "forms", null)}"
+                <isprint value="${pdict.paymentForm.cardNumber.attributes}" encoding="off" />
+                autocomplete="cc-number">
+            <div class="invalid-feedback">
+                <isprint value="${pdict.paymentForm.cardNumber.error}" encoding="htmlcontent" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Month -->
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="form-group
+                <isif condition="${pdict.paymentForm.expirationMonth.mandatory === true}">required required-marker</isif>">
+                <label class="form-control-label d-none d-lg-block" for="month">
+                    ${Resource.msg("label.input.payment.expirationdate", "forms", null)}
+                </label>
+                <label class="form-control-label d-lg-none" for="month">
+                    <isprint value="${pdict.paymentForm.expirationMonth.label}" encoding="htmlcontent" />
+                </label>
+                <select class="form-control custom-select required" id="month" data-checkout="cardExpirationMonth"
+                    data-missing-error="${Resource.msg("validate.carddate.required", "forms", null)}"
+                    <isprint value="${pdict.paymentForm.expirationMonth.attributes}" encoding="off" /> autocomplete="cc-exp-month">
+                    <isloop items=${pdict.paymentForm.expirationMonth.options} var="month">
+                        <option id="${month.id}" value="${month.htmlValue}" <isif condition="${month.selected}">selected</isif> >${month.label}</option>
+                    </isloop>
+                </select>
+                <div class="invalid-feedback">
+                    <isprint value="${pdict.paymentForm.expirationMonth.error}" encoding="htmlcontent" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-12">
+            <div class="form-group
+                <isif condition="${pdict.paymentForm.expirationYear.mandatory === true}">required required-marker</isif>">
+                <label class="form-control-label v-lg-invisible d-block" for="year">
+                    <isprint value="${pdict.paymentForm.expirationYear.label}" encoding="htmlcontent" />
+                </label>
+                <select class="form-control custom-select required" id="year" data-checkout="cardExpirationYear"
+                    data-missing-error="${Resource.msg("validate.carddate.required", "forms", null)}"
+                    <isprint value="${pdict.paymentForm.expirationYear.attributes}" encoding="off" /> autocomplete="cc-exp-year">
+                    <option value="${pdict.paymentForm.expirationYear.options[0].htmlValue}">${pdict.paymentForm.expirationYear.options[0].label}</option>
+                    <isloop items=${pdict.expirationYears} var="year">
+                        <option id="${year}" value="${year}" <isif condition="${year == pdict.paymentForm.expirationYear.value}">selected</isif> >${year}</option>
+                    </isloop>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group
+                <isif condition="${pdict.paymentForm.securityCode.mandatory === true}">required required-marker</isif>">
+                <label class="form-control-label" for="securityCode">
+                     <isprint value="${pdict.paymentForm.securityCode.label}" encoding="htmlcontent" />
+                </label>
+                <input type="password" autocomplete="new-password" class="form-control required" id="securityCode" data-checkout="securityCode"
+                    data-missing-error="${Resource.msg("validate.cardsecurity.required", "forms", null)}"
+                    <isprint value="${pdict.paymentForm.securityCode.attributes}" encoding="off" />
+                />
+                <div class="invalid-feedback">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+    <input type="hidden" class="form-control" id="cardToken" <isprint value="${pdict.paymentForm.cardToken.attributes}" encoding="off">/>
+
+    <!-- Cancel and Save Buttons -->
+    <div class="row mt-3">
+        <div class="col-12">
+            <button type="submit" name="save" data-gtm="${require('int_gtm').gtmEventListener('click', 'ConfirmAddition', 'PaymentInstrument', 'Target')}" disabled class="mr-2 btn account-btn btn-secondary confirm-btn">${Resource.msg('button.save', 'account', null)}</button>
+            <a href="${URLUtils.url('PaymentInstruments-List')}" class="btn account-btn btn-outline-secondary">${Resource.msg('button.cancel','account',null)}</a>
+        </div>
+    </div>
+</form>

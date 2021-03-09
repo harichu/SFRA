@@ -1,0 +1,88 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+@import "../checkout/checkoutconfirmation";
+@import "~cssCore/components/sidebar";
+
+.card-header-account,
+.card-header-account h4,
+.card-header-account h2 {
+    font-size: rem-calc(20px);
+}
+
+.order-list-container p,
+.account-pages-card dl,
+.account-pages-card div,
+.card-info-group p,
+.address-info-group div,
+.card-footer-account a {
+    font-size: rem-calc(15px);
+}
+
+.account-dashboard-title {
+    text-transform: capitalize;
+}
+
+.profile-banner-image {
+    opacity: 0.2;
+}
+
+.account-page-content {
+    padding: 20px 15px;
+}
+
+.account-btn {
+    background-color: $brand-color-secondary;
+    font-size: rem-calc(15px);
+    padding: 0 20px;
+}
+
+.btn-back {
+    border: solid 1px $brand-color-secondary;
+    color: $brand-color-secondary;
+    padding: 9px 35px;
+    letter-spacing: 0.3px;
+
+    &:hover,
+    &:focus {
+        border-color: $brand-color-primary;
+        color: $brand-color-primary;
+    }
+}
+
+.info-link {
+    color: $text-grey-dark;
+}
+
+.cards-bottom {
+    margin-top: 20px;
+}
+
+.account-form-container {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 35px;
+
+    .address-form,
+    .payment-form,
+    .change-password-form {
+        padding-top: 23px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .account-page-title {
+        font-size: rem-calc(24px);
+    }
+
+    .account-form-container {
+        width: 71%;
+    }
+
+    .account-page-content {
+        padding: 47px 30px;
+    }
+
+    .account-btn {
+        padding: 1px 37px;
+    }
+}

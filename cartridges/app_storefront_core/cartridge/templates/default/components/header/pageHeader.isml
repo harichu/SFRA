@@ -1,0 +1,100 @@
+<isinclude template="gtm" />
+<isset name="isZoneCityMappingEnabled" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableCityZoneMapping')}" scope="page" />
+<isif condition="${isZoneCityMappingEnabled}">
+    <isinclude url="${URLUtils.url('Stores-ZoneSelector')}"/>
+</isif>
+
+<header class="w-100 site-header-container position-fixed d-print-none">
+    <isslot id="header-top-banner" description="Top Bar" context="global" />
+    <div data-gtm="${require('int_gtm').gtmAddDynamicData('.js-store-locator', 'link,click,hover', 'StoreLocator', '', URLUtils.url('Stores-Find').toString())}"></div>
+    <div class="header-container background-white d-flex justify-content-around align-items-center w-100 shadow-sm px-lg-5">
+        <div class="header-left d-flex justify-content-around align-items-center">
+            <div class="header-logo d-none d-lg-flex justify-content-center">
+                <a class="logo-home w-100" href="${URLUtils.url('Home-Show')}" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'LogoHeader', '', '')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img mw-100" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+            <div class="header-categories d-flex justify-content-around text-uppercase align-items-center mx-lg-3 cursor-pointer navbar-toggler" data-toggle="collapse" data-target="#sg-navbar-collapse, .navigation-overlay" aria-controls="sg-navbar-collapse, navigation-overlay" aria-expanded="false">
+                <div class="header-categories-menu mr-2">
+                    <div class="header-categories-icon">
+                        <isinlinesvg src="header-menu-icon" />
+                    </div>
+                    <div class="header-close-icon">
+                        <isinlinesvg src="close-icon" />
+                    </div>
+                </div>
+                <div class="header-categories-text d-none d-lg-block">
+                    ${Resource.msg('label.header.categories', 'common', null)}
+                </div>
+            </div>
+            <div class="header-search-mobile d-lg-none">
+                <isinlinesvg src="search-icon-mobile" />
+            </div>
+        </div>
+        <div class="header-center d-flex justify-content-center">
+            <div class="header-search d-none d-lg-block w-100">
+                <isinclude template="components/header/search" />
+            </div>
+            <div class="header-logo d-lg-none">
+                <a class="logo-home" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo-mobile.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+        </div>
+        <div class="header-zone d-flex justify-content-center align-items-center w-lg-100 cursor-pointer">
+            <div class="header-zone-icon mx-lg-2 d-none d-lg-block" data-target="#zoneFinder" data-toggle="${isZoneCityMappingEnabled ? 'modal' : 'collapse'}" role="button" aria-expanded="false" aria-controls="zoneFinder">
+                <isinlinesvg src="header-zone-icon" />
+            </div>
+            <isif condition="${isZoneCityMappingEnabled}">
+                <div class="header-title d-none d-lg-block text-uppercase active-zone" data-target="#zoneFinder" data-toggle="${isZoneCityMappingEnabled ? 'modal' : 'collapse'}" role="button" aria-expanded="false" aria-controls="zoneFinder">
+                    <div class="selected-zone-city">
+                        <isprint value="${(typeof initialZoneData !== "undefined" && initialZoneData.city) || pdict.cityName}" />
+                    </div>
+                </div>
+            </isif>
+
+            <input type="button" class="detect-zone d-none" data-action="${URLUtils.url('Stores-FindZone')}" >
+            <div class="d-none d-lg-block">
+                <isif condition="${!isZoneCityMappingEnabled}">
+                    <isinclude url="${URLUtils.url('Stores-ZoneSelector')}"/>
+                </isif>
+            </div>
+
+            <div class="header-arrow-icon down-arrow ml-lg-2 d-none d-lg-block" data-target="#zoneFinder" data-toggle="${isZoneCityMappingEnabled ? 'modal' : 'collapse'}" role="button" aria-expanded="false" aria-controls="zoneFinder">
+                <isinlinesvg src="arrow-icon" />
+            </div>
+
+            <div class="zone-reminder-container" data-reminder-option-expiration="${dw.system.Site.getCurrent().getCustomPreferenceValue("hoursForDisplayZoneSelectorReminder")}">
+                <iscontentasset aid="zone-reminder-modal"/>
+            </div>
+        </div>
+        <div class="header-login mr-3 mr-lg-0 w-100 cursor-pointer">
+            <isinclude url="${URLUtils.url('Account-Header')}" />
+        </div>
+        <div class="header-cart w-100 cursor-pointer">
+            <div class="minicart d-flex justify-content-center align-items-center cart-elements-container mb-1 mb-lg-0">
+                <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+            </div>
+        </div>
+    <div class="header-search-small background-white w-100 position-absolute p-2 d-lg-none">
+        <div class="header-search container d-flex align-items-center">
+            <isinclude template="components/header/search" />
+        </div>
+    </div>
+</header>
+<div class="navigation-menu collapse position-fixed top-lg-0 left-0 background-white shadow" id="sg-navbar-collapse">
+    <div class="position-relative navigation-menu-inner h-100">
+        <div class="header-logo header-logo-navigation d-none d-lg-flex w-100 justify-content-between align-items-center">
+            <div class="header-close-icon d-lg-block cursor-pointer" aria-label="Close" data-toggle="collapse" data-target="#sg-navbar-collapse, .navigation-overlay" aria-controls="sg-navbar-collapse, navigation-overlay" aria-expanded="false" >
+                <isinlinesvg src="close-icon" />
+            </div>
+            <a class="logo-home logo-home-navigation" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                <img class="mw-100" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('header.logo.alt', 'header', null)}"/>
+            </a>
+        </div>
+        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}"/>
+    </div>
+</div>
+<div class="navigation-overlay collapse w-100 position-fixed h-100 top-0 left-0" data-toggle="collapse" data-target="#sg-navbar-collapse, .navigation-overlay" aria-controls="sg-navbar-collapse, navigation-overlay" aria-expanded="false"></div>
+<div class="zone-reminder-overlay js-zone-reminder-overlay faded w-100 position-fixed top-0 left-0 d-lg-none"></div>
+<isinclude template="cart/cartRemoveProductModal"/>

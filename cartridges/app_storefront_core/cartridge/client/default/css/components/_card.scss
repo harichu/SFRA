@@ -1,0 +1,69 @@
+.card {
+    border-width: 0;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.card-body {
+    padding: 0;
+
+    li {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(25px);
+        list-style: none;
+
+        &::before {
+            content: "\2022";
+            color: $brand-color-primary;
+            display: inline-block;
+            padding-right: 15px;
+        }
+    }
+}
+
+.card-title {
+    color: $brand-color-primary;
+    font-size: rem-calc(24px);
+    font-family: $font-family-secondary;
+    margin-bottom: 8px;
+    justify-content: center;
+}
+
+.card-subtitle {
+    font-size: rem-calc(12px);
+    line-height: rem-calc(24px);
+    font-family: $font-family-primary;
+}
+
+.card-body-positioning {
+    .text-direction {
+        font-size: rem-calc(14px);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .card-title {
+        font-size: rem-calc(17px);
+        justify-content: flex-start;
+    }
+
+    .card-body {
+        padding: 30px 60px;
+
+        li {
+            font-size: rem-calc(13px);
+        }
+
+        &.card-body-small {
+            padding: 30px 20px;
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .card-body {
+        &.card-body-small {
+            padding: 30px 45px;
+        }
+    }
+}

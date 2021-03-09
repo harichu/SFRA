@@ -1,0 +1,15 @@
+<isif condition="${title && content}">
+    <isset name="idTab" value="${idTab.replace(/\s/g, '').toLowerCase()}" scope="page" />
+    <input type="checkbox" name="info-collapse" id="${idTab}-collpase" class="content-trigger position-absolute" ${(checked)?'checked':''}/>
+    <label for="${idTab}-collpase" class="info-collapse-header info-collapse-header-label mb-lg-0 d-flex justify-content-between align-items-center text-uppercase py-2 px-4 cursor-pointer">
+        <span class="${idTab}Title">${title}</span>
+        <span class="checkmark-content d-lg-none">
+            <isinlinesvg src="dropdown" />
+        </span>
+    </label>
+    <div class="info-content-container order-lg-10 w-100 overflow-auto p-lg-0 p-3">
+        <div class="info-content p-3">
+            <span class="${idTab}Content info-content-collapse"><isprint value="${content}" encoding="off" /></span>
+        </div>
+    </div>
+</isif>

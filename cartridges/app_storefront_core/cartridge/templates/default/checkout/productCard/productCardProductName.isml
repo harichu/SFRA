@@ -1,0 +1,5 @@
+<div class="line-item-name col-9 pl-0">
+    <a class="text-green" href="${URLUtils.url('Product-Show', 'pid', lineItem.id)}" aria‐label="${lineItem.productName}">
+        <span>${lineItem.productName}</span>
+    </a>
+</div>

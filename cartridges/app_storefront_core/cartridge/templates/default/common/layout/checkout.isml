@@ -1,0 +1,59 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+
+<isinclude template="/components/modules" sf-toolkit="off" />
+
+<!DOCTYPE html>
+<html lang="es" class="h-100">
+    <head>
+        <!--[if gt IE 9]><!-->
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <!--<![endif]-->
+        <isinclude template="/common/htmlHead" />
+        <isactivedatahead/>
+    </head>
+    <body class="h-100">
+
+        <div class="page checkout-page position-relative">
+            <isinclude template="/components/header/pageHeaderNomenu" />
+            <div role="main" class="mt-0 ${dw.content.ContentMgr.getContent("footer-subscription").online && dw.content.ContentMgr.getContent("footer-payment-methods").online ? '' : 'margin-small'}" id="maincontent">
+                <isset name="activeStep" value="${pdict.currentStage}" scope="page" />
+                <isinclude template="/checkout/checkoutProgress" />
+                <isreplace/>
+            </div>
+            <div class="unavailableproducts-modal modal modal-checkout fade p-0" id="unavProdsModal" tabindex="-1" role="dialog" aria-labelledby="unavProdsModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header background-primary d-flex align-items-center py-1">
+                            <h5 class="modal-title text-white text-center w-100">
+                                ${Resource.msg('products.notavailable', 'checkout', null)}
+                            </h5>
+                            <button type="button" class="close no-outline" data-dismiss="modal" aria-label="Close">
+                                <isinlinesvg src="close-icon-light" />
+                            </button>
+                        </div>
+
+                        <div id="remove-icon-base" class="d-none">
+                            <isinlinesvg src="icon-remove-red" />
+                            <span class="remove-text">${Resource.msg('button.eliminar', 'cart', null)}</span>
+                        </div>
+
+                        <div class="modal-body modal-unavailableproducts-body text-grey px-4">
+                            ${Resource.msg('unavailableproducts.modal.description', 'checkout', null)}
+                            <div class="px-2 mt-3" id="out-of-stock-items"></div>
+                        </div>
+                        <div class="unavailableproducts-actions d-flex justify-content-center">
+                            <button data-dismiss="modal" aria-label="Close" class="btn btn-style">
+                                ${Resource.msg('unavailableproducts.modal.button.cancel', 'checkout', null)}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <isinclude template="/components/footer/pageFooterCheckout" />
+        </div>
+        <!--[if lt IE 10]>
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <![endif]-->
+    </body>
+</html>

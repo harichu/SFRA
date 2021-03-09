@@ -1,0 +1,112 @@
+<isinclude template="/components/modules"/>
+<isset name="miniCart" value="${true}" scope="page" />
+<isset name="isCheckout" value="${false}" scope="page" />
+<div class="cart minicart-container ${pdict.items.length === 0 ? 'empty-container': ''}">
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <div class="d-flex flex-column  minicart-container-tiles">
+        <div class="minicart-header d-flex align-items-center justify-content-between text-white px-3 py-2">
+            <div class="minicart-header-title d-flex align-items-center">
+                <img src="${URLUtils.staticURL('/images/icons/cart-icon.svg')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}" />
+                <div class="ml-2 mt-1">${Resource.msg('minicart.title','common', null)}</div>
+            </div>
+            <div class="minicart-close cursor-pointer" aria-label="Close" data-toggle="collapse" data-target="#minicart-collapse, .minicart-overlay" aria-controls="minicart-collapse, minicart-overlay" aria-expanded="false" >
+                <isinlinesvg src="close-icon" />
+            </div>
+        </div>
+
+        <isif condition="${pdict.items.length === 0}">
+            <div class="container cart-empty text-center mt-5">
+                <img src="${URLUtils.staticURL('/images/icons/bolsa-color-grey.png')}" alt="${Resource.msg('button.addtocart.alt', 'common', null)}"/>
+                <div class="text-uppercase mt-3">${Resource.msg('minicart.empty','common', null)}</div>
+                <a class="btn btn-outline-secondary conoce-mas d-flex justify-content-center align-items-center text-uppercase w-50 mt-4 mx-auto" href="${'#'}" title="${Resource.msg('link.view.cart','cart',null)}"  aria-label="Close" data-toggle="collapse" data-target="#minicart-collapse, .minicart-overlay" aria-controls="minicart-collapse, minicart-overlay" aria-expanded="false" >
+                    <i class="mr-2 fa fa-chevron-left text-orange"></i>
+                    ${Resource.msg('minicart.continue','common',null)}
+                </a>
+            </div>
+        <iselse/>
+            <div class="minicart-error cart-error">
+                <isif condition="${pdict.valid && pdict.valid.error && pdict.items.length !== 0}">
+                    <div class="alert alert-danger alert-dismissible valid-cart-error rounded-0 fade show m-0 text-center" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span class="d-block">${pdict.valid.message}</span>
+                        <isif condition="${!empty(pdict.valid.instruction)}">
+                            <span class="d-block text-bold">${pdict.valid.instruction}</span>
+                        </isif>
+                    </div>
+                </isif>
+            </div>
+
+            <div class="product-summary overflow-auto mx-auto">
+                <isloop items="${pdict.items}" var="lineItem" status="loopState">
+                    <div class="row minicart-product m-0">
+                        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                                <div class="card border-0 w-100 ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                                    <div class="card-body">
+                                        <isinclude template="checkout/productCard/bonusProductCard" />
+                                    </div>
+                                </div>
+                        <iselse/>
+                            <div class="card border-0 w-100 uuid-${lineItem.UUID}">
+                                <div class="card-body">
+                                    <isif condition="${lineItem.noProduct === true}">
+                                        <isinclude template="checkout/productCard/uncategorizedProductCard" />
+                                    <iselse/>
+                                        <isinclude template="checkout/productCard/productCard" />
+                                    </isif>
+                                    <isif condition="${!loopState.last}">
+                                        <hr class="separator-thin"/>
+                                    </isif>
+                                </div>
+                            </div>
+                        </isif>
+                    </div>
+                </isloop>
+            </div>
+
+            <div class="minicart-footer mt-auto">
+                <div class="container minicart-footer-container mt-auto">
+                    <isset name="shouldDisplayGuestTotal" value="${!customer.authenticated || !pdict.hasClubProducts || pdict.totals.shouldDisplayGuestTotalPrice}" scope="page" />
+
+                    <div class="row estimated-total sub-total-container ${shouldDisplayGuestTotal ? '' : 'd-none'}">
+                        <div class="col-8">
+                            <p class="sub-total-label m-0">${Resource.msg('minicart.subtotal','common',null)}${Resource.msg('minicart.colon','common',null)}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-right sub-total font-weight-bold m-0">${pdict.totals.guestTotal}</p>
+                        </div>
+                    </div>
+                    <div class="row estimated-total sub-total-club-container ${pdict.hasClubProducts ? '' : 'd-none'}">
+                        <div class="col-8 d-flex">
+                            <p class="sub-total-label d-flex align-items-center m-0">
+                                ${Resource.msg('minicart.subtotal','common',null)}
+                                <div class="pl-2">
+                                    <isinlinesvg src="club-green" />
+                                </div>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-right sub-total-club text-danger font-weight-bold m-0">${pdict.totals.clubTotal}</p>
+                        </div>
+                    </div>
+                    <div class="minicart-footer-message text-center mt-3">
+                        ${Resource.msg('minicart.shipping.message.1', 'common', null)} <strong>${Resource.msg('minicart.shipping.message.2', 'common', null)}</strong> ${Resource.msg('minicart.shipping.message.3', 'common', null)}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <a class="btn btn-outline-secondary w-100 rounded-0" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('minicart.cart','common',null)}" data-gtm="${require('int_gtm').gtmEventListener('click,hover', 'ViewCart', '', 'minicart')}">
+                        ${Resource.msg('minicart.cart','common',null)}
+                    </a>
+                    <a class="btn btn-secondary btn-payment-check w-100 rounded-0 ${(pdict.hasUnavailableProducts) ? 'disabled' : ''}" href="${URLUtils.https('Checkout-Login')}" title="${Resource.msg('minicart.checkout','common',null)}">
+                        ${Resource.msg('minicart.checkout','common',null)}
+                    </a>
+                </div>
+            </div>
+        </isif>
+    </div>
+</div>
+<isinclude template="customCart/trackCart" />

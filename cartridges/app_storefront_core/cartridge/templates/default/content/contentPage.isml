@@ -1,0 +1,17 @@
+<isdecorate template="common/layout/page">
+    <div class="${pdict.content.custom.sectionBackground ? '' : 'content-page'}" style="background-color: ${pdict.content.custom.sectionBackground ? pdict.content.custom.sectionBackground : ''}"  data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.content.ID, 'ContentID')}">
+        <isinclude template="components/content/contentTopBanner"/>
+        <div class="container">
+            <isif condition="${!empty(pdict.content.custom.bodyTitle)}">
+                <div class="page-content-body-title text-center m-auto pt-4 pt-lg-5">
+                    <isprint value="${pdict.content.custom.bodyTitle}" encoding="off" />
+                </div>
+            </isif>
+            <div class="page-content py-4 py-lg-5">
+                <isprint value="${pdict.content.body}" encoding="off" />
+            </div>
+        </div>
+
+        <isprint value="${pdict.content.custom.secondaryBody}" encoding="off" />
+    </div>
+</isdecorate>

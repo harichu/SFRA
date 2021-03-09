@@ -1,0 +1,9 @@
+<div class="payment-details">
+    <isset name="paymentType" value="${pdict.order.PaymentMethods.PaymentMethod[0].PaymentType}" scope="page" />
+
+    <isif condition="${paymentType === 'CREDIT_CARD'}">
+        <isinclude template="checkout/billing/paymentOptions/creditCardSummary" />
+    <iselseif condition="${paymentType === Resource.msg('payment.method.id', 'mercadoPagoPreferences', null)}">
+        <isinclude template="checkout/billing/paymentOptions/mercadoPagoSummary" />
+    </isif>
+</div>

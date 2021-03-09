@@ -1,0 +1,5 @@
+<isif condition="${order.firstLineItem.isPickUpInStore === true}">
+    <p>${Resource.msg('span.pickup.in.store.title', 'checkout', null)}: ${order.shippedToFirstName}</p>
+<iselse>
+    <p>${Resource.msg('label.orderhistory.shippedto','account',null)} ${order.shippedToFirstName} ${order.shippedToLastName}</p>
+</isif>

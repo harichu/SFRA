@@ -1,0 +1,30 @@
+<isset name="isMedProd" value="${product.custom.isMedProduct}" scope="page"/>
+<isset name="customAttributes" value="${product.variationAttributes ? product.variationAttributes.customAttributes : null}" scope="page" />
+<isset name="colorAttr" value="${product.variationAttributes ? product.variationAttributes.colorAttribute : null}" scope="page" />
+<isset name="hasSingleVariation" value="${empty(customAttributes) || customAttributes.length < 2}" scope="page"/>
+
+<div class="attribute quantity col-4 pl-0 ${hasSingleVariation ? '' : 'd-none'}">
+    <isinclude url="${URLUtils.url('Product-Nocache', 'pid', product.id, 'template', 'quantity')}" />
+</div>
+<isif condition="${!empty(product.variationAttributes) && !empty(product.custom)}">
+    <isif condition="${!empty(colorAttr) && isMedProd !== true}">
+        <isset name="swatchValues" value="${colorAttr.values}" scope="page" />
+        <div class="${pdict.smallTile !== null && pdict.smallTile ? 'col-5 col-lg-8' : 'col-8'}  pl-0 pr-0 order-0 d-flex">
+            <isinclude template="product/components/productSwatch" />
+        </div>
+    <iselse>
+        <isif condition="${!empty(colorAttr)}">
+            <isset name="swatchValues" value="${colorAttr.values}" scope="page" />
+            <div class="${pdict.smallTile !== null && pdict.smallTile ? 'col-5 col-lg-8' : 'col-8'}  pl-0 pr-0 order-0 d-flex">
+                <isinclude template="product/components/productSwatch" />
+            </div>
+        </isif>
+
+        <isloop items="${customAttributes}" var="attr" status="attributeStatus">
+            <div class="flex-fill-fit tile-attribute-selector ${hasSingleVariation || attributeStatus.last ? 'pr-2 pr-lg-0' : 'pr-2'}">
+                <isset name="disabled" value="${!attributeStatus.first}" scope="page" />
+                <isinclude template="product/components/productSelector" />
+            </div>
+        </isloop>
+    </isif>
+</isif>

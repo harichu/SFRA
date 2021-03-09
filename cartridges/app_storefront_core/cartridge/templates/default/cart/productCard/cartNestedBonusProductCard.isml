@@ -1,0 +1,59 @@
+<div class="bundled-line-item clearfix">
+    <div class="d-flex flex-row flex-wrap flex-lg-nowrap justify-content-between ${bonuslineitemrow}">
+        <div class="item-image d-flex align-items-center order-1">
+            <iscomment> Bonus Product Image </iscomment>
+            <img class="product-image pr-lg-4"
+                src="${productLineItem.images.small[0].url}"
+                alt="${productLineItem.images.small[0].alt}"
+                title="${productLineItem.images.small[0].title}"
+            >
+        </div>
+
+        <div class="item-info cart-product-item d-flex flex-column order-2 pr-lg-3 justify-content-center">
+            <a href="${URLUtils.url('Search-Show', 'q', productLineItem.brand)}" class="product-brand text-uppercase m-0">
+                ${productLineItem.brand}
+            </a>
+            <iscomment> Bonus Product Name </iscomment>
+            <div class="line-item-name">
+                <a href="${URLUtils.url('Product-Show', 'pid', productLineItem.id)}" aria‐label="${productLineItem.productName}">
+                    ${productLineItem.productName}
+                </a>
+            </div>
+        </div>
+
+        <div class="item-shipping cart-product-item p-0 d-flex flex-column align-items-center justify-content-center order-4 order-lg-3">
+            <p class="remove-line-item-bonus cursor-pointer">
+                <isinlinesvg src="edit-cart-icon"/>
+                <span class="text-brand-secondary text-underline">${Resource.msg('label.bonus.modify', 'common', null)}</span>
+            </p>
+        </div>
+
+        <div class="item-quantity cart-product-item d-flex px-4 pt-2 pt-lg-0 flex-column align-items-end align-items-lg-center justify-content-center order-5 order-lg-4">
+            <div class="quantity-form bonus-quantity-form">
+                <div class="incremental-select d-flex position-relative">
+                    <button type="button" class="subtract-product-quantity incremental-select-button">-</button>
+                    <input type="number" class="form-control quantity rounded-0 text-center"
+                        value="<isprint value="${productLineItem.quantity}" formatter="##" />"
+                    />
+                    <button type="button" class="add-product-quantity incremental-select-button"> + </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-price price cart-product-item d-flex flex-column align-items-start align-items-lg-center justify-content-center order-3 order-lg-5 pb-2 pb-lg-0">
+            <span class="pricing line-item-total-price-amount d-block w-100 text-left text-lg-right large-price">
+                <span class="value">
+                    ${Resource.msgf('label.price.sale', 'pricing', null, productLineItem.bonusUnitPrice)}
+                </span>
+            </span>
+            <isif condition="${!empty(productLineItem.priceTotal.nonAdjustedPrice)}">
+                <span class="price-original price-original-bonus w-100 text-left text-lg-right">
+                    <span class="original-value">
+                        <isprint value="${productLineItem.priceTotal.nonAdjustedPrice}" />
+                    </span>
+                    ${Resource.msg('label.price.original', 'pricing', null)}
+                </span>
+            </isif>
+        </div>
+    </div>
+</div>

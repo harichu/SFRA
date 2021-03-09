@@ -1,0 +1,80 @@
+<div class="shipping-section">
+    <input type="checkbox" id="is-prescription-upload-enabled"            class="d-none" ${pdict.isPrescriptionUploadServiceEnabled    ? 'checked=checked' : ''} />
+    <input type="checkbox" id="is-restricted-prescription-upload-enabled" class="d-none" ${pdict.isRestrictedPrescriptionUploadEnabled ? 'checked=checked' : ''} />
+    <input type="checkbox" id="is-inventory-check-service-enabled"        class="d-none" ${pdict.isInventoryCheckServiceEnabled        ? 'checked=checked' : ''} />
+
+    <isset name="shippingModel" value="${pdict.order.shipping[0]}" scope="page" />
+    <isset name="isRestrictedProductPresent" value="${pdict.isRestrictedProductPresent}" scope="page" />
+
+    <div class="single-shipping">
+        <isset name="pickupInactive" value="${true}" scope="page"/>
+        <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
+            <isif condition="${shippingMethod.storePickupEnabled}">
+                <isset name="pickupInactive" value="${false}" scope="page"/>
+            </isif>
+        </isloop>
+        <isset name="shipmentLoopState" value="${null}" scope="page" />
+        <isset name="lineItem" value="${null}" scope="page" />
+
+        <input type="checkbox" class="d-none" id="is-prescription-product-present" ${pdict.prescription === 'restricted' ? 'checked' : ''} />
+
+        <div class="checkout-card-container d-flex align-items-center w-100 align-items-center justify-content-center">
+            <div
+                class="home-delivery-title text-nowrap button-delivery checkout-tab-title py-2 px-3 d-flex justify-content-center align-items-center text-uppercase cursor-pointer ml-2 mr-1 ${(pdict.isPrescriptionUploadServiceEnabled && pdict.prescription == 'restricted') || !pdict.isHomeDeliveryTabEnabled ? 'disabled' : ''} ${pdict.isPickupInStoreTabActive ? '' : 'active'}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', 'ShippingType', Resource.msg('homedelivery.title.short', 'checkout', null))}"
+            >
+                <isinlinesvg src="track-icon" />
+                <span class="pl-2 d-none d-lg-block">${Resource.msg('homedelivery.title', 'checkout', null)}</span>
+                <span class="pl-2 d-lg-none">${Resource.msg('homedelivery.title.short', 'checkout', null)}</span>
+            </div>
+            <div
+                class="pickup-in-store-title button-delivery checkout-tab-title py-2 px-3 d-flex justify-content-center align-items-center text-uppercase cursor-pointer mr-2 ml-1 ${pickupInactive || !pdict.isStorePickupTabEnabled ? 'disabled' : ''} ${pdict.isPickupInStoreTabActive ? 'active' : ''}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', 'ShippingType', Resource.msg('pickupinstore.title.short', 'checkout', null))}"
+            >
+                <isinlinesvg src="store-icon" />
+                <span class="pl-2 d-none d-lg-block">${Resource.msg('pickupinstore.title', 'checkout', null)}</span>
+                <span class="pl-2 d-lg-none">${Resource.msg('pickupinstore.title.short', 'checkout', null)}</span>
+            </div>
+        </div>
+        <div class="card checkout-card mb-4 mb-lg-0" data-shipment-uuid="${shippingModel.UUID}">
+            <div class="shipping-error"></div>
+
+            <iscomment>Display custom message if restricted product is present in the cart and no viable shipping methods are present</iscomment>
+            <isif condition="${isRestrictedProductPresent && !shippingModel.applicableShippingMethods.length}">
+                <div class="m-2 m-lg-5">
+                    <div class="prescription-message">
+                        <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+                        ${Resource.msg('shipping.method.prescription.required', 'checkout', null)}
+                    </div>
+                    <div class="prescription-message mt-3">
+                        <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+                        ${Resource.msg('shipping.method.home.invalid', 'checkout', null)}
+                        <a class="return-to-cart" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+                            <span class="text-underline pr-1">
+                                ${Resource.msg('link.view.cart', 'cart', null)}
+                            </span>
+                            <isinlinesvg src="edit-cart-icon"/>
+                        </a>
+                    </div>
+                </div>
+            <iselse>
+                <isif condition="${!pdict.isHomeDeliveryTabEnabled && !pdict.isStorePickupTabEnabled}">
+                    <div class="m-2 m-lg-5">
+                        <div class="prescription-message restricted-address">
+                            <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+                            ${Resource.msg("heading.shipping.method.restricted", "checkout", null)}
+                            <a class="return-to-cart" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+                                <span class="text-underline pr-1">
+                                    ${Resource.msg('link.view.cart', 'cart', null)}
+                                </span>
+                                <isinlinesvg src="edit-cart-icon"/>
+                            </a>
+                        </div>
+                    </div>
+                <iselse>
+                    <isinclude template="checkout/shipping/shipmentCard" />
+                </isif>
+            </isif>
+        </div>
+    </div>
+</div>

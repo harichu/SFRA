@@ -1,0 +1,32 @@
+
+<header class="position-fixed w-100">
+    <div class="error-top-banner grey"></div>
+    <div class="header-container background-white d-flex justify-content-around align-items-center position-absolute w-100 shadow-sm px-lg-3">
+        <div class="header-left d-flex justify-content-around align-items-center">
+            <div class="header-logo d-none d-lg-flex justify-content-center">
+                <a class="logo-home w-100" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img mw-100" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+            <div class="header-search-mobile d-lg-none">
+                <isinlinesvg src="search-icon-mobile" />
+            </div>
+        </div>
+        <div class="header-center d-flex justify-content-center">
+            <div class="header-search d-none d-lg-block w-100">
+                <isinclude template="components/header/search" />
+            </div>
+            <div class="header-logo d-lg-none">
+                <a class="logo-home" href="${URLUtils.url('Home-Show')}" title="${ Resource.msgf('global.homepage.tooltip', 'common', null, Resource.msg('global.storename', 'common', null), Resource.msg('global.home', 'common', null)) }">
+                    <img class="header-logo-img" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, 'images/header/site-logo.png');}" alt="${Resource.msg('global.storename', 'common', null)}"/>
+                </a>
+            </div>
+        </div>
+        <div class="header-right d-flex justify-content-around justify-content-lg-between align-items-center"></div>
+    </div>
+    <div class="header-search-small background-white w-100 position-absolute p-2 d-lg-none">
+        <div class="header-search container d-flex align-items-center">
+            <isinclude template="components/header/search" />
+        </div>
+    </div>
+</header>

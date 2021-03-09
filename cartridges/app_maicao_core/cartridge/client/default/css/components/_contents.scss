@@ -1,0 +1,122 @@
+.page-topbanner {
+    .page-topbanner-breadcrumbs {
+        z-index: 2;
+    }
+
+    .page-topbanner-overlay {
+        background-color: $white;
+        height: 200px;
+        opacity: 0.85;
+        z-index: 1;
+    }
+
+    .page-topbanner-background {
+        height: 200px;
+
+        .page-topbanner-background-image {
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .page-topbanner-title {
+        font-size: rem-calc(28px);
+        font-family: $font-family-secondary-bold;
+        color: $brand-color-primary;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        text-transform: uppercase;
+        width: fit-content;
+    }
+
+    .page-topbanner-subtitle {
+        font-size: rem-calc(14px);
+        font-family: $font-family-primary-italic;
+        color: $text-grey;
+        left: 50%;
+        top: 65%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .content-club-logo {
+        height: 100px;
+        margin-bottom: 20px;
+    }
+}
+
+.content-page {
+    background-color: $secondary-grey-light;
+}
+
+
+.contact-us-page {
+    .page-topbanner-title {
+        color: $brand-color-primary;
+    }
+
+    .content-box-title {
+        color: $brand-color-primary;
+        font-size: rem-calc(24px);
+        text-align: center;
+    }
+
+    .contact-us-icon {
+        svg {
+            width: 30px;
+            height: 32px;
+        }
+    }
+
+    input {
+        &::placeholder {
+            font-style: italic;
+            color: $text-grey-light;
+        }
+    }
+
+    .form-group {
+        &.required .form-control-label::after {
+            content: "*";
+            margin-left: -4px;
+        }
+    }
+
+    #contact-comment {
+        height: 118px;
+    }
+
+    .contact-us-success-icon {
+        font-size: rem-calc(33px);
+        width: 48px;
+        height: 48px;
+        background-color: $brand-color-secondary;
+    }
+
+    .contact-us-success-title {
+        font-size: rem-calc(27px);
+        font-family: $font-family-secondary;
+        color: $brand-color-primary;
+    }
+
+    .contact-us-success-text {
+        font-size: rem-calc(18px);
+        color: $text-grey;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .page-topbanner {
+        .page-topbanner-title {
+            font-size: rem-calc(35px);
+        }
+
+        .page-topbanner-subtitle {
+            font-size: rem-calc(15px);
+            top: 60%;
+        }
+    }
+}

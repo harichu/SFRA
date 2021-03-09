@@ -1,0 +1,41 @@
+<div class="coupon-container px-2 py-3 rounded ${require("dw/order/BasketMgr").getCurrentBasket().getCouponLineItems().length > 0 ? 'applied' : ''}">
+    <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="promo-code-form" method="GET" name="promo-code-form">
+        <div class="form-group mb-0">
+            <div class="d-flex align-items-center">
+                <isinlinesvg src="icon-discount"/>
+                <div class="coupon-titles ml-2">
+                    <label for="couponCode" class="coupon-label text-uppercase text-primary-color text-bold m-0 p-0">
+                        <span class="non-applied-label">
+                            ${Resource.msg('label.promo.code', 'cart', null)}
+                        </span>
+                    </label>
+                    <p class="subtitle-promo-code pb-2 text-grey text-italic m-0 p-0"> ${Resource.msg('label.subtitle.promo.code', 'cart', null)} </p>
+                </div>
+                <div class="coupon-titles ml-2">
+                    <label for="couponCode" class="coupon-label text-uppercase text-primary-color text-bold m-0 p-0">
+                        <span class="applied-label">
+                            ${Resource.msg('label.promo.code.applied', 'cart', null)}
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="row coupon-form-row">
+                <div class="col-8">
+                    <input type="text" class="form-control coupon-code-field text-italic background-white" id="couponCode" name="couponCode" placeholder="${Resource.msg('placholder.text.promo.code.input','cart',null)}">
+                    <div class="coupon-error">
+                        <span class="coupon-missing-error invalid-feedback-cart" id="missingCouponCode" role="alert">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
+                        <span class="coupon-error-message invalid-feedback-cart" id="invalidCouponCode" role="alert"></span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+                <div class="col-4 promo-code-submit pl-0">
+                    <button type="submit" class="btn btn-outline-secondary btn-block promo-code-btn h-100 p-0">
+                        ${Resource.msg('button.submit.promo.code', 'cart', null)}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

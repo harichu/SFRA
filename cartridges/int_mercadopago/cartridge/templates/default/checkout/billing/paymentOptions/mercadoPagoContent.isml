@@ -1,0 +1,39 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    var Resource = require('dw/web/Resource');
+    assets.addCss('css/mercadoPago.css');
+</isscript>
+
+<isset name="mercadoPagoFields" value="${pdict.mercadoPago.form}" scope="page"/>
+<isset name="customerCardsPresent" value="${(pdict.customer.registeredUser && pdict.mercadoPago.customerCards) || []}" scope="page"/>
+
+<div
+    class="tab-pane mercadopago-content active show"
+    id="mercadopago-content"
+    role="tabpanel"
+    data-mp-content
+    data-payment-option-content
+>
+    <fieldset class="payment-form-fields">
+        <!--- payment method is credit card --->
+        <input type="hidden" class="form-control"
+               name="${pdict.forms.billingForm.paymentMethod.htmlName}"
+               value="MercadoPago"
+        />
+
+        <fieldset
+            class="mp-form"
+            data-mp-form
+            data-mp-preferences="${JSON.stringify(pdict.mercadoPago.preferences)}"
+            data-mp-error-messages="${JSON.stringify(pdict.mercadoPago.errorMessages)}"
+            data-mp-cart-total="${pdict.mercadoPago.orderTotal}"
+            data-mp-resource-messages="${JSON.stringify(pdict.mercadoPago.resourceMessages)}"
+            data-mp-configuration="${JSON.stringify(pdict.mercadoPago.configuration)}"
+            data-mp-initial="${customerCardsPresent ? 'stored' : 'new'}"
+            data-mp-available-payment-methods="${JSON.stringify(pdict.mercadoPago.availablePaymentMethods)}"
+        >
+            <!--- applicable payment methods --->
+            <isinclude template="checkout/billing/mercadoPagoPaymentMethods" />
+        </fieldset>
+    </fieldset>
+</div>

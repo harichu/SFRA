@@ -1,0 +1,26 @@
+<iscomment>
+    Include this file in the address template you want to use Google Places' autocomplete.
+    You need to set the data-autocomplete attribute for the input elements that you want autocomplete enabled, like the following:
+    data-autocomplete="source" - for the first address field, what is typed there will be used to make suggestions and autocomplete
+    data-autocomplete="city" - for the city field
+    data-autocomplete="state" - for the state field
+    data-autocomplete="country" - for the country field
+    data-autocomplete="zipcode" - for the zip code field
+
+    The above values are the ones available for autocomplete
+ </iscomment>
+<iscomment> Injecting Google Places API script and necessary data </iscomment>
+<isset name="site" value="${dw.system.Site.current}" scope="page" />
+<isset name="key" value="${site.getCustomPreferenceValue("GooglePlacesAPIKEY")}" scope="page" />
+<isif condition="${!empty(key)}">
+    <script src="https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places"></script>
+    <input class="current-site-data" type="hidden" name="current-site-data"
+        data-current-site-id="${site.getID()}"
+        data-country-code="${site.getCustomPreferenceValue("CountryCode")}"
+    />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/googlePlaces.js');
+    </isscript>
+</isif>
+<iscomment> End of Google Places injection </iscomment>

@@ -1,0 +1,28 @@
+<isif condition="${slotcontent != null}">
+    <isloop items="${slotcontent.content}" var="contentAsset" status="loop">
+        <div class="article-grid-tile ${loop.index == 3 ? 'big' : ''}">
+            <a class="tile-link" href="${URLUtils.url('Blog-ShowArticle', 'cid', contentAsset.ID)}">
+                <isset name="isLarge" value="${loop.index == 3}" scope="page" />
+                <img src="${contentAsset.custom.imageSmall.absURL}"
+                    class="${isLarge ? 'd-lg-none' : ''}"
+                    alt="${contentAsset.name}"/>
+                <isif condition="${isLarge}">
+                    <img src="${contentAsset.custom.imageLarge.absURL}"
+                        class="d-none d-lg-block"
+                        alt="${contentAsset.name}"/>
+                </isif>
+                <span class="tile-label">
+                    <isprint value="${contentAsset.folders[0].displayName}" />
+                    <br>
+                    <span class="tile-title">
+                        <isprint value="${contentAsset.name}" />
+                    </span>
+                    <br>
+                    <span class="tile-date">
+                        <isprint value="${contentAsset.custom.publishDate}" style="DATE_LONG" timezone="utc" />
+                    </span>
+                </span>
+            </a>
+        </div>
+    </isloop>
+</isif>

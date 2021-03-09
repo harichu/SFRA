@@ -1,0 +1,19 @@
+<isif condition="${slotcontent != null}">
+    <isloop items="${slotcontent.content}" var="contentAsset">
+        <div class="homepage-section" style="background-color: ${contentAsset.custom.sectionBackground ? contentAsset.custom.sectionBackground : 'transparent'}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center pb-3">
+                            <img class="category-marker pr-2 w-auto" src="${URLUtils.staticURL('/images/marker-symbol.png')}" alt="${Resource.msg('global.headingmarker', 'common', null)}"/>
+                            <h2 class="homepage-section-title small-title m-0 p-0">
+                                <isprint value="${contentAsset.name}" encoding="off"/>
+                            </h2>
+                        </div>
+                        <isprint value="${contentAsset.custom.body}" encoding="off"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </isloop>
+</isif>

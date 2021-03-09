@@ -1,0 +1,33 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" />
+    <iscomment>
+    Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+    Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+    </iscomment>
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/account.css');
+        assets.addCss('/css/smartorderrefill.css');
+        assets.addCss('/css/account/orders.css');
+    </isscript>
+
+    <div class="account-page account-orders background-grey">
+        <isaccountbanner bannertitle="${Resource.msg('smartorderrefill.accountmenu.linktitle', 'account', null)}" hasbreadcrumbs="${true}"/>
+        <div class="container">
+            <div class="col-12 justify-content-center">
+                <div class="order-list-container subscription">
+                    <isreplace/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col justify-content-left">
+                    <a href="${URLUtils.url('Account-Show')}" class="btn btn-back">
+                        <i class="mr-3 fa fa-chevron-left text-orange"></i>
+                        ${Resource.msg('link.profile.backtomyaccount','account',null)}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</isdecorate>

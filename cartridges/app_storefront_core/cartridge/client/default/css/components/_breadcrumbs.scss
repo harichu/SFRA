@@ -1,0 +1,50 @@
+.breadcrumb {
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+.breadcrumb-item a,
+.breadcrumb-item p {
+    font-size: rem-calc(12px);
+    color: $text-grey;
+
+    &[aria-current="page"] {
+        display: inline;
+        cursor: default;
+        color: $brand-color-primary !important;
+        font-family: $font-family-primary-bold;
+    }
+}
+
+.breadcrumb-item {
+    + .breadcrumb-item {
+        padding-left: 8px;
+
+        &::before {
+            font-size: rem-calc(12px);
+            padding-right: 4px;
+            color: $text-grey;
+            content: "/";
+        }
+    }
+}
+
+.breadcrumb::before {
+    content: "\F104";
+    font-family: $font-family-icons;
+    padding-right: 8px;
+    color: $tertiary-yellow;
+    font-size: rem-calc(22px);
+    line-height: rem-calc(22px);
+}
+
+@include media-breakpoint-up(lg) {
+    .breadcrumb {
+        padding: 10px 16px;
+    }
+
+    .breadcrumb-item a,
+    .breadcrumb-item p {
+        font-size: rem-calc(12px);
+    }
+}

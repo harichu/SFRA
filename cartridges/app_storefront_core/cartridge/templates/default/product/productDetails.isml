@@ -1,0 +1,135 @@
+<isdecorate template="common/layout/page">
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/productDetail.js');
+        assets.addJs('/js/productTile.js');
+        assets.addCss('/css/product/detail.css');
+    </isscript>
+
+    <isset name="product" value="${pdict.product}" scope="page" />
+    <isset name="loopState" value="{count: 1}" scope="page" />
+    <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isset name="miniCart" value="${false}" scope="page" />
+    <isobject object="${dw.catalog.ProductMgr.getProduct(product.id)}" view="detail">
+        <div class="product-detail product-wrapper"
+            data-gtm="${require('int_gtm').gtmProductPDP(product.id)}"
+            data-pid="${product.id}">
+            <div class="product-detail-breadcrumb">
+                <div class="container">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container pt-4 product-detail-container">
+                <div class="row">
+                    <div class="col-12 d-lg-none">
+                        <div class="col">
+                            <isif condition="${!empty(product.brand)}">
+                                <a href="${URLUtils.url('Search-Show', 'q', product.brand)}" class="product-brand m-0">
+                                    ${product.brand}
+                                </a>
+                            </isif>
+                            <h1 class="product-name">${product.productName}</h1>
+                        </div>
+                    </div>
+                    <!-- Product Images Carousel -->
+                    <isinclude template="product/components/productDetailImageCarousel" />
+
+                    <div class="col-12 col-lg-6 product-detail-container pl-lg-4 pt-3 pt-lg-0">
+                        <!-- Product Name -->
+                        <div class="row d-none d-lg-flex">
+                            <div class="col">
+                                <isif condition="${!empty(product.brand)}">
+                                    <a href="${URLUtils.url('Search-Show', 'q', product.brand)}" class="product-brand m-0">
+                                        ${product.brand}
+                                    </a>
+                                </isif>
+                                <h1 class="product-name">${product.productName}</h1>
+                            </div>
+                        </div>
+
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isif condition="${product.productType === 'set'}">
+                                <isinclude template="product/components/pricing/setPrice" />
+                            <iselse/>
+                                <isinclude template="product/components/pricing/main" />
+                            </isif>
+                        </div>
+
+                        <hr class="product-detail-hr"/>
+
+                        <isset name="PUM" value="${product.custom.pum}" scope="page" />
+                        <isset name="pumSettings" value="${JSON.parse(dw.system.Site.current.getCustomPreferenceValue("difarmaPUMPreferences"))}" scope="page" />
+
+                        <isif condition="${pumSettings.pumVisibilityOptions.showOnPDP && PUM}">
+                            <isinclude template="product/components/productPUM" />
+                        </isif>
+
+                        <div class="attributes">
+                            <isif condition="${product.options && product.options.length > 0}">
+                                <isinclude template="product/components/options" />
+                            </isif>
+
+                            <div class="prices-add-to-cart-actions container">
+                                <div class="row flex-column">
+                                    <div class="col-lg-10 flex-ie-fix">
+
+                                        <isinclude template="product/components/productDetailShippingMethods" />
+                                    </div>
+                                    <div class="w-100">
+                                        <div class="attributes-container d-flex px-0 pt-3">
+                                            <isinclude template="product/components/productSelectorsLarge" />
+                                        </div>
+                                    </div>
+                                    <p class="text-danger quantity-error text-italic d-none m-0 pt-3 w-100 w-lg-75 pl-2"></p>
+                                    <div class="row">
+                                        <div class="add-to-cart-actions col-lg-10 col-12">
+                                            <div class="row">
+                                                <div class="add-to-cart-action col-lg-6 col-12">
+                                                    <!-- Cart and [Optionally] Apple Pay -->
+                                                    <isinclude url="${URLUtils.url('Product-Nocache', 'pid', product.id, 'template', 'addToCartProduct', 'isQuickView', isQuickView)}" />
+                                                </div>
+                                                <div class="add-to-cart-action col-lg-6 col-12">
+                                                    <iscomment> Begin - SmartOrderRefill modification </iscomment>
+                                                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('SorEnabled') && !empty(product.custom.SorProduct) && product.custom.SorProduct}">
+                                                        <isinclude template="modal/sorModal"/>
+                                                    </isif>
+                                                    <iscomment> End - SmartOrderRefill modification </iscomment>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <isset name="hasDetails"
+                value="${(!empty(product.custom.tab1Title) && !empty(product.custom.tab1Content))
+                        || (!empty(product.custom.tab2Title) && !empty(product.custom.tab2Content))
+                        || (!empty(product.custom.tab3Title) && !empty(product.custom.tab3Content))}"
+                    scope="page"/>
+
+            <isif condition="${hasDetails}">
+                <div class="d-none d-lg-block">
+                    <isinclude template="product/components/detailsTabs" />
+                </div>
+                <div class="d-block d-lg-none">
+                    <isinclude template="product/components/detailsCollapse" />
+                </div>
+            </isif>
+        </div>
+    </isobject>
+    <div class="recommendations my-5">
+        <isslot id="product-recommendations-m" description="Recommended products" context="global" context-object="${dw.catalog.ProductMgr.getProduct(product.id)}"/>
+    </div>
+</isdecorate>

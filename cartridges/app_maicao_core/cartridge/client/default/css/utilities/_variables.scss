@@ -1,0 +1,227 @@
+@import "bootstrap/scss/functions";
+@import "~cssCore/utilities/functions";
+
+$fa-font-path: "../fonts" !default;
+
+//Maicao brand styling
+$primary-pink: #e2007a !default;
+$secondary-pink: #f161b3 !default;
+$tertiary-pink: #f6ccd2 !default;
+
+$brand-color-primary: $primary-pink;
+$brand-color-secondary: $secondary-pink;
+$brand-color-tertiary: $tertiary-pink;
+
+$white: #fff !default;
+$black: #000 !default;
+
+//Start of old variables to remove
+$tertiary-green: #2ec431 !default;
+$quaternary-green: #1e5f25 !default;
+$quinary-green: #218535 !default;
+$darker-green: #2f8738 !default;
+$primary-yellow: #fcd305 !default;
+$secondary-yellow: #ffc543 !default;
+$tertiary-yellow: #f2a700 !default;
+//End of old variables to remove
+
+
+$primary-grey: #4a494a !default;
+$secondary-grey: #888 !default;
+$tertiary-grey: #939393 !default;
+$primary-grey-light: #eaeaea !default;
+$secondary-grey-light: #f5f5f5 !default;
+$tertiary-grey-light: #e9e9e9 !default;
+$tertiary-yellow-light: #fff7d0 !default;
+$primary-border-color: #ececec;
+$primary-placeholder-color: #d2d2d2;
+$background-grey: #dbdbdb;
+$background-green-light: #efffef;
+$text-grey: #5c5c5c;
+$text-grey-light: #ccc;
+$text-grey-dark: #555;
+$text-grey-secondary: #5a5a5a;
+$promotional-red: #f00;
+$accent-grey: #5c5c5c;
+$accent-grey-light: #bbb;
+$accent-grey-dark: #ccc;
+$facebook-blue: #3b5998;
+$inactive-grey: #aaa;
+$highlighter-primary: #fcedef;
+$highlighter-primary-light: #fcedef;
+$radio-checked: $primary-pink;
+$storelocator-grey: #999;
+$red-second: #bc5757;
+$black-second: #57abbc;
+$purple-second: #5772bc;
+$divisor-color: #f2f2f2;
+$lighter-red: #f00;
+$lighter-green: #e2f4d9;
+$highlight-color: #face23;
+
+$success: #54cc56 !default;
+$info: #a6def0 !default;
+$warning: #fbe997 !default;
+$danger: #f00 !default;
+
+$error-page-primary: $primary-pink;
+$error-page-secondary: #FFD700;
+
+$danger-background: #fee5e5;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 544px,
+    lg: 991px,
+    xl: 1400px
+) !default;
+
+$container-max-widths: (
+    xs: 991px,
+    lg: 1200px,
+    xl: 1330px
+) !default;
+
+// Redefining the default font families and font sizes
+
+$font-family-base: "Frutiger Roman", Arial, sans-serif !default;
+
+$font-size-base: rem-calc(16px) !default;
+$font-size-sm: rem-calc(11px) !default;
+$font-size-md: rem-calc(22px) !default;
+$font-size-lg: rem-calc(25px) !default;
+
+// Customizations for headings
+
+$headings-font-family: "DIN Pro Black", Arial, sans-serif;
+$h1-font-size: $font-size-lg;
+$h2-font-size: $font-size-md;
+
+// Set the number of columns and specify the width of the gutters.
+
+$grid-gutter-width: 20px !default;
+
+//Style anchor elements.
+
+$link-color: $brand-color-primary !default;
+$link-decoration: none !default;
+$link-hover-color: $brand-color-primary !default;
+$link-hover-decoration: none !default;
+
+$hr-border-color: $brand-color-tertiary;
+$hr-border-width: rem-calc(3px);
+$hr-margin-y: rem-calc(14px);
+
+$border-radius: 20px !default;
+$border-radius-lg: 20px !default;
+$border-radius-sm: 20px !default;
+
+$nav-link-padding-y: rem-calc(6px);
+
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-btn-padding-y: rem-calc(8.5px) !default;
+$input-btn-padding-x: rem-calc(14px) !default;
+$input-btn-font-family: "Frutiger Roman", Arial, sans-serif !default;
+$input-btn-font-size: rem-calc(14px) !default;
+$input-btn-padding-y-sm: rem-calc(9px) !default;
+$input-btn-padding-x-sm: rem-calc(15px) !default;
+$input-btn-font-size-sm: rem-calc(15px) !default;
+$input-btn-padding-y-lg: rem-calc(8.5px) !default;
+$input-btn-padding-x-lg: rem-calc(14px) !default;
+$input-btn-font-size-lg: rem-calc(14px) !default;
+$input-focus-width: rem-calc(2px);
+$form-feedback-margin-top: rem-calc(10px);
+$btn-disabled-opacity: 1;
+$custom-select-font-size: rem-calc(15px);
+
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+$btn-border-width: 0;
+$btn-focus-width: 0;
+$btn-link-disabled-color: $secondary-grey !default;
+
+//Allows for customizing button radius independently from global border radius
+
+$btn-border-radius: 8px;
+$btn-border-radius-lg: 8px;
+$btn-border-radius-sm: 8px;
+$btn-transition: none;
+
+// Forms
+
+$input-bg: $secondary-grey-light !default;
+$input-disabled-bg: $tertiary-grey-light !default;
+$input-color: $text-grey !default;
+$input-border-color: $primary-border-color !default;
+$input-focus-border-color: $primary-border-color !default;
+$input-placeholder-color: $primary-placeholder-color !default;
+$input-plaintext-color: $primary-placeholder-color !default;
+$input-group-addon-bg: $brand-color-primary !default;
+$input-group-addon-border-color: $brand-color-primary !default;
+$input-transition: none;
+$input-group-addon-color: $white !default;
+$input-border-width: 0;
+$custom-control-indicator-size: rem-calc(20px);
+$custom-control-indicator-bg: $white;
+$custom-control-indicator-checked-border-color: $secondary-grey;
+$custom-control-indicator-checked-bg: $white;
+$custom-control-indicator-checked-box-shadow: 0;
+$custom-checkbox-indicator-border-radius: rem-calc(4px);
+$custom-checkbox-indicator-icon-checked: none;
+$custom-control-indicator-border-width: rem-calc(1px);
+
+// Form validation
+
+$form-feedback-font-size: rem-calc(10px) !default;
+$form-feedback-valid-color: $success !default;
+$form-feedback-invalid-color: $danger !default;
+$form-feedback-icon-valid-color: $success !default;
+$form-feedback-icon-invalid-color: $danger !default;
+
+// Radios, checkboxes and selects
+
+$custom-checkbox-indicator-border-radius: 0 !default;
+$custom-control-indicator-bg: $white !default;
+$custom-control-indicator-disabled-bg: $white !default;
+$custom-control-label-disabled-color: $secondary-grey !default;
+$custom-control-indicator-border-color: $primary-grey !default;
+$custom-select-color: $input-color !default;
+$custom-select-disabled-color: $secondary-grey !default;
+$custom-select-disabled-bg: $tertiary-grey-light !default;
+$custom-select-bg-size: 32px 42px !default; // In pixels because image dimensions
+$custom-select-indicator: url("../images/dropdown.svg") !default;
+$custom-select-feedback-icon-padding-right: 0;
+$custom-select-border-width: 0;
+$custom-select-background: $custom-select-indicator no-repeat right 0 center / $custom-select-bg-size !default; // Used so we can have multiple background elements (e.g., arrow and feedback icon)
+
+// Breadcrumbs customization
+
+$breadcrumb-bg: none !default;
+
+$navbar-toggler-font-size: rem-calc(12px);
+
+// font-awesome font file locations in relation to target location of the css file.
+$fa-font-path: "../fonts" !default;
+
+$transition-collapse: height 0.15s ease !default;
+
+$modal-show-transform: translateY(-50%);
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$sizes: map-merge(
+    (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        100: 100%,
+        auto: auto
+    ),
+    $sizes
+);
+
+// Media queries for IE10 and above
+$high-contrast-none: none;
+$high-contrast-active: active;

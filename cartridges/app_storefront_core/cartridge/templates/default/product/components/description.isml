@@ -1,0 +1,7 @@
+<isif condition="${product.shortDescription}">
+    <div class="info-content-container w-100 overflow-auto p-lg-0">
+        <div class="info-content info-content-collapse p-3">
+            <isprint value="${product.shortDescription}" encoding="off" />
+        </div>
+    </div>
+</isif>

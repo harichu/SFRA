@@ -1,0 +1,23 @@
+<isinclude template="/components/modules" />
+
+<div class="dropdown-items border-0 top-0 row collapse" role="menu" data-parent=".navbar-nav" aria-hidden="true" aria-label="${category.id}" id="${'navigation-item-' + category.id}">
+    <a class="subnavigation-title w-100 text-uppercase d-flex" href="${category.url}">
+        <isif condition="${category.iconURL !== null}">
+            <img src="${category.iconURL}" alt="${Resource.msg('navigation.icon.alt', 'common', null)}" class="navigation-icon d-lg-none pr-2"/>
+        </isif>
+        <isprint value="${category.name}" encoding="off"/>
+    </a>
+    <hr class="d-none d-lg-block w-100"/>
+    <isif condition="${menuItem.promoAssetID !== null}">
+        <div class="navigation-promo w-100 d-none d-lg-block order-1">
+            <iscontentasset aid="${menuItem.promoAssetID}"/>
+        </div>
+    </isif>
+    <isloop items="${menuItem.subCategories}" var="category">
+        <div class="dropdown-item col-lg-3 p-lg-0 pl-4" role="presentation">
+            <a href="${category.url}" data-gtm="${require('int_gtm').gtmEventListener('click,hover', 'SubCategory', category.url, '')}" id="${category.id}" role="menuitem" class="dropdown-link w-100 h-100 d-block overflow-hidden text-truncate" tabindex="-1">
+                ${category.name}
+            </a>
+        </div>
+    </isloop>
+</div>

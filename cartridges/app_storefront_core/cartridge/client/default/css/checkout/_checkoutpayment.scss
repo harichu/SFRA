@@ -1,0 +1,317 @@
+.payment-form {
+    .separator {
+        margin: 0 -20px;
+    }
+
+    .payment-title {
+        font-size: rem-calc(19px);
+    }
+
+    @include media-breakpoint-up(lg) {
+        .credit-card-form {
+            padding: 30px 200px 60px 70px;
+        }
+    }
+
+    .payment-collapse-icon {
+        right: 20px;
+        font-size: rem-calc(18px);
+        transition: transform 0.2s ease-in-out;
+        height: 20px;
+    }
+
+    [aria-expanded="true"] {
+        .payment-collapse-icon {
+            transform: rotate(90deg);
+        }
+    }
+
+    .payment-collapse-title,
+    .custom-radio {
+        border: 1px solid $primary-placeholder-color;
+        padding-left: 45px;
+        background: $white;
+
+        &[aria-expanded="true"],
+        &.active {
+            border: none;
+            background-color: $highlighter-primary-light;
+
+            .payment-collapse-icon {
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .payment-collapse-title {
+        &[aria-expanded="true"] {
+            border: none;
+            background-color: $highlighter-primary-light;
+            pointer-events: none;
+
+            &::after {
+                content: "";
+                border-radius: 50%;
+                background: $radio-checked;
+                width: 10px;
+                height: 10px;
+                top: 0;
+                bottom: 0;
+                margin: auto auto auto 5px;
+                position: absolute;
+                left: 15px;
+            }
+        }
+
+        &::before {
+            content: "";
+            background-color: $white;
+            border: 2px solid $primary-grey;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            left: 15px;
+            top: 25px;
+            position: absolute;
+        }
+    }
+}
+
+.save-credit-card-container {
+    display: flex;
+}
+
+.mercado-pago-form {
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+.other-method-details {
+    font-size: rem-calc(16px);
+    color: $text-grey-secondary;
+    display: none;
+}
+
+.other-method--title {
+    font-size: rem-calc(16px);
+}
+
+.active ~ .other-method-details {
+    display: block;
+}
+
+.credit-card-option {
+    max-width: 100px;
+}
+
+.payment-options {
+    border: none;
+}
+
+.mp__payment-type-title {
+    font-size: rem-calc(14px);
+}
+
+.saved-payment-element:not(.default) {
+    border-bottom: 1px solid $secondary-grey-light;
+}
+
+.saved-payments-expand {
+    border: 1px solid $secondary-grey-light;
+}
+
+.card-image-container {
+    min-width: 90px;
+}
+
+.add-payment-method-button {
+    box-shadow: none;
+    outline: none;
+    text-transform: none;
+
+    &:hover,
+    &:focus {
+        box-shadow: none;
+        outline: none;
+        color: $brand-color-primary;
+    }
+}
+
+.save-credit-card {
+    font-size: rem-calc(14px);
+
+    &.save-card {
+        font-size: rem-calc(18px);
+        width: 295px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.saved-payment-element {
+    font-size: rem-calc(14px);
+}
+
+.expiration-date-text {
+    display: none;
+    color: $inactive-grey;
+}
+
+.add-payment {
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+}
+
+.payment-item {
+    margin-bottom: 15px;
+    padding: 17px 15px;
+    border: 1px solid $text-grey-light;
+
+    &.selected-payment {
+        border: 2px solid $primary-green;
+    }
+
+    button:focus {
+        outline: 0;
+    }
+
+    .security-code-input {
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+
+        .invalid-feedback {
+            position: absolute;
+            right: 0;
+            text-align: right;
+            bottom: -17px;
+        }
+
+        &.checkout-hidden {
+            display: none;
+        }
+
+        .saved-payment-security-code {
+            width: 150px;
+        }
+    }
+
+    .payment-item-content {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        min-height: 38px;
+        justify-content: space-between;
+        color: $text-grey;
+        flex-flow: column;
+
+        .card-info {
+            line-height: rem-calc(18px);
+
+            .card-image {
+                margin-right: 10px;
+            }
+        }
+
+        .card-expiration {
+            color: $inactive-grey;
+        }
+
+        .divisor {
+            width: 1px;
+            background: $divisor-color;
+            height: 52px;
+            display: none;
+            margin-left: auto;
+        }
+
+        .payment-actions {
+            display: flex;
+        }
+
+        .payment-action {
+            padding: 20px 0 5px 0;
+            background: none;
+            border: none;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            justify-content: center;
+
+            .action-label {
+                margin-top: 8px;
+                text-transform: uppercase;
+                color: $text-grey;
+                font-size: rem-calc(12px);
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .payment-item {
+        .payment-item-content {
+            flex-flow: row wrap;
+            padding: 0 20px;
+
+            .card-info {
+                width: 40%;
+
+                .card-image {
+                    margin-right: 25px;
+                }
+            }
+
+            .divisor {
+                display: inline-block;
+            }
+
+            .payment-action {
+                padding: 0 0 0 20px;
+            }
+
+            .security-code-input {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .mercado-pago-form,
+    .mercado-pago-saved {
+        padding-right: 180px;
+    }
+
+    .credit-card-option {
+        max-width: auto;
+    }
+
+    .other-method--title {
+        font-size: rem-calc(18px);
+    }
+
+    .mp__payment-type-title,
+    .saved-cc-title {
+        font-size: rem-calc(15px);
+    }
+
+    .save-credit-card {
+        font-size: rem-calc(14px);
+
+        &.save-card {
+            font-size: rem-calc(14px);
+            width: auto;
+            margin-bottom: 0;
+        }
+    }
+
+    .saved-payment-element {
+        font-size: rem-calc(15px);
+    }
+
+    .expiration-date-text {
+        display: block;
+    }
+}

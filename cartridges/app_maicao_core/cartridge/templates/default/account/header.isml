@@ -1,0 +1,42 @@
+<isinclude template="/components/modules" />
+<isif condition="${pdict.name === null}">
+    <a href="${URLUtils.https('Login-Show')}" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'Account', 'login', '')}" title="${Resource.msg('label.header.loginbutton', 'account', null)}" class="header-cart-link d-flex justify-content-center align-items-center">
+        <div class="header-login-icon mr-lg-2">
+            <isinlinesvg src="header-user-icon" />
+        </div>
+        <div class="header-title d-none d-lg-block text-uppercase">
+            <p class="m-0 text-nowrap">${Resource.msg('label.header.register', 'common', null)}</p>
+            <p class="m-0 text-nowrap">${Resource.msg('label.header.login', 'common', null)}</p>
+        </div>
+    </a>
+<iselse>
+    <a title="${Resource.msg('label.header.loginbutton', 'account', null)}" class="header-cart-link justify-content-center align-items-center d-none d-lg-flex" href="#accountNav" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="accountNav">
+        <div class="header-login-icon mr-lg-2">
+            <isinlinesvg src="header-user-icon" />
+        </div>
+        <div class="header-title text-uppercase">
+            ${Resource.msg('label.header.login.authenticated', 'common', null)}
+            <span class="d-block">${pdict.name}</span>
+        </div>
+        <div class="header-arrow-icon down-arrow ml-lg-2">
+            <isinlinesvg src="arrow-icon" />
+        </div>
+    </a>
+    <a title="${Resource.msg('label.header.loginbutton', 'account', null)}" href="${URLUtils.https('Account-Show')}" data-gtm="${require('int_gtm').gtmEventListener('link,click,hover', 'Account', 'login', '')}" class="header-cart-link d-flex justify-content-center align-items-center d-lg-none">
+        <div class="header-login-icon mr-lg-2">
+            <isinlinesvg src="header-user-icon" />
+        </div>
+    </a>
+    <div class="account-dropdown position-absolute collapse header-collapse" id="accountNav">
+        <ul class="nav flex-column" role="menu" aria-label="${Resource.msg('label.profile.myaccountlink', 'account', null)}" aria-hidden="true">
+            <li class="account-nav-item" role="presentation"><a href="${URLUtils.https('Account-Show')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.myaccount', 'account', null)}</a></li>
+            <li class="account-nav-item" role="presentation"><a href="${URLUtils.https('Order-History')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.orders', 'account', null)}</a></li>
+            <li class="account-nav-item" role="presentation"><a href="${URLUtils.https('PaymentInstruments-List')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.payments', 'account', null)}</a></li>
+            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('SorEnabled')}" >
+                <li class="account-nav-item" role="presentation"><a href="${URLUtils.https('SmartOrderRefillController-Manage')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.refill', 'account', null)}</a></li>
+            </isif>
+            <li class="account-nav-item" role="presentation"><a href="${URLUtils.https('Address-List')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.addresses', 'account', null)}</a></li>
+            <li class="account-nav-item" role="presentation"><a class="logout-btn" data-url="${URLUtils.url('Login-Logout')}" role="menuitem" tabindex="-1">${Resource.msg('link.header.logout', 'account', null)}</a></li>
+        </ul>
+    </div>
+</isif>

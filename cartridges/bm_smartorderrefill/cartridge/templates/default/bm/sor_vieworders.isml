@@ -1,0 +1,358 @@
+<isdecorate template="application/MenuFrame">
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+    <isinclude template="bm/util/sor_modules" />
+    <isset name="order" value="${pdict.order.ProductList}" scope="page"/>
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page"/>
+
+    <isinclude template="components/header" />
+
+    <isset name="sorConstants" value="${require('int_smartorderrefill/cartridge/scripts/SmartOrderRefillConstants.js')}" scope="page"/>
+
+    <a class="button button--right" href="${URLUtils.https('SmartOrderRefillReport-ViewSubscription', 'sid', pdict.order.ProductList.subscriptionID, 'client', pdict.order.ProductList.customerNo,
+        'viewType', 'subscription', 'sorType', pdict.order.ProductList.type)}">
+        &laquo; ${Resource.msg('forms.sorsubscriptions.backTo.label','sor_forms', null)}
+        ${Resource.msg('forms.sorsubscriptions.orders.label','sor_forms', null)}
+    </a>
+
+    <div id="subscription-details-nav">
+        <span class="general-section selected">${Resource.msg('report.tabnav.general', 'sor_smartorderrefill', null)}</span>
+        <span class="shipping-section">${Resource.msg('report.tabnav.shipping', 'sor_smartorderrefill', null)}</span>
+        <span class="billing-section">${Resource.msg('report.tabnav.billing', 'sor_smartorderrefill', null)}</span>
+        <span class="products-section">${Resource.msg('report.tabnav.product', 'sor_smartorderrefill', null)}</span>
+    </div>
+    <div class='subscription-details-header'>
+        <h3>
+            <strong>${Resource.msg('club.order.orderdetails', 'sor_smartorderrefill', null)}: ${order.ID}</strong>
+        </h3>
+    </div>
+    <div id="subscription-details">
+        <div class="sor-module sor-module__subscription-details">
+            <div class="order-section general-section">
+                <div class="content-section">
+                    <table class='sor-module__subscription_table'>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.name', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.billingAddress.fullName}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.email', 'sor_smartorderrefill', null)}: </td>
+                            <td>${pdict.customer.profile.email}</td>
+                        </tr>
+
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.subscription.phone', 'sor_smartorderrefill', null)}: </td>
+                            <td>${order.billingAddress.phone}</td>
+                        </tr>
+
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.order.orderdate', 'sor_smartorderrefill', null)}: </td>
+                            <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.refillinterval', 'sor_smartorderrefill', null)}: </td>
+                            <td>${order.interval} ${order.periodicity}</td>
+                        </tr>
+                        <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                            <div class="order-section">
+                                <div class="content-section">
+                                    <isscript>
+                                        var originalOrder   = dw.order.OrderMgr.getOrder(order.originalOrder),
+                                            defaultShipping = originalOrder.getDefaultShipment().getShippingMethod();
+                                    </isscript>
+                                    <tr class="sor-module__titles-row">
+                                        <td>
+                                            ${Resource.msg('club.vieworder.shippingmet', 'sor_smartorderrefill', null)}
+                                        </td>
+
+                                        <td class="label-col">
+                                            ${defaultShipping.displayName}
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </isif>
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="order-section billing-section visualy-hidden">
+                <div class="content-section">
+                    <isset name="billingObj" value="${order.billingAddress}" scope="page"/>
+                    <table class='sor-module__subscription_table'>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.firstname', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.billingAddress.firstName}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.lastname', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.billingAddress.lastName}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.address1', 'sor_smartorderrefill', null)}: </td>
+                            <td>${billingObj.address1}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.address2', 'sor_smartorderrefill', null)}: </td>
+                            <td>${(billingObj.address2) ? billingObj.address2 : ''}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.city', 'sor_smartorderrefill', null)}: </td>
+                            <td>${billingObj.city}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.state', 'sor_smartorderrefill', null)}: </td>
+                            <td>${billingObj.stateCode}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.zip', 'sor_smartorderrefill', null)}: </td>
+                            <td>${billingObj.postalCode}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.country', 'sor_smartorderrefill', null)}: </td>
+                            <td>${billingObj.countryCode.value.toUpperCase()}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.phone', 'sor_smartorderrefill', null)}: </td>
+                            <td class="phone-number">${billingObj.phone}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <a href="${URLUtils.https('SmartOrderRefillReport-ManageOrders', 'client', order.customerNo, 'oid', order.ID, 'addressType', 'billing',
+                            'action', 'updateAddress', 'viewType', 'subscription')}"
+                        class="button changeaddress" >
+                        ${Resource.msg('club.vieworder.edit','sor_smartorderrefill',null)}
+                    </a>
+                </div>
+            </div>
+
+            <div class="order-section shipping-section visualy-hidden">
+                <div class="content-section">
+                    <isset name="shippingObj" value="${order.shippingAddress}" scope="page"/>
+                    <table class='sor-module__subscription_table'>
+                        <div class="order-section">
+                            <div class="content-section">
+                                <isscript>
+                                    var originalOrder   = dw.order.OrderMgr.getOrder(order.originalOrder),
+                                        defaultShipping = originalOrder.getDefaultShipment().getShippingMethod();
+                                </isscript>
+                                <tr class="sor-module__titles-row">
+                                    <td>
+                                        ${Resource.msg('club.vieworder.shippingmet', 'sor_smartorderrefill', null)}
+                                    </td>
+
+                                    <td class="label-col">
+                                        ${defaultShipping.displayName}
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+
+                        <tr class="sor-module__titles-row">
+                            <isscript>
+                                    var originalOrder   = dw.order.OrderMgr.getOrder(order.originalOrder),
+                                        defaultShipping = originalOrder.getDefaultShipment().getShippingMethod();
+                                </isscript>
+                                <td>
+                                    ${Resource.msg('club.vieworder.shippingcost', 'sor_smartorderrefill', null)}:
+                                </td>
+
+                                <td class="label-col">
+                                    <isprint value="${new dw.value.Money(originalOrder.getAdjustedShippingTotalPrice().value, originalOrder.getAdjustedShippingTotalPrice().currencyCode)}" />
+                                </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.firstname', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.shippingAddress.firstName}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.lastname', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.shippingAddress.lastName}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.address1', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.shippingAddress.address1 == null ? '-' : order.shippingAddress.address1}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.address2', 'sor_smartorderrefill', null)}:</td>
+                            <td>
+                                <span class="name">${order.shippingAddress.address2 == null ? ' -' : order.shippingAddress.address2}</span>
+                            </td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.city', 'sor_smartorderrefill', null)}:</td>
+                            <td>${order.shippingAddress.city}</td>
+                        </tr>
+
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.state', 'sor_smartorderrefill', null)}:</td>
+                            <td>${order.shippingAddress.stateCode}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.zip', 'sor_smartorderrefill', null)}:</td>
+                            <td>${order.shippingAddress.postalCode}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.country', 'sor_smartorderrefill', null)}:</td>
+                            <td>${order.shippingAddress.countryCode.value.toUpperCase()}</td>
+                        </tr>
+                        <tr class="sor-module__titles-row">
+                            <td class="label-col">${Resource.msg('club.vieworder.phone', 'sor_smartorderrefill', null)}:</td>
+                            <td class="phone-number">${order.shippingAddress.phone}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <a href="${URLUtils.https('SmartOrderRefillReport-ManageOrders', 'client', order.customerNo, 'oid', order.ID, 'addressType', 'shipping',
+                            'action', 'updateAddress', 'viewType', 'order')}"
+                        class="button changeaddress">
+                        ${Resource.msg('club.vieworder.edit','sor_smartorderrefill',null)}
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="order-section products-section visualy-hidden">
+                <isscript>
+                    var total        = 0,
+                        currencyCode = "";
+
+                    var classIndex = 4;
+
+                    if(order.type == sorConstants.TYPE.SOR){
+                        classIndex++;
+                    }
+
+                    if(pdict.hasProcessor && pdict.viewType == sorConstants.VIEWTYPE.SUBSCRIPTION && order.status != sorConstants.STATUS.EXPIRED){
+                        classIndex++;
+                    }
+                </isscript>
+
+                <table class='sor-module sor-module__subscription_table ${'table-amount-columns-'+classIndex}'>
+
+                    <tr class="sor-module__titles-row">
+                        <td>
+                            ${Resource.msg('club.vieworder.product', 'sor_smartorderrefill', null)}
+                        </td>
+                        <td></td>
+                        <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                            <td>${Resource.msg('club.vieworder.refillinterval', 'sor_smartorderrefill', null)}</td>
+                        </isif>
+                        <td>${Resource.msg('club.vieworder.quantity', 'sor_smartorderrefill', null)}</td>
+
+                        <td>${Resource.msg('club.vieworder.price', 'sor_smartorderrefill', null)}</td>
+                        <td>${Resource.msg('club.vieworder.removeproduct', 'sor_smartorderrefill', null)}</td>
+                        <td>${Resource.msg('club.subscription.actions', 'sor_smartorderrefill', null)}</td>
+                        <td></td>
+                    </tr>
+                    <isloop items="${order.products}" var="listItem">
+                        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(listItem.ID)}" scope="page"/>
+                        <tr class="sor-module__titles-row">
+                            <td class="product-thumbnail">
+                                <isset name="productImage" value="${product.getImage('small', 0)}" scope="page"/>
+                                <isif condition="${!empty(productImage)}">
+                                    <a href="${URLUtils.https(new dw.web.URLAction('Product-Show', dw.system.Site.current.ID), new dw.web.URLParameter('pid', listItem.ID))}">
+                                        <isset name="imageUrl" value="${productImage.getURL()}" scope="page"/>
+                                        <img itemprop="image" class="primary-image" src="${imageUrl}" alt="${product.name}" title="${product.name}"/>
+                                    </a>
+                                </isif>
+                            </td>
+                            <td>
+                                <p class="productName title"><strong>${product.name}</strong></p>
+                                <isif condition="${product.isVariant()}">
+                                    <isloop items="${product.variationModel.getProductVariationAttributes()}" var="VA">
+                                        <isset name="SelectedVariationValue" value="${product.variationModel.getSelectedValue(VA)}" scope="page"/>
+                                        <div class="attribute" data-attribute="${VA.ID}">
+                                            <strong><span class="label">${VA.displayName}:</span></strong>
+                                            <span class="value">
+                                                <isprint value="${SelectedVariationValue ? SelectedVariationValue.displayValue : '-'}"/>
+                                            </span>
+                                        </div>
+                                    </isloop>
+                                <iselse>
+                                    -
+                                </isif>
+                            </td>
+                            <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                                <td class="label-col">
+                                    ${listItem.interval}
+                                    <isif condition="${!empty(sitePref.SorDeliveryWeekInterval) && listItem.periodicity === sorConstants.PERIODICITY.WEEK}">
+                                        ${Resource.msg('club.subscription.weeks', 'sor_smartorderrefill', null)}
+                                    <iselse>
+                                        ${Resource.msg('club.subscription.months', 'sor_smartorderrefill', null)}
+                                    </isif>
+                                </td>
+                            </isif>
+                            <td class="product-quantity">
+                                ${listItem.quantity}
+                            </td>
+
+                            <td><isprint value="${new dw.value.Money(listItem.price, listItem.currencyCode)}" /></td>
+                            <td>
+                                <isif condition="${order.status != sorConstants.STATUS.EXPIRED && order.status != sorConstants.STATUS.PROCESSED && order.status != sorConstants.STATUS.CANCELED}">
+                                    <isif condition="${order.products.length > 1}" >
+                                        <span class="remove_product">
+                                            <span class="button" data-link="${URLUtils.https('SmartOrderRefillReport-RemoveProduct', 'oid', order.ID, 'item', listItem.ID, 'client', order.customerNo, 'viewType', pdict.order.viewType)}">${Resource.msg('club.vieworder.removeproduct', 'sor_smartorderrefill', null)}</span>
+                                        </span>
+                                    <iselse/>
+                                        <span>${Resource.msg('club.subscription.removeproductwarningOrder','sor_smartorderrefill',null)}</span>
+                                    </isif>
+                                </isif>
+                            </td>
+                            <td>
+                                <span class="update">
+                                    <a class="button" href="${URLUtils.https('SmartOrderRefillReport-EditProduct', 'sid', order.ID, 'item', listItem.ID, 'client', order.customerNo, 'viewType', 'order')}">${Resource.msg('club.vieworder.edit', 'sor_smartorderrefill', null)}</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <isscript>
+                            total = total + (listItem.price * listItem.quantity);
+                            currencyCode = product.priceModel.price.currencyCode;
+                        </isscript>
+                    </isloop>
+                </table>
+            </div>
+        </div>
+
+        <div class="sub-details-total">
+            <isif condition="${order.type == sorConstants.TYPE.SOR}">
+                <div class="total-section">
+                    <div class="content-section">
+                        <isscript>
+                            var shippingCost = originalOrder.getAdjustedShippingTotalPrice(),
+                                orderTotal   = total + shippingCost.decimalValue.get();
+                        </isscript>
+
+                        <div class="total-header">
+                            <h3 class="order-section-title"> ${Resource.msg('club.vieworder.totals', 'sor_smartorderrefill', null)}</h3>
+                        </div>
+                        <div class="total-info">
+                            <p><span>${Resource.msg('club.vieworder.subtotal', 'sor_smartorderrefill', null)}</span><span><isprint value="${new dw.value.Money(total.toFixed(2), shippingCost.currencyCode)}" /></span></p>
+                            <p><span>${Resource.msg('club.vieworder.shipping', 'sor_smartorderrefill', null)}(${defaultShipping.displayName})</span><span><isprint value="${new dw.value.Money(shippingCost.value, shippingCost.currencyCode)}" /></span></p>
+                            <p><span>${Resource.msg('club.vieworder.ordertotal', 'sor_smartorderrefill', null)}</span><span><isprint value="${new dw.value.Money(orderTotal.toFixed(2), shippingCost.currencyCode)}" /></span></p>
+                        </div>
+                    </div>
+                </div>
+            </isif>
+        </div>
+    </div>
+</isdecorate>
+<isinclude template="components/footer" />

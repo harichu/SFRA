@@ -1,0 +1,19 @@
+<div class="card rounded-0 p-0 mb-4 account-pages-card">
+    <div class="card-header-account clearfix p-4">
+        <h2 class="pull-left m-0 text-green">${Resource.msg('label.payment','account',null)}</h2>
+        <isif condition="${pdict.paymentCard}">
+            <a href="${URLUtils.url('PaymentInstruments-List')}" class="pull-right" aria-label="${Resource.msg('label.payment.viewsavedpaymentmethods', 'account', null)}">${Resource.msg('link.view','account',null)}</a>
+        </isif>
+    </div>
+    <hr class="separator m-0"/>
+    <isif condition="${pdict.paymentCard}">
+        <div class="card-body card-info-group p-4">
+            <p>${Resource.msg('label.payment.credit','account',null)} ${pdict.paymentCard.creditCardType}</p>
+            <p>${pdict.paymentCard.maskedCreditCardNumber}</p>
+            <p>${Resource.msg('label.payment.ending','account',null)} ${pdict.paymentCard.creditCardExpirationMonth}/${pdict.paymentCard.creditCardExpirationYear}</p>
+        </div>
+    </isif>
+    <div class="card-footer-account card-footer-border p-4 text-center">
+        <a href="${URLUtils.url('PaymentInstruments-AddPayment')}" class="card-link" aria-label="${Resource.msg('label.payment.addnewpayment', 'payment', null)}">${Resource.msg('link.addnew','account',null)}</a>
+    </div>
+</div>

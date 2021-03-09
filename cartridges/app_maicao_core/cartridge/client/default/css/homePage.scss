@@ -1,0 +1,104 @@
+
+// variables, mixins, etc
+@import "./components/fonts";
+@import "./utilities/utilities";
+
+.homepage-section,
+.carousel-section {
+    padding: 28px 0;
+
+    &.products-carousel {
+        padding: 30px 20px 25px;
+    }
+
+    &__benefits {
+        border: 1px solid $primary-grey-light;
+        border-radius: 50%;
+        min-width: 75px;
+        height: 72px;
+    }
+}
+
+.push-section {
+    img,
+    picture {
+        width: 100%;
+    }
+}
+
+.homepage-section-title {
+    color: $primary-pink;
+    font-family: $font-family-secondary-bold;
+    font-size: rem-calc(18px);
+    line-height: rem-calc(35px);
+    margin-bottom: 28px;
+}
+
+.push-tile-button {
+    min-width: 100%;
+}
+
+.online-shop-title {
+    font-family: $font-family-primary-bold;
+    font-size: rem-calc(12px);
+    line-height: rem-calc(14px);
+    color: $text-grey;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.online-shop-subtitle {
+    color: $text-grey-dark;
+    font-family: $font-family-primary-italic;
+    font-size: rem-calc(14px);
+    text-align: center;
+}
+
+.homepage-cta {
+    font-size: rem-calc(14px);
+    width: 85%;
+}
+
+@include media-breakpoint-up(lg) {
+    .homepage-section {
+        padding: 35px 0;
+
+        &.products-carousel {
+            padding: 30px 0;
+        }
+    }
+
+    .homepage-hero-carousel {
+        margin-bottom: 35px;
+    }
+
+    .homepage-section-title {
+        font-size: rem-calc(25px);
+        line-height: rem-calc(48px);
+        margin-bottom: 35px;
+
+        &.small-title {
+            font-size: rem-calc(22px);
+            line-height: rem-calc(42px);
+        }
+    }
+
+    .push-tile-button {
+        min-width: 210px;
+    }
+
+    .online-shop-title {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(14px);
+        width: 68%;
+        margin-bottom: 5px;
+    }
+
+    .homepage-cta {
+        width: 100%;
+    }
+}
+
+.category-marker {
+    display: none;
+}

@@ -1,0 +1,78 @@
+<isinclude template="/components/modules"/>
+
+<div class="email-signup px-3 py-3">
+    <div class="container">
+        <form class="newsletter-form">
+            <div class="row">
+                <div class="col-lg-5 email-description">
+                    <iscontentasset aid="newsletter-label" />
+                </div>
+                <div class="col-lg-7">
+                    <div class="input-group">
+                        <div class="input-container">
+                            <input id="newsletter-email" type="text" autocomplete="off" name="hpEmailSignUp" class="form-input" placeholder="${Resource.msg('newsletter.placeholder', 'registration', null)}" aria-label="${Resource.msg('newsletter.placeholder', 'registration', null)}" />
+                            <div class="newsletter-icon">
+                                <isinlinesvg src="newsletter-icon" />
+                            </div>
+                        </div>
+
+                        <div class="error-container d-none" data-invalid="${Resource.msg('newsletter.error.invalidemail', 'registration', null)}"></div>
+
+                        <span class="input-group-append">
+                            <button disabled class="btn btn-primary subscribe-news">
+                                ${Resource.msg('newsletter.button', 'registration', null)}
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="newsletter-modal modal modal-checkout fade p-0" id="newsletterModal" tabindex="-1" role="dialog" aria-labelledby="newsletterModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header background-primary d-flex align-items-center py-1">
+                    <h5 class="modal-title text-white text-center w-100">
+                        <iscontentasset aid="newsletter-modal-title" />
+                    </h5>
+                    <button type="button" class="close no-outline" data-dismiss="modal" aria-label="Close">
+                        <isinlinesvg src="close-icon-light" />
+                    </button>
+                </div>
+
+                <form role="form" class="newsletter-options-form" action="${URLUtils.url('EmailSubscribe-SaveNewsletterOptions')}">
+                    <div class="modal-body modal-newsletter-body text-grey px-2 px-lg-4">
+                            <div class="error-container d-none">
+                            </div>
+
+                            <div class="d-none d-lg-block text-center">
+                                <iscontentasset aid="newsletter-modal-description" />
+                            </div>
+
+                            <ul class="newsletter-options">
+                                <isloop items="${pdict.newsletterOptions}" var="option">
+                                    <li class="option-item">
+                                        <input class="option-input" type="checkbox" data-option="${option}" id="${option}"/>
+                                        <label for="${option}" class="custom-checkbox"></label>
+                                        <label for="${option}" class="option-label">
+                                            ${option}
+                                        </label>
+                                    </li>
+                                </isloop>
+                            </ul>
+
+                    </div>
+                    <div class="newsletter-actions">
+                        <button data-dismiss="modal" aria-label="Close" class="btn btn-style">
+                            ${Resource.msg('newsletter.modal.button.cancel', 'registration', null)}
+                        </button>
+                        <button type="submit" class="btn btn-secondary confirm-btn" disabled>
+                            ${Resource.msg('newsletter.modal.button.confirm', 'registration', null)}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

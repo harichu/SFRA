@@ -1,0 +1,60 @@
+<isif condition="${pdict.customer.addresses && pdict.customer.addresses.length > 0}">
+    <isloop items="${pdict.customer.addresses}" var="address" status="loopstate">
+        <div class="custom-control custom-radio mb-5 mb-lg-4 radius-small">
+            <input
+                type="radio"
+                class="custom-control-input address-option"
+                id="${'id_'+address.ID}"
+                value="${'ab_'+address.ID}"
+                name="shipment-radio-input"
+                data-first-name="${address.firstName || ''}"
+                data-last-name="${address.lastName || ''}"
+                data-address1="${address.address1 || ''}"
+                data-address2="${address.address2 || ''}"
+                data-city="${address.city || ''}"
+                data-state-code="${address.stateCode || ''}"
+                data-country-code="${address.countryCode.value || ''}"
+                data-postal-code="${address.postalCode || ''}"
+                data-phone="${address.phone || ''}"
+                data-address-id="${address.ID || ''}"
+                data-latitude="${address.latitude || ''}"
+                data-longitude="${address.longitude || ''}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', 'SelectAddress', address.ID, 'AddressID')}"
+            >
+
+            <label class="custom-control-label cursor-pointer text-grey pr-lg-5 py-3 w-100" for="${'id_'+address.ID}">
+                <p class="shipping-input-title text-bold mb-0">
+                    ${address.ID || ''}
+                </p>
+                <p class="shippig-address-details mb-0">
+                    ${address.address1 || ''} ${address.address2 || ''} ${address.city || ''}${!address.city || ','} ${address.stateCode||''} ${address.postalCode||''}
+                </p>
+            </label>
+            <a class="btn-show-details position-absolute cursor-pointer" data-gtm="${require('int_gtm').gtmEventListener('click', 'EditDetailsFromCheckout', address.ID, 'AddressID')}">
+                <span class="pl-2 show-details-text">
+                    ${Resource.msg('action.update.address', 'checkout', null)}
+                </span>
+                <isinlinesvg src="edit-cart-icon" />
+            </a>
+        </div>
+    </isloop>
+    <div class="custom-control custom-radio d-none radius-small">
+        <input value="new"
+            type="radio"
+            id="new-radio-button"
+            class="custom-control-input"
+            name="shipment-radio-input"
+            data-first-name="${shippingModel.shippingAddress.firstName}"
+            data-last-name="${shippingModel.shippingAddress.lastName}"
+            data-address1=""
+            data-address2=""
+            data-city=""
+            data-state-code=""
+            data-address-id=""
+            data-country-code="${shippingModel.shippingAddress.countryCode.value}" data-postal-code="${shippingModel.shippingAddress.postalCode}"
+            data-phone="${shippingModel.shippingAddress.phone}"
+        />
+        <label class="custom-control-label" for="new-radio-button">
+            ${Resource.msg('msg.add.new.address', 'checkout', null)}
+        </label>
+</isif>

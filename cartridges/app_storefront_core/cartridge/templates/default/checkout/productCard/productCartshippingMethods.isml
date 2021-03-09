@@ -1,0 +1,49 @@
+<isinclude template="/components/modules"/>
+<isset name="storePickup" value="${lineItem.custom.storePickup}" scope="page" />
+<isset name="homeDelivery" value="${lineItem.custom.homeDelivery}" scope="page" />
+<isset name="prescription" value="${lineItem.custom.difarmaPrescriptionModel}" scope="page" />
+
+<div class="shipping-items-container d-flex flex-row flex-lg-column w-100">
+    <div class="track-shipping mb-lg-2" style="display:${homeDelivery ? 'block' : 'none'}">
+        <div class="product-tile-shipping-item d-flex align-items-center">
+            <div class="tile-club-image online-shopping mr-1 d-flex align-items-center justify-content-center">
+                <isinlinesvg src="track-icon" />
+            </div>
+            <span class="shipping-text-container">
+                <p class="m-0 text-grey" style="display:${!storePickup ? 'inline' : 'none' }">${Resource.msg('tile.shopping.singular', 'common', null)}</p>
+                <span class="d-none d-lg-inline text-grey">${Resource.msg('tile.shopping.online.text', 'common', null)}</span>
+                <span class="d-lg-none pl-1 text-grey">${Resource.msg('tile.shopping.online.text.mobile', 'common', null)}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="store-shipping mb-lg-2" style="display:${storePickup ? 'block' : 'none' }">
+        <div class="product-tile-shipping-item d-flex align-items-center">
+            <div class="tile-club-image online-shopping mr-1 d-flex align-items-center justify-content-center">
+                <isinlinesvg src="store-icon" />
+            </div>
+            <span class="shipping-text-container">
+                <p class="m-0 text-grey" style="display:${!homeDelivery ? 'inline' : 'none' }">${Resource.msg('tile.shopping.singular', 'common', null)}</p>
+                <span class="d-none d-lg-inline text-grey">${Resource.msg('tile.shopping.store.text', 'common', null)}</span>
+                <span class="d-lg-none pl-1 text-grey">${Resource.msg('tile.shopping.store.text.mobile', 'common', null)}</span>
+            </span>
+        </div>
+    </div>
+
+    <isif condition="${prescription !== null}">
+        <div class="product-tile-shipping-item d-flex align-items-center pr-2">
+            <div class="tile-club-image online-shopping mr-1 d-flex align-items-center justify-content-center">
+                <isinlinesvg src="receta-icon" width="17" height="18"/>
+            </div>
+            <span class="shipping-text-container">
+                <span class="text-grey">
+                    <isif condition="${prescription.toString() === 'Simple'}">
+                        <span>${Resource.msg('tile.receta.simple.text', 'common', null)}</span>
+                    <iselse/>
+                        <span>${Resource.msg('tile.receta.restricted.text', 'common', null)}</span>
+                    </isif>
+                </span>
+            </span>
+        </div>
+    </isif>
+</div>

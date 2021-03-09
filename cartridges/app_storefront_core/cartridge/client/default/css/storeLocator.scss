@@ -1,0 +1,149 @@
+@import "./utilities/utilities";
+@import "./components/fonts";
+
+.map-canvas {
+    height: 470px;
+    margin: 0;
+}
+
+.store-locator-container .store-locator-no-results {
+    display: none;
+}
+
+.storelocator-search-container {
+    transform: translateY(-50%);
+    padding: 35px 12px;
+}
+
+.storelocator-subtitle {
+    font-size: rem-calc(18px);
+    color: $text-grey-dark;
+}
+
+.store-details {
+    padding-left: 40px;
+
+    &::before {
+        content: "";
+        background: url("../../images/store-location-icon.svg") no-repeat;
+        width: 23px;
+        height: 24px;
+        display: inline-block;
+        background-size: 100%;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+    }
+}
+
+.store-name-first {
+    font-family: $font-family-primary-bold;
+    font-size: rem-calc(17px);
+    line-height: rem-calc(18px);
+    color: $text-grey-dark;
+    margin-bottom: 5px;
+}
+
+.store-map-address {
+    span {
+        color: $text-grey-dark;
+        text-decoration: underline;
+        font-family: $font-family-primary;
+        font-size: rem-calc(15px);
+
+        &.store-address-distance,
+        &.store-distance-long {
+            text-decoration: none;
+        }
+    }
+}
+
+.store-distance-short {
+    display: none;
+}
+
+.store-hours {
+    p {
+        font-size: rem-calc(14px);
+        color: $storelocator-grey;
+        margin-bottom: 5px;
+        font-family: $font-family-primary;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            min-width: 90px;
+
+            &::before {
+                content: "|";
+                padding: 0 8px 0 5px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.btn-storelocator {
+    padding: 6px 18px;
+    margin-bottom: 5px;
+    font-size: rem-calc(14px);
+}
+
+button[title="close"] {
+    color: $brand-color-primary;
+}
+
+.gm-style .gm-style-iw-c {
+    min-width: 360px;
+    max-width: 100%;
+}
+
+.store-locator-container {
+    padding: 0 12px;
+}
+
+.gm-style .gm-style-iw-d {
+    max-width: 100% !important;
+}
+
+.storelocator-title {
+    font-size: rem-calc(24px);
+}
+
+.storelocator-title-second {
+    font-size: rem-calc(14px);
+    color: $text-grey-dark;
+}
+
+@include media-breakpoint-down(lg) {
+    .store-details {
+        padding-left: 15px;
+
+        &::before {
+            display: none;
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .gm-style .gm-style-iw-c {
+        min-width: 440px;
+    }
+
+    .storelocator-search-container {
+        padding: 30px 65px;
+    }
+
+    .storelocator-title {
+        font-size: rem-calc(22px);
+        color: $darker-green;
+    }
+
+    .store-locator-container {
+        padding: 0;
+    }
+
+    .btn-storelocator {
+        font-size: rem-calc(18px);
+    }
+}

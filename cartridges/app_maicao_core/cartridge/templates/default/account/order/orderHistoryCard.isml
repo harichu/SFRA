@@ -1,0 +1,122 @@
+<div class="card order-list-item flex-wrap flex-row ${!pdict.isOmsOrderServiceEnabled ? 'no-oms-card' : 'oms-card'}" data-order-no="${order.OrderNo}" data-order-pids="${order.pids.join(",")}">
+    <div class="item-header d-lg-none w-50 px-3 py-4 py-lg-0 px-lg-0">
+        ${Resource.msg('label.order.header.status','order', null)}:
+    </div>
+    <div class="item-info status pb-4 py-4 py-lg-0">
+        <isinlinesvg src="clock-icon">
+        <span class="value">
+            ${order.statusDesc}
+        </span>
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4">
+        ${Resource.msg('label.order.header.date','order',null)}:
+    </div>
+    <div class="item-info date pb-4 pb-lg-0 text-capitalize">
+        <isprint value="${order.rawCreationDate}" formatter="dd MMMM yyyy" />
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4">
+        ${Resource.msg('label.order.header.number','order',null)}:
+    </div>
+    <div class="item-info number pb-4 pb-lg-0">
+        <a class="info-link" href="${URLUtils.url('Order-Details', 'orderID', order.OrderNo)}">
+            ${order.OrderNo}
+        </a>
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4">
+        ${Resource.msg('label.order.header.address','order', null)}:
+    </div>
+    <div class="item-info address pb-4 pb-lg-0">
+        <strong class="address-name">
+            <isprint value="${order.address.name}" encoding="on" />
+        </strong>
+        <span>
+            <isprint value="${order.address.line1}" encoding="on" /> <isprint value="${order.address.line2}" encoding="on" />
+        </span>
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4">
+        ${Resource.msg('label.order.header.products','order', null)}:
+    </div>
+    <div class="item-info products pb-4 pb-lg-0">
+        <a class="info-link" href="${URLUtils.url('Order-Details', 'orderID', order.OrderNo)}">
+            <span class="icon">
+                <isinlinesvg src="header-bolsa-icon" />
+            </span>
+            ${Resource.msgf('label.number.items.in.cart','cart', null, order.OrderLines.OrderLine.length)}
+            <span class="arrow">
+                <isinlinesvg src="arrow-icon" />
+            </span>
+        </a>
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4">
+        ${Resource.msg('label.order.header.shipping','order', null)}:
+    </div>
+    <div class="item-info shipping pb-4 pb-lg-0">
+        <isif condition="${order.isHomeDelivery}">
+            <div class="shipping-item">
+                <div class="shipping-icon">
+                    <isinlinesvg src="track-icon" />
+                </div>
+                <span class="shipping-text">
+                    ${Resource.msg('homedelivery.title.short', 'checkout', null)}
+                </span>
+            </div>
+        <iselse>
+            <div class="shipping-item">
+                <div class="shipping-icon">
+                    <isinlinesvg src="store-icon" />
+                </div>
+                <span class="shipping-text">
+                    <span class="d-none d-lg-block">
+                        ${Resource.msg('pickupinstore.title', 'checkout', null)}
+                    </span>
+                    <span class="d-lg-none">
+                        ${Resource.msg('pickupinstore.title.short', 'checkout', null)}
+                    </span>
+                </span>
+            </div>
+        </isif>
+    </div>
+    <div class="divisor d-none d-lg-block"></div>
+    <div class="item-header d-lg-none w-50 px-3 pb-4 text-bold">
+        ${Resource.msg('label.order.header.total','order', null)}:
+    </div>
+    <div class="item-info price price-total pb-4 pb-lg-0">
+        ${order.FormattedTotal}
+    </div>
+    <isif condition="${pdict.isOmsOrderServiceEnabled}">
+        <div class="divisor d-none d-lg-block"></div>
+        <div class="item-action">
+            <a class="info-link" target="_blank" rel="noopener" href="${order.invoiceURL}">
+                <isinlinesvg src="factura-icon"/>
+                <span class="label">
+                    ${Resource.msg("label.order.boleta", "account", null)}
+                </span>
+            </a>
+        </div>
+        <div class="divisor d-none d-lg-block"></div>
+        <div class="item-action">
+                <isset name="isSorEnabled" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('SorEnabled')}" scope="page" />
+                <a class="info-link order-sor-btn ${order.hasSORProduct && isSorEnabled ? '' : 'disabled'}" data-has-sor="${order.hasSORProduct}">
+                    <isinlinesvg src="factura-icon"/>
+                    <span class="label">
+                        ${Resource.msg("label.order.subscribe", "account", null)}
+                    </span>
+                </a>
+        </div>
+        <div class="divisor d-none d-lg-block"></div>
+        <div class="item-action">
+            <isset name="prescriptionHrefAttr" value="${order.hasPrescriptionProduct ? 'href=' + URLUtils.https('Order-Details', 'orderID', order.OrderNo) : ''}" scope="page" />
+            <a class="info-link ${order.hasPrescriptionProduct ? '' : 'disabled'}" ${prescriptionHrefAttr}>
+                <isinlinesvg src="receipt-icon"/>
+                <span class="label">
+                    ${Resource.msg("label.order.receipt", "account", null)}
+                </span>
+            </a>
+        </div>
+    </isif>
+</div>

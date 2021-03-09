@@ -1,0 +1,35 @@
+<isset name="isAnyPrescriptionUploaded" value="${false}" scope="page" />
+<isset name="needsPrescription"         value="false"    scope="page" />
+
+<isloop items="${pdict.order.shipping}" var="shipping">
+    <isloop items="${shipping.productLineItems.items}" var="lineItem">
+        <isif condition="${!empty(lineItem.custom.difarmaPrescriptionModel)}">
+            <isset name="needsPrescription" value="true" scope="page" />
+        </isif>
+        <isif condition="${!empty(lineItem.difarmaPrescriptionFileName)}">
+            <isset name="isAnyPrescriptionUploaded" value="${true}" scope="page" />
+        </isif>
+    </isloop>
+</isloop>
+
+<isif condition="${needsPrescription == "true"}">
+    <div class="prescription-block pickup d-none mt-4">
+        <div class="prescriptions">
+            <isloop items="${pdict.order.shipping}" var="shipping">
+                <isloop items="${shipping.productLineItems.items}" var="lineItem">
+                    <isif condition="${!empty(lineItem.custom.difarmaPrescriptionModel)}">
+                        <isset name="validToAllVisible" value="false" scope="page" />
+                        <isinclude template="checkout/shipping/shipmentPrescriptionCard" />
+                    </isif>
+                </isloop>
+            </isloop>
+        </div>
+        <isif condition="${pdict.isRestrictedPrescriptionUploadEnabled}">
+            <div class="custom-control custom-checkbox prescription-noreceipt ${isAnyPrescriptionUploaded ? 'd-none' : ''}">
+                <input class="form-control required noreceipt-input custom-control-input" type="checkbox" id="noreceipt"/>
+                <label class="form-control-label custom-control-label" for="noreceipt">${Resource.msg("pickup.method.prescription.noreceipt", "checkout", null)}</label>
+                <div class="invalid-feedback text-center"></div>
+            </div>
+        </isif>
+    </div>
+</isif>

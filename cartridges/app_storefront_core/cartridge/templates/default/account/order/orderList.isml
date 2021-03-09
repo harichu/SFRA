@@ -1,0 +1,5 @@
+<isinclude template="/components/modules" />
+
+<isloop items="${pdict.orders}" var="order">
+    <isinclude template="account/order/orderHistoryCard"/>
+</isloop>

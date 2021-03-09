@@ -1,0 +1,24 @@
+<div class="modal fade" id="sortOrder" tabindex="-1" role="dialog" aria-labelledby="sortOrder" aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center" role="document">
+        <div class="modal-content overflow-hidden">
+            <div class="header-bar text-white">
+               ${Resource.msg('label.sort.by', 'search', null)}
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <select name="sort-order" class="category-sort-order d-flex flex-column position-relative" aria-label="${Resource.msg('label.sort.by', 'search', null)}">
+                    <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                        <option class="${option.id} category-sort-option py-2" value="${option.url}"
+                            data-id="${option.id}"
+                            ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                        >
+                            ${option.displayName}
+                        </option>
+                    </isloop>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

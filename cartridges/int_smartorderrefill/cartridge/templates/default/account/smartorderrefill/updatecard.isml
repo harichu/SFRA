@@ -1,0 +1,33 @@
+<!--- TEMPLATENAME: updatecard.isml --->
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<isinclude template="util/sormodules"/>
+
+<form id="editCreditCard" name="EditCreditCard" action="${URLUtils.httpsContinue()}" class="form-horizontal" method="post">
+    <fieldset>
+        <isif condition="${pdict.canUpdateAll}" >
+        <div class="formfield clearfix">
+            <issorinputfield formfield="${pdict.CurrentForms.updatecard.type}" type="select" requiredtext="${dw.web.Resource.msg('creditcard.typemissing', 'forms', null)}"/>
+        </div>
+        <div class="formfield clearfix">
+            <issorinputfield  formfield="${pdict.CurrentForms.updatecard.number}" type="text" dynamicname="true"  requiredtext="${dw.web.Resource.msg('creditcard.numbermissingerror', 'forms', null)}"/>
+        </div>
+        </isif>
+        <div class="formfield clearfix">
+            <div class="form-row sor-form-row">
+                <label class="updatecard-expiration-label">
+                    <span class="required-indicator">&#8226; </span>
+                    <span>${Resource.msg('updatecard.expirationdate', 'forms', null)}</span>
+                </label>
+                <div class="expiration-date-wrapper flex" data-expMonth="${pdict.expMonth.toFixed(0)}" data-expYear="${pdict.expYear.toFixed(0)}">
+                    <issorinputfield formfield="${pdict.CurrentForms.updatecard.expiration.month}" type="select" requiredtext="${dw.web.Resource.msg('creditcard.monthmissingerror', 'forms', null)}"/>
+                    <issorinputfield formfield="${pdict.CurrentForms.updatecard.expiration.year}" type="select" requiredtext="${dw.web.Resource.msg('creditcard.yearmissingerror', 'forms', null)}"/>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" value="${Resource.msg('global.submit','locale',null)}" name="${pdict.CurrentForms.updatecard.confirm.htmlName}" />
+        <input type="hidden" class="csrf-token" data-url="${URLUtils.url('CSRF-Generate')}"/>
+    </fieldset>
+</form>

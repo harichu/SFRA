@@ -1,0 +1,66 @@
+.header-top-banner {
+    color: $white;
+    padding: 4px 0;
+    font-size: rem-calc(12px);
+    z-index: 11;
+}
+
+.club-logo {
+    width: 20px;
+}
+
+.nav-topbanner {
+    .nav-topbanner-icon {
+        width: 20px;
+        height: 17px;
+        margin-right: 4px;
+    }
+
+    .nav-topbanner-link,
+    .nav-topbanner-item {
+        color: $primary-pink;
+    }
+
+    .subscribe,
+    .subscribe-mobile {
+        border-bottom: 2px solid $primary-yellow;
+        letter-spacing: 1px;
+    }
+
+    .benefits,
+    .phone {
+        margin-left: 8px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .club-logo {
+        width: auto;
+    }
+
+    .nav-topbanner {
+        &:last-child {
+            flex: 0 0 auto;
+        }
+
+        .nav-topbanner-item:not(:last-child) {
+            margin-right: 14px;
+        }
+
+        .subscribe {
+            letter-spacing: 3px;
+        }
+    }
+
+    .header-top-banner {
+        z-index: 9;
+        font-size: rem-calc(11px);
+        letter-spacing: 0.3px;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .header-top-banner {
+        font-size: rem-calc(13px);
+    }
+}

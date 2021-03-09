@@ -1,0 +1,249 @@
+<isinclude template="/components/modules" />
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/contactUs.js');
+    </isscript>
+
+    <div class="content-page contact-us-page" data-gtm="${require('int_gtm').gtmEventListener('show', 'ContactUs')}">
+
+        <isinclude template="components/content/contentTopBanner"/>
+
+        <div class="container py-3 py-lg-5">
+            <div class="content-box background-white rounded p-2 p-lg-5">
+                <div class="content-box-body">
+                    <div class="d-flex align-items-center mb-lg-4">
+                        <div class="contact-us-icon">
+                            <isinlinesvg src="contact-us-icon" />
+                        </div>
+                        <h4 class="content-box-title ml-2 mb-0">${Resource.msg("page.message.form.header", "contactUs", null)}</h4>
+                    </div>
+                    <hr/>
+                    <form action="${pdict.actionUrl}" class="contact-us mt-lg-5" method="POST" name="contact-us" data-validation-url="${URLUtils.url("ContactUs-Validate")}">
+                        <!--- contact us first name, last name and email --->
+                        <div class="row contact-us-name">
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="contact-first-name">
+                                        ${Resource.msg('label.input.contact-us.first-name', 'contactUs', null)}
+                                    </label>
+                                    <input type="text"
+                                        class="form-control required" required
+                                        aria-describedby="form-contact-first-name-error"
+                                        id="contact-first-name"
+                                        name="contactFirstName"
+                                        pattern="${Resource.msg("regex.name.single.field", "forms", null)}"
+                                        data-missing-error="${Resource.msg('error.message.required', 'contactUs', null)}"
+                                        data-pattern-mismatch="${Resource.msg('error.name.pattern', 'contactUs', null)}"
+                                    />
+                                    <div class="invalid-feedback" id="form-contact-first-name-error"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="contact-last-name">
+                                        ${Resource.msg('label.input.contact-us.last-name', 'contactUs', null)}
+                                    </label>
+                                    <input type="text"
+                                        class="form-control required" required
+                                        aria-describedby="form-contact-last-name-error"
+                                        id="contact-last-name"
+                                        name="contactLastName"
+                                        pattern="${Resource.msg("regex.name.single.field", "forms", null)}"
+                                        data-missing-error="${Resource.msg('error.message.required', 'contactUs', null)}"
+                                        data-pattern-mismatch="${Resource.msg('error.lastname.pattern', 'contactUs', null)}"
+                                    />
+                                    <div class="invalid-feedback" id="form-contact-last-name-error"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="contact-email">
+                                        ${Resource.msg('label.input.contact-us.email', 'contactUs', null)}
+                                    </label>
+                                    <input type="text"
+                                        class="form-control required" required
+                                        aria-describedby="form-contact-email-error"
+                                        id="contact-email" name="contactEmail"
+                                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                                        data-pattern-mismatch="${Resource.msg('error.parse.email', 'forms', null)}"
+                                        data-range-error="${Resource.msg('error.parse.email', 'forms', null)}"
+                                        pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,}$"
+                                        maxlength="50"
+                                    />
+                                    <div class="invalid-feedback" id="form-contact-email-error"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- contact us phone, city, document and identification number --->
+                        <div class="row contact-us-phone">
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="contact-phone">
+                                        ${Resource.msg('label.input.contact-us.phone', 'contactUs', null)}
+                                    </label>
+                                    <input type="tel"
+                                        class="form-control required phone-field" required
+                                        aria-describedby="form-contact-phone-error"
+                                        id="contact-phone"
+                                        name="contactPhone"
+                                        data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                                        data-pattern-mismatch="${Resource.msg('error.message.parse.phone', 'contactUs', null)}"
+                                        data-prefix="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                                        value="${Resource.msg('label.input.countrycode', 'forms', null)}"
+                                        pattern="^[\(\+57\)(\d)(\d){7,12}|(\d){3}(-)(\d){4}(-)(\d){3}]{15,}$"
+                                        data-mask="(+00)0000000000"
+                                    />
+                                    <div class="invalid-feedback" id="form-contact-phone-error"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="contact-email">
+                                        ${Resource.msg('label.input.contact-us.city', 'contactUs', null)}
+                                    </label>
+                                    <input type="text"
+                                        class="form-control"
+                                        aria-describedby="form-contact-city-error"
+                                        id="contact-city"
+                                        name="contactCity"
+                                        pattern="^[a-zA-Z\sáÁéÉíÍñÑóÓúÚüÜ-]+$"
+                                        data-pattern-mismatch="${Resource.msg('error.city.pattern', 'contactUs', null)}"
+                                    />
+                                    <div class="invalid-feedback" id="form-contact-city-error"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="registration-document">
+                                                ${Resource.msg('label.input.contact-us.document', 'contactUs', null)}
+                                            </label>
+                                            <select type="text" required class="custom-select form-control" id="registration-document" name="contactDocument">
+                                                <option value="${Resource.msg('label.contact-us.document.type.cc', 'contactUs', null)}">
+                                                    ${Resource.msg('label.contact-us.document.type.cc', 'contactUs', null)}
+                                                </option>
+                                                <option value="${Resource.msg('label.contact-us.document.type.ce', 'contactUs', null)}">
+                                                    ${Resource.msg('label.contact-us.document.type.ce', 'contactUs', null)}
+                                                </option>
+                                                <option value="${Resource.msg('label.contact-us.document.type.passport', 'contactUs', null)}">
+                                                    ${Resource.msg('label.contact-us.document.type.passport', 'contactUs', null)}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group required" required>
+                                            <label class="form-control-label" for="contact-indentification-number">
+                                                ${Resource.msg('label.input.contact-us.identification-number', 'contactUs', null)}
+                                            </label>
+                                            <input type="text"
+                                                class="form-control required js-document-validation" required
+                                                data-type="cedula"
+                                                aria-describedby="form-contact-identification-number-error"
+                                                id="contact-identification-number-phone"
+                                                name="contactIdentificationNumber"
+                                                pattern=".{6,10}"
+                                                data-missing-error="${Resource.msg('validate.required', 'forms', null)}"
+                                                data-pattern-mismatch="${Resource.msg('error.document.cc', 'forms', null)}"
+                                                data-passport-error="${Resource.msg('error.document.passport', 'forms', null)}"
+                                                data-ce-error="${Resource.msg('error.document.ce', 'forms', null)}"
+                                                data-cc-error="${Resource.msg('error.document.cc', 'forms', null)}"
+                                            />
+                                            <div class="invalid-feedback" id="form-contact-indentification-number-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- contact us topic --->
+                        <div class="row contact-us-topic">
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="feedback-topic">
+                                        ${Resource.msg('label.input.contact-us.topic', 'contactUs', null)}
+                                    </label>
+                                    <select type="text" required class="custom-select form-control required" id="contact-topic" name="feedbackTopic">
+                                        <option value="${Resource.msg('label.feedback.type.drugstore-purchase', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.drugstore-purchase', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.home-purchase', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.home-purchase', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.chemist-consultation', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.chemist-consultation', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.eps-delivery-drugstore', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.eps-delivery-drugstore', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.eps-delivery-home', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.eps-delivery-home', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.habeas-data', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.habeas-data', 'contactUs', null)}
+                                        </option>
+                                        <option value="${Resource.msg('label.feedback.type.other', 'contactUs', null)}">
+                                            ${Resource.msg('label.feedback.type.other', 'contactUs', null)}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- contact us comment --->
+                        <div class="row contact-us-comment">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="contact-comment">
+                                        ${Resource.msg('label.input.contact-us.comment', 'contactUs', null)}
+                                    </label>
+                                    <textarea class="form-control" id="contact-comment" name="contactComment" rows="4" maxlength="2800"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- contact us terms and conditions --->
+                        <div class="row contact-us-terms mb-4 mb-lg-0">
+                            <div class="col">
+                                <div class="form-group custom-control custom-checkbox d-flex justify-content-center flex-wrap text-center">
+                                    <input type="checkbox" class="form-control required custom-control-input w-auto h-auto d-inline-block position-absolute" name="termsAndConditions" id="termsAndConditions" value="1" data-missing-error="${Resource.msg('label.message.terms.policy.required', 'contactUs',null)}"/>
+                                    <label class="form-control-label custom-control-label d-flex justify-content-center align-items-center" for="termsAndConditions">
+                                        <span>${Resource.msg('label.message.terms.accept', 'contactUs', null)}
+                                        <a href="${URLUtils.url('Page-Show','cid','aviso-de-privacidad')}"><u>${Resource.msg('label.message.terms.policy', 'contactUs', null)}</u></a></span>
+                                    </label>
+                                    <div class="invalid-feedback text-center"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                        <!--- contact us submit --->
+                        <div class="row contact-us-submit">
+                            <div class="col">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-secondary w-100 w-lg-25 subscribe-contact-us" type="submit" name="submit" value="submit">
+                                        ${Resource.msg('label.input.contact-us.submit', 'contactUs', null)}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="contact-us-success text-center mt-5 d-none">
+                        <div class="contact-us-success-icon rounded-circle mx-auto mb-3">
+                            <i class="fa fa-check text-white"></i>
+                        </div>
+                        <h4 class="contact-us-success-title">${Resource.msg("page.message.success", "contactUs", null)}</h4>
+                        <div class="contact-us-success-text">
+                            <p class="mb-0">${Resource.msg("page.message.thanks", "contactUs", null)}</p>
+                            <p>${Resource.msg("page.message.customer.service", "contactUs", null)}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

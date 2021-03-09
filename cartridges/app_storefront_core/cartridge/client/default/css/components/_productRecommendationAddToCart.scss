@@ -1,0 +1,40 @@
+.show.recommendation-dialog-wrapper {
+    @include media-breakpoint-down(sm) {
+        .recommendation-dialog {
+            top: 87px;
+            transform: none;
+            padding: 0;
+            margin: 0;
+
+            .modal-header {
+                flex-direction: column;
+                align-items: center;
+                border-bottom: none;
+            }
+
+            .modal-body {
+                min-height: 300px;
+            }
+
+            .modal-content {
+                border-radius: 0;
+                background-color: $secondary-grey-light;
+            }
+
+            .modal-footer {
+                border-top: none;
+            }
+        }
+
+        .product {
+            .quantity,
+            .tile-attribute-selector {
+                display: none;
+            }
+        }
+    }
+}
+
+.modal-backdrop-transparent.fade.show {
+    opacity: 0;
+}

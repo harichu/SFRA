@@ -1,0 +1,51 @@
+.product-detail-container {
+    .value {
+        margin-right: 6px;
+        color: $secondary-grey;
+
+        .price-original {
+            color: $accent-grey-light;
+        }
+
+        .original-value {
+            text-decoration: line-through;
+        }
+    }
+
+    .large-price .value {
+        font-family: $font-family-primary-bold;
+        font-size: rem-calc(27px);
+        line-height: rem-calc(33px);
+        color: $promotional-red;
+    }
+
+    .price .range .sales {
+        font-size: rem-calc(27px);
+        line-height: rem-calc(27px);
+    }
+
+    .sales,
+    .price-original {
+        font-size: rem-calc(19px);
+        line-height: rem-calc(23px);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .product-detail-container {
+        .large-price .value {
+            font-size: rem-calc(32px);
+            line-height: rem-calc(38px);
+        }
+
+        .price .range .sales {
+            font-size: rem-calc(34px);
+        }
+
+        .sales,
+        .price-original {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+        }
+    }
+}

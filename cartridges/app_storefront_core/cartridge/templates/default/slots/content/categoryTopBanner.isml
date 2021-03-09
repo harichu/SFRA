@@ -1,0 +1,13 @@
+<isif condition="${slotcontent != null}">
+    <div class="category-slider" data-slick='{
+                                    "arrows": false,
+                                    "dots": true,
+                                    "autoplay": true,
+                                    "autoplaySpeed": ${slotcontent.custom.carouselInterval ? slotcontent.custom.carouselInterval : 3000}}'>
+        <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
+            <div class="carousel-item ${loopState.first ? 'active' : ''}" title="${contentAsset.name}" >
+                <isprint value="${contentAsset.custom.body}" encoding="off"/>
+            </div>
+        </isloop>
+    </div>
+</isif>

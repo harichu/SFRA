@@ -1,0 +1,58 @@
+<div class="row justify-content-center dashboard-cards">
+    <div class="dashboard-card-out">
+        <iscontentasset aid="profile-dashboard-block-orders" />
+    </div>
+    <div class="dashboard-card-out">
+        <iscontentasset aid="profile-dashboard-block-family" />
+    </div>
+    <div class="dashboard-card-out">
+        <iscontentasset aid="profile-dashboard-block-health" />
+    </div>
+    <div class="dashboard-card-out">
+        <iscontentasset aid="profile-dashboard-block-subscription" />
+    </div>
+</div>
+
+<div class="row justify-content-center dashboard-cards cards-bottom">
+    <div class="dashboard-card-out bottom">
+        <iscontentasset aid="profile-dashboard-assistant" />
+    </div>
+
+    <div class="dashboard-card-out bottom">
+        <isif condition="${pdict.loyalty.isEnabled && pdict.loyalty.isMember}">
+            <div class="dashboard-card loyalty-card">
+                <isinlinesvg src="club-icon"/>
+                <span class="dashboard-card-title card-title">
+                    ${Resource.msgf('label.card.club.title' ,'account', null, pdict.loyalty.level)}
+                </span>
+                <div class="loyalty-card-content">
+                    <div class="item-column">
+                        <iscontentasset aid="profile-dashboard-loyalty-medicines" />
+                        <iscontentasset aid="profile-dashboard-loyalty-beauty" />
+                    </div>
+                    <div class="item-column">
+                        <div class="loyalty-card-item big">
+                            <span class="w-100">
+                                ${Resource.msg('label.card.club.text' ,'account', null)}
+                            </span>
+                            <span class="value loyalty-amount-savings">
+                                ${pdict.loyalty.savings}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <a class="text-underline" href="${URLUtils.url("Page-Show", "cid", "club-cruz-verde")}">
+                    ${Resource.msg('label.card.club.link' ,'account', null)}
+                    <i class="arrow-icon fa ml-2 fa-chevron-right text-orange"></i>
+                </a>
+            </div>
+        <iselse>
+            <isset name="ContentMgr" value="${require("dw/content/ContentMgr")}"                            scope="page" />
+            <isset name="asset"      value="${ContentMgr.getContent('profile-dashboard-loyalty-nomember')}" scope="page" />
+
+            <isif condition="${!empty(asset) && !empty(asset.custom.body)}">
+                <iscontentasset aid="profile-dashboard-loyalty-nomember" />
+            </isif>
+        </isif>
+    </div>
+</div>

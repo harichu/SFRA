@@ -1,0 +1,15 @@
+
+<isif condition="${pdict.isPrescriptionUploadServiceEnabled && needsPrescription == "true"}">
+    <div class="prescription-block delivery mt-3 d-none">
+        <div class="prescription-message">
+            <span class="important">${Resource.msg('shipping.method.prescription.important', 'checkout', null)}</span>
+            ${Resource.msg('shipping.method.prescription.simple.required', 'checkout', null)}
+        </div>
+        <div class="prescriptions">
+            <isloop items="${pdict.simplePrescritionLineItems}" var="lineItem">
+                <isset name="validToAllVisible" value="true" scope="page" />
+                <isinclude template="checkout/shipping/shipmentPrescriptionCard" />
+            </isloop>
+        </div>
+    </div>
+</isif>

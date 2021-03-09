@@ -1,0 +1,9 @@
+<isscript>
+    var MercadoPagoHelper       = require('*/cartridge/scripts/util/MercadoPagoHelper');
+    var availablePaymentMethods = MercadoPagoHelper.getAvailablePaymentMethods();
+    var paymentType             = availablePaymentMethods.filter(function(paymentMethod, index) { return paymentMethod.id === payment.type; });
+    var paymentName             = paymentType.length ? paymentType[0].name : payment.type;
+</isscript>
+<div class="credit-card-type">
+    <span>${payment.paymentMethod} ${paymentName}</span>
+</div>

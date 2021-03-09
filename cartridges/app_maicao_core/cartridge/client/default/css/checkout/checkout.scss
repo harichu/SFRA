@@ -1,0 +1,495 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+@import "./progresssteps";
+@import "./checkoutsummary";
+@import "./checkoutpayment";
+@import "./checkoutshipping";
+@import "./checkoutpickup";
+@import "./checkoutconfirmation";
+@import "~cssCore/checkout/checkoutmodal";
+@import "~cssCore/checkout/checkoutprescription";
+
+//Section visibility styling
+
+.checkout-hidden {
+    display: none;
+}
+
+.data-checkout-stage {
+    // Initial states ------------------------
+    &[data-checkout-stage] {
+        .card.payment-summary,
+        .shipping-summary {
+            display: none;
+        }
+
+        button.place-order {
+            display: none;
+        }
+
+        button.submit-payment {
+            display: none;
+        }
+
+        button.submit-shipping {
+            display: none;
+        }
+    }
+
+    // Shipping ------------------------------
+    &[data-checkout-stage=shipping] {
+        &.multi-ship .order-product-summary {
+            display: none;
+        }
+
+        .card.payment-form,
+        .card.payment,
+        .address-edit-button {
+            display: none;
+        }
+
+        button.submit-shipping {
+            display: block;
+        }
+
+        [data-address-mode=customer] {
+            .shipping-address-block {
+                display: none;
+            }
+        }
+
+        [data-address-mode=shipment] {
+            .shipping-address-form {
+                display: none;
+            }
+        }
+
+        [data-address-mode=edit] {
+            .shipping-address-block {
+                display: none;
+            }
+        }
+
+        [data-address-mode=new] {
+            .btn-add-new,
+            .shipment-selector-block {
+                display: none;
+            }
+
+            .shipping-address-block {
+                display: block;
+            }
+
+            .address-edit-button {
+                display: inline-block;
+            }
+        }
+
+        [data-address-mode=details] {
+            .btn-add-new,
+            .shipment-selector-block,
+            .btn-show-details,
+            .name-address-wrapper {
+                display: none;
+            }
+
+            .shipping-address-block {
+                display: block;
+            }
+
+            .address-edit-button {
+                display: inline-block;
+            }
+        }
+
+        [data-address-mode=saved] {
+            .saved-address,
+            .change-address-multiple,
+            .shipping-method-block,
+            .shipping-address-block {
+                display: block;
+            }
+
+            .shipment-selector-block,
+            .shipping-address-block,
+            .confirm-button {
+                display: none;
+            }
+        }
+
+        [data-address-mode=saved-new] {
+            .change-address-simple,
+            .shipping-method-block,
+            .shipping-address-block,
+            .shipping-card-saved-new {
+                display: block;
+            }
+
+            .shipment-selector-block,
+            .confirm-button,
+            .name-address-wrapper,
+            .shipping-card-title {
+                display: none;
+            }
+        }
+    }
+
+    // Payment -------------------------------
+    &[data-checkout-stage=payment] {
+        .shipping-section,
+        .card.ghost,
+        .checkout-title,
+        .checkout-subtitle {
+            display: none;
+        }
+
+        .card.payment-form {
+            display: block;
+        }
+
+        button.submit-payment {
+            display: block;
+        }
+
+        [data-address-mode=customer] {
+            .billing-address {
+                display: none;
+            }
+        }
+
+        [data-address-mode=shipment] {
+            .billing-address {
+                display: none;
+            }
+        }
+
+        [data-address-mode=edit] {
+            .billing-address {
+                display: none;
+            }
+        }
+
+        [data-address-mode=new] {
+            .btn-add-new {
+                display: none;
+            }
+        }
+    }
+
+    // Place Order -----------------------------
+    &[data-checkout-stage=placeOrder] {
+        .shipping-section,
+        .card.payment-form,
+        .card.ghost {
+            display: none;
+        }
+
+        .card.payment-summary,
+        .shipping-summary {
+            display: block;
+        }
+
+        button.place-order {
+            display: block;
+        }
+    }
+
+    &[data-checkout-stage=submitted] {
+        .shipping-form,
+        .card.payment-form,
+        .card.ghost {
+            display: none;
+        }
+
+        .summary-section-label.shipping-addr-label {
+            display: none;
+        }
+
+        .card.payment-summary,
+        .shipping-summary {
+            display: block;
+        }
+
+        button.place-order {
+            display: none;
+        }
+    }
+
+    option[value=new] {
+        display: none;
+    }
+}
+
+[data-customer-type=guest] .single-shipping .shipment-selector-block {
+    display: none;
+}
+
+.single-shipping .multi-ship-action-buttons {
+    display: none;
+}
+
+.single-shipping .view-address-block {
+    display: none;
+}
+
+.pickup-in-store-block {
+    &[data-pickup-option=detect] {
+        .choose-info,
+        .store-confirm-who-takes,
+        .pickup-in-store,
+        .change-store,
+        .selectedStore,
+        .store-choosed-info,
+        .selected-location-text {
+            display: none;
+        }
+    }
+
+    &[data-pickup-option=select] {
+        .block-results,
+        .store-confirm-who-takes,
+        .btn-save-store,
+        .pickup-in-store,
+        .change-store,
+        .store-choosed-info,
+        .selectedStore {
+            display: none;
+        }
+    }
+
+    &[data-pickup-option=detect-selected] {
+        .choose-info,
+        .store-confirm-who-takes,
+        .pickup-in-store,
+        .change-store,
+        .selectedStore,
+        .store-choosed-info {
+            display: none;
+        }
+    }
+
+    &[data-pickup-option=results] {
+        .choose-info {
+            display: none;
+        }
+    }
+}
+
+.saved-address,
+.change-address,
+.shipping-method-block,
+.shipping-address-block,
+.shipping-card-saved-new,
+.summary-terms-checkbox {
+    display: none;
+}
+
+.shipping-form-element-container.deactivated {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.shipping-custom-field {
+    width: 100%;
+}
+
+//General styling for checkout sections
+
+.checkout-title {
+    font-size: rem-calc(18px);
+    font-family: $font-family-primary-bold;
+}
+
+.checkout-subtitle {
+    font-size: rem-calc(14px);
+    font-family: $font-family-primary;
+    margin-top: 8px;
+}
+
+.checkout-card {
+    border-radius: 10px;
+    border-top: 5px solid $brand-color-primary;
+    padding: 20px 15px;
+}
+
+.mobile-next-step {
+    &.fixed {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 9;
+
+        button {
+            border-radius: 0;
+        }
+    }
+}
+
+.checkout-tab-title {
+    background-color: $white;
+    font-size: rem-calc(16px);
+    color: $brand-color-primary;
+    border: 1px solid $brand-color-primary;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    &.active {
+        background-color: $brand-color-primary;
+        color: $white;
+
+        .cls-1,
+        path {
+            fill: $white !important;
+        }
+    }
+
+    &.disabled {
+        background: $white;
+        border: 1px solid $background-grey;
+        color: $background-grey;
+        cursor: not-allowed;
+
+        .cls-1,
+        path {
+            fill: $background-grey !important;
+            stroke: $background-grey;
+        }
+    }
+}
+
+.checkout-button-small {
+    padding: 5px 30px;
+    font-size: rem-calc(15px);
+}
+
+.checkout-link {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: rem-calc(11px);
+
+    &:hover,
+    &:focus,
+    &:active {
+        border: none;
+        background: none;
+        outline: none;
+    }
+}
+
+.checkout-button {
+    font-size: rem-calc(17px);
+}
+
+.error-message-text {
+    margin-bottom: 0;
+}
+
+.checkout-summary {
+    &[data-summary-mode=address-pickup] {
+        .shipping-item,
+        .checkout-summary-preshipping,
+        .grand-total {
+            display: none;
+        }
+    }
+
+    &[data-summary-mode=address] {
+        .shipping-item,
+        .grand-total {
+            display: none;
+        }
+    }
+
+    &[data-summary-mode=shipping] {
+        .checkout-summary-preshipping {
+            display: none;
+        }
+    }
+}
+
+.payment-separator {
+    display: none;
+}
+
+[data-checkout-stage=payment] {
+    .shipping-item,
+    .checkout-summary-preshipping,
+    .estimated-total,
+    .shipping-separator,
+    .shipping-discount,
+    .order-discount {
+        display: none;
+    }
+
+    .payment-separator,
+    .summary-terms-checkbox {
+        display: block;
+    }
+
+    .row.grand-total {
+        display: flex;
+    }
+}
+
+.button-delivery {
+    width: 50%;
+}
+
+.note-ship {
+    padding: 0 4%;
+}
+
+@include media-breakpoint-up(lg) {
+    .store-confirm-who-takes {
+        padding: 0 20px;
+    }
+
+    .note-ship {
+        padding: 0;
+    }
+
+    .checkout-title {
+        font-size: rem-calc(25px);
+    }
+
+    .checkout-subtitle {
+        font-size: rem-calc(18px);
+    }
+
+    .checkout-tab-title {
+        font-size: rem-calc(14px);
+    }
+
+    .checkout-card {
+        padding: 20px;
+    }
+
+    [data-address-mode=new] {
+        .shipping-custom-field {
+            width: 50%;
+        }
+    }
+
+    .data-checkout-stage[data-checkout-stage=shipping] {
+        .checkout-summary {
+            margin-top: 45px;
+        }
+    }
+
+    .button-delivery {
+        width: 30%;
+    }
+}
+
+.checkout-card-container {
+    svg {
+        min-width: 21px;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .button-delivery {
+        width: 30%;
+    }
+}

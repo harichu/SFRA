@@ -1,0 +1,13 @@
+<iscomment>
+Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, sell, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein.
+</iscomment>
+<script defer type="text/javascript">
+  window.SmartOrderRefillSettings = {};
+  SmartOrderRefillSettings.ModalType = 'dialog';
+  SmartOrderRefillSettings.Resources = <isprint value="${JSON.stringify(pdict.resources)}" encoding="off" />;
+  SmartOrderRefillSettings.Urls = <isprint value="${JSON.stringify(pdict.urls)}" encoding="off" />;
+  SmartOrderRefillSettings.SitePreferences = <isprint value="${JSON.stringify(pdict.preferences)}" encoding="off" />;
+</script>
+
+<script defer type="text/javascript" src="${URLUtils.staticURL('/js/smartorderrefill.js')}"></script>

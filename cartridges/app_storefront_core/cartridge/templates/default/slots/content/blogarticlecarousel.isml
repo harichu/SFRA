@@ -1,0 +1,34 @@
+<isif condition="${slotcontent != null}">
+    <h2 class="other-articles-title">
+        <isprint value="${slotcontent.custom.sectionTitle}" encoding="on" />
+    </h2>
+
+    <div class="other-articles-slider">
+        <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
+            <isif condition="${loopState.index < 14}">
+                <div class="article-grid-tile" data-article-id="${contentAsset.ID}">
+                    <div class="tile-content">
+                        <img class="tile-image" src="${contentAsset.custom.imageSmall.absURL}" alt="${contentAsset.name}"/>
+                        <div class="tile-data">
+                            <span class="tile-category">
+                                <isprint value="${contentAsset.folders[0].displayName}" />
+                            </span>
+                            <span class="tile-title">
+                                <isprint value="${contentAsset.name}" />
+                            </span>
+                            <span class="tile-date">
+                                <isprint value="${contentAsset.custom.publishDate}" style="DATE_LONG" timezone="utc" />
+                            </span>
+                            <p class="tile-desc">
+                                <isprint value="${contentAsset.description}" />
+                            </p>
+                            <a class="tile-button" href="${URLUtils.url('Blog-ShowArticle', 'cid', contentAsset.ID)}">
+                                ${Resource.msg('readmore', 'blog', null)}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </isif>
+        </isloop>
+    </div>
+</isif>

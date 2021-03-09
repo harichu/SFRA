@@ -1,0 +1,77 @@
+<isinclude template="/components/modules" />
+
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/blog.js');
+        assets.addCss('/css/homePage.css');
+    </isscript>
+
+    <div class="main" data-article-id="${pdict.article.ID}">
+        <div class="hero article-top">
+            <div class="page-topbanner overflow-hidden position-relative mb-2">
+                <div class="page-topbanner-breadcrumbs position-absolute w-100">
+                    <div class="container">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+                    </div>
+                </div>
+                <div class="page-topbanner-title text-center position-absolute d-flex align-items-center">
+                    <h1 class="page-title articles">
+                        ${pdict.article.name}
+                    </h1>
+                </div>
+                <div class="page-topbanner-background position-relative overflow-hidden">
+                    <div class="page-topbanner-overlay position-absolute w-100"></div>
+                    <isif condition="${!empty(pdict.article.custom.sectionBackground)}">
+                        <picture>
+                            <source media="(max-width: 992px)" srcset="${pdict.article.custom.sectionBackground.getAbsURL()}"/>
+                            <img class="page-topbanner-background-image position-relative w-100" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, pdict.article.custom.sectionBackground)}" alt="${pdict.article.name}"/>
+                        </picture>
+                        <img class="page-topbanner-background-image position-relative d-block w-100 d-lg-none" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, pdict.article.custom.sectionBackground)}" alt="${pdict.article.name}"/>
+                    </isif>
+                </div>
+            </div>
+        </div>
+
+        <div class="container article-content">
+            <div class="row">
+                <isprint value="${pdict.article.custom.body}" encoding="off" />
+            </div>
+        </div>
+    </div>
+
+    <div class="other-articles">
+        <isif condition="${pdict.suggestedArticles.length > 0}">
+            <h2 class="other-articles-title">
+                ${Resource.msg('similararticles', 'blog', null)}
+            </h2>
+
+            <div class="other-articles-slider">
+                <isloop items="${pdict.suggestedArticles}" var="contentAsset">
+                    <div class="article-grid-tile" data-article-id="${contentAsset.ID}">
+                        <div class="tile-content">
+                            <img class="tile-image" src="${contentAsset.custom.imageSmall.absURL}" alt="${contentAsset.name}"/>
+                            <div class="tile-data">
+                                <span class="tile-category">
+                                    <isprint value="${contentAsset.folders[0].displayName}" />
+                                </span>
+                                <span class="tile-title">
+                                    <isprint value="${contentAsset.name}" />
+                                </span>
+                                <span class="tile-date">
+                                    <isprint value="${contentAsset.custom.publishDate}" formatter="MMM dd, yyyy" />
+                                </span>
+                                <p class="tile-desc">
+                                    <isprint value="${contentAsset.description}" />
+                                </p>
+                                <a class="tile-button" href="${URLUtils.url('Blog-ShowArticle', 'cid', contentAsset.ID)}">
+                                    ${Resource.msg('readmore', 'blog', null)}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </isloop>
+            </div>
+        </isif>
+    </div>
+</isdecorate>

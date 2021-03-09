@@ -1,0 +1,62 @@
+<div class="pt-4 pb-3 row">
+    <div class="col-12">
+        <p class="text-bold text-grey saved-cc-title">${Resource.msg("payment.credit.card.saved", "payment", null)}</p>
+        <isloop items="${pdict.mercadoPago.customerCards}" var="card" status="loopState">
+            <isif condition="${loopState.first}">
+                <div class="position-relative" data-toggle="collapse" aria-expanded="false" aria-controls="saved-payments-expand" data-target="#saved-payments-expand">
+                    <div class="d-flex saved-payment-element saved-payment-instrument default background-grey px-3 py-4 radius-small
+                        ${pdict.mercadoPago.customerCards.length > 1 ? 'cursor-pointer' : ''}"
+                        data-mp-customer-card="${card.id}"
+                        data-mp-expiration-month="${card.expiration_month}"
+                        data-mp-expiration-year="${card.expiration_year}"
+                        data-mp-method-id="${card.payment_method.id}"
+                    >
+                        <div class="card-image-container pr-3 text-center d-block">
+                            <img class="card-image" alt="${card.payment_method.name}" src="${card.payment_method.secure_thumbnail}">
+                        </div>
+                        <p class="m-0 text-uppercase pr-1 text-grey">
+                            ${card.payment_method.name}
+                        </p>
+                        <p class="m-0 text-grey">
+                        ${Resource.msgf('customer.card.masked.number', 'mercadoPago', null, card.last_four_digits)}
+                        </p>
+                        <span class="m-0 expiration-date-text ml-auto pr-5">
+                            ${Resource.msg('msg.card.type.ending', 'confirmation', null)}
+                            ${card.expiration_month}/${card.expiration_year}
+                        </span>
+                    </div>
+                    <isif condition="${pdict.mercadoPago.customerCards.length > 1}">
+                        <i class="fa fa-chevron-right text-primary-color position-absolute payment-collapse-icon top-0 bottom-0 m-auto"></i>
+                    </isif>
+                </div>
+            </isif>
+        </isloop>
+
+        <isif condition="${pdict.mercadoPago.customerCards.length > 1}">
+            <div class="collapse saved-payments-expand shadow" id="saved-payments-expand">
+                <isloop items="${pdict.mercadoPago.customerCards}" var="card" status="loopState">
+                    <div class="saved-payment-item cursor-pointer ${loopState.first ? 'selected-payment' : ''}"
+                    data-mp-customer-card="${card.id}"
+                    data-mp-method-id="${card.payment_method.id}">
+                        <div class="d-flex saved-payment-element saved-payment-instrument px-3 py-3">
+                            <div class="card-image-container pr-3 text-center d-block">
+                                <img class="card-image" alt="${card.payment_method.name}" src="${card.payment_method.secure_thumbnail}">
+                            </div>
+                            <p class="m-0 text-uppercase pr-1 text-grey">
+                                ${card.payment_method.name}
+                            </p>
+                            <p class="m-0 text-grey">
+                            ${Resource.msgf('customer.card.masked.number', 'mercadoPago', null, card.last_four_digits)}
+                            </p>
+                            <span class="m-0 expiration-date-text ml-auto pr-5">
+                                ${Resource.msg('msg.card.type.ending', 'confirmation', null)}
+                                ${card.expiration_month}/${card.expiration_year}
+                            </span>
+                        </div>
+                    </div>
+                </isloop>
+            </div>
+        </isif>
+    </div>
+</div>
+

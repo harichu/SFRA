@@ -1,0 +1,13 @@
+<iscomment> TO DO: Better define PUM structure and attributes </iscomment>
+<div class="pum col-7 px-2 py-1">
+    <span class="pum-text">
+        <iscomment> Text will come from product attribute </iscomment>
+    </span>
+    <span class="pum-text pum-text-special">
+        <iscomment> Text will come from product attribute </iscomment>
+    </span>
+    <span class="pum-text">
+        <iscomment> Text will come from product attribute </iscomment>
+    </span>
+
+</div>

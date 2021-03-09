@@ -1,0 +1,22 @@
+<div class="position-relative">
+    <isif condition="${dw.content.ContentMgr.getContent("account-banner-image").online}">
+        <isprint value="${dw.content.ContentMgr.getContent("account-banner-image").custom.body}" encoding="off" />
+    <iselse>
+        <div class="account-image-placeholder background-white"></div>
+    </isif>
+
+    <isif condition="${pdict.hasbreadcrumbs}">
+        <div class="search-results-breadcrumb position-absolute top-0 w-100">
+            <div class="container">
+                <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+            </div>
+        </div>
+    </isif>
+    <div class="position-absolute top-0 w-100 bottom-0 d-flex align-items-center justify-content-center">
+        <div class="text-center d-flex align-items-center flex-wrap justify-content-center">
+            <p class="font-weight-bold banner-simple-title account-page-title mb-0 w-100">
+                <isprint value="${pdict.bannertitle}"/>
+            </p>
+        </div>
+    </div>
+</div>

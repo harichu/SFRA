@@ -1,0 +1,76 @@
+/* Helper classes */
+.hide {
+    display: none;
+}
+
+.mp-flex {
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+    &.checkout-hidden {
+        display: none;
+    }
+}
+
+.mp-font-bold {
+    font-weight: 700;
+}
+
+.mercadopago-tab {
+    height: 100%;
+}
+
+/* Styling for selection of Mercado Pago Card type*/
+
+.mercadopago_payment_methods {
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.mp__payment-method {
+    margin-bottom: 25px;
+    flex: 1 1 auto;
+    min-width: 230px;
+}
+
+.mp__payment-type-title {
+    margin-bottom: 0;
+}
+
+.mp__card-details {
+    align-items: center;
+
+    .mp__card-input {
+        margin-left: 0;
+    }
+
+    .mp__card-label {
+        float: none;
+        text-align: left;
+        margin: 0 15px 0 5px;
+        width: auto;
+        cursor: pointer;
+    }
+}
+
+.mp__card-label-name {
+    font-weight: 400;
+}
+
+.mp__saved-cards {
+    max-width: 330px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+
+    .mp__saved-cards-label {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.saved-credit-card-image {
+    .card-image {
+        width: auto;
+        max-width: 100%;
+    }
+}

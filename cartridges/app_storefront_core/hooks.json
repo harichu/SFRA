@@ -1,0 +1,16 @@
+{
+    "hooks": [
+        {
+            "name": "dw.ocapi.shop.basket.modifyPOSTResponse",
+            "script": "./cartridge/scripts/helpers/ocapiHelper.js"
+        },
+        {
+            "name": "dw.ocapi.shop.basket.modifyGETResponse",
+            "script": "./cartridge/scripts/helpers/ocapiHelper.js"
+        },
+        {
+            "name": "dw.order.calculate",
+            "script": "./cartridge/scripts/hooks/cart/calculate.js"
+        }
+    ]
+}

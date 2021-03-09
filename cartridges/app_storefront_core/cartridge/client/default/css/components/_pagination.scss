@@ -1,0 +1,39 @@
+.pagination {
+    color: $text-grey;
+    font-size: rem-calc(12px);
+
+    .btn-page,
+    .btn-page:hover {
+        color: $text-grey;
+        font-size: rem-calc(15px);
+        border: 1px solid $brand-color-primary;
+        background-color: $white;
+        padding: 4px 8px;
+
+        &.current-page,
+        &.dots {
+            border: none;
+        }
+
+        &.dots {
+            background-color: transparent;
+            padding: 5px 2px;
+        }
+    }
+}
+
+.grid-footer {
+    position: relative;
+
+    @include media-breakpoint-only(xs) {
+        .pagination-text {
+            position: absolute;
+            left: 3%;
+            top: 0;
+        }
+
+        .mobile-margin-left {
+            margin-left: 5px !important;
+        }
+    }
+}

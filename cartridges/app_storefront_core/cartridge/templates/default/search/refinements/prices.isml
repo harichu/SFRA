@@ -1,0 +1,23 @@
+<ul class="values content px-3 pt-3 pb-0">
+    <isloop items="${refinement.values}" var="refinementValue">
+        <li class="col-12">
+            <button
+                data-gtm="${require('int_gtm').gtmEventListener('link,hover,click', 'RefinementPriceFilter', refinementValue.displayValue, '')}"
+                data-href="${refinementValue.url}" class="d-flex align-items-center refinement-option"
+            >
+                <isif condition="${refinementValue.selected}">
+                    <div class="refinement-checked mr-3 position-relative"></div>
+                <iselse/>
+                     <div class="refinement-check mr-3"></div>
+                </isif>
+                <span class="refinement-item" aria-hidden="true">
+                    ${refinementValue.displayValue}
+                </span>
+                <span class="sr-only selected-assistive-text">
+                    ${refinementValue.selected ? Resource.msg('msg.assistive.selected.text', 'common', null) : ''}
+                    ${refinementValue.title}
+                </span>
+            </button>
+        </li>
+    </isloop>
+</ul>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+	<field formid="state" label="resource.state" type="string" mandatory="false" binding="stateCode" missing-error="address.state.missing" value-error="address.field.invalid">
+		<options>
+			<option optionid="" 	label="resource.select" 		value=""/>
+
+			<!-- Chile regions -->
+			<option optionid="Aisen" label="state.cl.aisen" value="Aisén del General Carlos Ibáñez del Campo"/>
+			<option optionid="Antofagasta" label="state.cl.antofagasta" value="Antofagasta"/>
+			<option optionid="Araucania" label="state.cl.araucania" value="Araucanía"/>
+			<option optionid="Arica" label="state.cl.arica" value="Arica and Parinacota"/>
+			<option optionid="Atacama" label="state.cl.atacama" value="Atacama"/>
+			<option optionid="BioBio" label="state.cl.biobio" value="Bío-Bío"/>
+			<option optionid="Coquimbo" label="state.cl.coquimbo" value="Coquimbo"/>
+			<option optionid="Libertador" label="state.cl.libertador" value="Libertador General Bernardo O`Higgins"/>
+			<option optionid="LosLagos" label="state.cl.lagos" value="Los Lagos"/>
+			<option optionid="LosRios" label="state.cl.losRios" value="Los Ríos"/>
+			<option optionid="Magallanes" label="state.cl.magallanes" value="Magallanes y Antártica Chilena"/>
+			<option optionid="Maule" label="state.cl.maule" value="Maule"/>
+			<option optionid="Nuble" label="state.cl.nuble" value="Ñuble"/>
+			<option optionid="Santiago" label="state.cl.santiago" value="Santiago"/>
+			<option optionid="Tarapaca" label="state.cl.tarapaca" value="Tarapacá"/>
+			<option optionid="Valparaiso" label="state.cl.valparaiso" value="Valparaíso"/>
+		</options>
+	</field>
+</form>

@@ -1,0 +1,78 @@
+<isinclude template="/components/modules" />
+<div class="store-details" data-store-id="${store.ID}">
+    <address>
+        <p class="store-name mb-0">
+            <span class="d-block store-name-first">${store.name}</span>
+
+            <a class="store-map store-map-address" target='_blank' href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}">
+                <span class="store-address-first">
+                    ${store.address1}
+                </span>
+                <isif condition="${store.address2}">
+                    <span class="store-address-second">
+                        ${store.address2}
+                    </span>
+                </isif>
+                <isif condition="${store.city}">
+                    <span class="store-address-city">
+                        ${store.city}
+                    </span>
+                </isif>
+                <isif condition="${store.stateCode}">
+                    <span class="store-address-state">
+                        ,${store.stateCode}
+                    </span>
+                </isif>
+                <isif condition="${store.postalCode}">
+                    <span class="store-address-zip">
+                        ${store.postalCode}
+                    </span>
+                </isif>
+                <isif condition="${store.distance}">
+                    <span class="store-address-distance">
+                            <span class="store-distance-long">
+                                ${Resource.msgf("store.distance.long.text", "storeLocator", null, Number(Number(store.distance).toFixed(2)))}
+                            </span>
+                            <span class="store-distance-short">
+                                ${Resource.msgf("store.distance.short.text", "storeLocator", null, store.distance)}
+                            </span>
+                    </span>
+                </isif>
+            </a>
+        </p>
+        <div>
+            <isif condition="${store.isOpenTodayTill}">
+                <p class="store-hours-today text-green mt-3 text-bold mb-0">
+                    ${Resource.msgf("store.hours.text", "storeLocator", null, store.isOpenTodayTill)}
+                </p>
+            </isif>
+            <iscomment>TODO: fix the correct information for current/next day time of pick up in store. START</iscomment>
+                <isif condition="${store.currentDayTime}">
+                    <p class="store-hours-today text-green mt-3 text-bold mb-0">
+                        ${Resource.msgf("pickup.current.day.hours.text", "storeLocator", null, store.currentDayTime)}
+                    </p>
+                </isif>
+                <isif condition="${store.nextDayTime}">
+                    <p class="store-hours-today text-green mt-3 text-bold mb-0">
+                        ${Resource.msgf("pickup.next.day.hours.text", "storeLocator", null, store.nextDayTime)}
+                    </p>
+                </isif>
+            <iscomment>END</iscomment>
+        </div>
+        <div class="d-flex">
+            <div class="store-hours mt-3">
+                <isif condition="${store.storeHours}">
+                    <isprint value="${store.storeHours}" encoding="off"/>
+                </isif>
+            </div>
+        </div>
+        <div class="d-flex">
+            <isif condition="${store.phone}">
+                <a href="${'tel:' + store.phone}" class="btn btn-outline-secondary btn-storelocator align-self-end ml-auto">
+                    <isinlinesvg src="phone-icon"/>
+                    ${store.phone}
+                </a>
+            </isif>
+        </div>
+    </address>
+</div>

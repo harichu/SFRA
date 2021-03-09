@@ -1,0 +1,47 @@
+<isinclude template="/components/modules" />
+
+<div class="modal modal-sor" id="sor-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header background-primary d-flex align-items-center py-1">
+                <h5 class="modal-title text-white text-center w-100">
+                    ${Resource.msg("modal.title", "modal", null)}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <isinlinesvg src="close-icon-light" />
+                </button>
+            </div>
+            <div class="modal-body">
+                <isif condition="${!empty(pdict.sorProductID)}">
+                    <isinclude url="${URLUtils.url('SmartOrderRefillController-PDPRefillOptions','pid', pdict.sorProductID)}"/>
+                <iselse>
+                    <div class="card payment-form warning-message mb-4">
+                        ${Resource.msg('smartorderrefill.dialog.error.nosorproducts', 'smartorderrefill', null)}
+                    </div>
+                </isif>
+            </div>
+            <isif condition="${!empty(pdict.sorProductID)}">
+                <div class="modal-footer background-grey border-0 justify-content-center d-row">
+                    <div class="col-lg-10 col-offset-lg-1 col-offset-0 col-12">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 order-2 order-lg-1">
+                                <button type="button" class="btn btn-outline-secondary btn-close-sor w-100" data-dismiss="modal">
+                                    ${Resource.msg("modal.button.dismiss", "modal", null)}
+                                </button>
+                            </div>
+                            <div class="col-12 col-lg-6 order-1 order-lg-2 mb-3 mb-lg-0">
+                                <button class="submit-sor-btn btn btn-secondary w-100"
+                                    data-toggle="modal"
+                                    data-url="${URLUtils.url('Order-AddSorProductsToCart')}"
+                                    data-target="#chooseBonusProductModal"
+                                >
+                                    ${Resource.msg("modal.button.subscribe", "modal", null)}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </isif>
+        </div>
+    </div>
+</div>

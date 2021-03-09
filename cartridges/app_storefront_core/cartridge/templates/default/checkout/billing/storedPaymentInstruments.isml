@@ -1,0 +1,31 @@
+<isloop items="${pdict.customer.customerPaymentInstruments}" var="paymentInstrument" status="loopState">
+    <div class="card payment-item saved-payment-instrument ${loopState.first ? 'selected-payment' : ''}" data-uuid="${paymentInstrument.UUID}">
+        <div class="saved-security-code payment-item-content">
+            <span class="card-info d-flex align-items-center">
+                <img class="card-image" alt="${paymentInstrument.creditCardType}" src="${URLUtils.httpsStatic(URLUtils.CONTEXT_LIBRARY, false, ('cards/' + paymentInstrument.creditCardType + '.png'))}">
+                ${paymentInstrument.creditCardType} ${Resource.msg('label.card.finished','payment',null)}
+                ${paymentInstrument.maskedCreditCardNumber.slice(-4)}
+            </span>
+            <span class="card-expiration">${Resource.msg('label.payment.ending','account',null)}
+                ${paymentInstrument.creditCardExpirationMonth}/${paymentInstrument.creditCardExpirationYear}
+            </span>
+            <div class="security-code-input align-items-center form-group required-marker m-0 mt-2 mt-lg-0 ${loopState.first ? '' : 'checkout-hidden'}">
+                <label class="form-control-label my-0 mr-2" for="saved-payment-security-code">${Resource.msg('label.credit.card-security.code','checkout',null)}</label>
+                <input type="text"
+                    required class="form-control saved-payment-security-code"
+                    id="saved-payment-security-code" maxlength="4"
+                    data-missing-error="${Resource.msg("error.card.info.missing.securityCode", "forms", null)}"
+                    data-parse-error="${Resource.msg("error.card.info.missing.securityCode", "forms", null)}"
+                    aria-describedby="savedPaymentSecurityCodeInvalidMessage"
+                    <isprint value="${typeof mercadoPagoFields !== 'undefined' ? mercadoPagoFields.securityCode.attributesWithoutName : ''}" encoding="off"/>
+                    data-checkout="securityCode"
+                    data-mp-security-code
+                />
+
+                <div class="invalid-feedback" id="savedPaymentSecurityCodeInvalidMessage">
+                    ${Resource.msg('error.message.security.code.required', 'checkout', null)}
+                </div>
+            </div>
+        </div>
+    </div>
+</isloop>

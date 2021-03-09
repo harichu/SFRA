@@ -1,0 +1,21 @@
+<iscomment> DISCLAIMER
+"Property of OSF Global Services, Inc., (with its brand OSF Commerce). OSF remains the sole owner of all right, title and interest in the software.
+Do not copy, reverse engineer or otherwise attempt to derive or obtain information about the functioning, manufacture or operation therein."
+</iscomment>
+
+<isset name="gtmCode" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('gtmContainerID')}" scope="page"/>
+<isset name="enable" value="${require('int_gtm').gtmIsEnabled()}" scope="page"/>
+
+<isif condition="${((enable) && (gtmCode != null) && (!empty(gtmCode)))}">
+    <script> window.dataLayer = window.dataLayer || []; </script>
+    <script> window.gtmSitePreferences = <isprint value="${JSON.stringify(require('int_gtm').gtmSitePreferences())}" encoding="off"/>; </script>
+    <script src="${URLUtils.staticURL('/js/gtm.js')}"></script>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var gtmcode = '${gtmCode}',
+                gtmscript = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer', '" + gtmcode + "');";
+                eval(gtmscript);
+        });
+    </script>
+</isif>

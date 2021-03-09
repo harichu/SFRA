@@ -1,0 +1,65 @@
+<isset name="hasEmbeddedBonusProducts" value="${lineItem.bonusProductLineItemUUID === 'bonus'}"  scope="page"/>
+<isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
+<isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
+<isinclude template="/components/modules"/>
+
+<div class="card product-info ${bonusproductlineitem} uuid-${lineItem.UUID}">
+    <!--- name and remove buttons --->
+
+    <div class="d-flex flex-row flex-wrap flex-lg-nowrap justify-content-between ${bonuslineitemrow}">
+        <div class="item-image d-flex align-items-center order-1">
+            <a href="${URLUtils.url('Product-Show', 'pid', lineItem.id)}" aria‐label="${lineItem.productName}">
+                <img class="product-image pr-lg-4" src="${lineItem.images.small[0].url}" alt="${lineItem.images.small[0].alt}" title="${lineItem.images.small[0].title}">
+            </a>
+        </div>
+        <div class="item-info cart-product-item d-flex flex-column order-2 pr-lg-3">
+            <a href="${URLUtils.url('Search-Show', 'q', lineItem.brand)}" class="product-brand text-uppercase m-0">
+                ${lineItem.brand}
+            </a>
+            <div class="line-item-name">
+                <a href="${URLUtils.url('Product-Show', 'pid', lineItem.id)}" aria‐label="${lineItem.productName}">
+                    ${lineItem.productName}
+                </a>
+            </div>
+            <isif condition="${!lineItem.isBonusProductLineItem}"/>
+                <div class="remove-line-item d-flex align-items-center ">
+                    <isinlinesvg src="icon-remove" />
+                    <button type="button" class="cart-remove-button remove-product text-underline" data-toggle="modal"
+                            data-target="#removeProductModal" data-pid="${lineItem.id}"
+                            data-name="${lineItem.productName}"
+                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-gtm="${require('int_gtm').gtmEventListener('click', 'Remove', lineItem.id, 'ProductID')}"
+                            data-uuid="${lineItem.UUID}"
+                            aria-label="${Resource.msgf('text.remove.line.item','cart', null, lineItem.productName)}">
+                            <span aria-hidden="true" class="minicart-remove-button">${Resource.msg('minicart.button.remove.item', 'common', null)}</span>
+                    </button>
+                </div>
+            </isif>
+        </div>
+
+        <div class="item-shipping cart-product-item p-0 d-flex flex-column align-items-center justify-content-center order-4 order-lg-3">
+            <iscomment> Begin - SmartOrderRefill modification </iscomment>
+            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('SorEnabled') && !empty(lineItem.custom.SorProduct) && lineItem.custom.SorProduct && lineItem.hasSelectedSorOptions}" >
+                <isinclude url="${URLUtils.url('SmartOrderRefillController-RefillInfoCart', 'lineItemID', lineItem.UUID, 'showLinks', true)}"/>
+            <iscomment> End - SmartOrderRefill modification </iscomment>
+            <iselse>
+                <isinclude template="checkout/productCard/productCartshippingMethods" />
+            </isif>
+        </div>
+
+        <div class="item-quantity cart-product-item d-flex px-4 pt-2 pt-lg-0 flex-column align-items-end align-items-lg-center justify-content-center order-5 order-lg-4">
+            <isif condition="${lineItem.available}">
+                <isinclude template="checkout/productCard/productCardQuantitySelector" />
+            <iselse>
+                <isinclude template="cart/productCard/cartProductCardAvailability" />
+            </isif>
+        </div>
+
+        <div class="item-price cart-product-item d-flex flex-column align-items-start align-items-lg-center justify-content-center order-3 order-lg-5 pb-2 pb-lg-0">
+            <isinclude template="cart/productCard/cartProductCardProductPrice" />
+        </div>
+    </div>
+    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+        <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
+    </isif>
+</div>

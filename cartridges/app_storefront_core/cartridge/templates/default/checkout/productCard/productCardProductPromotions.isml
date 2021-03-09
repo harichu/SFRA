@@ -1,0 +1,7 @@
+<isif condition="${!empty(lineItem.promotions)}">
+    <isloop items="${lineItem.promotions}" var="promotion">
+        <isif condition="${!empty(promotion.showBadgesAndRibbon) && promotion.showBadgesAndRibbon}">
+            <div>${promotion.calloutMsg}</div>
+        </isif>
+    </isloop>
+</isif>

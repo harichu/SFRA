@@ -1,0 +1,7 @@
+<isif condition="${slotcontent != null}">
+    <isloop items="${slotcontent.content}" var="contentAsset">
+        <div class="header-top-banner position-relative" style="background-color: ${contentAsset.custom.sectionBackground ? contentAsset.custom.sectionBackground : 'transparent'}">
+            <isprint value="${contentAsset.custom.body}" encoding="off"/>
+        </div>
+    </isloop>
+</isif>

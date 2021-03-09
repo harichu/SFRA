@@ -1,0 +1,9 @@
+<form action="" class="login-oauth" method="post" name="login-oauth-form">
+    <div class="form-group">
+        <a href="${URLUtils.https('Login-OAuthLogin', 'oauthProvider', 'Facebook', 'oauthLoginTargetEndPoint', pdict.oAuthReentryEndpoint)}" class="btn btn-block btn-blue oauth-facebook"
+           role="button" aria-pressed="true">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                <span class="pl-1">${Resource.msg('button.text.oauth.facebook', 'login', null)}</span>
+        </a>
+    </div>
+</form>

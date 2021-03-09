@@ -1,0 +1,33 @@
+<div class="description-and-detail-wrapper py-lg-5">
+    <div class="description-and-detail d-lg-flex container p-0 w-100">
+        <isif condition="${product.custom.tab1Title && product.custom.tab1Content}">
+            <isset name="title" value="${product.custom.tab1Title}" scope="page" />
+            <isset name="content" value="${product.custom.tab1Content}" scope="page" />
+            <isset name="idTab" value="Tab 1" scope="page" />
+            <isset name="checked" value="${true}" scope="page" />
+            <isinclude template="product/components/productDetailCollapse" />
+        </isif>
+        <isif condition="${product.custom.tab2Title && product.custom.tab2Content}">
+            <isset name="title" value="${product.custom.tab2Title}" scope="page" />
+            <isset name="content" value="${product.custom.tab2Content}" scope="page" />
+            <isset name="idTab" value="Tab 2" scope="page" />
+            <isif condition="${product.custom.tab1Title && product.custom.tab1Content}">
+                <isset name="checked" value="${false}" scope="page" />
+            <iselse>
+                <isset name="checked" value="${true}" scope="page" />
+            </isif>
+            <isinclude template="product/components/productDetailCollapse" />
+        </isif>
+        <isif condition="${product.custom.tab3Title && product.custom.tab3Content}">
+            <isset name="title" value="${product.custom.tab3Title}" scope="page" />
+            <isset name="content" value="${product.custom.tab3Content}" scope="page" />
+            <isset name="idTab" value="Tab 3" scope="page" />
+            <isif condition="${(product.custom.tab1Title && product.custom.tab1Content) || (product.custom.tab2Title && product.custom.tab2Content)}">
+                <isset name="checked" value="${false}" scope="page" />
+            <iselse>
+                <isset name="checked" value="${true}" scope="page" />
+            </isif>
+            <isinclude template="product/components/productDetailCollapse" />
+        </isif>
+    </div>
+</div>

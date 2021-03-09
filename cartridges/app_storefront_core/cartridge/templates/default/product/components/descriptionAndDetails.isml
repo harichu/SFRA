@@ -1,0 +1,26 @@
+<div class="description-and-detail-wrapper py-lg-5">
+    <div class="description-and-detail d-lg-flex container p-0 w-100">
+        <input type="radio" name="info-collapse" id="description-collapse" class="content-trigger position-absolute" checked/>
+        <label for="description-collapse" class="info-collapse-header info-collapse-header-label d-flex justify-content-between align-items-center text-uppercase py-3 px-5 cursor-pointer">
+            ${Resource.msg('label.description', 'product', null)}
+            <span class="checkmark-content d-lg-none">
+                <div class="checkmark-content-icon">
+                    <isinlinesvg src="arrow-icon" />
+                </div>
+            </span>
+        </label>
+        <isinclude template="product/components/description" />
+
+        <input type="radio" name="info-collapse" id="detail-collapse" class="content-trigger position-absolute"/>
+        <label for="detail-collapse" class="info-collapse-header info-collapse-header-label d-flex justify-content-between align-items-center text-uppercase py-3 px-5 cursor-pointer">
+            ${Resource.msg('label.details', 'product', null)}
+            <span class="checkmark-content d-lg-none">
+                <div class="checkmark-content-icon">
+                    <isinlinesvg src="arrow-icon" />
+                </div>
+            </span>
+        </label>
+
+        <isinclude template="product/components/details" />
+    </div>
+</div>

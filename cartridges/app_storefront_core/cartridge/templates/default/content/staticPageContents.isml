@@ -1,0 +1,15 @@
+<isdecorate template="common/layout/page">
+    <div class="content-page" data-gtm="${require('int_gtm').gtmEventListener('show', 'Content', pdict.folder.ID, 'FolderID')}">
+        <isinclude template="components/content/folderTopBanner"/>
+        <div class="container">
+            <isinclude template="components/content/bodyTitle"/>
+            <div class="page-content py-4 py-lg-5">
+                <isloop items="${pdict.folderContent}" var="collapseAsset">
+                    <div class="content-asset mb-4">
+                        <isprint value="${collapseAsset.custom.body}" encoding="off"/>
+                    </div>
+                </isloop>
+            </div>
+        </div>
+    </div>
+</isdecorate>

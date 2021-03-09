@@ -1,0 +1,13 @@
+<isif condition="${pdict.productSearch.productIds.length > 0}">
+    <select name="sort-order" class="category-sort-order position-relative" aria-label="${Resource.msg('label.sort.by', 'search', null)}">
+        <isloop items="${pdict.productSearch.productSort.options}" var="option">
+            <option class="${option.id} category-sort-option py-2" data-gtm="${require('int_gtm').gtmEventListener('change', 'RefinementSort', option.displayName, '')}" value="${option.url}"
+                data-id="${option.id}"
+                data-gtm="${require('int_gtm').gtmEventListener('click', 'SortOption', option.id, 'OptionID')}"
+                ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+            >
+                ${option.displayName}
+            </option>
+        </isloop>
+    </select>
+</isif>

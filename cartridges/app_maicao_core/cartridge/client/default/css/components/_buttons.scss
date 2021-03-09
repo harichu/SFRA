@@ -1,0 +1,112 @@
+.btn {
+    font-size: rem-calc(18px);
+    font-family: $font-family-primary-bold;
+    text-transform: uppercase;
+    outline: none;
+    border-radius: 20px;
+    padding: 8px 30px;
+
+    &:disabled {
+        background-color: $background-grey;
+        border: 2px solid $background-grey;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: $background-grey;
+            border: 2px solid $background-grey;
+        }
+    }
+
+    &.btn-slim {
+        padding: 3px 40px;
+    }
+
+    &.btn-text-small {
+        font-size: rem-calc(14px);
+        padding: 8px 25px;
+    }
+
+    &.select-bonus-product {
+        @include media-breakpoint-down(sm) {
+            font-size: rem-calc(15px);
+            padding: 9px 12px;
+        }
+    }
+}
+
+.btn.btn-secondary:not(.disabled):not(:disabled),
+.btn-primary:not(.disabled):not(:disabled) {
+    background-color: $brand-color-primary;
+    border: 2px solid $brand-color-primary;
+    color: $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $brand-color-secondary;
+        border: 2px solid $brand-color-secondary;
+    }
+
+    &.btn-direction {
+        font-size: rem-calc(14px);
+    }
+}
+
+.btn-outline-primary:not(.disabled):not(:disabled),
+.btn-outline-secondary:not(.disabled):not(:disabled),
+.btn-style {
+    background-color: transparent;
+    color: $brand-color-primary;
+    border: 2px solid $brand-color-primary;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $white;
+        border-color: $brand-color-secondary;
+        color: $brand-color-secondary;
+    }
+}
+
+.btn-outline-white:not(.disabled):not(:disabled) {
+    background-color: transparent;
+    color: $white;
+    border: 2px solid $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: transparent;
+        border-color: $white;
+        color: $white;
+    }
+}
+
+.btn-blue:not(.disabled):not(:disabled) {
+    background-color: $facebook-blue;
+    border: 2px solid $facebook-blue;
+    color: $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $facebook-blue;
+        border: 2px solid $facebook-blue;
+        color: $white;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .btn {
+        font-size: rem-calc(13px);
+
+        &.btn-text-small {
+            font-size: rem-calc(12px);
+        }
+
+        &.btn-slim {
+            padding: 7px 40px;
+        }
+    }
+}

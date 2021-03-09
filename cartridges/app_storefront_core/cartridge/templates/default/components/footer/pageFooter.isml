@@ -1,0 +1,76 @@
+<isinclude template="/components/modules"/>
+<footer class="footer d-print-none">
+    <iscontentasset aid="footer-logo" />
+    <div class="container">
+        <div class="back-to-top d-none d-lg-block">
+            <button class="back-to-top-btn">
+                <div class="back-to-top-icon">
+                    <isinlinesvg src="arrow-icon" />
+                </div>
+            </button>
+        </div>
+        <div class="d-flex flex-wrap flex-lg-nowrap">
+            <div class="footer-contact order-1 order-lg-0 w-100 mt-3 mt-lg-0 px-lg-4">
+                <iscontentasset aid="footer-contact" />
+                <div data-gtm="${require('int_gtm').gtmAddDynamicData('.icon-facebook', 'link,click,hover', 'FooterShare', 'Facebook', '')}"></div>
+                <div data-gtm="${require('int_gtm').gtmAddDynamicData('.icon-instagram', 'link,click,hover', 'FooterShare', 'Instagram', '')}"></div>
+                <div data-gtm="${require('int_gtm').gtmAddDynamicData('.icon-whatsapp', 'link,click,hover', 'FooterShare', 'Whatsapp', '')}"></div>
+                <div data-gtm="${require('int_gtm').gtmAddDynamicData('.icon-linkedin', 'link,click,hover', 'FooterShare', 'Linkedin', '')}"></div>
+                <div data-gtm="${require('int_gtm').gtmAddDynamicData('.icon-youtube', 'link,click,hover', 'FooterShare', 'Youtube', '')}"></div>
+            </div>
+            <div class="footer-links w-100 position-relative" id="accordion">
+                <div class="d-flex flex-wrap flex-lg-nowrap justify-content-around">
+                    <div class="w-100 px-lg-4">
+                        <iscontentasset aid="footer-links-company" />
+                    </div>
+                    <div class="w-100 px-lg-4">
+                        <iscontentasset aid="footer-links-customer-service" />
+                    </div>
+                    <div class="w-100 px-lg-4">
+                        <iscontentasset aid="footer-links-our-services" />
+                    </div>
+                    <div class="w-100 px-lg-4">
+                        <iscontentasset aid="footer-links-club" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <div class="footer-stripe d-flex flex-wrap mt-5">
+            <isset name="paymentStripeActive" value="${dw.content.ContentMgr.getContent("footer-payment-methods").online}" scope="page"/>
+            <isset name="customSitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+            <isset name="displayNewletter" value="${customSitePreferences.difarmaNewsletterVisibility.value == 'showNewsletter' || customSitePreferences.difarmaNewsletterVisibility.value == 'showForLogged' && customer.authenticated}" scope="page" />
+
+            <div class="${paymentStripeActive ? 'payment-active-container' : ''} footer-subscription-container d-flex justify-content-end align-items-center w-100 position-relative">
+                <div class="footer-overflow ${displayNewletter ? '' : 'newsletter-simple-bar'}"></div>
+                <isif condition="${displayNewletter}">
+                    <isinclude url="${URLUtils.url('EmailSubscribe-Form')}"/>
+                <iselse>
+                    <div class="footer-subscription-container d-flex justify-content-center align-items-center w-100 p-3 position-relative">
+                        <iscontentasset aid="footer-subscription" />
+                    </div>
+                </isif>
+            </div>
+            <isif condition="${paymentStripeActive}">
+                <div class="footer-payment-container w-100 py-2">
+                    <iscontentasset aid="footer-payment-methods" />
+                </div>
+            </isif>
+        </div>
+    </div>
+
+    <isscript>
+        var currentYear = new Date().getFullYear().toFixed(0);
+    </isscript>
+    <div class="footer-copyright d-flex justify-content-center text-center py-2 ${paymentStripeActive ? '' : 'mt-5'}">
+        &copy; ${currentYear}
+        <iscontentasset aid="footer-copyright" />
+    </div>
+    <iscomment> Begin - SmartOrderRefill modification </iscomment>
+    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('SorEnabled')}" >
+        <isinclude url="${URLUtils.url('SmartOrderRefillController-Footer')}"/>
+    </isif>
+    <iscomment> End - SmartOrderRefill modification </iscomment>
+</footer>

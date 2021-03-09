@@ -1,0 +1,38 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/search.js');
+        assets.addCss('/css/search.css');
+        assets.addCss('/css/categoryLandingPage.css');
+    </isscript>
+
+    <isinclude template="/components/modules"/>
+
+    <div data-gtm="${require('int_gtm').gtmPLP(pdict.productSearch.productIds)}"></div>
+
+    <isif condition="${pdict.category && pdict.category.custom.hasCustomBanner}">
+        <div class="search-results-banner position-relative">
+            <!--- Breadcrumbs --->
+            <isif condition="${!empty(pdict.breadcrumbs)}">
+                <div class="w-100 position-absolute top-0 search-results-breadcrumb">
+                    <div class="container">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+                    </div>
+                </div>
+            </isif>
+            <!---Top Banner--->
+            <div class="position-relative">
+                <isslot id="category-top-banner" context="category" description="Top banners for Category Landing Page" context-object="${pdict.category}"/>
+            </div>
+        <div>
+    <iselse>
+        <isif condition="${pdict.productSearch.isCategorySearch}">
+           <iscategorybanner bannertitle="${pdict.productSearch.category.name}" bannersubtitle="${pdict.productSearch.category.pageDescription}" backgroundasset="category-banner-image" customicon="${!empty(pdict.productSearch.category.thumbnail) ? pdict.productSearch.category.thumbnail.getURL() : null}" hasbreadcrumbs="${true}"/>
+        <iselse>
+           <iscategorybanner bannertitle="${'"' + (pdict.productSearch.searchKeywords ? pdict.productSearch.searchKeywords : '') + '"'}" searchtext="${Resource.msg('search.results.text', 'search', null)}" backgroundasset="search-results-image" hasbreadcrumbs="${true}"/>
+        </isif>
+    </isif>
+
+    <isinclude template="search/searchResultsNoDecorator" />
+
+</isdecorate>

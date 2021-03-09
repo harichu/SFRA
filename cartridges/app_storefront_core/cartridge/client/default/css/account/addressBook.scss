@@ -1,0 +1,21 @@
+@import "../utilities/utilities";
+@import "../components/fonts";
+
+.no-addresses {
+    color: $text-grey-dark;
+    padding: 17px 15px;
+    display: block;
+    font-weight: normal;
+}
+
+.new-address {
+    color: $brand-color-primary;
+    font-size: rem-calc(16px);
+    font-weight: bold;
+}
+
+.account-form-title {
+    color: $text-grey;
+    font-weight: normal;
+    font-size: rem-calc(19px);
+}
